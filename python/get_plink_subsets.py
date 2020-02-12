@@ -144,9 +144,9 @@ def get_subset(pop_dict: dict, pop: str, n_max: int, not_pop: bool = False):
     if n_sample != n_max:
         print(f'Using sample size of {n_sample} instead of {n_max} due to limiting population size in {limiting_pop}')
     print({k:v*n_sample for k,v in pop_prop_dict.items()})
-    mt0 = get_filtered_mt(chrom='all',
-                          pop=pop, 
-                          not_pop=not_pop)
+    mt0 = get_filtered_mt(chrom = 'all',
+                          pop = pop, 
+                          not_pop = not_pop)
         
     cols = mt0.cols()
     if not not_pop and n_sample == pop_dict[pop]: # if sampling a single population `pop` and n_sample is the same as the population's size
@@ -163,9 +163,9 @@ def get_subset(pop_dict: dict, pop: str, n_max: int, not_pop: bool = False):
     return ht_sample
     
 def to_plink(pop: str, ht_sample, not_pop: bool = False):
-    mt0 = get_filtered_mt(chrom='all',
-                          pop=pop, 
-                          not_pop=not_pop)
+    mt0 = get_filtered_mt(chrom = 'all',
+                          pop = pop, 
+                          not_pop = not_pop)
     mt_sample = mt0.filter_cols(hl.is_defined(mt0[ht_sample.s]))
     
     bfile_path = f'{ldprune_wd}/subsets/{"not_" if not_pop else ""}{pop}'
