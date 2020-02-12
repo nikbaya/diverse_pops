@@ -150,17 +150,29 @@ def get_subset(pop_dict: dict, pop: str, n_max: int, not_pop: bool = False):
         
     cols = mt0.cols()
     if not not_pop and n_sample == pop_dict[pop]: # if sampling a single population `pop` and n_sample is the same as the population's size
-        ht_samples = cols
+        ht_sample = cols
     else:
         cols = cols.annotate(tmp_rand = hl.rand_norm())
         cols = cols.order_by('tmp_rand')
         cols = cols.add_index(name = 'rand_idx')
-        ht_samples = cols.filter(cols.rand_idx<n_sample)
-        ht_samples = ht_samples.drop('tmp_rand','rand_idx')
+        ht_sample = cols.filter(cols.rand_idx<n_sample)
+        ht_sample = ht_sample.drop('tmp_rand','rand_idx')
+    ht_sample = ht_sample.key_by('s')
+    ht_sample = ht_sample.select('pop')
     
-    return ht_samples
+    return ht_sample
     
-def to_plink():
+def to_plink(pop: str, ht_sample, not_pop: bool = False):
+    mt0 = get_filtered_mt(chrom='all',
+                          pop=pop, 
+                          not_pop=not_pop)
+    mt_sample = mt0.filter_cols(hl.is_defined(mt0[ht_sample.s]))
+    
+    bfile_path = f'{ldprune_wd}/subsets/{"not_" if not_pop else ""}{pop}'
+    hl.export_plink(dataset = mt_sample, 
+                    output = bfile_path, 
+                    ind_id = mt_sample.s,
+                    var_id = mt_sample.rsid)
     
     
 
@@ -170,14 +182,17 @@ if __name__=='__main__':
     
     for not_pop in [False, True]:
         for pop,pop_ct in pop_dict.items():
-            ht_samples = get_subset(pop_dict=pop_dict, 
-                                    pop=pop, 
-                                    n_max=n_max, 
-                                    not_pop=not_pop)
-            ht_samples_ct = ht_samples.count()
-            ht_samples_path = f'{ldprune_wd}/subsets/{"not_" if not_pop else ""}{pop}.n_{ht_samples_ct}.ht'
-            ht_samples.write(ht_samples_path)
+            ht_sample = get_subset(pop_dict = pop_dict, 
+                                    pop = pop, 
+                                    n_max = n_max, 
+                                    not_pop = not_pop)
+            ht_sample_ct = ht_sample.count()
+            ht_sample_path = f'{ldprune_wd}/subsets/{"not_" if not_pop else ""}{pop}.n_{ht_sample_ct}.ht'
+            ht_sample = ht_sample.checkpoint(ht_sample_path)
             
+            to_plink(pop = pop,
+                     ht_sample = ht_sample,
+                     not_pop = not_pop)
             
                 
                 
