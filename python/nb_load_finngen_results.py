@@ -7,6 +7,7 @@ import time
 #from shlex import quote as shq
 #from ukb_common.utils.saige_pipeline import *
 #from ukb_exomes import *
+from hailtop import *
 import hail as hl
 
 bucket = 'gs://ukbb-pharma-exome-analysis'
