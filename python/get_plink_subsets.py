@@ -9,7 +9,6 @@ Get PLINK subsets for clumping
 """
 
 import hail as hl
-import subprocess
 import argparse
 
 hl.init(log='/tmp/hail.log')
@@ -207,6 +206,16 @@ if __name__=='__main__':
         else:    
             mt_pop = mt0.filter_cols(mt0.pop == pop)
         print(f'\n\nPopulation count {pop}: {mt_pop.count_cols()}\n\n')
+        
+
+    for pop in POPS:
+        tmp_prop_dict, _ = get_pop_prop_dict(pop_dict=pop_dict, pop=pop, not_pop=True)
+        tmp_prop_dict = {k:round(v*5000) for k,v in tmp_prop_dict.items()}
+        print('old',tmp_prop_dict)
+        
+        tmp_prop_dict, _ = get_pop_prop_dict(pop_dict=new_pop_dict, pop=pop, not_pop=True)
+        tmp_prop_dict = {k:round(v*5000) for k,v in tmp_prop_dict.items()}
+        print('new',tmp_prop_dict)
         
 #        if hl.hadoop_exists(f'{ht_sample_path}/_SUCCESS'):
 #            subprocess.check_output([f'gsutil', 'ls', f'{ht_sample_path}/_SUCCESS'])

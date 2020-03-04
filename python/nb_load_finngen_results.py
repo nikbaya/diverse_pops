@@ -24,7 +24,7 @@ def main(args):
     # all_phenos_ht = all_phenos_ht.annotate(code=all_phenos_ht.phenocode.split('_', 2)[0])
     all_phenos = all_phenos_ht.collect()
 
-    backend = pipeline.BatchBackend(billing_project='ukb_pharma')
+    backend = pipeline.BatchBackend(billing_project='ukb_round2')
     # backend = pipeline.LocalBackend(gsa_key_file='/Users/konradk/.hail/ukb-diverse-pops.json')
     p = pipeline.Pipeline(name='finngen_load', backend=backend,
                           default_image='gcr.io/ukbb-exome-pharma/hail_utils:3.3',
