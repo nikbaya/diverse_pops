@@ -10,54 +10,126 @@ Clumping GWAS results with PLINK
 
 import hailtop.pipeline as hp
 
-ldprune_wd = 'gs://ukb-diverse-pops/ld_prune/'
+bucket = 'gs://ukb-diverse-pops'
+ldprune_wd = f'{bucket}/ld_prune'
+
+def get_variant_results_path(pop: str, extension: str = 'ht'):
+    return f'{bucket}/combined_results/results_{pop}.{extension}'
 
 
 
-def plink_clump(phen, pop, not_pop=False):
+def declare_rg(t, name):
+    t.declare_resource_group(**{name: {'bed': '{root}.bed',
+                                       'bim': '{root}.bim',
+                                       'fam': '{root}.fam'}})
+
+def read_plink_input_group(p, bfile_path):
+    r'''Reads input group of PLINK files into pipeline'''
+    p.read_input_group(**dict((suffix, f'{bfile_path}.{suffix}') for suffix in ['bed','bim','fam']))
+
+
+def plink_clump():
+backend = hp.BatchBackend(billing_project='ukb_diverse_pops')
+p = hp.Pipeline(name='plink_clump', backend=backend,
+                      default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:latest',
+                      default_storage='500Mi', default_cpu=8)
+
+pop = 'AFR'
     
+## read ref LD PLINK files with samples from `pop` excluded
+bfile_path = f'{ldprune_wd}/subsets/not_{pop}'
+bfile = read_plink_input_group(p=p, bfile_path=bfile_path)
 
-    backend = hp.BatchBackend(billing_project='ukb_diverse_pops')
-    p = hp.Pipeline(name='plink_clump', backend=backend,
-                          default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:latest',
-                          default_storage='500Mi', default_cpu=8)
+# TODO: Make loop over phenotypes
+
+pheno='1717'
+trait_type='continuous'
+coding='1717'
+
+## convert variant results from ht to tsv
+t1 = p.new_task(name='to-tsv')
     
+hail_script='/Users/nbaya/Documents/lab/diverse_pops/python/plink_clump_hail.py'
+ss_ht_path = f'{bucket}/results/result/{pop}/{trait_type}-{pheno}-{coding}/variant_results.ht' # path to sumstats ht
 
+t1.command(
+f"""
+PYTHONPATH=$PYTHONPATH:/ 
+python3 {hail_script}
+--input_file {ss_path}
+--output_file {t1.ofile}
+""".replace('\n', ' '))
+
+## run plink clumping
+t2 = p.new_task(name='clump')
+
+t2.command(
+f"""
+plink \
+--bfile {bfile} \
+--clump {t2.ofile} \ 
+--clump-field p.value.NA \
+--clump-p1 1 \
+--clump-p2 1 \
+--clump-r2 0.1 \
+--clump-kb 500 \
+--out {t2.ofile}
+""")
+
+## gzip output
+t3 = p.new_task(name='gzip')
+t3.command(
+f"""
+column -t {t2.ofile} | gzip > {t3.ofile}
+""")
+
+pruned_ss_path = f'{ldprune_wd}/pruned/{pop}/refld_not{pop}/{trait_type}-{pheno}-{coding}.tsv.gz'
+p.write_output(t3.ofile, pruned_ss_path)
+
+p.run(open=True)
 
 def local_plink_clump():
-    backend = hp.LocalBackend(gsa_key_file='/Users/nbaya/.hail/ukb-diverse-pops.json')
-    p = hp.Pipeline(name='plink_clump', backend=backend)
-
-    
-    create = p.new_task(name='create-dummy')
-    create.declare_resource_group(bfile={'bed': '{root}.bed',
-                                         'bim': '{root}.bim',
-                                         'fam': '{root}.fam'})
-    
-#create.command(f'plink --dummy 10 100 --make-bed --out {create.bfile}')
-create.command(f'/Users/nbaya/Documents/lab/smiles/smiles/bash/plink/plink --dummy 10 100 --make-bed --out {create.bfile}')
-
-p.run(open=True) 
-
-
-
-
-#bfile_root = f'{ldprune_wd}/subsets/{"not_" if not_pop else ""}{pop}'
-bfile_root = '/Users/nbaya/Documents/lab/smiles/data/arabidopsis1'
-bfile = p.read_input_group(bed=f'{bfile_root}.bed',
-                           bim=f'{bfile_root}.bim',
-                           fam=f'{bfile_root}.fam')
-
-wc_bim = p.new_task(name='wc-bim')
-wc_bim.command(f'wc -l {bfile.bim}')
-p.run()
-
-    clump = p.new_task(name='clump')
-    
-    clump.declare_resource_group(bfile={'bed': f'{root}.bed',
-                                        'bim': f'{root}.bim',
-                                        'fam': f'{root}.fam'})
-    clump.command(f'plink --dummy 10 100 --make-bed --out {clump.bfile}')
-    p.run() 
-    
     pass
+#    pop = 'AFR'
+#    
+#    backend = hp.LocalBackend(gsa_key_file='/Users/nbaya/.hail/ukb-diverse-pops.json')
+#    p = hp.Pipeline(name='plink_clump', backend=backend)
+#    
+#    bfile_path = f'{ldprune_wd}/subsets/not_{pop}'
+#    bfile = read_plink_input_group(p=p, bfile_path=bfile_path)
+#    
+#    
+#    t1 = p.new_task(name='task1')
+#    
+#    trait_type='continuous'
+#    pheno='1717'
+#    coding='1717'
+#    
+#    ss_path = f'gs://ukb-diverse-pops/results/result/{pop}/{trait_type}-{pheno}-{coding}/variant_results.ht' # path to sumstats ht
+#    hail_script='/Users/nbaya/Documents/lab/diverse_pops/python/plink_clump_hail.py'
+#    
+#    t1.command(
+#    f"""
+#    PYTHONPATH=$PYTHONPATH:/ PYSPARK_SUBMIT_ARGS="--conf spark.driver.memory=24g pyspark-shell"
+#    python3 {hail_script}
+#    --input_file {ss_path}
+#    --output_file {t1.ofile}
+#    """)
+#    
+#    t2 = p.new_task(name='task2')
+#    
+#    plink_local = '/Users/nbaya/Documents/lab/smiles/smiles/bash/plink/plink'
+#    t2.command(f"""
+#               {plink_local} \
+#               --bfile {bfile} \
+#               --clump --dummy 10 100 --make-bed --out {create.bfile1}
+#               """)
+    
+#    p.write_output()
+
+
+
+if __name__=="__main__":
+    
+    plink_clump
+    
