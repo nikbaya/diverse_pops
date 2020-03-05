@@ -24,24 +24,17 @@ MIN_CASES_EUR = 100
 
 ldprune_wd = f'{bucket}/ld_prune' 
 
-pop_dict = {'AFR': 6700, # dict with sample counts for each population
-            'AMR': 991,
-            'CSA': 8998,
-            'EAS': 2752,
-            'EUR': 423837,
-            'MID': 1614}
-
-new_pop_dict = {'AFR': 6637, # dict with sample counts for each population
-                'AMR': 982,
-                'CSA': 8876,
-                'EAS': 2709,
-                'EUR': 420542,
-                'MID': 1599}
+pop_dict = {'AFR': 6637, # dict with sample counts for each population 
+            'AMR': 982,
+            'CSA': 8876,
+            'EAS': 2709,
+            'EUR': 420542,
+            'MID': 1599}
 
 
-alt_pop_dict = {}
-for k, v in sorted(list(pop_dict.items()), key=lambda x:x[0].lower(), reverse=True):
-    alt_pop_dict[k] = v
+#rev_pop_dict = {}
+#for k, v in sorted(list(pop_dict.items()), key=lambda x:x[0].lower(), reverse=True):
+#    rev_pop_dict[k] = v
 
 # from https://github.com/atgu/ukbb_pan_ancestry/blob/master/resources/generic.py
 #   - get_hq_samples()
@@ -169,11 +162,16 @@ def get_subset(mt_pop, pop_dict: dict, pop: str, n_max: int, not_pop: bool = Fal
     
     return ht_sample
     
-def to_plink(pop: str, mt, ht_sample, not_pop: bool = False):
+def to_plink(pop: str, mt, ht_sample, not_pop: bool = False, overwrite=False):
+    r'''
+    Exports matrix table to PLINK2 files
+    '''
+    assert 'GT' in mt.entry, "mt must have 'GT' as an entry field"
+    assert mt.GT.dtype==hl.tcall, "entry field 'GT' must be of type `Call`"
     mt_sample = mt.filter_cols(hl.is_defined(ht_sample[mt.s]))
     
     bfile_path = f'{ldprune_wd}/subsets/{"not_" if not_pop else ""}{pop}'
-    if not all([hl.hadoop_exists(f'{bfile_path}.{suffix}') for suffix in ['bed','bim','fam']]):
+    if not overwrite and not all([hl.hadoop_exists(f'{bfile_path}.{suffix}') for suffix in ['bed','bim','fam']]):
         print(f'\nPLINK files already exist for {"not_" if not_pop else ""}{pop}')
     else:
         hl.export_plink(dataset = mt_sample, 
@@ -186,57 +184,59 @@ if __name__=='__main__':
     
     parser = argparse.ArgumentParser()
     parser.add_argument('--pop', default=None, type=str, help='population to use')
+    parser.add_argument('--overwrite_plink', default=False, action='store_true', help='whether to overwrite existing PLINK files')
     args = parser.parse_args()
     
     n_max = 5000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
-    not_pop = False
+    not_pop = True
+    
     
     if args.pop is None:
         pops = [pop for pop, pop_ct in pop_dict.items()]
     else:
         pops = [args.pop]
     
-    mt0 = get_mt(chrom='all')
-    
-    for pop in pops:
-        ht_sample_path = f'{ldprune_wd}/subsets/{"not_" if not_pop else ""}{pop}.ht'
+    print(
+    f'''
+    pops: {pops}
+    not_pop: {not_pop}
+    overwrite_plink: {args.overwrite_plink}
+    ''')
 
+    mt0 = get_mt(chrom='all', entry_fields = ('GT',)) # default entry_fields will be 'GP', we need 'GT' for exporting to PLINK
+ 
+    ## get mt of population (or every population but that population if `not_pop`=True)
+    for pop in pops:
         if not_pop:
             mt_pop = mt0.filter_cols(mt0.pop != pop)
         else:    
             mt_pop = mt0.filter_cols(mt0.pop == pop)
-        print(f'\n\nPopulation count {pop}: {mt_pop.count_cols()}\n\n')
+        print(f'\n\nmt sample ct ({pop}, not_pop={not_pop}): {mt_pop.count_cols()}\n\n')
         
 
-    for pop in POPS:
-        tmp_prop_dict, _ = get_pop_prop_dict(pop_dict=pop_dict, pop=pop, not_pop=True)
-        tmp_prop_dict = {k:round(v*5000) for k,v in tmp_prop_dict.items()}
-        print('old',tmp_prop_dict)
+    for pop in pops:
+        ht_sample_path = f'{ldprune_wd}/subsets/{"not_" if not_pop else ""}{pop}.ht'
         
-        tmp_prop_dict, _ = get_pop_prop_dict(pop_dict=new_pop_dict, pop=pop, not_pop=True)
-        tmp_prop_dict = {k:round(v*5000) for k,v in tmp_prop_dict.items()}
-        print('new',tmp_prop_dict)
+        if hl.hadoop_exists(f'{ht_sample_path}/_SUCCESS'):
+            ht_sample = hl.read_table(ht_sample_path)
+            print(f'... Subset ht already exists for pop={pop}, not_pop={not_pop} ...')
+            print(f'\n\nSubset ht sample ct: {ht_sample.count()}\n\n')
+        else:
+            print(f'... getting subset (pop={pop}, not_pop={not_pop}) ...')
+            
+            ht_sample = get_subset(mt_pop = mt_pop,
+                                   pop_dict = pop_dict, 
+                                   pop = pop, 
+                                   n_max = n_max, 
+                                   not_pop = not_pop)
+            
+            ht_sample_ct = ht_sample.count()
+            print(f'\n\nht_sample_ct: {ht_sample_ct}\n\n')
+            ht_sample = ht_sample.checkpoint(ht_sample_path)
         
-#        if hl.hadoop_exists(f'{ht_sample_path}/_SUCCESS'):
-#            subprocess.check_output([f'gsutil', 'ls', f'{ht_sample_path}/_SUCCESS'])
-#            print(f'\n... using existing table for {"not_" if not_pop else ""}{pop} ...')
-#            ht_sample = hl.read_table(ht_sample_path)
-#            print(f'\n\nht_sample_ct: {ht_sample.count()}\n\n')
-#        else:
-#            print(f'... getting subset (pop={pop}, not_pop={not_pop}) ...')
-#            
-#            ht_sample = get_subset(mt_pop = mt_pop,
-#                                   pop_dict = pop_dict, 
-#                                   pop = pop, 
-#                                   n_max = n_max, 
-#                                   not_pop = not_pop)
-#            
-#            ht_sample_ct = ht_sample.count()
-#            print(f'\n\nht_sample_ct: {ht_sample_ct}\n\n')
-#            ht_sample = ht_sample.checkpoint(ht_sample_path)
-#        
-#        print(f'... exporting to plink (pop={pop}, not_pop={not_pop}) ...')
-#        to_plink(pop = pop,
-#                 mt = mt_pop,
-#                 ht_sample = ht_sample,
-#                 not_pop = not_pop)
+        print(f'... exporting to plink (pop={pop}, not_pop={not_pop}) ...')
+        to_plink(pop = pop,
+                 mt = mt_pop,
+                 ht_sample = ht_sample,
+                 not_pop = not_pop,
+                 overwrite=args.overwrite_plink)

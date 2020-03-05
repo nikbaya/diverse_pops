@@ -1,0 +1,29 @@
+FROM google/cloud-sdk:slim
+# FROM: continuumio/miniconda3
+
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+
+RUN apt-get update --fix-missing && \
+    apt-get install -y wget unzip libgsl-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# PLINK
+# Stable (beta 6.15, 21 Jan)
+ENV PLINK_VERSION 20200121
+RUN wget http://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_${PLINK_VERSION}.zip -P ~ && \
+    unzip ~/plink_linux_x86_64_${PLINK_VERSION}.zip -d ~/plink_linux_x86_64_${PLINK_VERSION} && \
+    mv ~/plink_linux_x86_64_${PLINK_VERSION}/plink /usr/local/bin/ && \
+    rm -r ~/plink_linux_x86_64_${PLINK_VERSION}
+
+## PLINK2
+# Development (alpha 25 Feb)
+# ENV PLINK2_VERSION 20200225
+# RUN wget http://s3.amazonaws.com/plink2-assets/plink2_linux_x86_64_${PLINK2_VERSION}.zip -P ~ && \
+#    unzip ~/plink2_linux_x86_64_${PLINK2_VERSION}.zip -d ~/plink2_linux_x86_64_${PLINK2_VERSION} && \
+#    mv ~/plink2_linux_x86_64_${PLINK2_VERSION}/plink2 /usr/local/bin/ && \
+#    rm -r ~/plink2_linux_x86_64_${PLINK2_VERSION}
+# Add scripts
+
+VOLUME [ "/root/.config/gcloud" ]
+CMD [ "/bin/bash" ]
