@@ -79,3 +79,199 @@ spark.ui.showConsoleProgress=false
 2020-03-05 17:00:30 Hail: INFO: SparkUI: http://wm65b-8a9.broadinstitute.org:4041
 2020-03-05 17:00:30 Hail: INFO: Running Hail version 0.2.33-5d8cae649505
 2020-03-05 17:00:31 SparkContext: WARN: Using an existing SparkContext; some configuration may not take effect.
+2020-03-05 22:02:37 HeartbeatReceiver: WARN: Removing executor driver with no recent heartbeats: 7206494 ms exceeds timeout 120000 ms
+2020-03-05 22:02:38 TaskSchedulerImpl: ERROR: Lost an executor driver (already removed): Executor heartbeat timed out after 7206494 ms
+2020-03-05 22:02:38 Executor: INFO: Told to re-register on heartbeat
+2020-03-05 22:02:38 SparkContext: WARN: Killing executors is not supported by current scheduler.
+2020-03-05 22:02:38 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-05 22:02:38 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:02:38 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:02:38 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-05 22:02:38 Executor: INFO: Told to re-register on heartbeat
+2020-03-05 22:02:38 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-05 22:02:38 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:02:38 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:02:38 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-05 22:02:38 Executor: INFO: Told to re-register on heartbeat
+2020-03-05 22:02:38 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-05 22:02:38 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:02:38 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:02:38 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-05 22:02:42 Executor: INFO: Told to re-register on heartbeat
+2020-03-05 22:02:42 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-05 22:02:42 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:02:42 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:02:42 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-05 22:02:52 Executor: INFO: Told to re-register on heartbeat
+2020-03-05 22:02:52 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-05 22:02:52 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:02:52 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:02:52 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-05 22:03:02 Executor: INFO: Told to re-register on heartbeat
+2020-03-05 22:03:02 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-05 22:03:02 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:03:02 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:03:02 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-05 22:03:12 Executor: INFO: Told to re-register on heartbeat
+2020-03-05 22:03:12 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-05 22:03:12 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:03:12 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:03:12 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-05 22:03:22 Executor: INFO: Told to re-register on heartbeat
+2020-03-05 22:03:22 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-05 22:03:22 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:03:22 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-05 22:03:22 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 00:03:33 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 00:03:33 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 00:03:33 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 00:03:33 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 00:03:33 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 00:03:33 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 00:03:33 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 00:03:33 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 00:03:33 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 00:03:33 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 00:03:40 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 00:03:40 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 00:03:40 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 00:03:40 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 00:03:40 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 02:03:47 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 02:03:48 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 02:03:48 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 02:03:48 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 02:03:48 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 02:03:48 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 02:03:48 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 02:03:48 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 02:03:48 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 02:03:48 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 02:03:58 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 02:03:58 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 02:03:58 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 02:03:58 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 02:03:58 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 04:04:03 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 04:04:03 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 04:04:03 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 04:04:03 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 04:04:03 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 04:04:06 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 04:04:06 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 04:04:06 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 04:04:06 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 04:04:06 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 06:04:18 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 06:04:18 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 06:04:18 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 06:04:18 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 06:04:18 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 06:04:18 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 06:04:18 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 06:04:18 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 06:04:18 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 06:04:18 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 06:04:26 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 06:04:26 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 06:04:26 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 06:04:26 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 06:04:26 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:16:08 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:16:08 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:16:08 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:08 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:08 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:16:08 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:16:08 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:16:08 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:08 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:08 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:16:18 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:16:18 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:16:18 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:18 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:18 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:16:30 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:16:30 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:16:30 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:30 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:30 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:16:40 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:16:40 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:16:40 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:40 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:40 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:16:50 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:16:50 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:16:50 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:50 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:16:50 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:17:00 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:17:00 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:17:00 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:17:00 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:17:00 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:17:10 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:17:10 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:17:10 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:17:10 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:17:10 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:48:20 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:48:20 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:48:20 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:48:20 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:48:20 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:48:30 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:48:30 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:48:30 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:48:30 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:48:30 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:56:05 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:56:05 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:56:05 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:05 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:05 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:56:15 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:56:15 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:56:15 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:15 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:15 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:56:25 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:56:25 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:56:25 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:25 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:25 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:56:35 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:56:35 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:56:35 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:35 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:35 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:56:45 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:56:45 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:56:45 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:45 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:45 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:56:55 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:56:55 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:56:55 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:55 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:56:55 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:57:05 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 07:57:05 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None) re-registering with master
+2020-03-06 07:57:05 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:57:05 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 65532, None)
+2020-03-06 07:57:05 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 07:57:12 SparkContext: INFO: Invoking stop() from shutdown hook
+2020-03-06 07:57:12 AbstractConnector: INFO: Stopped Spark@708c5586{HTTP/1.1,[http/1.1]}{0.0.0.0:4041}
+2020-03-06 07:57:12 SparkUI: INFO: Stopped Spark web UI at http://wm65b-8a9.broadinstitute.org:4041
+2020-03-06 07:57:12 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
+2020-03-06 07:57:12 MemoryStore: INFO: MemoryStore cleared
+2020-03-06 07:57:12 BlockManager: INFO: BlockManager stopped
+2020-03-06 07:57:12 BlockManagerMaster: INFO: BlockManagerMaster stopped
+2020-03-06 07:57:12 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
+2020-03-06 07:57:12 SparkContext: INFO: Successfully stopped SparkContext
+2020-03-06 07:57:12 ShutdownHookManager: INFO: Shutdown hook called
+2020-03-06 07:57:12 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-c39b4753-5f64-4b37-875f-09c6f954d290/pyspark-f16813b1-1b05-4685-a2ae-29f9ceb3f66d
+2020-03-06 07:57:12 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-45ef3acf-539b-4228-8bc3-19d4bf8ee795
+2020-03-06 07:57:12 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-c39b4753-5f64-4b37-875f-09c6f954d290

@@ -47,10 +47,10 @@ def get_meta_sumstats(args):
     ht_pheno = mt_pheno.key_cols_by('pheno').select_entries('meta_analysis').make_table()
     pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
     loo_meta_idx = pops.index(args.pop)+1 # get index of leave-one-out meta-analysis result for population `pop`
-    ht_pheno = ht_pheno.select(Pvalue=ht_pheno[f'{args.pheno}.meta_analysis'].Pvalue[loo_meta_idx]).show()
-    variants = hl.read_table('gs://ukb-diverse-pops/ld_prune/variants.chrom_all.ht')
-    ht_pheno = ht_pheno.annotate(rsid = variants[ht_pheno.locus, ht_pheno.alleles].rsid)
-    ht_pheno.key_by('rsid')
+    ht_pheno = ht_pheno.select(Pvalue=ht_pheno[f'{args.pheno}.meta_analysis'].Pvalue[loo_meta_idx])
+    ht_pheno = ht_pheno.filter(hl.is_defined(ht_pheno.Pvalue))
+    ht_pheno = ht_pheno.annotate(varid = ht_pheno.locus+'_'+ht_pheno.alleles[0]+'_'+ht_pheno.alleles[1]) # format: "chr:pos_ref_alt"
+    ht_pheno.key_by('varid')
     ht_pheno.select('Pvalue').write(args.output_file)
 
 if __name__ == '__main__':
@@ -59,6 +59,7 @@ if __name__ == '__main__':
     parser.add_argument('--n_threads', help='Overwrite everything')
     parser.add_argument('--input_file', help='Input file of variant results')
     parser.add_argument('--output_file', help='Output file of variant results')
+    parser.add_argument('--pop', type=str, help='Population to be left out')
     parser.add_argument('--pheno', type=str, help='Phenotype of meta-analyzed sumstats')
     parser.add_argument('--coding', type=str, help='coding of meta-analyzed sumstats')
     parser.add_argument('--trait_type', type=str, help='trait_type of  of meta-analyzed sumstats')

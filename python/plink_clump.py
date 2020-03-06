@@ -44,17 +44,17 @@ def get_pheno_list(pop: str):
 #    
 #    pheno_list = list(zip(*[pheno_list_ht[f].collect() for f in pheno_list_ht.key])) # list of tuples
     
-    pheno_list = [('100001', 'irnt', 'continuous')] # dummy list for testing
+    pheno_list = [('100001', 'irnt', 'continuous'),
+                  ('100002', 'irnt', 'continuous')] # dummy list for testing
     
     return pheno_list
 
 
-def run_clumping(p, head, pop, pheno, coding, trait_type, hail_script):
+def run_clumping(p, pop, bfile, pheno, coding, trait_type, hail_script):
     
     task_suffix = f'{pop}-{pheno}-{coding}-{trait_type}'
     
-    t1 = p.new_task(name=f'to_tsv_{task_suffix}')
-    t1.depends_on(head)
+    t1 = p.new_task(name=f'get_meta_ss_{task_suffix}')
     t1 = t1.image('gcr.io/ukbb-diversepops-neale/hail_utils:3.2')
     t1.storage('4G')
     t1.memory('8G')
@@ -66,6 +66,7 @@ def run_clumping(p, head, pop, pheno, coding, trait_type, hail_script):
     PYTHONPATH=$PYTHONPATH:/ 
     python3 {hail_script}
     --input_file {meta_mt_path}
+    --pop {pop}
     --pheno {pheno}
     --coding {coding}
     --trait_type {trait_type}
@@ -75,7 +76,7 @@ def run_clumping(p, head, pop, pheno, coding, trait_type, hail_script):
     
     
     ## run plink clumping
-    t2 = p.new_task(name=f'clump_{task_suffix}')
+    t2 = p.new_task(name=f'plink_clump_{task_suffix}')
     t2.depends_on(t1)
     t2.storage('40G').memory('2G')
     
@@ -128,16 +129,15 @@ for pop in pops:
     pheno_list = get_pheno_list(pop)
     
     ## read ref ld plink files 
-bfile_path = f'{ldprune_wd}/subsets/not_{pop}' # samples from `pop` are excluded from plink files
+#bfile_path = f'{ldprune_wd}/subsets/not_{pop}' # samples from `pop` are excluded from plink files
+bfile_path = f'{ldprune_wd}/subsets/not_{pop}.chr22' # dummy bfile for testing
 bfile = read_plink_input_group(p=p, bfile_path=bfile_path)
-    
-head = p.new_task(name=f'head_{pop}')
 
 for pheno, coding, trait_type in pheno_list:
 pheno, coding, trait_type = pheno_list[0]
 run_clumping(p=p, 
-             head=head,
              pop=pop, 
+             bfile=bfile,
              pheno=pheno, 
              coding=coding, 
              trait_type=trait_type,

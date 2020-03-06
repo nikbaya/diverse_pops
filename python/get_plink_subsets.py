@@ -168,16 +168,17 @@ def to_plink(pop: str, mt, ht_sample, not_pop: bool = False, overwrite=False):
     '''
     assert 'GT' in mt.entry, "mt must have 'GT' as an entry field"
     assert mt.GT.dtype==hl.tcall, "entry field 'GT' must be of type `Call`"
-    mt_sample = mt.filter_cols(hl.is_defined(ht_sample[mt.s]))
-    
     bfile_path = f'{ldprune_wd}/subsets/{"not_" if not_pop else ""}{pop}'
+    
     if not overwrite and not all([hl.hadoop_exists(f'{bfile_path}.{suffix}') for suffix in ['bed','bim','fam']]):
         print(f'\nPLINK files already exist for {"not_" if not_pop else ""}{pop}')
     else:
+        mt_sample = mt.filter_cols(hl.is_defined(ht_sample[mt.s]))
+        mt_sample = mt_sample.annotate_rows(varid = mt_sample.locus+mt_sample.alleles[0]+mt_sample.alleles[1])
         hl.export_plink(dataset = mt_sample, 
                         output = bfile_path, 
                         ind_id = mt_sample.s,
-                        varid = mt_sample.rsid)
+                        varid = mt_sample.rsid) # varid used to be rsid
     
 
 if __name__=='__main__':
