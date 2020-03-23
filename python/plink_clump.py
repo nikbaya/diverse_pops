@@ -24,9 +24,15 @@ def declare_rg(t, name):
                                        'bim': '{root}.bim',
                                        'fam': '{root}.fam'}})
 
-def read_plink_input_group(p, bfile_path):
-    r'''Reads input group of PLINK files into pipeline'''
-    return p.read_input_group(**dict((suffix, f'{bfile_path}.{suffix}') for suffix in ['bed','bim','fam']))
+def read_plink_input_group_chrom(p, subset, chrom):
+    r'''
+    Reads input group of PLINK files into pipeline.
+    NOTE: This format allows for use of a single fam (not specific to a chromosome)
+    '''
+    prefix = f'{ldprune_wd}/subsets/{subset}/{subset}'
+    return p.read_input_group(bed=f'{prefix}.chr{chrom}.bed',
+                              bim=f'{prefix}.chr{chrom}.bim',
+                              fam=f'{prefix}.fam')
 
 def get_pheno_list(pop: str):
     r'''
@@ -44,159 +50,138 @@ def get_pheno_list(pop: str):
 #    
 #    pheno_list = list(zip(*[pheno_list_ht[f].collect() for f in pheno_list_ht.key])) # list of tuples
     
-    pheno_list = [('100001', 'irnt', 'continuous'),
-                  ('100002', 'irnt', 'continuous')] # dummy list for testing
+    pheno_list = [('100001', 'irnt', 'continuous')]#,
+#                  ('100002', 'irnt', 'continuous')] # dummy list for testing
     
     return pheno_list
 
 
-def run_clumping(p, pop, bfile, pheno, coding, trait_type, hail_script):
+def run_clumping(p, pop, pheno, coding, trait_type, hail_script):
+    task_suffix = f'not_{pop}-{trait_type}-{pheno}-{coding}'
+    attributes_dict = {'pop': pop,
+                       'trait_type': trait_type,
+                       'pheno': pheno,
+                       'coding': coding}    
+    n_threads = 8
     
-    task_suffix = f'{pop}-{pheno}-{coding}-{trait_type}'
-    
-    t1 = p.new_task(name=f'get_meta_ss_{task_suffix}')
-    t1 = t1.image('gcr.io/ukbb-diversepops-neale/hail_utils:3.2')
-    t1.storage('4G')
-    t1.memory('8G')
-        
-    meta_mt_path = f'{bucket}/combined_results/meta_analysis.mt' # path to sumstats ht
-    
-    t1.command(
-    f"""
-    PYTHONPATH=$PYTHONPATH:/ 
-    python3 {hail_script}
-    --input_file {meta_mt_path}
-    --pop {pop}
-    --pheno {pheno}
-    --coding {coding}
-    --trait_type {trait_type}
-    --output_file {t1.ofile}
-    --get_meta_sumstats
-    """.replace('\n', ' '))
-    
-    
-    ## run plink clumping
-    t2 = p.new_task(name=f'plink_clump_{task_suffix}')
-    t2.depends_on(t1)
-    t2.storage('40G').memory('2G')
-    
-    # TODO: change default storage & memory?
-    
-    t2.command(
-    f"""
-    plink \
-    --bfile {bfile} \
-    --clump {t2.ofile} \ 
-    --clump-field p.value.NA \
-    --clump-p1 1 \
-    --clump-p2 1 \
-    --clump-r2 0.1 \
-    --clump-kb 500 \
-    --out {t2.ofile}
-    """)
-    
-#    ## gzip output
-#    t3 = p.new_task(name=f'gzip_{task_suffix}')
-#    t3.depends_on(t2)
-#    
-#    t3.command(
-#    f"""
-#    column -t {t2.ofile} | gzip > {t3.ofile}
-#    """)
-#    
-#    pruned_ss_path = f'{ldprune_wd}/pruned/{pop}/refld_not{pop}/{trait_type}-{pheno}-{coding}.tsv.gz'
-#    p.write_output(t3.ofile, pruned_ss_path)
-    
-    ## to ht
-    
+    output_dir = f'{ldprune_wd}/results/not_{pop}/{trait_type}-{pheno}-{coding}'
+    output_txt = f'{output_dir}/clumped_results-test.txt'
 
+    if not hl.hadoop_is_file(output_txt):
+        t1 = p.new_task(name=f'get_meta_ss_{task_suffix}')
+        t1.attributes.update(attributes_dict)
+        t1 = t1.image('gcr.io/ukbb-diversepops-neale/hail_utils:3.4')
+        t1.storage('1G') # prev: 8
+        t1.memory('100M') # prev: 4
+        t1.cpu(n_threads)
+            
+    #    meta_ht_path = f'{ldprune_wd}/meta_analysis.all_pops_old.ht' # path to old meta-analyzed sumstats ht
+        meta_ht_path = f'{ldprune_wd}/meta_analysis.all_pops.ht' # path to meta-analyzed sumstats ht
+        
+        t1.command(
+        f"""
+        PYTHONPATH=$PYTHONPATH:/ PYSPARK_SUBMIT_ARGS="--conf spark.driver.memory=4g --conf spark.executor.memory=24g pyspark-shell"
+        python3 {hail_script}
+        --input_file {meta_ht_path}
+        --pop {pop}
+        --pheno {pheno}
+        --coding {coding}
+        --trait_type {trait_type}
+        --output_file {t1.ofile}
+        --get_meta_sumstats
+        --n_threads {n_threads}
+        """.replace('\n', ' '))
+        
+        clumping_tasks = []
+        
+        ## run plink clumping
+        for chrom in range(1,23):
+            ## read ref ld plink files 
+            bfile = read_plink_input_group_chrom(p=p, 
+                                                 subset=f'not_{pop}',
+                                                 chrom=chrom)
+            
+            t2 = p.new_task(name=f'plink_clump_{task_suffix}.chr{chrom}')
+            t2.attributes.update(attributes_dict)
+            t2.depends_on(t1)
+            t2.storage('5G')
+            t2.memory('1G')
+            
+            t2.command(' '.join(['set','-ex']))
+            t2.command(' '.join(['plink',
+                                 '--bfile', str(bfile),
+                                 '--clump', str(t1.ofile),
+                                 '--clump-field P',
+                                 '--clump-snp-field varid',
+                                 '--clump-p1 1',
+                                 '--clump-p2 1',
+                                 '--clump-r2 0.1',
+                                 '--clump-kb 500',
+                                 '--chr', str(chrom),
+                                 '--out',f'{t2.ofile}_tmp']))
+            t2.command(' '.join(['awk',"'{ print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12 }'","OFS='\t'",f'{t2.ofile}_tmp.clumped',
+                                 '|','tail -n+2','>',str(t2.ofile)]))
+            clumping_tasks.append(t2)
     
+        t3 = p.new_task(name=f'plink_clump_sink_{task_suffix}')
+        t3.depends_on(*clumping_tasks)
+        t3.command(f'cat {" ".join([t.ofile for t in clumping_tasks])} > {t3.ofile}')
+        p.write_output(t3.ofile, output_txt)
+    
+    ## import as hail table and save
+    t4 = p.new_task(name=f'tsv_to_ht_{task_suffix}')
+    t4.attributes.update(attributes_dict)
+    t4 = t4.image('gcr.io/ukbb-diversepops-neale/hail_utils:3.4')
+    t4.storage('1G')
+    t4.memory('100M')
+    t4.cpu(n_threads)
+    if not hl.hadoop_is_file(output_txt):
+        t4.depends_on(t3)
+    
+    output_ht = f'{output_dir}/clump_results.ht'
+    
+    t4.command(' '.join(['set','-ex']))
+    t4.command(' '.join(['PYTHONPATH=$PYTHONPATH:/',
+                        'PYSPARK_SUBMIT_ARGS="--conf spark.driver.memory=4g --conf spark.executor.memory=24g pyspark-shell"']))
+    t4.command(' '.join(['python3', str(hail_script),
+                         '--input_file', output_txt,
+                         '--pop', pop,
+                         '--pheno', pheno,
+                         '--coding', coding,
+                         '--trait_type', trait_type,
+                         '--output_file', output_ht,
+                         '--tsv_to_ht',
+                         '--n_threads', str(n_threads),
+                         '--overwrite']))    
 
 def main():
-hl.init(default_reference='GRCh38')
-
-pops = ['AFR']
-
-backend = hp.BatchBackend(billing_project='ukb_diverse_pops')
-p = hp.Pipeline(name='test-clump', backend=backend,
-                      default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:latest',
-                      default_storage='500Mi', default_cpu=8)
-
-## download hail script to VM
-hail_script = p.read_input(f'{ldprune_wd}/scripts/python/plink_clump_hail.py')
-
-for pop in pops:   
-    pheno_list = get_pheno_list(pop)
+    pops = ['EUR'] #'AFR']#, 
     
-    ## read ref ld plink files 
-#bfile_path = f'{ldprune_wd}/subsets/not_{pop}' # samples from `pop` are excluded from plink files
-bfile_path = f'{ldprune_wd}/subsets/not_{pop}.chr22' # dummy bfile for testing
-bfile = read_plink_input_group(p=p, bfile_path=bfile_path)
-
-for pheno, coding, trait_type in pheno_list:
-pheno, coding, trait_type = pheno_list[0]
-run_clumping(p=p, 
-             pop=pop, 
-             bfile=bfile,
-             pheno=pheno, 
-             coding=coding, 
-             trait_type=trait_type,
-             hail_script=hail_script)
-
-p.run(open=True)
-
+    backend = hp.BatchBackend(billing_project='ukb_diverse_pops')
+    p = hp.Pipeline(name='test-clump', backend=backend,
+                    default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:0.1',
+                    default_storage='500Mi', default_cpu=8)
     
-
-
-# TODO: Make loop over phenotypes
-
-
-## convert variant results from ht to tsv
-
-p.run(open=True)
-
-def local_main():
-
-    pop = 'AFR'
+    ## download hail script to VM
+    hail_script = p.read_input(f'{ldprune_wd}/scripts/python/plink_clump_hail.py')
     
-    backend = hp.LocalBackend(gsa_key_file='/Users/nbaya/.hail/ukb-diverse-pops.json')
-    p = hp.Pipeline(name='plink_clump', backend=backend)
-    
-    bfile_path = f'{ldprune_wd}/subsets/not_{pop}'
-    bfile = read_plink_input_group(p=p, bfile_path=bfile_path)
+    for pop in pops:   
+        pheno_list = get_pheno_list(pop)
     
     
-    t1 = p.new_task(name='task1')
+        for pheno, coding, trait_type in pheno_list:
+            run_clumping(p=p, 
+                         pop=pop, 
+                         pheno=pheno, 
+                         coding=coding, 
+                         trait_type=trait_type,
+                         hail_script=hail_script)
     
-    trait_type='continuous'
-    pheno='1717'
-    coding='1717'
-    
-    ss_path = f'gs://ukb-diverse-pops/results/result/{pop}/{trait_type}-{pheno}-{coding}/variant_results.ht' # path to sumstats ht
-    hail_script='/Users/nbaya/Documents/lab/diverse_pops/python/plink_clump_hail.py'
-    
-    t1.command(
-    f"""
-    PYTHONPATH=$PYTHONPATH:/ PYSPARK_SUBMIT_ARGS="--conf spark.driver.memory=24g pyspark-shell"
-    python3 {hail_script}
-    --input_file {ss_path}
-    --output_file {t1.ofile}
-    """)
-    
-    t2 = p.new_task(name='task2')
-    
-    plink_local = '/Users/nbaya/Documents/lab/smiles/smiles/bash/plink/plink'
-    t2.command(f"""
-               {plink_local} \
-               --bfile {bfile} \
-               --clump --dummy 10 100 --make-bed --out {create.bfile1}
-               """)
-    
-    p.write_output()
-
+    p.run(open=True)
 
 
 if __name__=="__main__":
     
+    hl.init(default_reference='GRCh38')
     main()
     

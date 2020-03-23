@@ -3783,3 +3783,61 @@ spark.ui.showConsoleProgress=false
 2020-03-06 09:54:21 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
 2020-03-06 09:54:21 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
 2020-03-06 09:54:21 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 09:54:31 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 09:54:31 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None) re-registering with master
+2020-03-06 09:54:31 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:54:31 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:54:31 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 09:54:41 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 09:54:41 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None) re-registering with master
+2020-03-06 09:54:41 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:54:41 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:54:41 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 09:54:51 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 09:54:51 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None) re-registering with master
+2020-03-06 09:54:51 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:54:51 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:54:51 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 09:55:01 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 09:55:01 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None) re-registering with master
+2020-03-06 09:55:01 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:01 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:01 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 09:55:11 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 09:55:11 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None) re-registering with master
+2020-03-06 09:55:11 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:11 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:11 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 09:55:21 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 09:55:21 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None) re-registering with master
+2020-03-06 09:55:21 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:21 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:21 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 09:55:31 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 09:55:31 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None) re-registering with master
+2020-03-06 09:55:31 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:31 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:31 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 09:55:41 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 09:55:41 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None) re-registering with master
+2020-03-06 09:55:41 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:41 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:41 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 09:55:51 Executor: INFO: Told to re-register on heartbeat
+2020-03-06 09:55:51 BlockManager: INFO: BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None) re-registering with master
+2020-03-06 09:55:51 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:51 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, wm65b-8a9.broadinstitute.org, 49896, None)
+2020-03-06 09:55:51 BlockManager: INFO: Reporting 0 blocks to the master.
+2020-03-06 09:55:56 SparkContext: INFO: Invoking stop() from shutdown hook
+2020-03-06 09:55:56 AbstractConnector: INFO: Stopped Spark@a485d58{HTTP/1.1,[http/1.1]}{0.0.0.0:4042}
+2020-03-06 09:55:56 SparkUI: INFO: Stopped Spark web UI at http://wm65b-8a9.broadinstitute.org:4042
+2020-03-06 09:55:56 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
+2020-03-06 09:55:56 MemoryStore: INFO: MemoryStore cleared
+2020-03-06 09:55:56 BlockManager: INFO: BlockManager stopped
+2020-03-06 09:55:56 BlockManagerMaster: INFO: BlockManagerMaster stopped
+2020-03-06 09:55:56 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
+2020-03-06 09:55:56 SparkContext: INFO: Successfully stopped SparkContext
+2020-03-06 09:55:56 ShutdownHookManager: INFO: Shutdown hook called
+2020-03-06 09:55:56 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-23b0a198-c7ce-4057-aabe-7980bf71eb09
+2020-03-06 09:55:56 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-967ea68e-cfaf-419b-9afc-b2254f286bcc/pyspark-1e538dbf-807b-4dac-99a1-ce5971b3396a
+2020-03-06 09:55:56 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-967ea68e-cfaf-419b-9afc-b2254f286bcc
