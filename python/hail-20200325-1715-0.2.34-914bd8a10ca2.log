@@ -1,0 +1,94 @@
+2020-03-25 17:15:50 Hail: WARN: This Hail JAR was compiled for Spark 2.4.0, running with Spark 2.4.3.
+  Compatibility is not guaranteed.
+2020-03-25 17:15:50 SparkContext: INFO: Running Spark version 2.4.3
+2020-03-25 17:15:50 SparkContext: INFO: Submitted application: Hail
+2020-03-25 17:15:50 SparkContext: INFO: Spark configuration:
+spark.app.name=Hail
+spark.driver.extraClassPath=/anaconda3/envs/hail/lib/python3.6/site-packages/hail/hail-all-spark.jar
+spark.driver.maxResultSize=0
+spark.executor.extraClassPath=./hail-all-spark.jar
+spark.hadoop.google.cloud.auth.service.account.enable=true
+spark.hadoop.google.cloud.auth.service.account.json.keyfile=/Users/nbaya/.hail/gcs-keys/gcs-connector-key.json
+spark.hadoop.io.compression.codecs=org.apache.hadoop.io.compress.DefaultCodec,is.hail.io.compress.BGzipCodec,is.hail.io.compress.BGzipCodecTbi,org.apache.hadoop.io.compress.GzipCodec
+spark.hadoop.mapreduce.input.fileinputformat.split.minsize=0
+spark.jars=file:///anaconda3/envs/hail/lib/python3.6/site-packages/hail/hail-all-spark.jar
+spark.kryo.registrator=is.hail.kryo.HailKryoRegistrator
+spark.kryoserializer.buffer.max=1g
+spark.logConf=true
+spark.master=local[*]
+spark.repl.local.jars=file:///anaconda3/envs/hail/lib/python3.6/site-packages/hail/hail-all-spark.jar
+spark.serializer=org.apache.spark.serializer.KryoSerializer
+spark.submit.deployMode=client
+spark.ui.showConsoleProgress=false
+2020-03-25 17:15:50 SecurityManager: INFO: Changing view acls to: nbaya
+2020-03-25 17:15:50 SecurityManager: INFO: Changing modify acls to: nbaya
+2020-03-25 17:15:50 SecurityManager: INFO: Changing view acls groups to: 
+2020-03-25 17:15:50 SecurityManager: INFO: Changing modify acls groups to: 
+2020-03-25 17:15:50 SecurityManager: INFO: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(nbaya); groups with view permissions: Set(); users  with modify permissions: Set(nbaya); groups with modify permissions: Set()
+2020-03-25 17:15:51 Utils: INFO: Successfully started service 'sparkDriver' on port 54971.
+2020-03-25 17:15:51 SparkEnv: INFO: Registering MapOutputTracker
+2020-03-25 17:15:51 SparkEnv: INFO: Registering BlockManagerMaster
+2020-03-25 17:15:51 BlockManagerMasterEndpoint: INFO: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+2020-03-25 17:15:51 BlockManagerMasterEndpoint: INFO: BlockManagerMasterEndpoint up
+2020-03-25 17:15:51 DiskBlockManager: INFO: Created local directory at /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/blockmgr-cb60855b-2c54-4b62-80d2-c737363ad557
+2020-03-25 17:15:51 MemoryStore: INFO: MemoryStore started with capacity 366.3 MB
+2020-03-25 17:15:51 SparkEnv: INFO: Registering OutputCommitCoordinator
+2020-03-25 17:15:51 log: INFO: Logging initialized @2347ms
+2020-03-25 17:15:51 Server: INFO: jetty-9.3.z-SNAPSHOT, build timestamp: unknown, git hash: unknown
+2020-03-25 17:15:51 Server: INFO: Started @2425ms
+2020-03-25 17:15:51 Utils: WARN: Service 'SparkUI' could not bind on port 4040. Attempting port 4041.
+2020-03-25 17:15:51 AbstractConnector: INFO: Started ServerConnector@6859f021{HTTP/1.1,[http/1.1]}{0.0.0.0:4041}
+2020-03-25 17:15:51 Utils: INFO: Successfully started service 'SparkUI' on port 4041.
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@3c93e386{/jobs,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@8aaadcb{/jobs/json,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@1266a378{/jobs/job,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@70bafe35{/jobs/job/json,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@2da3d11c{/stages,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@af9cab3{/stages/json,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@53845c7e{/stages/stage,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@398b9c2{/stages/stage/json,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@720e7263{/stages/pool,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@448b6c7c{/stages/pool/json,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@1c0dd87{/storage,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@475022d4{/storage/json,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@464ccd37{/storage/rdd,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@59bba10e{/storage/rdd/json,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@5e90635b{/environment,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@1890acdf{/environment/json,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@3895ff8f{/executors,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@3ca29a42{/executors/json,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@61f5bc36{/executors/threadDump,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@7c9e1283{/executors/threadDump/json,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@6b60e318{/static,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@76ce98eb{/,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@17c90fd0{/api,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@86e82f3{/jobs/job/kill,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@f3c3bea{/stages/stage/kill,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 SparkUI: INFO: Bound SparkUI to 0.0.0.0, and started at http://192.168.0.110:4041
+2020-03-25 17:15:51 SparkContext: INFO: Added JAR file:///anaconda3/envs/hail/lib/python3.6/site-packages/hail/hail-all-spark.jar at spark://192.168.0.110:54971/jars/hail-all-spark.jar with timestamp 1585170951621
+2020-03-25 17:15:51 Executor: INFO: Starting executor ID driver on host localhost
+2020-03-25 17:15:51 Utils: INFO: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 54972.
+2020-03-25 17:15:51 NettyBlockTransferService: INFO: Server created on 192.168.0.110:54972
+2020-03-25 17:15:51 BlockManager: INFO: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+2020-03-25 17:15:51 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 192.168.0.110, 54972, None)
+2020-03-25 17:15:51 BlockManagerMasterEndpoint: INFO: Registering block manager 192.168.0.110:54972 with 366.3 MB RAM, BlockManagerId(driver, 192.168.0.110, 54972, None)
+2020-03-25 17:15:51 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 192.168.0.110, 54972, None)
+2020-03-25 17:15:51 BlockManager: INFO: Initialized BlockManager: BlockManagerId(driver, 192.168.0.110, 54972, None)
+2020-03-25 17:15:51 ContextHandler: INFO: Started o.s.j.s.ServletContextHandler@6ad4bf2b{/metrics/json,null,AVAILABLE,@Spark}
+2020-03-25 17:15:51 Hail: INFO: Hail temporary directory: file:/tmp/hail.9jKvmXFaEqSE
+2020-03-25 17:15:51 Hail: INFO: SparkUI: http://192.168.0.110:4041
+2020-03-25 17:15:51 Hail: INFO: Running Hail version 0.2.34-914bd8a10ca2
+2020-03-25 17:15:52 SparkContext: WARN: Using an existing SparkContext; some configuration may not take effect.
+2020-03-25 17:18:20 SparkContext: INFO: Invoking stop() from shutdown hook
+2020-03-25 17:18:20 AbstractConnector: INFO: Stopped Spark@6859f021{HTTP/1.1,[http/1.1]}{0.0.0.0:4041}
+2020-03-25 17:18:20 SparkUI: INFO: Stopped Spark web UI at http://192.168.0.110:4041
+2020-03-25 17:18:20 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
+2020-03-25 17:18:20 MemoryStore: INFO: MemoryStore cleared
+2020-03-25 17:18:20 BlockManager: INFO: BlockManager stopped
+2020-03-25 17:18:20 BlockManagerMaster: INFO: BlockManagerMaster stopped
+2020-03-25 17:18:20 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
+2020-03-25 17:18:20 SparkContext: INFO: Successfully stopped SparkContext
+2020-03-25 17:18:20 ShutdownHookManager: INFO: Shutdown hook called
+2020-03-25 17:18:20 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-0b568144-11dc-4061-af7f-e0078233e1c1
+2020-03-25 17:18:20 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-20a94586-5118-47e3-a104-9a657137b43a
+2020-03-25 17:18:20 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-0b568144-11dc-4061-af7f-e0078233e1c1/pyspark-e552b67e-dcc7-4b0c-8874-8739f7246208

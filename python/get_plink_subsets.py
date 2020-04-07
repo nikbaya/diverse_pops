@@ -22,15 +22,12 @@ MIN_CASES = 50
 MIN_CASES_ALL = 100
 MIN_CASES_EUR = 100
 
-ldprune_wd = f'{bucket}/ld_prune' 
-
 pop_dict = {'AFR': 6637, # dict with sample counts for each population 
             'AMR': 982,
             'CSA': 8876,
             'EAS': 2709,
             'EUR': 420542,
             'MID': 1599}
-
 
 #rev_pop_dict = {}
 #for k, v in sorted(list(pop_dict.items()), key=lambda x:x[0].lower(), reverse=True):
@@ -168,17 +165,19 @@ def to_plink(pop: str, mt, ht_sample, not_pop: bool = False, overwrite=False):
     '''
     assert 'GT' in mt.entry, "mt must have 'GT' as an entry field"
     assert mt.GT.dtype==hl.tcall, "entry field 'GT' must be of type `Call`"
-    bfile_path = f'{ldprune_wd}/subsets/{"not_" if not_pop else ""}{pop}'
+    bfile_path = f'{subsets_dir}/{"not_" if not_pop else ""}{pop}/{"not_" if not_pop else ""}{pop}'
     
-    if not overwrite and not all([hl.hadoop_exists(f'{bfile_path}.{suffix}') for suffix in ['bed','bim','fam']]):
+    if not overwrite and all([hl.hadoop_exists(f'{bfile_path}.{suffix}') for suffix in ['bed','bim','fam']]):
         print(f'\nPLINK files already exist for {"not_" if not_pop else ""}{pop}')
+        print(bfile_path)
     else:
+        print(f'Saving to bfile prefix {bfile_path}')
         mt_sample = mt.filter_cols(hl.is_defined(ht_sample[mt.s]))
-        mt_sample = mt_sample.annotate_rows(varid = mt_sample.locus+mt_sample.alleles[0]+mt_sample.alleles[1])
+        mt_sample = mt_sample.annotate_rows(varid = hl.str(mt_sample.locus)+'_'+mt_sample.alleles[0]+'_'+mt_sample.alleles[1])
         hl.export_plink(dataset = mt_sample, 
                         output = bfile_path, 
                         ind_id = mt_sample.s,
-                        varid = mt_sample.rsid) # varid used to be rsid
+                        varid = mt_sample.varid) # varid used to be rsid
     
 
 if __name__=='__main__':
@@ -188,18 +187,18 @@ if __name__=='__main__':
     parser.add_argument('--overwrite_plink', default=False, action='store_true', help='whether to overwrite existing PLINK files')
     args = parser.parse_args()
     
-    n_max = 5000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
+    
+    n_max = 50000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
     not_pop = True
     
+    subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k' 
     
-    if args.pop is None:
-        pops = [pop for pop, pop_ct in pop_dict.items()]
-    else:
-        pops = [args.pop]
+    pop = args.pop.upper()
+    assert pop in POPS, f'Invalid population passed pop flag: {pop}'
     
     print(
     f'''
-    pops: {pops}
+    pop: {pop}
     not_pop: {not_pop}
     overwrite_plink: {args.overwrite_plink}
     ''')
@@ -207,37 +206,35 @@ if __name__=='__main__':
     mt0 = get_mt(chrom='all', entry_fields = ('GT',)) # default entry_fields will be 'GP', we need 'GT' for exporting to PLINK
  
     ## get mt of population (or every population but that population if `not_pop`=True)
-    for pop in pops:
-        if not_pop:
-            mt_pop = mt0.filter_cols(mt0.pop != pop)
-        else:    
-            mt_pop = mt0.filter_cols(mt0.pop == pop)
-        print(f'\n\nmt sample ct ({pop}, not_pop={not_pop}): {mt_pop.count_cols()}\n\n')
-        
+    if not_pop:
+        mt_pop = mt0.filter_cols(mt0.pop != pop)
+    else:    
+        mt_pop = mt0.filter_cols(mt0.pop == pop)
+    print(f'\n\nmt sample ct ({pop}, not_pop={not_pop}): {mt_pop.count_cols()}\n\n')
+    
 
-    for pop in pops:
-        ht_sample_path = f'{ldprune_wd}/subsets/{"not_" if not_pop else ""}{pop}.ht'
+    ht_sample_path = f'{subsets_dir}/{"not_" if not_pop else ""}{pop}/{"not_" if not_pop else ""}{pop}.ht'
+    
+    if hl.hadoop_exists(f'{ht_sample_path}/_SUCCESS'):
+        ht_sample = hl.read_table(ht_sample_path)
+        print(f'... Subset ht already exists for pop={pop}, not_pop={not_pop} ...')
+        print(f'\n\nSubset ht sample ct: {ht_sample.count()}\n\n')
+    else:
+        print(f'... getting subset (pop={pop}, not_pop={not_pop}) ...')
         
-        if hl.hadoop_exists(f'{ht_sample_path}/_SUCCESS'):
-            ht_sample = hl.read_table(ht_sample_path)
-            print(f'... Subset ht already exists for pop={pop}, not_pop={not_pop} ...')
-            print(f'\n\nSubset ht sample ct: {ht_sample.count()}\n\n')
-        else:
-            print(f'... getting subset (pop={pop}, not_pop={not_pop}) ...')
-            
-            ht_sample = get_subset(mt_pop = mt_pop,
-                                   pop_dict = pop_dict, 
-                                   pop = pop, 
-                                   n_max = n_max, 
-                                   not_pop = not_pop)
-            
-            ht_sample_ct = ht_sample.count()
-            print(f'\n\nht_sample_ct: {ht_sample_ct}\n\n')
-            ht_sample = ht_sample.checkpoint(ht_sample_path)
+        ht_sample = get_subset(mt_pop = mt_pop,
+                               pop_dict = pop_dict, 
+                               pop = pop, 
+                               n_max = n_max, 
+                               not_pop = not_pop)
         
-        print(f'... exporting to plink (pop={pop}, not_pop={not_pop}) ...')
-        to_plink(pop = pop,
-                 mt = mt_pop,
-                 ht_sample = ht_sample,
-                 not_pop = not_pop,
-                 overwrite=args.overwrite_plink)
+        ht_sample_ct = ht_sample.count()
+        print(f'\n\nht_sample_ct: {ht_sample_ct}\n\n')
+        ht_sample = ht_sample.checkpoint(ht_sample_path)
+    
+    print(f'... exporting to plink (pop={pop}, not_pop={not_pop}) ...')
+    to_plink(pop = pop,
+             mt = mt_pop,
+             ht_sample = ht_sample,
+             not_pop = not_pop,
+             overwrite=args.overwrite_plink)
