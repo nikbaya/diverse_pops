@@ -31,8 +31,8 @@ def read_plink_input_group_chrom(p, subset, chrom):
     NOTE: This format allows for use of a single fam (not specific to a chromosome)
     '''
     prefix = f'{subsets_dir}/{subset}/{subset}'
-    return p.read_input_group(bed=f'{prefix}.chr{chrom}.bed',
-                              bim=f'{prefix}.chr{chrom}.bim',
+    return p.read_input_group(bed=f'{prefix}.hm3.chr{chrom}.bed',
+                              bim=f'{prefix}.hm3.chr{chrom}.bim',
                               fam=f'{prefix}.fam')
 
 def get_pheno_list(pop: str):
@@ -119,9 +119,10 @@ def run_method(p, pop, pheno, coding, trait_type, hail_script, output_txt,
                                            '--out', f'{make_ldm.ofile}_tmp1']))
                 make_ldm.command(' '.join(['gctb',
                                             '--bfile', f'{make_ldm.ofile}_tmp1',
-                                            '--snp 1-1000',
+#                                            '--snp 1-1000',
                                             f'--make-{ldm_type}-ldm', 
                                             '--out',f'{make_ldm.ofile}_tmp2']))
+                # TODO: use both .bin and .info files
                 make_ldm.command(' '.join(['mv',f'{make_ldm.ofile}_tmp2.ldm.{ldm_type}', str(make_ldm.ofile)]))
                 p.write_output(make_ldm.ofile, ldm_path)
                 ldm = make_ldm.ofile
