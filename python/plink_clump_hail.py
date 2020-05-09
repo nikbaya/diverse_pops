@@ -112,7 +112,7 @@ def get_meta_sumstats(args):
     ht_pheno = ht_pheno.filter(hl.is_defined(ht_pheno.P))
     ht_pheno.export(args.output_file)
     
-def export_quant_results(batch_size=256):
+def export_results(batch_size=256):
     r'''
     Quantitative phenotypes: 
         - continuous
@@ -132,161 +132,118 @@ def export_quant_results(batch_size=256):
                             ref = mt0.alleles[0],
                             alt = mt0.alleles[1])
     
-    mt1 = mt0.filter_cols((hl.literal(['biomarkers','continuous']).contains(mt0.trait_type))&(hl.len(mt0.pheno_data.pop)==6))    
-#    mt1 = mt0.filter_cols((hl.literal(['continuous']).contains(mt0.trait_type))&(hl.len(mt0.pheno_data.pop)==6))    
-##    mt1 = mt0.filter_cols(((hl.literal(['biomarkers']).contains(mt0.trait_type))&(hl.len(mt0.pheno_data.pop)==5))) 
-#    mt1 = mt0.filter_cols((hl.literal(['biomarkers','continuous']).contains(mt0.trait_type))&(
-#                            hl.len(mt0.pheno_data.pop)==6)&(
-#                            hl.literal(PILOT_PHENOTYPES).contains((mt0.pheno, mt0.coding, mt0.trait_type))))  
+    all_quant_trait_types = {'continuous','biomarkers'}
+    all_binary_trait_types = {'categorical','phecode', 'icd_all', 'prescriptions'}
     
-#    mt1 = mt0.filter_cols(((hl.literal(['continuous']).contains(mt0.trait_type))&(hl.len(mt0.pheno_data.pop)==3)))
+    # which trait types to run
+    trait_types_to_run = ['continuous', 'biomarkers']
+    
+    quant_trait_types = all_quant_trait_types.intersection(trait_types_to_run) # get list of quant trait types to run
+    binary_trait_types = all_binary_trait_types.intersection(trait_types_to_run) # get list of binary trait types to run
 
-#    pheno_id_list = mt1.pheno_id.collect()
-#    mt1 = mt1.filter_cols((hl.literal(pheno_id_list).contains(mt1.pheno_id)))
+    quant_meta_fields = ['AF_Allele2','BETA','SE','Pvalue','Pvalue_het']
+    quant_fields = ['AF_Allele2','BETA','SE','Pvalue']
     
-    pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
-    pop_list = mt1.pheno_data.pop.take(1)[0]
-    
-    pop_idx_list = [pop_list.index(pop) for pop in pops if pop in pop_list]
-    print(f'pop_list: {pop_list}')
-    print(f'pop_idx_list: {pop_idx_list}')
-    
-    
-    meta_field_rename_dict = {'AF_Allele2':'af_meta',
+    binary_meta_fields = ['AF_Cases','AF_Controls','BETA','SE','Pvalue','Pvalue_het']
+    binary_fields = ['AF.Cases','AF.Controls','BETA','SE','Pvalue']
+
+    quant_meta_field_rename_dict = {'AF_Allele2':'af_meta',
                               'BETA':'beta_meta',
                               'SE':'se_meta',
                               'Pvalue':'pval_meta',
                               'Pvalue_het':'pval_heterogeneity'}
     
-    field_rename_dict = {'AF_Allele2':'af',
+    quant_field_rename_dict = {'AF_Allele2':'af',
                          'BETA':'beta',
                          'SE':'se',
                          'Pvalue':'pval'}
-    annotate_dict = {}
     
-    keyed_mt = meta_mt0[(mt1.locus,mt1.alleles),(mt1.pheno, mt1.coding, mt1.trait_type)]
-    for field in ['AF_Allele2','BETA','SE','Pvalue','Pvalue_het']: # NOTE: Meta-analysis columns go before per-population columns
-        # TODO: Make this generalizable to any combination of populations for meta-analysis
-#        annotate_dict.update({f'{meta_field_rename_dict[field]}': hl.float64(hl.format('%.3e', keyed_mt.meta_analysis[field][0]))})
-        annotate_dict.update({f'{meta_field_rename_dict[field]}': hl.if_else(hl.is_nan(keyed_mt.meta_analysis[field][0]),
-                                                                  hl.str(keyed_mt.meta_analysis[field][0]),
-                                                                  hl.format('%.3e', keyed_mt.meta_analysis[field][0]))})
-
-    for field in ['AF_Allele2','BETA','SE','Pvalue']:
-        for pop_idx in pop_idx_list:
-#            annotate_dict.update({f'{field_rename_dict[field]}_{pops[pop_idx]}': hl.format('%.3e', mt1.summary_stats[field][pop_idx])})
-            annotate_dict.update({f'{field_rename_dict[field]}': hl.if_else(hl.is_nan(mt1.summary_stats[field][pop_idx]),
-                                                                 hl.str(mt1.summary_stats[field][pop_idx]),
-                                                                 hl.format('%.3e', mt1.summary_stats[field][pop_idx]))})
+    binary_meta_field_rename_dict = {'BETA':'beta_meta',
+                                     'SE':'se_meta',
+                                     'Pvalue':'pval_meta',
+                                     'AF_Cases':'af_cases_meta',
+                                     'AF_Controls':'af_controls_meta',
+                                     'Pvalue_het':'pval_heterogeneity'}
+    binary_field_rename_dict = {'AF.Cases':'af_cases',
+                                'AF.Controls':'af_controls',
+                                'BETA':'beta',
+                                'SE':'se',
+                                'Pvalue':'pval'}
     
-    mt2 = mt1.annotate_entries(**annotate_dict)
+    for trait_category, trait_types in [('quant', quant_trait_types), ('binary', binary_trait_types)]:
+        if len(trait_types)==0: #if no traits in trait_types list
+            continue
+        print(f'{trait_category} trait types to run: {trait_types}')
+        
+        if trait_category == 'quant':
+            meta_fields = quant_meta_fields
+            fields = quant_fields
+            meta_field_rename_dict = quant_meta_field_rename_dict
+            field_rename_dict = quant_field_rename_dict
+        elif trait_category == 'binary':
+            meta_fields = binary_meta_fields
+            fields = binary_fields
+            meta_field_rename_dict = binary_meta_field_rename_dict
+            field_rename_dict = binary_field_rename_dict
+        
+        mt1 = mt0.filter_cols((hl.literal().contains(mt0.trait_type))&(hl.len(mt0.pheno_data.pop)==6))
+    #    mt1 = mt0.filter_cols((hl.literal(['continuous']).contains(mt0.trait_type))&(hl.len(mt0.pheno_data.pop)==6))    
+    ##    mt1 = mt0.filter_cols(((hl.literal(['biomarkers']).contains(mt0.trait_type))&(hl.len(mt0.pheno_data.pop)==5))) 
+    #    mt1 = mt0.filter_cols((hl.literal(['biomarkers','continuous']).contains(mt0.trait_type))&(
+    #                            hl.len(mt0.pheno_data.pop)==6)&(
+    #                            hl.literal(PILOT_PHENOTYPES).contains((mt0.pheno, mt0.coding, mt0.trait_type))))  
+        
+    #    mt1 = mt0.filter_cols(((hl.literal(['continuous']).contains(mt0.trait_type))&(hl.len(mt0.pheno_data.pop)==3)))
     
-    mt2 = mt2.filter_cols(mt2.coding != 'zekavat_20200409')
-    mt2 = mt2.key_cols_by('pheno_id')
-    mt2 = mt2.key_rows_by().drop('locus','alleles','gene','annotation','summary_stats')
+    #    pheno_id_list = mt1.pheno_id.collect()
+    #    mt1 = mt1.filter_cols((hl.literal(pheno_id_list).contains(mt1.pheno_id)))
+        
+        pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
+        pop_list = mt1.pheno_data.pop.take(1)[0]
+        
+        pop_idx_list = [pop_list.index(pop) for pop in pops if pop in pop_list]
+        print(f'pop_list: {pop_list}')
+        print(f'pop_idx_list: {pop_idx_list}')
+        
+        annotate_dict = {}
+        
+        keyed_mt = meta_mt0[(mt1.locus,mt1.alleles),(mt1.pheno, mt1.coding, mt1.trait_type)]
+        for field in meta_fields: # NOTE: Meta-analysis columns go before per-population columns
+            # TODO: Make this generalizable to any combination of populations for meta-analysis
+    #        annotate_dict.update({f'{meta_field_rename_dict[field]}': hl.float64(hl.format('%.3e', keyed_mt.meta_analysis[field][0]))})
+            annotate_dict.update({f'{meta_field_rename_dict[field]}': hl.if_else(hl.is_nan(keyed_mt.meta_analysis[field][0]),
+                                                                      hl.str(keyed_mt.meta_analysis[field][0]),
+                                                                      hl.format('%.3e', keyed_mt.meta_analysis[field][0]))})
     
-    batch_idx = 1
-    export_out = f'{ldprune_dir}/release/batch{batch_idx}'
-    while hl.hadoop_is_dir(export_out):
-        batch_idx += 1
-        export_out = f'{ldprune_dir}/release/batch{batch_idx}'
-#    checkpoint_path = f'gs://ukbb-diverse-temp-30day/release/batch{batch_idx}.mt'
-#    print(f'\nCheckpointing to: {checkpoint_path}\n')
-#    mt2 = mt2.checkpoint(checkpoint_path,
-#                         _read_if_exists=True)
-    print(f'\nExporting to: {export_out}\n')
-    hl.experimental.export_entries_by_col(mt = mt2,
-                                          path = export_out,
-                                          bgzip = True,
-                                          batch_size = batch_size,
-                                          use_string_key_as_file_name = True,
-                                          header_json_in_file = False)
-
-def export_binary_results(batch_size=256):
-    r'''
-    Binary phenotypes:
-        - categorical
-        - phecode
-        - icd_all
-        - prescriptions
-    '''
-    hl.init(default_reference='GRCh38', log='/tmp/export_entries_by_col.log')
-    mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/results_full.mt')
-    meta_mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/meta_analysis.mt')
-    
-    mt0 = mt0.annotate_cols(pheno_id = mt0.trait_type+'-'+
-                            mt0.phenocode+'-'+
-                            mt0.pheno_sex+
-                            hl.if_else(hl.len(mt0.coding)>0, '-'+mt0.coding, '')+
-                            hl.if_else(hl.len(mt0.modifier)>0, '-'+mt0.modifier, ''))
-    mt0 = mt0.annotate_rows(chr = mt0.locus.contig,
-                            pos = mt0.locus.position,
-                            ref = mt0.alleles[0],
-                            alt = mt0.alleles[1])
-    
-    trait_types = ['categorical']
-    mt1 = mt0.filter_cols((hl.literal(trait_types).contains(mt0.trait_type))&(hl.len(mt0.pheno_data.pop)==6))
-    
-    all_pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
-    export_pops = mt1.pheno_data.pop.take(1)[0]
-    
-    pop_idxs = [export_pops.index(pop) for pop in all_pops if pop in export_pops]
-    print(f'export_pops: {export_pops}')
-    print(f'pop_idxs: {pop_idxs}')
-    
-    
-    field_rename_dict = {'AF.Cases':'af_cases',
-                         'AF.Controls':'af_controls',
-                         'BETA':'beta',
-                         'SE':'se',
-                         'Pvalue':'pval'}
-    meta_field_rename_dict = {'BETA':'beta_meta',
-                              'SE':'se_meta',
-                              'Pvalue':'pval_meta',
-                              'AF_Cases':'af_cases_meta',
-                              'AF_Controls':'af_controls_meta',
-                              'Pvalue_het':'pval_heterogeneity'}
-    
-    annotate_dict = {}
-    
-    keyed_mt = meta_mt0[(mt1.locus,mt1.alleles),(mt1.pheno, mt1.coding, mt1.trait_type)]
-    for field in ['AF_Cases','AF_Controls','BETA','SE','Pvalue','Pvalue_het']:
-#        annotate_dict.update({f'{meta_field_rename_dict[field]}': hl.float64(hl.format('%.3e', keyed_mt.meta_analysis[field][0]))})
-        annotate_dict.update({f'{meta_field_rename_dict[field]}': hl.if_else(hl.is_nan(keyed_mt.meta_analysis[field][0]),
-                                                                  hl.str(keyed_mt.meta_analysis[field][0]),
-                                                                  hl.format('%.3e', keyed_mt.meta_analysis[field][0]))})
-    
-    for field in ['AF.Cases','AF.Controls','BETA','SE','Pvalue']:
-        for pop_idx in pop_idxs:
-#            annotate_dict.update({f'{field_rename_dict[field]}_{pops[pop_idx]}': hl.format('%.3e', mt1.summary_stats[field][pop_idx])})
-            annotate_dict.update({f'{field_rename_dict[field]}_{all_pops[pop_idx]}': hl.if_else(hl.is_nan(mt1.summary_stats[field][pop_idx]),
-                                                                                     hl.str(mt1.summary_stats[field][pop_idx]),
-                                                                                     hl.format('%.3e', mt1.summary_stats[field][pop_idx]))})
-    
-    mt2 = mt1.annotate_entries(**annotate_dict)
-    
-    mt2 = mt2.filter_cols(mt2.coding != 'zekavat_20200409')
-    mt2 = mt2.key_cols_by('pheno_id')
-    mt2 = mt2.key_rows_by().drop('locus','alleles','gene','annotation','summary_stats')
-    
-    batch_idx = 1
-    export_out = f'{ldprune_dir}/release/batch{batch_idx}'
-    
-    while hl.hadoop_is_dir(export_out):
-        batch_idx += 1
-        export_out = f'{ldprune_dir}/release/batch{batch_idx}'
-#    checkpoint_path = f'gs://ukbb-diverse-temp-30day/release/batch{batch_idx}.mt'
-#    print(f'\nCheckpointing to: {checkpoint_path}\n')
-#    mt2 = mt2.checkpoint(checkpoint_path,
-#                         _read_if_exists=True)
-    print(f'\nExporting to: {export_out}\n')
-    hl.experimental.export_entries_by_col(mt = mt2,
-                                          path = export_out,
-                                          bgzip = True,
-                                          batch_size = batch_size,
-                                          use_string_key_as_file_name = True,
-                                          header_json_in_file = False)
-
+        for field in fields:
+            for pop_idx in pop_idx_list:
+    #            annotate_dict.update({f'{field_rename_dict[field]}_{pops[pop_idx]}': hl.format('%.3e', mt1.summary_stats[field][pop_idx])})
+                annotate_dict.update({f'{field_rename_dict[field]}': hl.if_else(hl.is_nan(mt1.summary_stats[field][pop_idx]),
+                                                                     hl.str(mt1.summary_stats[field][pop_idx]),
+                                                                     hl.format('%.3e', mt1.summary_stats[field][pop_idx]))})
+        
+        mt2 = mt1.annotate_entries(**annotate_dict)
+        
+        mt2 = mt2.filter_cols(mt2.coding != 'zekavat_20200409')
+        mt2 = mt2.key_cols_by('pheno_id')
+        mt2 = mt2.key_rows_by().drop('locus','alleles','gene','annotation','summary_stats')
+        
+        batch_idx = 1
+        export_out = f'{ldprune_dir}/release/{trait_category}_batch{batch_idx}'
+        while hl.hadoop_is_dir(export_out):
+            batch_idx += 1
+            export_out = f'{ldprune_dir}/release/{trait_category}_batch{batch_idx}'
+    #    checkpoint_path = f'gs://ukbb-diverse-temp-30day/release/batch{batch_idx}.mt'
+    #    print(f'\nCheckpointing to: {checkpoint_path}\n')
+    #    mt2 = mt2.checkpoint(checkpoint_path,
+    #                         _read_if_exists=True)
+        print(f'\nExporting to: {export_out}\n')
+        hl.experimental.export_entries_by_col(mt = mt2,
+                                              path = export_out,
+                                              bgzip = True,
+                                              batch_size = batch_size,
+                                              use_string_key_as_file_name = True,
+                                              header_json_in_file = False)
     
 def export_pop_pheno_pairs():
     hl.init(default_reference='GRCh38', log='/tmp/export_entries_by_col.log')
