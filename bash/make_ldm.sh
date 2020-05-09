@@ -2,7 +2,7 @@ n_cpu=$( grep -c ^processor /proc/cpuinfo )
 
 n_snps=$( cat not_EUR.chr22.maf_gt_0.bim | wc -l )
 
-max_chunk_idx=$((${n_cpu}))
+max_chunk_idx=$((${n_cpu}*10))
 
 chunk_size=$((${n_snps}/${max_chunk_idx}))
 
