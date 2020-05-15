@@ -1,0 +1,15 @@
+2020-05-14 16:58:33 Hail: INFO: Running Hail version 0.2.39-ef87446bd1c7
+2020-05-14 16:58:34 SparkContext: WARN: Using an existing SparkContext; some configuration may not take effect.
+2020-05-14 17:09:15 SparkContext: INFO: Invoking stop() from shutdown hook
+2020-05-14 17:09:16 AbstractConnector: INFO: Stopped Spark@30c372b4{HTTP/1.1,[http/1.1]}{0.0.0.0:4041}
+2020-05-14 17:09:16 SparkUI: INFO: Stopped Spark web UI at http://192.168.0.110:4041
+2020-05-14 17:09:16 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
+2020-05-14 17:09:16 MemoryStore: INFO: MemoryStore cleared
+2020-05-14 17:09:16 BlockManager: INFO: BlockManager stopped
+2020-05-14 17:09:16 BlockManagerMaster: INFO: BlockManagerMaster stopped
+2020-05-14 17:09:16 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
+2020-05-14 17:09:16 SparkContext: INFO: Successfully stopped SparkContext
+2020-05-14 17:09:16 ShutdownHookManager: INFO: Shutdown hook called
+2020-05-14 17:09:16 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-c53d43e3-b9c3-4c08-aaf7-cab3368ce014/pyspark-5aeb54a9-9427-4076-90a4-3871878e26a7
+2020-05-14 17:09:16 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-084c5119-98f2-4160-9518-817003fcaad2
+2020-05-14 17:09:16 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-c53d43e3-b9c3-4c08-aaf7-cab3368ce014
