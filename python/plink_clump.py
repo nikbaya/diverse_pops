@@ -15,10 +15,8 @@ from hailtop import batch
 bucket = 'gs://ukb-diverse-pops'
 ldprune_dir = f'{bucket}/ld_prune'
 
+all_pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
 
-
-def get_variant_results_path(pop: str, extension: str = 'ht'):
-    return f'{bucket}/combined_results/results_{pop}.{extension}'
 
 def declare_rg(t, name):
     t.declare_resource_group(**{name: {'bed': '{root}.bed',
@@ -49,25 +47,47 @@ def get_pheno_list(pop: str):
     r'''
     Returns list of phenotypes for population `pop`.
     '''
-#    pheno_list_path = f'{ldprune_dir}/pheno_lists/pheno_list_{pop}.ht'
-#    pheno_list_path = f'{ldprune_dir}/pheno_lists/pheno_list_intersection.ht' # intersection of 921 traits with results for all pops
-#
-#    if hl.hadoop_is_file(f'{pheno_list_path}/_SUCCESS'):
-#        pheno_list_ht = hl.read_table(pheno_list_path) # phenotypes from population `pop`
-#    else:
-#        raise Exception(f'pheno list ht does not exist for pop {pop}')
+##    pheno_list_path = f'{ldprune_dir}/pheno_lists/pheno_list_{pop}.ht'
+##    pheno_list_path = f'{ldprune_dir}/pheno_lists/pheno_list_intersection.ht' # intersection of 921 traits with results for all pops
+##
+##    if hl.hadoop_is_file(f'{pheno_list_path}/_SUCCESS'):
+##        pheno_list_ht = hl.read_table(pheno_list_path) # phenotypes from population `pop`
+##    else:
+##        raise Exception(f'pheno list ht does not exist for pop {pop}')
+##    
+##    assert list(pheno_list_ht.key)==['pheno','coding','trait_type'], f'key ordering is incorrect for pop {pop}'
+##    
+#a
+##    pheno_list = list(zip(*[pheno_list_ht[f].collect() for f in pheno_list_ht.key])) # list of tuples
+##    
+##    pheno_list = [('100420','100420','continuous')]
+##    [('100002', 'irnt', 'continuous')]#,
+##                  ('100001', 'irnt', 'continuous')] # dummy list for testing
+##    pheno_list = [("biomarkers", "30740", "both_sexes", "30740", "")]
+##    pheno_list = [("categorical", "1150", "both_sexes", "", "3")]
+   
+#    ht = hl.import_table('gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv',
+#                         impute=True)
 #    
-#    assert list(pheno_list_ht.key)==['pheno','coding','trait_type'], f'key ordering is incorrect for pop {pop}'
+#    pheno_list = list(zip(ht.trait_type.collect(),
+#                          ht.phenocode.collect(), 
+#                          ht.pheno_sex.collect(),
+#                          ht.coding.collect(),
+#                          ht.modifier.collect()))
 #    
-#    pheno_list = list(zip(*[pheno_list_ht[f].collect() for f in pheno_list_ht.key])) # list of tuples
+#    print(f'\nWARNING: For testing purposes, only using first 10 traits\n')
+#    pheno_list = pheno_list[:10]
+#    
+    pheno_list = [
+#            ('biomarkers', '30600', 'both_sexes', '', 'irnt'), # 6 pop LOO quant
+#            ('categorical', '100240', 'both_sexes', '100240', ''), # 6 pop LOO binary
+            ('continuous', '1408', 'both_sexes', '', ''),# 5 pop not_AFR quant
+            ('icd10','Z37','both_sexes','',''), # 5 pop not_EUR binary
+#            ('categorical', '1150', 'both_sexes', '3', ''), # 5 pop not_AFR binary
+            ]
+    print(pheno_list)
     
-#    pheno_list = [('100420','100420','continuous')]
-    #[('100002', 'irnt', 'continuous')]#,
-#                  ('100001', 'irnt', 'continuous')] # dummy list for testing
-#    pheno_list = [("biomarkers", "30600", "both_sexes", "30600", "")]
-    pheno_list = [("categorical", "1150", "both_sexes", "", "3")]
     return pheno_list
-
 
 def make_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier):
     pheno_id = (trait_type+'-'+
@@ -77,27 +97,128 @@ def make_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier):
                 ('-'+modifier if len(modifier)>0 else ''))
     return pheno_id    
 
-def get_meta_sumstats(p, hail_script, pop, trait_type, phenocode, pheno_sex, coding, modifier):
-#    get_meta_ss = p.new_job(name='get_meta_ss')
-#    get_meta_ss = get_meta_ss.image('gcr.io/ukbb-diversepops-neale/hail_utils:3.4')
-#    get_meta_ss.command(' '.join(['set','-ex']))
-#    get_meta_ss.command(' '.join(['PYTHONPATH=$PYTHONPATH:/',
-#                        'PYSPARK_SUBMIT_ARGS="--conf spark.driver.memory=4g --conf spark.executor.memory=24g pyspark-shell"']))
-#    get_meta_ss.command(' '.join(['python3', str(hail_script),
-#                         '--test_get_meta_sumstats',
-#                         '--pop', pop,
-#                         '--trait_type', trait_type,
-#                         '--phenocode', phenocode,
-#                         '--pheno_sex', pheno_sex,
-#                         '--output_file', get_meta_ss.ofile,
-#                         '--n_threads', str(8)]+(
-#                         ['--coding',coding] if coding!='' else [])+(
-#                         ['--modifier',modifier] if modifier!='' else [])))  
-#    meta_ss = get_meta_ss.ofile
-    meta_ss = p.read_input(f'{ldprune_dir}/loo/not_AFR/batch2/biomarkers-30740-30740.tsv.bgz')
+def get_meta_sumstats(p, hail_script, pop, trait_type, phenocode, pheno_sex, 
+                      coding, modifier, method):
+    assert method in {'clump','sbayesr'}
+    pheno_id = make_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier)
+    filename=f'{pheno_id}.tsv.bgz'
     
-    return meta_ss
+    loo_dir ='gs://ukb-diverse-pops/ld_prune/loo/sumstats/batch1' 
+    if hl.hadoop_is_file(f'{loo_dir}/{filename}'): # 6 pop LOO
+        get_meta_ss = p.new_job(name=f'get_meta_ss_{pop}-{pheno_id}')
+        get_meta_ss.storage('2G')
+        get_meta_ss.cpu(1)
+        get_meta_ss.command(' '.join(['set','-ex']))
+        meta_ss = p.read_input(f'{loo_dir}/{filename}')
+        if method=='clump':
+            get_meta_ss.command(' '.join(['gunzip','-c',str(meta_ss),'|',
+                                          'cut',f'-f1,{2+all_pops.index(pop)}','|',
+                                          'sed',f"'s/pval_not_{pop}/P/g'",'|',
+                                              'awk',"""'$2!="NA" {print}'""",
+                                          '>',get_meta_ss.ofile]))
+        elif method=='sbayesr':
+            pass
+    else:    
+        assert trait_type in ['continuous','biomarkers','categorical','phecode', 'icd10', 'prescriptions']
+        trait_category = 'quant' if trait_type in ['continuous','biomarkers'] else 'binary'
+        pop_list = [p for p in all_pops if p!=pop]
+        five_pop_dir = f'gs://ukb-diverse-pops/ld_prune/release/{trait_category}/{"-".join(pop_list)}_batch1'
+        if hl.hadoop_is_file(f'{five_pop_dir}/{filename}'):
+            get_meta_ss = p.new_job(name=f'get_meta_ss_{pop}-{pheno_id}')
+            get_meta_ss.command(' '.join(['set','-ex']))
+            get_meta_ss.storage('2G')
+            get_meta_ss.cpu(1)
+            meta_ss = p.read_input(f'{five_pop_dir}/{filename}')
+            if method=='clump':
+                pval_col_idx = 8 if trait_category == 'quant' else 9 # due to additional AF columns in binary traits, pvalue column location may change
+                get_meta_ss.command(' '.join(['gunzip','-c',str(meta_ss),'|',
+                                              'awk',f"""'{{print $1=$1":"$2":"$3":"$4, $2=${pval_col_idx}}}'""",'|',
+                                              'sed','-e',"""'s/pval_meta/P/g'""",
+                                              '-e',"""'s/chr:pos:ref:alt/SNP/g'""",'|',
+                                              'awk',"""'$2!="NA" {print}'""",
+                                              '>',get_meta_ss.ofile]))
+            elif method=='sbayesr':
+                pass
+        else:
+            print(f'ERROR: No sumstats for {pheno_id} for not_{pop}')
+            return None            
+    return get_meta_ss.ofile
 
+
+def get_adj_betas(p, pop, trait_type, phenocode, pheno_sex, coding, modifier, hail_script):
+    r'''
+    wrapper method for both PLINK clumping and SBayesR
+    '''
+                
+#    task_suffix = f'not_{pop}-{trait_type}-{phenocode}-{coding}'
+#    attributes_dict = {'pop': pop,
+#                       'trait_type': trait_type,
+#                       'pheno': phenocode,
+#                       'coding': coding}    
+#    n_threads = 8
+    
+#    output_dir = f'{ldprune_dir}/results/not_{pop}/{trait_type}-{pheno}-{coding}'
+    temp_bucket = 'gs://ukbb-diverse-temp-30day'
+    output_dir = f'{temp_bucket}/results-test/not_{pop}/{make_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier)}' # for testing
+
+    clump_output_txt = f'{output_dir}/clumped_results-test.txt' # PLINK clump output txt file
+    clump_output_ht = f'{output_dir}/clump_results-test.ht' # PLINK clump output hail table
+    
+    sbayesr_output_txt = f'{output_dir}/sbayesr_results-test.txt' # SBayesR output txt file
+    sbayesr_output_ht = f'{output_dir}/sbayesr_results-test.ht' # SBayesR output hail table
+    
+    test_run = True
+    
+    if test_run:
+        print('\n\nWARNING: Test run may overwrite existing results!\n')
+    
+    if not hl.hadoop_is_file(f'{clump_output_ht}/_SUCCESS') or test_run:
+        ss = get_meta_sumstats(p=p,
+                               hail_script=hail_script,
+                               pop=pop, 
+                               trait_type=trait_type, 
+                               phenocode=phenocode, 
+                               pheno_sex=pheno_sex, 
+                               coding=coding,
+                               modifier=modifier,
+                               method='clump')
+        
+        if ss!=None:
+            
+#            head_ss = p.new_job(name='head_ss')
+#            head_ss.command(' '.join(['set','-ex']))
+##            head_ss.command(' '.join(['gunzip -c', str(ss), '|', 'head']))
+#            head_ss.command(' '.join(['head',str(ss)]))
+            
+            run_method(p=p, 
+                       pop=pop, 
+                       trait_type=trait_type,
+                       phenocode=phenocode,
+                       pheno_sex=pheno_sex,
+                       coding=coding,
+                       modifier=modifier,  
+                       hail_script=hail_script, 
+                       output_txt=clump_output_txt,
+                       output_ht=clump_output_ht,
+                       ss=ss,
+                       method='clump')
+        
+#    if not hl.hadoop_is_file(f'{sbayesr_output_ht}/_SUCCESS'):
+#            
+#        meta_ss = p.read_input(f'{ldprune_dir}/loo/not_AFR/batch2/biomarkers-30740-30740.tsv.bgz')
+#
+#        run_method(p=p, 
+#                   pop=pop, 
+#                   pheno=pheno, 
+#                   coding=coding, 
+#                   trait_type=trait_type, 
+#                   hail_script=hail_script, 
+#                   output_txt=sbayesr_output_txt,
+#                   output_ht=sbayesr_output_ht,
+#                   ss=meta_ss,
+#                   method='sbayesr')
+        
+        
 def run_method(p, pop, trait_type, phenocode, pheno_sex, coding, modifier, 
                hail_script, output_txt, output_ht, ss, method):
     r'''
@@ -113,7 +234,7 @@ def run_method(p, pop, trait_type, phenocode, pheno_sex, coding, modifier,
     tasks = []
         
     ## run plink clumping
-    for chrom in range(1,23):
+    for chrom in range(22,23):
         ## read ref ld plink files 
         bfile = read_plink_input_group_chrom(p=p, 
                                              method=method,
@@ -129,15 +250,18 @@ def run_method(p, pop, trait_type, phenocode, pheno_sex, coding, modifier,
         get_betas.command(' '.join(['set','-ex']))
         
         if method == 'clump':
-            get_betas.memory('30G')
+            clump_memory = -15*(chrom-1)+400 # Memory requested for PLINK clumping in MB. equation: -15*(chrom-1) + 400 is based on 400 MB for chr 1, 80 MB for chr 22
+            get_betas.memory(f'{clump_memory}M') # default: 30G
 #            get_betas.command(f' gunzip -c {ss} | grep "^{chrom}:\|SNP" |'+"awk '{ print $1,$7 }' | head")
 #            get_betas.command(f'head {bfile.bim}')
-            get_betas.command(' '.join([f'gunzip -c {ss} | grep "^{chrom}:\|SNP" > {get_betas.ofile}_ss']))
+#            get_betas.command(' '.join([f'gunzip -c {ss} | grep "^{chrom}:\|SNP" > {get_betas.ofile}_ss']))
             
             get_betas.command(' '.join(['plink',
                                         '--bfile', str(bfile),
-                                        '--clump', f'{get_betas.ofile}_ss',
-                                        '--clump-field p',
+                                        '--memory',str(clump_memory),
+#                                        '--clump', f'{get_betas.ofile}_ss',
+                                        '--clump', '<(','grep',f'"^{chrom}:\|SNP"', str(ss), ')',
+                                        '--clump-field P',
                                         '--clump-snp-field SNP',
                                         '--clump-p1 1',
                                         '--clump-p2 1',
@@ -212,100 +336,35 @@ def run_method(p, pop, trait_type, phenocode, pheno_sex, coding, modifier,
     p.write_output(get_betas_sink.ofile, output_txt)
     
     ## import as hail table and save
-    tsv_to_ht = p.new_job(name=f'{method}_to_ht_{task_suffix}')
-    tsv_to_ht = tsv_to_ht.image('gcr.io/ukbb-diversepops-neale/hail_utils:3.4')
-    tsv_to_ht.storage('1G')
-    tsv_to_ht.memory('100M')
-    tsv_to_ht.cpu(n_threads)
-    tsv_to_ht.depends_on(get_betas_sink)
-    
-    tsv_to_ht.command(' '.join(['set','-ex']))
-    tsv_to_ht.command(' '.join(['PYTHONPATH=$PYTHONPATH:/',
-                        'PYSPARK_SUBMIT_ARGS="--conf spark.driver.memory=4g --conf spark.executor.memory=24g pyspark-shell"']))
-    tsv_to_ht.command(' '.join(['python3', str(hail_script),
-                         '--input_file', output_txt,
-                         '--tsv_to_ht',
-                         '--pop', pop,
-                         '--trait_type', trait_type,
-                         '--phenocode', phenocode,
-                         '--pheno_sex', pheno_sex,
-                         '--coding',coding,
-                         '--modifier',modifier,
-                         '--output_file', output_ht,
-                         '--n_threads', str(n_threads),
-                         '--overwrite']))    
-
-
-def get_adj_betas(p, pop, trait_type, phenocode, pheno_sex, coding, modifier, hail_script):
-    r'''
-    wrapper method for both PLINK clumping and SBayesR
-    '''
-                
-#    task_suffix = f'not_{pop}-{trait_type}-{phenocode}-{coding}'
-#    attributes_dict = {'pop': pop,
-#                       'trait_type': trait_type,
-#                       'pheno': phenocode,
-#                       'coding': coding}    
-#    n_threads = 8
-    
-#    output_dir = f'{ldprune_dir}/results/not_{pop}/{trait_type}-{pheno}-{coding}'
-    output_dir = f'{ldprune_dir}/test-results/not_{pop}/{make_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier)}' # for testing
-
-    clump_output_txt = f'{output_dir}/clumped_results-test.txt' # PLINK clump output txt file
-    clump_output_ht = f'{output_dir}/clump_results-test.ht' # PLINK clump output hail table
-    
-    sbayesr_output_txt = f'{output_dir}/sbayesr_results-test.txt' # SBayesR output txt file
-    sbayesr_output_ht = f'{output_dir}/sbayesr_results-test.ht' # SBayesR output hail table
-    
-    
-    if not hl.hadoop_is_file(f'{clump_output_ht}/_SUCCESS'):
-        ss = get_meta_sumstats(p=p,
-                               hail_script=hail_script,
-                               pop=pop, 
-                               trait_type=trait_type, 
-                               phenocode=phenocode, 
-                               pheno_sex=pheno_sex, 
-                               coding=coding,
-                               modifier=modifier)
-#
-#        head_ss = p.new_job(name='head_ss')
-#        head_ss.command(' '.join(['set','-ex']))
-#        head_ss.command(' '.join(['head', str(ss)]))
-        
-        run_method(p=p, 
-                   pop=pop, 
-                   trait_type=trait_type,
-                   phenocode=phenocode,
-                   pheno_sex=pheno_sex,
-                   coding=coding,
-                   modifier=modifier,  
-                   hail_script=hail_script, 
-                   output_txt=clump_output_txt,
-                   output_ht=clump_output_ht,
-                   ss=ss,
-                   method='clump')
-        
-#    if not hl.hadoop_is_file(f'{sbayesr_output_ht}/_SUCCESS'):
-#            
-#        meta_ss = p.read_input(f'{ldprune_dir}/loo/not_AFR/batch2/biomarkers-30740-30740.tsv.bgz')
-#
-#        run_method(p=p, 
-#                   pop=pop, 
-#                   pheno=pheno, 
-#                   coding=coding, 
-#                   trait_type=trait_type, 
-#                   hail_script=hail_script, 
-#                   output_txt=sbayesr_output_txt,
-#                   output_ht=sbayesr_output_ht,
-#                   ss=meta_ss,
-#                   method='sbayesr')
-        
-        
+#    tsv_to_ht = p.new_job(name=f'{method}_to_ht_{task_suffix}')
+#    tsv_to_ht = tsv_to_ht.image('gcr.io/ukbb-diversepops-neale/hail_utils:3.4')
+#    tsv_to_ht.storage('1G')
+#    tsv_to_ht.memory('100M')
+#    tsv_to_ht.cpu(n_threads)
+#    tsv_to_ht.depends_on(get_betas_sink)
+#    
+#    tsv_to_ht.command(' '.join(['set','-ex']))
+#    tsv_to_ht.command(' '.join(['PYTHONPATH=$PYTHONPATH:/',
+#                        'PYSPARK_SUBMIT_ARGS="--conf spark.driver.memory=4g --conf spark.executor.memory=24g pyspark-shell"']))
+#    tsv_to_ht.command(' '.join(['python3', str(hail_script),
+#                         '--input_file', output_txt,
+#                         '--tsv_to_ht',
+#                         '--pop', pop,
+#                         '--trait_type', trait_type,
+#                         '--phenocode', phenocode,
+#                         '--pheno_sex', pheno_sex,
+#                         '--output_file', output_ht,
+#                         '--n_threads', str(n_threads),
+#                         '--overwrite']+
+#                         (['--coding',coding] if coding != '' else [])+
+#                         (['--modifier',modifier] if modifier != '' else [])))    
 
 def main():
-    pops = ['AFR',]#'EUR'] # 'AFR']#
+    pops = ['AFR','EUR'] # 'AFR']#
     
     backend = batch.ServiceBackend(billing_project='ukb_diverse_pops')
+#    backend = batch.LocalBackend(tmp_dir='/tmp/batch/')
+    
     p = batch.batch.Batch(name='test-clump', backend=backend,
                           default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:0.1',
                           default_storage='500Mi', default_cpu=8)
@@ -329,8 +388,12 @@ def main():
                           coding=coding,
                           modifier=modifier, 
                           hail_script=hail_script)
-    
     p.run(open=True)
+#    if type(backend)==batch.ServiceBackend:
+#        print('running')
+#    else:
+#        p.run(verbose=True,
+#              delete_scratch_on_exit=True)
     
     backend.close()
 

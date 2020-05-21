@@ -1,0 +1,2 @@
+2020-05-21 15:23:44 Hail: INFO: Running Hail version 0.2.40-216e3cc7271c
+2020-05-21 15:23:45 SparkContext: WARN: Using an existing SparkContext; some configuration may not take effect.

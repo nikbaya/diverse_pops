@@ -1,0 +1,1949 @@
+2020-05-18 16:12:19 Hail: INFO: Running Hail version 0.2.40-216e3cc7271c
+2020-05-18 16:12:20 SparkContext: WARN: Using an existing SparkContext; some configuration may not take effect.
+2020-05-18 16:12:21 root: INFO: RegionPool: initialized for thread 15: Thread-4
+2020-05-18 16:12:24 root: INFO: globbing path gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv returned 1 files: phenotype_manifest.tsv
+2020-05-18 16:12:24 MemoryStore: INFO: Block broadcast_0 stored as values in memory (estimated size 238.1 KB, free 366.1 MB)
+2020-05-18 16:12:25 MemoryStore: INFO: Block broadcast_0_piece0 stored as bytes in memory (estimated size 23.2 KB, free 366.0 MB)
+2020-05-18 16:12:25 BlockManagerInfo: INFO: Added broadcast_0_piece0 in memory on 192.168.0.110:57518 (size: 23.2 KB, free: 366.3 MB)
+2020-05-18 16:12:25 SparkContext: INFO: Created broadcast 0 from textFile at RichSparkContext.scala:16
+2020-05-18 16:12:26 FileInputFormat: INFO: Total input paths to process : 1
+2020-05-18 16:12:26 Hail: INFO: Reading table to impute column types
+2020-05-18 16:12:26 SparkContext: INFO: Starting job: reduce at TextTableReader.scala:201
+2020-05-18 16:12:26 DAGScheduler: INFO: Got job 0 (reduce at TextTableReader.scala:201) with 8 output partitions
+2020-05-18 16:12:26 DAGScheduler: INFO: Final stage: ResultStage 0 (reduce at TextTableReader.scala:201)
+2020-05-18 16:12:26 DAGScheduler: INFO: Parents of final stage: List()
+2020-05-18 16:12:26 DAGScheduler: INFO: Missing parents: List()
+2020-05-18 16:12:26 DAGScheduler: INFO: Submitting ResultStage 0 (MapPartitionsRDD[4] at mapPartitions at TextTableReader.scala:172), which has no missing parents
+2020-05-18 16:12:26 MemoryStore: INFO: Block broadcast_1 stored as values in memory (estimated size 6.5 KB, free 366.0 MB)
+2020-05-18 16:12:26 MemoryStore: INFO: Block broadcast_1_piece0 stored as bytes in memory (estimated size 3.5 KB, free 366.0 MB)
+2020-05-18 16:12:26 BlockManagerInfo: INFO: Added broadcast_1_piece0 in memory on 192.168.0.110:57518 (size: 3.5 KB, free: 366.3 MB)
+2020-05-18 16:12:26 SparkContext: INFO: Created broadcast 1 from broadcast at DAGScheduler.scala:1161
+2020-05-18 16:12:26 DAGScheduler: INFO: Submitting 8 missing tasks from ResultStage 0 (MapPartitionsRDD[4] at mapPartitions at TextTableReader.scala:172) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7))
+2020-05-18 16:12:26 TaskSchedulerImpl: INFO: Adding task set 0.0 with 8 tasks
+2020-05-18 16:12:26 TaskSetManager: INFO: Starting task 0.0 in stage 0.0 (TID 0, localhost, executor driver, partition 0, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:26 TaskSetManager: INFO: Starting task 1.0 in stage 0.0 (TID 1, localhost, executor driver, partition 1, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:26 TaskSetManager: INFO: Starting task 2.0 in stage 0.0 (TID 2, localhost, executor driver, partition 2, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:26 TaskSetManager: INFO: Starting task 3.0 in stage 0.0 (TID 3, localhost, executor driver, partition 3, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:26 TaskSetManager: INFO: Starting task 4.0 in stage 0.0 (TID 4, localhost, executor driver, partition 4, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:26 TaskSetManager: INFO: Starting task 5.0 in stage 0.0 (TID 5, localhost, executor driver, partition 5, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:26 TaskSetManager: INFO: Starting task 6.0 in stage 0.0 (TID 6, localhost, executor driver, partition 6, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:26 TaskSetManager: INFO: Starting task 7.0 in stage 0.0 (TID 7, localhost, executor driver, partition 7, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:26 Executor: INFO: Running task 5.0 in stage 0.0 (TID 5)
+2020-05-18 16:12:26 Executor: INFO: Running task 4.0 in stage 0.0 (TID 4)
+2020-05-18 16:12:26 Executor: INFO: Running task 3.0 in stage 0.0 (TID 3)
+2020-05-18 16:12:26 Executor: INFO: Running task 6.0 in stage 0.0 (TID 6)
+2020-05-18 16:12:26 Executor: INFO: Running task 7.0 in stage 0.0 (TID 7)
+2020-05-18 16:12:26 Executor: INFO: Running task 2.0 in stage 0.0 (TID 2)
+2020-05-18 16:12:26 Executor: INFO: Running task 1.0 in stage 0.0 (TID 1)
+2020-05-18 16:12:26 Executor: INFO: Running task 0.0 in stage 0.0 (TID 0)
+2020-05-18 16:12:26 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:0+506205
+2020-05-18 16:12:26 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3037230+506205
+2020-05-18 16:12:26 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:506205+506205
+2020-05-18 16:12:26 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3543435+506210
+2020-05-18 16:12:26 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1518615+506205
+2020-05-18 16:12:26 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2024820+506205
+2020-05-18 16:12:26 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1012410+506205
+2020-05-18 16:12:26 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2531025+506205
+2020-05-18 16:12:27 Executor: INFO: Finished task 0.0 in stage 0.0 (TID 0). 1059 bytes result sent to driver
+2020-05-18 16:12:27 TaskSetManager: INFO: Finished task 0.0 in stage 0.0 (TID 0) in 1025 ms on localhost (executor driver) (1/8)
+2020-05-18 16:12:27 Executor: INFO: Finished task 7.0 in stage 0.0 (TID 7). 1059 bytes result sent to driver
+2020-05-18 16:12:27 Executor: INFO: Finished task 5.0 in stage 0.0 (TID 5). 1059 bytes result sent to driver
+2020-05-18 16:12:27 TaskSetManager: INFO: Finished task 5.0 in stage 0.0 (TID 5) in 1014 ms on localhost (executor driver) (2/8)
+2020-05-18 16:12:27 TaskSetManager: INFO: Finished task 7.0 in stage 0.0 (TID 7) in 1014 ms on localhost (executor driver) (3/8)
+2020-05-18 16:12:27 Executor: INFO: Finished task 2.0 in stage 0.0 (TID 2). 1059 bytes result sent to driver
+2020-05-18 16:12:27 TaskSetManager: INFO: Finished task 2.0 in stage 0.0 (TID 2) in 1168 ms on localhost (executor driver) (4/8)
+2020-05-18 16:12:27 Executor: INFO: Finished task 1.0 in stage 0.0 (TID 1). 1059 bytes result sent to driver
+2020-05-18 16:12:27 TaskSetManager: INFO: Finished task 1.0 in stage 0.0 (TID 1) in 1230 ms on localhost (executor driver) (5/8)
+2020-05-18 16:12:27 Executor: INFO: Finished task 3.0 in stage 0.0 (TID 3). 1059 bytes result sent to driver
+2020-05-18 16:12:27 TaskSetManager: INFO: Finished task 3.0 in stage 0.0 (TID 3) in 1230 ms on localhost (executor driver) (6/8)
+2020-05-18 16:12:27 Executor: INFO: Finished task 6.0 in stage 0.0 (TID 6). 1102 bytes result sent to driver
+2020-05-18 16:12:27 TaskSetManager: INFO: Finished task 6.0 in stage 0.0 (TID 6) in 1234 ms on localhost (executor driver) (7/8)
+2020-05-18 16:12:27 Executor: INFO: Finished task 4.0 in stage 0.0 (TID 4). 1102 bytes result sent to driver
+2020-05-18 16:12:27 TaskSetManager: INFO: Finished task 4.0 in stage 0.0 (TID 4) in 1402 ms on localhost (executor driver) (8/8)
+2020-05-18 16:12:27 TaskSchedulerImpl: INFO: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+2020-05-18 16:12:27 DAGScheduler: INFO: ResultStage 0 (reduce at TextTableReader.scala:201) finished in 1.552 s
+2020-05-18 16:12:27 DAGScheduler: INFO: Job 0 finished: reduce at TextTableReader.scala:201, took 1.653865 s
+2020-05-18 16:12:27 Hail: INFO: Finished type imputation
+  Loading column 'trait_type' as type 'str' (imputed)
+  Loading column 'phenocode' as type 'str' (imputed)
+  Loading column 'pheno_sex' as type 'str' (imputed)
+  Loading column 'coding' as type 'str' (imputed)
+  Loading column 'modifier' as type 'str' (imputed)
+  Loading column 'description' as type 'str' (imputed)
+  Loading column 'description_more' as type 'str' (imputed)
+  Loading column 'coding_description' as type 'str' (imputed)
+  Loading column 'category' as type 'str' (imputed)
+  Loading column 'n_cases_full_cohort_both_sexes' as type 'int32' (imputed)
+  Loading column 'n_cases_full_cohort_females' as type 'int32' (imputed)
+  Loading column 'n_cases_full_cohort_males' as type 'int32' (imputed)
+  Loading column 'n_cases_AFR' as type 'int32' (imputed)
+  Loading column 'n_cases_AMR' as type 'int32' (imputed)
+  Loading column 'n_cases_CSA' as type 'int32' (imputed)
+  Loading column 'n_cases_EAS' as type 'int32' (imputed)
+  Loading column 'n_cases_EUR' as type 'int32' (imputed)
+  Loading column 'n_cases_MID' as type 'int32' (imputed)
+  Loading column 'n_controls_AFR' as type 'int32' (imputed)
+  Loading column 'n_controls_AMR' as type 'int32' (imputed)
+  Loading column 'n_controls_CSA' as type 'int32' (imputed)
+  Loading column 'n_controls_EAS' as type 'int32' (imputed)
+  Loading column 'n_controls_EUR' as type 'int32' (imputed)
+  Loading column 'n_controls_MID' as type 'int32' (imputed)
+  Loading column 'saige_heritability_AFR' as type 'float64' (imputed)
+  Loading column 'saige_heritability_AMR' as type 'float64' (imputed)
+  Loading column 'saige_heritability_CSA' as type 'float64' (imputed)
+  Loading column 'saige_heritability_EAS' as type 'float64' (imputed)
+  Loading column 'saige_heritability_EUR' as type 'float64' (imputed)
+  Loading column 'saige_heritability_MID' as type 'float64' (imputed)
+  Loading column 'lambda_gc_AFR' as type 'float64' (imputed)
+  Loading column 'lambda_gc_AMR' as type 'float64' (imputed)
+  Loading column 'lambda_gc_CSA' as type 'float64' (imputed)
+  Loading column 'lambda_gc_EAS' as type 'float64' (imputed)
+  Loading column 'lambda_gc_EUR' as type 'float64' (imputed)
+  Loading column 'lambda_gc_MID' as type 'float64' (imputed)
+  Loading column 'filename' as type 'str' (imputed)
+2020-05-18 16:12:28 root: INFO: optimize Lowerer, initial IR: before: IR size 25: 
+(ToArray
+  (StreamMap __uid_4
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableMapGlobals
+              (TableMapRows
+                (TableRead None False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+                (InsertFields
+                  (SelectFields ()
+                    (SelectFields (trait_type phenocode pheno_sex coding modifier description description_more coding_description category n_cases_full_cohort_both_sexes n_cases_full_cohort_females n_cases_full_cohort_males n_cases_AFR n_cases_AMR n_cases_CSA n_cases_EAS n_cases_EUR n_cases_MID n_controls_AFR n_controls_AMR n_controls_CSA n_controls_EAS n_controls_EUR n_controls_MID saige_heritability_AFR saige_heritability_AMR saige_heritability_CSA saige_heritability_EAS saige_heritability_EUR saige_heritability_MID lambda_gc_AFR lambda_gc_AMR lambda_gc_CSA lambda_gc_EAS lambda_gc_EUR lambda_gc_MID filename)
+                      (Ref row)))
+                  None
+                  (trait_type
+                    (GetField trait_type
+                      (Ref row)))))
+              (InsertFields
+                (SelectFields ()
+                  (SelectFields ()
+                    (Ref global)))
+                None))
+            (InsertFields
+              (SelectFields (trait_type)
+                (SelectFields (trait_type)
+                  (Ref row)))
+              None)))))
+    (GetField trait_type
+      (Ref __uid_4))))
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 4.786ms, total 90.225ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 9.851ms, total 101.821ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- Simplify : 24.687ms, total 127.277ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 23.100ms, total 150.994ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 1.764ms, total 153.453ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 27.668ms, total 181.596ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.277ms, total 182.433ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.323ms, total 183.219ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.473ms, total 184.077ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.943ms, total 185.422ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.086ms, total 185.812ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.198ms, total 187.248ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.203ms, total 187.758ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.068ms, total 188.086ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.211ms, total 188.482ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.715ms, total 189.384ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.101ms, total 189.775ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.783ms, total 190.783ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize : 107.241ms, total 191.069ms, tagged coverage 90.7
+2020-05-18 16:12:28 root: INFO: optimize Lowerer, initial IR: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_2
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{trait_type:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField trait_type
+      (Ref __iruid_2))))
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 1.509ms, total 198.698ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 11.832ms, total 211.269ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.057ms, total 211.945ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for LowerMatrixToTable : 16.839ms, total 213.509ms, tagged coverage 79.6
+2020-05-18 16:12:28 root: INFO: optimize LowerMatrixToTable, post Lowering: before: IR size 8: 
+(ToArray
+  (StreamMap __iruid_2
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{trait_type:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField trait_type
+      (Ref __iruid_2))))
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.087ms, total 214.762ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.118ms, total 215.052ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.105ms, total 215.288ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.576ms, total 215.978ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.058ms, total 216.211ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.571ms, total 216.940ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.115ms, total 217.240ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.059ms, total 217.426ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.097ms, total 217.638ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.455ms, total 218.328ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.053ms, total 218.524ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.500ms, total 219.141ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.132ms, total 219.416ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.077ms, total 219.651ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.179ms, total 219.978ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.639ms, total 220.745ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.084ms, total 221.012ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.149ms, total 222.299ms
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for Optimize : 7.812ms, total 222.481ms, tagged coverage 64.7
+2020-05-18 16:12:28 root: INFO: optimize LowerMatrixToTable, post Lowering: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_5
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{trait_type:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField trait_type
+      (Ref __iruid_5))))
+2020-05-18 16:12:28 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.017ms, total 223.928ms
+2020-05-18 16:12:28 root: INFO: interpreting non compilable node: TableCollect
+2020-05-18 16:12:28 MemoryStore: INFO: Block broadcast_2 stored as values in memory (estimated size 238.1 KB, free 365.8 MB)
+2020-05-18 16:12:28 MemoryStore: INFO: Block broadcast_2_piece0 stored as bytes in memory (estimated size 23.2 KB, free 365.8 MB)
+2020-05-18 16:12:28 BlockManagerInfo: INFO: Added broadcast_2_piece0 in memory on 192.168.0.110:57518 (size: 23.2 KB, free: 366.3 MB)
+2020-05-18 16:12:28 SparkContext: INFO: Created broadcast 2 from textFile at RichSparkContext.scala:16
+2020-05-18 16:12:28 FileInputFormat: INFO: Total input paths to process : 1
+2020-05-18 16:12:28 root: INFO: encoder cache miss (0 hits, 1 misses, 0.000)
+2020-05-18 16:12:29 root: INFO: instruction count: 6: __C1etypeEncode.<init>
+2020-05-18 16:12:29 root: INFO: instruction count: 8: __C1etypeEncode.apply
+2020-05-18 16:12:29 root: INFO: instruction count: 20: __C1etypeEncode.__m2ENCODE_r_tuple_of_o_stringEND_TO_r_struct_of_o_binaryEND
+2020-05-18 16:12:29 root: INFO: instruction count: 25: __C1etypeEncode.__m3write_fields_group_0
+2020-05-18 16:12:29 root: INFO: instruction count: 19: __C1etypeEncode.__m4ENCODE_o_binary_TO_o_binary
+2020-05-18 16:12:29 SparkContext: INFO: Starting job: collect at RVD.scala:726
+2020-05-18 16:12:29 DAGScheduler: INFO: Got job 1 (collect at RVD.scala:726) with 8 output partitions
+2020-05-18 16:12:29 DAGScheduler: INFO: Final stage: ResultStage 1 (collect at RVD.scala:726)
+2020-05-18 16:12:29 DAGScheduler: INFO: Parents of final stage: List()
+2020-05-18 16:12:29 DAGScheduler: INFO: Missing parents: List()
+2020-05-18 16:12:29 DAGScheduler: INFO: Submitting ResultStage 1 (MapPartitionsRDD[14] at mapPartitions at ContextRDD.scala:157), which has no missing parents
+2020-05-18 16:12:29 MemoryStore: INFO: Block broadcast_3 stored as values in memory (estimated size 19.4 KB, free 365.8 MB)
+2020-05-18 16:12:29 MemoryStore: INFO: Block broadcast_3_piece0 stored as bytes in memory (estimated size 9.7 KB, free 365.8 MB)
+2020-05-18 16:12:29 BlockManagerInfo: INFO: Added broadcast_3_piece0 in memory on 192.168.0.110:57518 (size: 9.7 KB, free: 366.2 MB)
+2020-05-18 16:12:29 SparkContext: INFO: Created broadcast 3 from broadcast at DAGScheduler.scala:1161
+2020-05-18 16:12:29 DAGScheduler: INFO: Submitting 8 missing tasks from ResultStage 1 (MapPartitionsRDD[14] at mapPartitions at ContextRDD.scala:157) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7))
+2020-05-18 16:12:29 TaskSchedulerImpl: INFO: Adding task set 1.0 with 8 tasks
+2020-05-18 16:12:29 TaskSetManager: INFO: Starting task 0.0 in stage 1.0 (TID 8, localhost, executor driver, partition 0, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:29 TaskSetManager: INFO: Starting task 1.0 in stage 1.0 (TID 9, localhost, executor driver, partition 1, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:29 TaskSetManager: INFO: Starting task 2.0 in stage 1.0 (TID 10, localhost, executor driver, partition 2, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:29 TaskSetManager: INFO: Starting task 3.0 in stage 1.0 (TID 11, localhost, executor driver, partition 3, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:29 TaskSetManager: INFO: Starting task 4.0 in stage 1.0 (TID 12, localhost, executor driver, partition 4, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:29 TaskSetManager: INFO: Starting task 5.0 in stage 1.0 (TID 13, localhost, executor driver, partition 5, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:29 TaskSetManager: INFO: Starting task 6.0 in stage 1.0 (TID 14, localhost, executor driver, partition 6, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:29 TaskSetManager: INFO: Starting task 7.0 in stage 1.0 (TID 15, localhost, executor driver, partition 7, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:29 Executor: INFO: Running task 0.0 in stage 1.0 (TID 8)
+2020-05-18 16:12:29 Executor: INFO: Running task 1.0 in stage 1.0 (TID 9)
+2020-05-18 16:12:29 Executor: INFO: Running task 2.0 in stage 1.0 (TID 10)
+2020-05-18 16:12:29 Executor: INFO: Running task 3.0 in stage 1.0 (TID 11)
+2020-05-18 16:12:29 Executor: INFO: Running task 4.0 in stage 1.0 (TID 12)
+2020-05-18 16:12:29 Executor: INFO: Running task 5.0 in stage 1.0 (TID 13)
+2020-05-18 16:12:29 Executor: INFO: Running task 6.0 in stage 1.0 (TID 14)
+2020-05-18 16:12:29 Executor: INFO: Running task 7.0 in stage 1.0 (TID 15)
+2020-05-18 16:12:29 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1518615+506205
+2020-05-18 16:12:29 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3037230+506205
+2020-05-18 16:12:29 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3543435+506210
+2020-05-18 16:12:29 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2024820+506205
+2020-05-18 16:12:29 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:506205+506205
+2020-05-18 16:12:29 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2531025+506205
+2020-05-18 16:12:29 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:0+506205
+2020-05-18 16:12:29 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1012410+506205
+2020-05-18 16:12:29 root: INFO: RegionPool: initialized for thread 64: Executor task launch worker for task 8
+2020-05-18 16:12:29 root: INFO: RegionPool: initialized for thread 67: Executor task launch worker for task 14
+2020-05-18 16:12:29 Executor: INFO: Finished task 6.0 in stage 1.0 (TID 14). 22775 bytes result sent to driver
+2020-05-18 16:12:29 TaskSetManager: INFO: Finished task 6.0 in stage 1.0 (TID 14) in 337 ms on localhost (executor driver) (1/8)
+2020-05-18 16:12:29 root: INFO: RegionPool: initialized for thread 62: Executor task launch worker for task 12
+2020-05-18 16:12:29 root: INFO: RegionPool: initialized for thread 66: Executor task launch worker for task 9
+2020-05-18 16:12:29 root: INFO: RegionPool: initialized for thread 65: Executor task launch worker for task 13
+2020-05-18 16:12:29 root: INFO: RegionPool: initialized for thread 61: Executor task launch worker for task 11
+2020-05-18 16:12:29 root: INFO: RegionPool: initialized for thread 63: Executor task launch worker for task 10
+2020-05-18 16:12:29 Executor: INFO: Finished task 4.0 in stage 1.0 (TID 12). 13349 bytes result sent to driver
+2020-05-18 16:12:29 TaskSetManager: INFO: Finished task 4.0 in stage 1.0 (TID 12) in 717 ms on localhost (executor driver) (2/8)
+2020-05-18 16:12:30 Executor: INFO: Finished task 3.0 in stage 1.0 (TID 11). 17007 bytes result sent to driver
+2020-05-18 16:12:30 TaskSetManager: INFO: Finished task 3.0 in stage 1.0 (TID 11) in 943 ms on localhost (executor driver) (3/8)
+2020-05-18 16:12:30 Executor: INFO: Finished task 0.0 in stage 1.0 (TID 8). 17966 bytes result sent to driver
+2020-05-18 16:12:30 Executor: INFO: Finished task 5.0 in stage 1.0 (TID 13). 19206 bytes result sent to driver
+2020-05-18 16:12:30 TaskSetManager: INFO: Finished task 0.0 in stage 1.0 (TID 8) in 962 ms on localhost (executor driver) (4/8)
+2020-05-18 16:12:30 TaskSetManager: INFO: Finished task 5.0 in stage 1.0 (TID 13) in 961 ms on localhost (executor driver) (5/8)
+2020-05-18 16:12:30 Executor: INFO: Finished task 1.0 in stage 1.0 (TID 9). 19758 bytes result sent to driver
+2020-05-18 16:12:30 TaskSetManager: INFO: Finished task 1.0 in stage 1.0 (TID 9) in 975 ms on localhost (executor driver) (6/8)
+2020-05-18 16:12:30 root: INFO: RegionPool: initialized for thread 60: Executor task launch worker for task 15
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 21
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 19
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 10
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 9
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 1
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 12
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 17
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 13
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 11
+2020-05-18 16:12:30 Executor: INFO: Finished task 2.0 in stage 1.0 (TID 10). 18231 bytes result sent to driver
+2020-05-18 16:12:30 Executor: INFO: Finished task 7.0 in stage 1.0 (TID 15). 42664 bytes result sent to driver
+2020-05-18 16:12:30 TaskSetManager: INFO: Finished task 2.0 in stage 1.0 (TID 10) in 1302 ms on localhost (executor driver) (7/8)
+2020-05-18 16:12:30 TaskSetManager: INFO: Finished task 7.0 in stage 1.0 (TID 15) in 1301 ms on localhost (executor driver) (8/8)
+2020-05-18 16:12:30 TaskSchedulerImpl: INFO: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+2020-05-18 16:12:30 DAGScheduler: INFO: ResultStage 1 (collect at RVD.scala:726) finished in 1.316 s
+2020-05-18 16:12:30 DAGScheduler: INFO: Job 1 finished: collect at RVD.scala:726, took 1.325242 s
+2020-05-18 16:12:30 BlockManagerInfo: INFO: Removed broadcast_1_piece0 on 192.168.0.110:57518 in memory (size: 3.5 KB, free: 366.2 MB)
+2020-05-18 16:12:30 root: INFO: decoder cache miss (0 hits, 1 misses, 0.000
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 5
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 15
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 4
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 16
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 22
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 24
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 18
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 6
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 8
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 23
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 7
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 20
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 14
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 3
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 25
+2020-05-18 16:12:30 ContextCleaner: INFO: Cleaned accumulator 2
+2020-05-18 16:12:30 root: INFO: instruction count: 6: __C5etypeDecode.<init>
+2020-05-18 16:12:30 root: INFO: instruction count: 8: __C5etypeDecode.apply
+2020-05-18 16:12:30 root: INFO: instruction count: 38: __C5etypeDecode.__m6DECODE_r_struct_of_o_binaryEND_TO_r_tuple_of_o_stringEND
+2020-05-18 16:12:30 root: INFO: instruction count: 32: __C5etypeDecode.__m7read_fields_group_0
+2020-05-18 16:12:30 root: INFO: instruction count: 34: __C5etypeDecode.__m8INPLACE_DECODE_o_binary_TO_o_binary
+2020-05-18 16:12:30 root: INFO: took 2.021s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 2.025s, total 2.249s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.652ms, total 2.250s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for InterpretNonCompilable : 2.026s, total 2.250s, tagged coverage 100.0
+2020-05-18 16:12:30 root: INFO: optimize InterpretNonCompilable, post Lowering: before: IR size 7: 
+(ToArray
+  (StreamMap __iruid_5
+    (ToStream
+      (GetField rows
+        (Literal Struct{rows:Array[Struct{trait_type:String}],global:Struct{}} <literal value>)))
+    (GetField trait_type
+      (Ref __iruid_5))))
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.245ms, total 2.251s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.082ms, total 2.252s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.110ms, total 2.252s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.525ms, total 2.253s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.077ms, total 2.253s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.434ms, total 2.254s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.105ms, total 2.254s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.033ms, total 2.254s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.093ms, total 2.255s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.445ms, total 2.255s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.073ms, total 2.255s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.366ms, total 2.256s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.103ms, total 2.256s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.037ms, total 2.256s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.105ms, total 2.257s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.485ms, total 2.257s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.141ms, total 2.258s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.990ms, total 2.259s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize : 9.211ms, total 2.260s, tagged coverage 48.3
+2020-05-18 16:12:30 root: INFO: optimize InterpretNonCompilable, post Lowering: after: IR size 6:
+(ToArray
+  (StreamMap __iruid_8
+    (ToStream
+      (Literal Array[Struct{trait_type:String}] <literal value>))
+    (GetField trait_type
+      (Ref __iruid_8))))
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.034ms, total 2.303s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.867ms, total 2.305s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.041ms, total 2.305s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 1.847ms, total 2.305s, tagged coverage 51.0
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.025ms, total 2.305s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 1.104ms, total 2.307s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.713ms, total 2.308s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 2.846ms, total 2.308s, tagged coverage 64.7
+2020-05-18 16:12:30 root: INFO: encoder cache miss (0 hits, 2 misses, 0.000)
+2020-05-18 16:12:30 root: INFO: instruction count: 6: __C32etypeEncode.<init>
+2020-05-18 16:12:30 root: INFO: instruction count: 8: __C32etypeEncode.apply
+2020-05-18 16:12:30 root: INFO: instruction count: 8: __C32etypeEncode.__m33ENCODE_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND_TO_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND
+2020-05-18 16:12:30 root: INFO: instruction count: 16: __C32etypeEncode.__m34write_fields_group_0
+2020-05-18 16:12:30 root: INFO: instruction count: 47: __C32etypeEncode.__m35ENCODE_r_array_of_r_tuple_of_r_binaryEND_TO_r_array_of_r_struct_of_r_binaryEND
+2020-05-18 16:12:30 root: INFO: instruction count: 8: __C32etypeEncode.__m36ENCODE_r_tuple_of_r_binaryEND_TO_r_struct_of_r_binaryEND
+2020-05-18 16:12:30 root: INFO: instruction count: 16: __C32etypeEncode.__m37write_fields_group_0
+2020-05-18 16:12:30 root: INFO: instruction count: 19: __C32etypeEncode.__m38ENCODE_r_binary_TO_r_binary
+2020-05-18 16:12:30 root: INFO: RegionPool: REPORT_THRESHOLD: 256.0K allocated (256.0K blocks / 0 chunks), regions.size = 2, thread 15: Thread-4
+2020-05-18 16:12:30 MemoryStore: INFO: Block broadcast_4 stored as values in memory (estimated size 95.7 KB, free 365.7 MB)
+2020-05-18 16:12:30 MemoryStore: INFO: Block broadcast_4_piece0 stored as bytes in memory (estimated size 652.0 B, free 365.7 MB)
+2020-05-18 16:12:30 BlockManagerInfo: INFO: Added broadcast_4_piece0 in memory on 192.168.0.110:57518 (size: 652.0 B, free: 366.2 MB)
+2020-05-18 16:12:30 SparkContext: INFO: Created broadcast 4 from broadcast at SparkBackend.scala:232
+2020-05-18 16:12:30 root: INFO: instruction count: 6: __C9Compiled.<init>
+2020-05-18 16:12:30 root: INFO: instruction count: 25: __C9Compiled.apply
+2020-05-18 16:12:30 root: INFO: instruction count: 118: __C9Compiled.__m12wrapped
+2020-05-18 16:12:30 root: INFO: instruction count: 8: __C9Compiled.__m21addIRIntermediate
+2020-05-18 16:12:30 root: INFO: instruction count: 8: __C9Compiled.__m22addIRIntermediate
+2020-05-18 16:12:30 root: INFO: instruction count: 14: __C9Compiled.setPartitionIndex
+2020-05-18 16:12:30 root: INFO: instruction count: 7: __C9Compiled.addPartitionRegion
+2020-05-18 16:12:30 root: INFO: instruction count: 25: __C9Compiled.__m25DECODE_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND_TO_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND
+2020-05-18 16:12:30 root: INFO: instruction count: 11: __C9Compiled.__m26read_fields_group_0
+2020-05-18 16:12:30 root: INFO: instruction count: 58: __C9Compiled.__m27INPLACE_DECODE_r_array_of_r_struct_of_r_binaryEND_TO_r_array_of_r_tuple_of_r_binaryEND
+2020-05-18 16:12:30 root: INFO: instruction count: 17: __C9Compiled.__m28INPLACE_DECODE_r_struct_of_r_binaryEND_TO_r_tuple_of_r_binaryEND
+2020-05-18 16:12:30 root: INFO: instruction count: 11: __C9Compiled.__m29read_fields_group_0
+2020-05-18 16:12:30 root: INFO: instruction count: 34: __C9Compiled.__m30INPLACE_DECODE_r_binary_TO_r_binary
+2020-05-18 16:12:30 root: INFO: instruction count: 55: __C9Compiled.addLiterals
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile : 359.393ms, total 2.622s, tagged coverage 0.8
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for InitializeCompiledFunction : 5.427ms, total 2.629s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for RunCompiledFunction : 1.785ms, total 2.631s
+2020-05-18 16:12:30 root: INFO: Timer: all timings:
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 4.786ms, total 90.225ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 9.851ms, total 101.821ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 24.687ms, total 127.277ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 23.100ms, total 150.994ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 1.764ms, total 153.453ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 27.668ms, total 181.596ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.277ms, total 182.433ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.323ms, total 183.219ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.473ms, total 184.077ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.943ms, total 185.422ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.086ms, total 185.812ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.198ms, total 187.248ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.203ms, total 187.758ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.068ms, total 188.086ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.211ms, total 188.482ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.715ms, total 189.384ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.101ms, total 189.775ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.783ms, total 190.783ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize : 107.241ms, total 191.069ms, tagged coverage 90.7
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 1.509ms, total 198.698ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 11.832ms, total 211.269ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.057ms, total 211.945ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for LowerMatrixToTable : 16.839ms, total 213.509ms, tagged coverage 79.6
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.087ms, total 214.762ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.118ms, total 215.052ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.105ms, total 215.288ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.576ms, total 215.978ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.058ms, total 216.211ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.571ms, total 216.940ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.115ms, total 217.240ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.059ms, total 217.426ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.097ms, total 217.638ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.455ms, total 218.328ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.053ms, total 218.524ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.500ms, total 219.141ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.132ms, total 219.416ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.077ms, total 219.651ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.179ms, total 219.978ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.639ms, total 220.745ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.084ms, total 221.012ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.149ms, total 222.299ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize : 7.812ms, total 222.481ms, tagged coverage 64.7
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.017ms, total 223.928ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 2.025s, total 2.249s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.652ms, total 2.250s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for InterpretNonCompilable : 2.026s, total 2.250s, tagged coverage 100.0
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.245ms, total 2.251s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.082ms, total 2.252s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.110ms, total 2.252s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.525ms, total 2.253s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.077ms, total 2.253s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.434ms, total 2.254s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.105ms, total 2.254s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.033ms, total 2.254s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.093ms, total 2.255s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.445ms, total 2.255s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.073ms, total 2.255s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.366ms, total 2.256s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.103ms, total 2.256s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.037ms, total 2.256s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.105ms, total 2.257s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.485ms, total 2.257s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.141ms, total 2.258s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.990ms, total 2.259s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Optimize : 9.211ms, total 2.260s, tagged coverage 48.3
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.034ms, total 2.303s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.867ms, total 2.305s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.041ms, total 2.305s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 1.847ms, total 2.305s, tagged coverage 51.0
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.025ms, total 2.305s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 1.104ms, total 2.307s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.713ms, total 2.308s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 2.846ms, total 2.308s, tagged coverage 64.7
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for Compile : 359.393ms, total 2.622s, tagged coverage 0.8
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for InitializeCompiledFunction : 5.427ms, total 2.629s
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for RunCompiledFunction : 1.785ms, total 2.631s
+2020-05-18 16:12:30 root: INFO: Timer: aggregate:
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for tag 'RunCompiledFunction' (1): 1.785ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for tag 'ForwardRelationalLets' (9): 2.438ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for tag 'Verify' (8): 3.046ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for tag 'InitializeCompiledFunction' (1): 5.427ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for tag 'FoldConstants' (9): 6.054ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for tag 'ExtractIntervalFilters' (9): 10.649ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for tag 'Simplify' (9): 26.060ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for tag 'ForwardLets' (9): 27.882ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for tag 'PruneDeadFields' (9): 33.658ms
+2020-05-18 16:12:30 root: INFO: Timer: Time taken for tag 'LoweringTransformation' (4): 2.039s
+2020-05-18 16:12:30 root: INFO: Timer: Fraction covered by a tagged leaf: 502.010ms (81.1%)
+2020-05-18 16:12:31 root: INFO: optimize Lowerer, initial IR: before: IR size 25: 
+(ToArray
+  (StreamMap __uid_6
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableMapGlobals
+              (TableMapRows
+                (TableRead None False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+                (InsertFields
+                  (SelectFields ()
+                    (SelectFields (trait_type phenocode pheno_sex coding modifier description description_more coding_description category n_cases_full_cohort_both_sexes n_cases_full_cohort_females n_cases_full_cohort_males n_cases_AFR n_cases_AMR n_cases_CSA n_cases_EAS n_cases_EUR n_cases_MID n_controls_AFR n_controls_AMR n_controls_CSA n_controls_EAS n_controls_EUR n_controls_MID saige_heritability_AFR saige_heritability_AMR saige_heritability_CSA saige_heritability_EAS saige_heritability_EUR saige_heritability_MID lambda_gc_AFR lambda_gc_AMR lambda_gc_CSA lambda_gc_EAS lambda_gc_EUR lambda_gc_MID filename)
+                      (Ref row)))
+                  None
+                  (phenocode
+                    (GetField phenocode
+                      (Ref row)))))
+              (InsertFields
+                (SelectFields ()
+                  (SelectFields ()
+                    (Ref global)))
+                None))
+            (InsertFields
+              (SelectFields (phenocode)
+                (SelectFields (phenocode)
+                  (Ref row)))
+              None)))))
+    (GetField phenocode
+      (Ref __uid_6))))
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.175ms, total 3.186ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.480ms, total 3.874ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.862ms, total 4.865ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.084ms, total 6.096ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.114ms, total 6.454ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.594ms, total 8.195ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.185ms, total 8.636ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.116ms, total 8.929ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.269ms, total 9.331ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.462ms, total 10.952ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.086ms, total 11.300ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.090ms, total 12.540ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.105ms, total 12.840ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.057ms, total 13.016ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.089ms, total 13.205ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.389ms, total 13.699ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.053ms, total 13.916ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.473ms, total 14.493ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize : 11.601ms, total 14.607ms, tagged coverage 74.9
+2020-05-18 16:12:31 root: INFO: optimize Lowerer, initial IR: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_11
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{phenocode:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField phenocode
+      (Ref __iruid_11))))
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.012ms, total 15.695ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 0.058ms, total 15.897ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.013ms, total 16.195ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for LowerMatrixToTable : 0.605ms, total 16.285ms, tagged coverage 13.8
+2020-05-18 16:12:31 root: INFO: optimize LowerMatrixToTable, post Lowering: before: IR size 8: 
+(ToArray
+  (StreamMap __iruid_11
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{phenocode:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField phenocode
+      (Ref __iruid_11))))
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.102ms, total 17.490ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.078ms, total 17.801ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.152ms, total 18.093ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.128ms, total 19.328ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.084ms, total 19.661ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.963ms, total 20.803ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.163ms, total 21.238ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.078ms, total 21.513ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.228ms, total 21.897ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.501ms, total 22.695ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.062ms, total 22.925ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.529ms, total 23.562ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.114ms, total 23.832ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.043ms, total 23.991ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.097ms, total 24.180ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.434ms, total 24.702ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.052ms, total 24.892ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.509ms, total 25.495ms
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for Optimize : 8.265ms, total 25.647ms, tagged coverage 64.3
+2020-05-18 16:12:31 root: INFO: optimize LowerMatrixToTable, post Lowering: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_14
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{phenocode:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField phenocode
+      (Ref __iruid_14))))
+2020-05-18 16:12:31 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.014ms, total 26.611ms
+2020-05-18 16:12:31 root: INFO: interpreting non compilable node: TableCollect
+2020-05-18 16:12:31 MemoryStore: INFO: Block broadcast_5 stored as values in memory (estimated size 238.1 KB, free 365.4 MB)
+2020-05-18 16:12:31 MemoryStore: INFO: Block broadcast_5_piece0 stored as bytes in memory (estimated size 23.2 KB, free 365.4 MB)
+2020-05-18 16:12:31 BlockManagerInfo: INFO: Added broadcast_5_piece0 in memory on 192.168.0.110:57518 (size: 23.2 KB, free: 366.2 MB)
+2020-05-18 16:12:31 SparkContext: INFO: Created broadcast 5 from textFile at RichSparkContext.scala:16
+2020-05-18 16:12:31 FileInputFormat: INFO: Total input paths to process : 1
+2020-05-18 16:12:31 root: INFO: encoder cache miss (0 hits, 3 misses, 0.000)
+2020-05-18 16:12:31 root: INFO: instruction count: 6: __C39etypeEncode.<init>
+2020-05-18 16:12:31 root: INFO: instruction count: 8: __C39etypeEncode.apply
+2020-05-18 16:12:31 root: INFO: instruction count: 20: __C39etypeEncode.__m40ENCODE_r_tuple_of_o_stringEND_TO_r_struct_of_o_binaryEND
+2020-05-18 16:12:31 root: INFO: instruction count: 25: __C39etypeEncode.__m41write_fields_group_0
+2020-05-18 16:12:31 root: INFO: instruction count: 19: __C39etypeEncode.__m42ENCODE_o_binary_TO_o_binary
+2020-05-18 16:12:31 SparkContext: INFO: Starting job: collect at RVD.scala:726
+2020-05-18 16:12:31 DAGScheduler: INFO: Got job 2 (collect at RVD.scala:726) with 8 output partitions
+2020-05-18 16:12:31 DAGScheduler: INFO: Final stage: ResultStage 2 (collect at RVD.scala:726)
+2020-05-18 16:12:31 DAGScheduler: INFO: Parents of final stage: List()
+2020-05-18 16:12:31 DAGScheduler: INFO: Missing parents: List()
+2020-05-18 16:12:31 DAGScheduler: INFO: Submitting ResultStage 2 (MapPartitionsRDD[24] at mapPartitions at ContextRDD.scala:157), which has no missing parents
+2020-05-18 16:12:31 MemoryStore: INFO: Block broadcast_6 stored as values in memory (estimated size 19.5 KB, free 365.4 MB)
+2020-05-18 16:12:31 MemoryStore: INFO: Block broadcast_6_piece0 stored as bytes in memory (estimated size 9.7 KB, free 365.4 MB)
+2020-05-18 16:12:31 BlockManagerInfo: INFO: Added broadcast_6_piece0 in memory on 192.168.0.110:57518 (size: 9.7 KB, free: 366.2 MB)
+2020-05-18 16:12:31 SparkContext: INFO: Created broadcast 6 from broadcast at DAGScheduler.scala:1161
+2020-05-18 16:12:31 DAGScheduler: INFO: Submitting 8 missing tasks from ResultStage 2 (MapPartitionsRDD[24] at mapPartitions at ContextRDD.scala:157) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7))
+2020-05-18 16:12:31 TaskSchedulerImpl: INFO: Adding task set 2.0 with 8 tasks
+2020-05-18 16:12:31 TaskSetManager: INFO: Starting task 0.0 in stage 2.0 (TID 16, localhost, executor driver, partition 0, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:31 TaskSetManager: INFO: Starting task 1.0 in stage 2.0 (TID 17, localhost, executor driver, partition 1, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:31 TaskSetManager: INFO: Starting task 2.0 in stage 2.0 (TID 18, localhost, executor driver, partition 2, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:31 TaskSetManager: INFO: Starting task 3.0 in stage 2.0 (TID 19, localhost, executor driver, partition 3, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:31 TaskSetManager: INFO: Starting task 4.0 in stage 2.0 (TID 20, localhost, executor driver, partition 4, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:31 TaskSetManager: INFO: Starting task 5.0 in stage 2.0 (TID 21, localhost, executor driver, partition 5, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:31 TaskSetManager: INFO: Starting task 6.0 in stage 2.0 (TID 22, localhost, executor driver, partition 6, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:31 TaskSetManager: INFO: Starting task 7.0 in stage 2.0 (TID 23, localhost, executor driver, partition 7, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:31 Executor: INFO: Running task 3.0 in stage 2.0 (TID 19)
+2020-05-18 16:12:31 Executor: INFO: Running task 0.0 in stage 2.0 (TID 16)
+2020-05-18 16:12:31 Executor: INFO: Running task 6.0 in stage 2.0 (TID 22)
+2020-05-18 16:12:31 Executor: INFO: Running task 4.0 in stage 2.0 (TID 20)
+2020-05-18 16:12:31 Executor: INFO: Running task 5.0 in stage 2.0 (TID 21)
+2020-05-18 16:12:31 Executor: INFO: Running task 2.0 in stage 2.0 (TID 18)
+2020-05-18 16:12:31 Executor: INFO: Running task 1.0 in stage 2.0 (TID 17)
+2020-05-18 16:12:31 Executor: INFO: Running task 7.0 in stage 2.0 (TID 23)
+2020-05-18 16:12:31 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2024820+506205
+2020-05-18 16:12:31 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:0+506205
+2020-05-18 16:12:31 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2531025+506205
+2020-05-18 16:12:31 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1012410+506205
+2020-05-18 16:12:31 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3543435+506210
+2020-05-18 16:12:31 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1518615+506205
+2020-05-18 16:12:31 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3037230+506205
+2020-05-18 16:12:31 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:506205+506205
+2020-05-18 16:12:31 Executor: INFO: Finished task 7.0 in stage 2.0 (TID 23). 42778 bytes result sent to driver
+2020-05-18 16:12:31 TaskSetManager: INFO: Finished task 7.0 in stage 2.0 (TID 23) in 444 ms on localhost (executor driver) (1/8)
+2020-05-18 16:12:32 Executor: INFO: Finished task 2.0 in stage 2.0 (TID 18). 13757 bytes result sent to driver
+2020-05-18 16:12:32 TaskSetManager: INFO: Finished task 2.0 in stage 2.0 (TID 18) in 690 ms on localhost (executor driver) (2/8)
+2020-05-18 16:12:32 Executor: INFO: Finished task 0.0 in stage 2.0 (TID 16). 13678 bytes result sent to driver
+2020-05-18 16:12:32 Executor: INFO: Finished task 1.0 in stage 2.0 (TID 17). 15016 bytes result sent to driver
+2020-05-18 16:12:32 Executor: INFO: Finished task 3.0 in stage 2.0 (TID 19). 12955 bytes result sent to driver
+2020-05-18 16:12:32 TaskSetManager: INFO: Finished task 3.0 in stage 2.0 (TID 19) in 934 ms on localhost (executor driver) (3/8)
+2020-05-18 16:12:32 TaskSetManager: INFO: Finished task 1.0 in stage 2.0 (TID 17) in 935 ms on localhost (executor driver) (4/8)
+2020-05-18 16:12:32 TaskSetManager: INFO: Finished task 0.0 in stage 2.0 (TID 16) in 936 ms on localhost (executor driver) (5/8)
+2020-05-18 16:12:32 Executor: INFO: Finished task 6.0 in stage 2.0 (TID 22). 19098 bytes result sent to driver
+2020-05-18 16:12:32 TaskSetManager: INFO: Finished task 6.0 in stage 2.0 (TID 22) in 940 ms on localhost (executor driver) (6/8)
+2020-05-18 16:12:32 Executor: INFO: Finished task 5.0 in stage 2.0 (TID 21). 14773 bytes result sent to driver
+2020-05-18 16:12:32 TaskSetManager: INFO: Finished task 5.0 in stage 2.0 (TID 21) in 1027 ms on localhost (executor driver) (7/8)
+2020-05-18 16:12:32 Executor: INFO: Finished task 4.0 in stage 2.0 (TID 20). 10199 bytes result sent to driver
+2020-05-18 16:12:32 TaskSetManager: INFO: Finished task 4.0 in stage 2.0 (TID 20) in 1034 ms on localhost (executor driver) (8/8)
+2020-05-18 16:12:32 TaskSchedulerImpl: INFO: Removed TaskSet 2.0, whose tasks have all completed, from pool 
+2020-05-18 16:12:32 DAGScheduler: INFO: ResultStage 2 (collect at RVD.scala:726) finished in 1.049 s
+2020-05-18 16:12:32 DAGScheduler: INFO: Job 2 finished: collect at RVD.scala:726, took 1.051961 s
+2020-05-18 16:12:32 root: INFO: decoder cache miss (0 hits, 2 misses, 0.000
+2020-05-18 16:12:32 root: INFO: instruction count: 6: __C43etypeDecode.<init>
+2020-05-18 16:12:32 root: INFO: instruction count: 8: __C43etypeDecode.apply
+2020-05-18 16:12:32 root: INFO: instruction count: 38: __C43etypeDecode.__m44DECODE_r_struct_of_o_binaryEND_TO_r_tuple_of_o_stringEND
+2020-05-18 16:12:32 root: INFO: instruction count: 32: __C43etypeDecode.__m45read_fields_group_0
+2020-05-18 16:12:32 root: INFO: instruction count: 34: __C43etypeDecode.__m46INPLACE_DECODE_o_binary_TO_o_binary
+2020-05-18 16:12:32 root: INFO: took 1.237s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.237s, total 1.264s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.055ms, total 1.264s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.238s, total 1.264s, tagged coverage 100.0
+2020-05-18 16:12:32 root: INFO: optimize InterpretNonCompilable, post Lowering: before: IR size 7: 
+(ToArray
+  (StreamMap __iruid_14
+    (ToStream
+      (GetField rows
+        (Literal Struct{rows:Array[Struct{phenocode:String}],global:Struct{}} <literal value>)))
+    (GetField phenocode
+      (Ref __iruid_14))))
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 5.646ms, total 1.270s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.053ms, total 1.271s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.165ms, total 1.271s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.502ms, total 1.272s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.079ms, total 1.272s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.452ms, total 1.273s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.140ms, total 1.273s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.042ms, total 1.273s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.111ms, total 1.274s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.541ms, total 1.274s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.117ms, total 1.275s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.441ms, total 1.275s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.160ms, total 1.276s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.043ms, total 1.276s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.105ms, total 1.276s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.382ms, total 1.276s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.067ms, total 1.277s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.497ms, total 1.277s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize : 12.773ms, total 1.277s, tagged coverage 74.7
+2020-05-18 16:12:32 root: INFO: optimize InterpretNonCompilable, post Lowering: after: IR size 6:
+(ToArray
+  (StreamMap __iruid_17
+    (ToStream
+      (Literal Array[Struct{phenocode:String}] <literal value>))
+    (GetField phenocode
+      (Ref __iruid_17))))
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.026ms, total 1.279s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.042ms, total 1.280s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.027ms, total 1.280s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.506ms, total 1.280s, tagged coverage 18.8
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.021ms, total 1.280s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.034ms, total 1.280s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.022ms, total 1.280s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.330ms, total 1.280s, tagged coverage 23.3
+2020-05-18 16:12:32 root: INFO: encoder cache miss (0 hits, 4 misses, 0.000)
+2020-05-18 16:12:32 root: INFO: instruction count: 6: __C70etypeEncode.<init>
+2020-05-18 16:12:32 root: INFO: instruction count: 8: __C70etypeEncode.apply
+2020-05-18 16:12:32 root: INFO: instruction count: 8: __C70etypeEncode.__m71ENCODE_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND_TO_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND
+2020-05-18 16:12:32 root: INFO: instruction count: 16: __C70etypeEncode.__m72write_fields_group_0
+2020-05-18 16:12:32 root: INFO: instruction count: 47: __C70etypeEncode.__m73ENCODE_r_array_of_r_tuple_of_r_binaryEND_TO_r_array_of_r_struct_of_r_binaryEND
+2020-05-18 16:12:32 root: INFO: instruction count: 8: __C70etypeEncode.__m74ENCODE_r_tuple_of_r_binaryEND_TO_r_struct_of_r_binaryEND
+2020-05-18 16:12:32 root: INFO: instruction count: 16: __C70etypeEncode.__m75write_fields_group_0
+2020-05-18 16:12:32 root: INFO: instruction count: 19: __C70etypeEncode.__m76ENCODE_r_binary_TO_r_binary
+2020-05-18 16:12:32 MemoryStore: INFO: Block broadcast_7 stored as values in memory (estimated size 68.3 KB, free 365.3 MB)
+2020-05-18 16:12:32 MemoryStore: INFO: Block broadcast_7_piece0 stored as bytes in memory (estimated size 23.1 KB, free 365.3 MB)
+2020-05-18 16:12:32 BlockManagerInfo: INFO: Added broadcast_7_piece0 in memory on 192.168.0.110:57518 (size: 23.1 KB, free: 366.2 MB)
+2020-05-18 16:12:32 SparkContext: INFO: Created broadcast 7 from broadcast at SparkBackend.scala:232
+2020-05-18 16:12:32 root: INFO: instruction count: 6: __C47Compiled.<init>
+2020-05-18 16:12:32 root: INFO: instruction count: 25: __C47Compiled.apply
+2020-05-18 16:12:32 root: INFO: instruction count: 118: __C47Compiled.__m50wrapped
+2020-05-18 16:12:32 root: INFO: instruction count: 8: __C47Compiled.__m59addIRIntermediate
+2020-05-18 16:12:32 root: INFO: instruction count: 8: __C47Compiled.__m60addIRIntermediate
+2020-05-18 16:12:32 root: INFO: instruction count: 14: __C47Compiled.setPartitionIndex
+2020-05-18 16:12:32 root: INFO: instruction count: 7: __C47Compiled.addPartitionRegion
+2020-05-18 16:12:32 root: INFO: instruction count: 25: __C47Compiled.__m63DECODE_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND_TO_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND
+2020-05-18 16:12:32 root: INFO: instruction count: 11: __C47Compiled.__m64read_fields_group_0
+2020-05-18 16:12:32 root: INFO: instruction count: 58: __C47Compiled.__m65INPLACE_DECODE_r_array_of_r_struct_of_r_binaryEND_TO_r_array_of_r_tuple_of_r_binaryEND
+2020-05-18 16:12:32 root: INFO: instruction count: 17: __C47Compiled.__m66INPLACE_DECODE_r_struct_of_r_binaryEND_TO_r_tuple_of_r_binaryEND
+2020-05-18 16:12:32 root: INFO: instruction count: 11: __C47Compiled.__m67read_fields_group_0
+2020-05-18 16:12:32 root: INFO: instruction count: 34: __C47Compiled.__m68INPLACE_DECODE_r_binary_TO_r_binary
+2020-05-18 16:12:32 root: INFO: instruction count: 55: __C47Compiled.addLiterals
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile : 35.031ms, total 1.313s, tagged coverage 0.5
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for InitializeCompiledFunction : 5.365ms, total 1.319s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for RunCompiledFunction : 1.084ms, total 1.320s
+2020-05-18 16:12:32 root: INFO: Timer: all timings:
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.175ms, total 3.186ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.480ms, total 3.874ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.862ms, total 4.865ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.084ms, total 6.096ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.114ms, total 6.454ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.594ms, total 8.195ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.185ms, total 8.636ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.116ms, total 8.929ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.269ms, total 9.331ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.462ms, total 10.952ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.086ms, total 11.300ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.090ms, total 12.540ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.105ms, total 12.840ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.057ms, total 13.016ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.089ms, total 13.205ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.389ms, total 13.699ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.053ms, total 13.916ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.473ms, total 14.493ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize : 11.601ms, total 14.607ms, tagged coverage 74.9
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.012ms, total 15.695ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 0.058ms, total 15.897ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.013ms, total 16.195ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for LowerMatrixToTable : 0.605ms, total 16.285ms, tagged coverage 13.8
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.102ms, total 17.490ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.078ms, total 17.801ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.152ms, total 18.093ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.128ms, total 19.328ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.084ms, total 19.661ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.963ms, total 20.803ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.163ms, total 21.238ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.078ms, total 21.513ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.228ms, total 21.897ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.501ms, total 22.695ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.062ms, total 22.925ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.529ms, total 23.562ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.114ms, total 23.832ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.043ms, total 23.991ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.097ms, total 24.180ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.434ms, total 24.702ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.052ms, total 24.892ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.509ms, total 25.495ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize : 8.265ms, total 25.647ms, tagged coverage 64.3
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.014ms, total 26.611ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.237s, total 1.264s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.055ms, total 1.264s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.238s, total 1.264s, tagged coverage 100.0
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 5.646ms, total 1.270s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.053ms, total 1.271s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.165ms, total 1.271s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.502ms, total 1.272s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.079ms, total 1.272s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.452ms, total 1.273s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.140ms, total 1.273s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.042ms, total 1.273s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.111ms, total 1.274s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.541ms, total 1.274s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.117ms, total 1.275s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.441ms, total 1.275s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.160ms, total 1.276s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.043ms, total 1.276s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.105ms, total 1.276s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.382ms, total 1.276s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.067ms, total 1.277s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.497ms, total 1.277s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize : 12.773ms, total 1.277s, tagged coverage 74.7
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.026ms, total 1.279s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.042ms, total 1.280s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.027ms, total 1.280s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.506ms, total 1.280s, tagged coverage 18.8
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.021ms, total 1.280s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.034ms, total 1.280s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.022ms, total 1.280s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.330ms, total 1.280s, tagged coverage 23.3
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Compile : 35.031ms, total 1.313s, tagged coverage 0.5
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for InitializeCompiledFunction : 5.365ms, total 1.319s
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for RunCompiledFunction : 1.084ms, total 1.320s
+2020-05-18 16:12:32 root: INFO: Timer: aggregate:
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for tag 'Verify' (8): 0.190ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for tag 'ForwardRelationalLets' (9): 0.716ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for tag 'ExtractIntervalFilters' (9): 0.989ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for tag 'RunCompiledFunction' (1): 1.084ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for tag 'Simplify' (9): 2.079ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for tag 'InitializeCompiledFunction' (1): 5.365ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for tag 'ForwardLets' (9): 6.423ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for tag 'PruneDeadFields' (9): 6.548ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for tag 'FoldConstants' (9): 6.789ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for tag 'LoweringTransformation' (4): 1.237s
+2020-05-18 16:12:32 root: INFO: Timer: Fraction covered by a tagged leaf: 58.975ms (95.6%)
+2020-05-18 16:12:32 root: INFO: optimize Lowerer, initial IR: before: IR size 25: 
+(ToArray
+  (StreamMap __uid_8
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableMapGlobals
+              (TableMapRows
+                (TableRead None False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+                (InsertFields
+                  (SelectFields ()
+                    (SelectFields (trait_type phenocode pheno_sex coding modifier description description_more coding_description category n_cases_full_cohort_both_sexes n_cases_full_cohort_females n_cases_full_cohort_males n_cases_AFR n_cases_AMR n_cases_CSA n_cases_EAS n_cases_EUR n_cases_MID n_controls_AFR n_controls_AMR n_controls_CSA n_controls_EAS n_controls_EUR n_controls_MID saige_heritability_AFR saige_heritability_AMR saige_heritability_CSA saige_heritability_EAS saige_heritability_EUR saige_heritability_MID lambda_gc_AFR lambda_gc_AMR lambda_gc_CSA lambda_gc_EAS lambda_gc_EUR lambda_gc_MID filename)
+                      (Ref row)))
+                  None
+                  (pheno_sex
+                    (GetField pheno_sex
+                      (Ref row)))))
+              (InsertFields
+                (SelectFields ()
+                  (SelectFields ()
+                    (Ref global)))
+                None))
+            (InsertFields
+              (SelectFields (pheno_sex)
+                (SelectFields (pheno_sex)
+                  (Ref row)))
+              None)))))
+    (GetField pheno_sex
+      (Ref __uid_8))))
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.281ms, total 3.805ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 1.503ms, total 5.516ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 1.405ms, total 7.221ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.847ms, total 9.319ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.114ms, total 9.668ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 2.617ms, total 12.415ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.234ms, total 12.936ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.121ms, total 13.206ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.262ms, total 13.595ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.794ms, total 14.503ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.084ms, total 14.759ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.120ms, total 15.992ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.294ms, total 16.600ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.094ms, total 16.987ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.136ms, total 17.247ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.622ms, total 17.985ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.077ms, total 18.220ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.717ms, total 19.061ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize : 15.710ms, total 19.226ms, tagged coverage 78.4
+2020-05-18 16:12:32 root: INFO: optimize Lowerer, initial IR: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_20
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{pheno_sex:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField pheno_sex
+      (Ref __iruid_20))))
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.019ms, total 20.445ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 0.067ms, total 20.708ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.026ms, total 20.857ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for LowerMatrixToTable : 0.674ms, total 21.095ms, tagged coverage 16.6
+2020-05-18 16:12:32 root: INFO: optimize LowerMatrixToTable, post Lowering: before: IR size 8: 
+(ToArray
+  (StreamMap __iruid_20
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{pheno_sex:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField pheno_sex
+      (Ref __iruid_20))))
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.114ms, total 22.308ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.078ms, total 22.558ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.189ms, total 22.857ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.595ms, total 24.568ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.423ms, total 25.301ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.290ms, total 26.878ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.240ms, total 27.430ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.116ms, total 27.809ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.190ms, total 28.155ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.094ms, total 29.407ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.106ms, total 29.780ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.912ms, total 30.845ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.452ms, total 31.620ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.084ms, total 31.945ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.198ms, total 32.308ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.711ms, total 33.181ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.101ms, total 33.533ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.957ms, total 34.659ms
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for Optimize : 12.714ms, total 34.901ms, tagged coverage 69.6
+2020-05-18 16:12:32 root: INFO: optimize LowerMatrixToTable, post Lowering: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_23
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{pheno_sex:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField pheno_sex
+      (Ref __iruid_23))))
+2020-05-18 16:12:32 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.028ms, total 36.301ms
+2020-05-18 16:12:32 root: INFO: interpreting non compilable node: TableCollect
+2020-05-18 16:12:32 MemoryStore: INFO: Block broadcast_8 stored as values in memory (estimated size 238.1 KB, free 365.1 MB)
+2020-05-18 16:12:32 MemoryStore: INFO: Block broadcast_8_piece0 stored as bytes in memory (estimated size 23.2 KB, free 365.0 MB)
+2020-05-18 16:12:32 BlockManagerInfo: INFO: Added broadcast_8_piece0 in memory on 192.168.0.110:57518 (size: 23.2 KB, free: 366.2 MB)
+2020-05-18 16:12:32 SparkContext: INFO: Created broadcast 8 from textFile at RichSparkContext.scala:16
+2020-05-18 16:12:32 FileInputFormat: INFO: Total input paths to process : 1
+2020-05-18 16:12:32 root: INFO: encoder cache miss (0 hits, 5 misses, 0.000)
+2020-05-18 16:12:32 root: INFO: instruction count: 6: __C77etypeEncode.<init>
+2020-05-18 16:12:32 root: INFO: instruction count: 8: __C77etypeEncode.apply
+2020-05-18 16:12:32 root: INFO: instruction count: 20: __C77etypeEncode.__m78ENCODE_r_tuple_of_o_stringEND_TO_r_struct_of_o_binaryEND
+2020-05-18 16:12:32 root: INFO: instruction count: 25: __C77etypeEncode.__m79write_fields_group_0
+2020-05-18 16:12:32 root: INFO: instruction count: 19: __C77etypeEncode.__m80ENCODE_o_binary_TO_o_binary
+2020-05-18 16:12:32 SparkContext: INFO: Starting job: collect at RVD.scala:726
+2020-05-18 16:12:32 DAGScheduler: INFO: Got job 3 (collect at RVD.scala:726) with 8 output partitions
+2020-05-18 16:12:32 DAGScheduler: INFO: Final stage: ResultStage 3 (collect at RVD.scala:726)
+2020-05-18 16:12:32 DAGScheduler: INFO: Parents of final stage: List()
+2020-05-18 16:12:32 DAGScheduler: INFO: Missing parents: List()
+2020-05-18 16:12:32 DAGScheduler: INFO: Submitting ResultStage 3 (MapPartitionsRDD[34] at mapPartitions at ContextRDD.scala:157), which has no missing parents
+2020-05-18 16:12:32 MemoryStore: INFO: Block broadcast_9 stored as values in memory (estimated size 19.5 KB, free 365.0 MB)
+2020-05-18 16:12:32 MemoryStore: INFO: Block broadcast_9_piece0 stored as bytes in memory (estimated size 9.7 KB, free 365.0 MB)
+2020-05-18 16:12:32 BlockManagerInfo: INFO: Added broadcast_9_piece0 in memory on 192.168.0.110:57518 (size: 9.7 KB, free: 366.2 MB)
+2020-05-18 16:12:32 SparkContext: INFO: Created broadcast 9 from broadcast at DAGScheduler.scala:1161
+2020-05-18 16:12:32 DAGScheduler: INFO: Submitting 8 missing tasks from ResultStage 3 (MapPartitionsRDD[34] at mapPartitions at ContextRDD.scala:157) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7))
+2020-05-18 16:12:32 TaskSchedulerImpl: INFO: Adding task set 3.0 with 8 tasks
+2020-05-18 16:12:32 TaskSetManager: INFO: Starting task 0.0 in stage 3.0 (TID 24, localhost, executor driver, partition 0, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:32 TaskSetManager: INFO: Starting task 1.0 in stage 3.0 (TID 25, localhost, executor driver, partition 1, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:32 TaskSetManager: INFO: Starting task 2.0 in stage 3.0 (TID 26, localhost, executor driver, partition 2, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:32 TaskSetManager: INFO: Starting task 3.0 in stage 3.0 (TID 27, localhost, executor driver, partition 3, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:32 TaskSetManager: INFO: Starting task 4.0 in stage 3.0 (TID 28, localhost, executor driver, partition 4, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:32 TaskSetManager: INFO: Starting task 5.0 in stage 3.0 (TID 29, localhost, executor driver, partition 5, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:32 TaskSetManager: INFO: Starting task 6.0 in stage 3.0 (TID 30, localhost, executor driver, partition 6, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:32 TaskSetManager: INFO: Starting task 7.0 in stage 3.0 (TID 31, localhost, executor driver, partition 7, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:32 Executor: INFO: Running task 1.0 in stage 3.0 (TID 25)
+2020-05-18 16:12:32 Executor: INFO: Running task 3.0 in stage 3.0 (TID 27)
+2020-05-18 16:12:32 Executor: INFO: Running task 7.0 in stage 3.0 (TID 31)
+2020-05-18 16:12:32 Executor: INFO: Running task 2.0 in stage 3.0 (TID 26)
+2020-05-18 16:12:32 Executor: INFO: Running task 6.0 in stage 3.0 (TID 30)
+2020-05-18 16:12:32 Executor: INFO: Running task 5.0 in stage 3.0 (TID 29)
+2020-05-18 16:12:32 Executor: INFO: Running task 4.0 in stage 3.0 (TID 28)
+2020-05-18 16:12:32 Executor: INFO: Running task 0.0 in stage 3.0 (TID 24)
+2020-05-18 16:12:32 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1518615+506205
+2020-05-18 16:12:32 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2531025+506205
+2020-05-18 16:12:32 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:506205+506205
+2020-05-18 16:12:32 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3543435+506210
+2020-05-18 16:12:32 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:0+506205
+2020-05-18 16:12:32 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2024820+506205
+2020-05-18 16:12:32 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3037230+506205
+2020-05-18 16:12:32 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1012410+506205
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 57
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 50
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 41
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 44
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 51
+2020-05-18 16:12:32 BlockManagerInfo: INFO: Removed broadcast_3_piece0 on 192.168.0.110:57518 in memory (size: 9.7 KB, free: 366.2 MB)
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 36
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 72
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 61
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 46
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 28
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 40
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 63
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 45
+2020-05-18 16:12:32 BlockManagerInfo: INFO: Removed broadcast_5_piece0 on 192.168.0.110:57518 in memory (size: 23.2 KB, free: 366.2 MB)
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 32
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 31
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 39
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 71
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 70
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 56
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 49
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 60
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 73
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 75
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 34
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 42
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 48
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 35
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 68
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 65
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 74
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 69
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 43
+2020-05-18 16:12:32 BlockManagerInfo: INFO: Removed broadcast_6_piece0 on 192.168.0.110:57518 in memory (size: 9.7 KB, free: 366.2 MB)
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 54
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 30
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 64
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 27
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 55
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 33
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 47
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 58
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 38
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 29
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 59
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 53
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 67
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 52
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 66
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 37
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 26
+2020-05-18 16:12:32 ContextCleaner: INFO: Cleaned accumulator 62
+2020-05-18 16:12:32 BlockManagerInfo: INFO: Removed broadcast_2_piece0 on 192.168.0.110:57518 in memory (size: 23.2 KB, free: 366.2 MB)
+2020-05-18 16:12:33 Executor: INFO: Finished task 5.0 in stage 3.0 (TID 29). 18898 bytes result sent to driver
+2020-05-18 16:12:33 TaskSetManager: INFO: Finished task 5.0 in stage 3.0 (TID 29) in 311 ms on localhost (executor driver) (1/8)
+2020-05-18 16:12:33 Executor: INFO: Finished task 3.0 in stage 3.0 (TID 27). 16332 bytes result sent to driver
+2020-05-18 16:12:33 TaskSetManager: INFO: Finished task 3.0 in stage 3.0 (TID 27) in 741 ms on localhost (executor driver) (2/8)
+2020-05-18 16:12:33 Executor: INFO: Finished task 1.0 in stage 3.0 (TID 25). 19010 bytes result sent to driver
+2020-05-18 16:12:33 TaskSetManager: INFO: Finished task 1.0 in stage 3.0 (TID 25) in 758 ms on localhost (executor driver) (3/8)
+2020-05-18 16:12:33 Executor: INFO: Finished task 6.0 in stage 3.0 (TID 30). 26660 bytes result sent to driver
+2020-05-18 16:12:33 TaskSetManager: INFO: Finished task 6.0 in stage 3.0 (TID 30) in 759 ms on localhost (executor driver) (4/8)
+2020-05-18 16:12:33 Executor: INFO: Finished task 0.0 in stage 3.0 (TID 24). 17323 bytes result sent to driver
+2020-05-18 16:12:33 TaskSetManager: INFO: Finished task 0.0 in stage 3.0 (TID 24) in 797 ms on localhost (executor driver) (5/8)
+2020-05-18 16:12:33 Executor: INFO: Finished task 2.0 in stage 3.0 (TID 26). 17507 bytes result sent to driver
+2020-05-18 16:12:33 TaskSetManager: INFO: Finished task 2.0 in stage 3.0 (TID 26) in 946 ms on localhost (executor driver) (6/8)
+2020-05-18 16:12:33 Executor: INFO: Finished task 7.0 in stage 3.0 (TID 31). 45279 bytes result sent to driver
+2020-05-18 16:12:33 TaskSetManager: INFO: Finished task 7.0 in stage 3.0 (TID 31) in 947 ms on localhost (executor driver) (7/8)
+2020-05-18 16:12:33 Executor: INFO: Finished task 4.0 in stage 3.0 (TID 28). 12865 bytes result sent to driver
+2020-05-18 16:12:33 TaskSetManager: INFO: Finished task 4.0 in stage 3.0 (TID 28) in 989 ms on localhost (executor driver) (8/8)
+2020-05-18 16:12:33 TaskSchedulerImpl: INFO: Removed TaskSet 3.0, whose tasks have all completed, from pool 
+2020-05-18 16:12:33 DAGScheduler: INFO: ResultStage 3 (collect at RVD.scala:726) finished in 0.999 s
+2020-05-18 16:12:33 DAGScheduler: INFO: Job 3 finished: collect at RVD.scala:726, took 1.001828 s
+2020-05-18 16:12:33 root: INFO: decoder cache miss (0 hits, 3 misses, 0.000
+2020-05-18 16:12:33 root: INFO: instruction count: 6: __C81etypeDecode.<init>
+2020-05-18 16:12:33 root: INFO: instruction count: 8: __C81etypeDecode.apply
+2020-05-18 16:12:33 root: INFO: instruction count: 38: __C81etypeDecode.__m82DECODE_r_struct_of_o_binaryEND_TO_r_tuple_of_o_stringEND
+2020-05-18 16:12:33 root: INFO: instruction count: 32: __C81etypeDecode.__m83read_fields_group_0
+2020-05-18 16:12:33 root: INFO: instruction count: 34: __C81etypeDecode.__m84INPLACE_DECODE_o_binary_TO_o_binary
+2020-05-18 16:12:33 root: INFO: took 1.166s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.166s, total 1.203s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.081ms, total 1.203s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.167s, total 1.203s, tagged coverage 99.9
+2020-05-18 16:12:33 root: INFO: optimize InterpretNonCompilable, post Lowering: before: IR size 7: 
+(ToArray
+  (StreamMap __iruid_23
+    (ToStream
+      (GetField rows
+        (Literal Struct{rows:Array[Struct{pheno_sex:String}],global:Struct{}} <literal value>)))
+    (GetField pheno_sex
+      (Ref __iruid_23))))
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.351ms, total 1.204s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.142ms, total 1.205s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.086ms, total 1.205s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.434ms, total 1.205s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.082ms, total 1.206s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.909ms, total 1.207s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.148ms, total 1.207s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.045ms, total 1.207s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.144ms, total 1.208s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.915ms, total 1.209s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.077ms, total 1.209s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.471ms, total 1.210s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.115ms, total 1.210s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.040ms, total 1.210s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.086ms, total 1.210s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.311ms, total 1.211s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.049ms, total 1.211s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.293ms, total 1.211s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize : 7.299ms, total 1.211s, tagged coverage 64.4
+2020-05-18 16:12:33 root: INFO: optimize InterpretNonCompilable, post Lowering: after: IR size 6:
+(ToArray
+  (StreamMap __iruid_26
+    (ToStream
+      (Literal Array[Struct{pheno_sex:String}] <literal value>))
+    (GetField pheno_sex
+      (Ref __iruid_26))))
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.028ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.045ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.022ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.495ms, total 1.213s, tagged coverage 19.2
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.018ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.021ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.019ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.250ms, total 1.214s, tagged coverage 23.2
+2020-05-18 16:12:33 root: INFO: encoder cache miss (0 hits, 6 misses, 0.000)
+2020-05-18 16:12:33 root: INFO: instruction count: 6: __C108etypeEncode.<init>
+2020-05-18 16:12:33 root: INFO: instruction count: 8: __C108etypeEncode.apply
+2020-05-18 16:12:33 root: INFO: instruction count: 8: __C108etypeEncode.__m109ENCODE_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND_TO_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND
+2020-05-18 16:12:33 root: INFO: instruction count: 16: __C108etypeEncode.__m110write_fields_group_0
+2020-05-18 16:12:33 root: INFO: instruction count: 47: __C108etypeEncode.__m111ENCODE_r_array_of_r_tuple_of_r_binaryEND_TO_r_array_of_r_struct_of_r_binaryEND
+2020-05-18 16:12:33 root: INFO: instruction count: 8: __C108etypeEncode.__m112ENCODE_r_tuple_of_r_binaryEND_TO_r_struct_of_r_binaryEND
+2020-05-18 16:12:33 root: INFO: instruction count: 16: __C108etypeEncode.__m113write_fields_group_0
+2020-05-18 16:12:33 root: INFO: instruction count: 19: __C108etypeEncode.__m114ENCODE_r_binary_TO_r_binary
+2020-05-18 16:12:33 MemoryStore: INFO: Block broadcast_10 stored as values in memory (estimated size 98.8 KB, free 365.5 MB)
+2020-05-18 16:12:33 MemoryStore: INFO: Block broadcast_10_piece0 stored as bytes in memory (estimated size 749.0 B, free 365.5 MB)
+2020-05-18 16:12:33 BlockManagerInfo: INFO: Added broadcast_10_piece0 in memory on 192.168.0.110:57518 (size: 749.0 B, free: 366.2 MB)
+2020-05-18 16:12:33 SparkContext: INFO: Created broadcast 10 from broadcast at SparkBackend.scala:232
+2020-05-18 16:12:33 root: INFO: instruction count: 6: __C85Compiled.<init>
+2020-05-18 16:12:33 root: INFO: instruction count: 25: __C85Compiled.apply
+2020-05-18 16:12:33 root: INFO: instruction count: 118: __C85Compiled.__m88wrapped
+2020-05-18 16:12:33 root: INFO: instruction count: 8: __C85Compiled.__m97addIRIntermediate
+2020-05-18 16:12:33 root: INFO: instruction count: 8: __C85Compiled.__m98addIRIntermediate
+2020-05-18 16:12:33 root: INFO: instruction count: 14: __C85Compiled.setPartitionIndex
+2020-05-18 16:12:33 root: INFO: instruction count: 7: __C85Compiled.addPartitionRegion
+2020-05-18 16:12:33 root: INFO: instruction count: 25: __C85Compiled.__m101DECODE_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND_TO_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND
+2020-05-18 16:12:33 root: INFO: instruction count: 11: __C85Compiled.__m102read_fields_group_0
+2020-05-18 16:12:33 root: INFO: instruction count: 58: __C85Compiled.__m103INPLACE_DECODE_r_array_of_r_struct_of_r_binaryEND_TO_r_array_of_r_tuple_of_r_binaryEND
+2020-05-18 16:12:33 root: INFO: instruction count: 17: __C85Compiled.__m104INPLACE_DECODE_r_struct_of_r_binaryEND_TO_r_tuple_of_r_binaryEND
+2020-05-18 16:12:33 root: INFO: instruction count: 11: __C85Compiled.__m105read_fields_group_0
+2020-05-18 16:12:33 root: INFO: instruction count: 34: __C85Compiled.__m106INPLACE_DECODE_r_binary_TO_r_binary
+2020-05-18 16:12:33 root: INFO: instruction count: 55: __C85Compiled.addLiterals
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile : 32.282ms, total 1.244s, tagged coverage 0.5
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for InitializeCompiledFunction : 4.136ms, total 1.248s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for RunCompiledFunction : 0.965ms, total 1.250s
+2020-05-18 16:12:33 root: INFO: Timer: all timings:
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.281ms, total 3.805ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 1.503ms, total 5.516ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 1.405ms, total 7.221ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.847ms, total 9.319ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.114ms, total 9.668ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 2.617ms, total 12.415ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.234ms, total 12.936ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.121ms, total 13.206ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.262ms, total 13.595ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.794ms, total 14.503ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.084ms, total 14.759ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.120ms, total 15.992ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.294ms, total 16.600ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.094ms, total 16.987ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.136ms, total 17.247ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.622ms, total 17.985ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.077ms, total 18.220ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.717ms, total 19.061ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize : 15.710ms, total 19.226ms, tagged coverage 78.4
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.019ms, total 20.445ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 0.067ms, total 20.708ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.026ms, total 20.857ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for LowerMatrixToTable : 0.674ms, total 21.095ms, tagged coverage 16.6
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.114ms, total 22.308ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.078ms, total 22.558ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.189ms, total 22.857ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.595ms, total 24.568ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.423ms, total 25.301ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.290ms, total 26.878ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.240ms, total 27.430ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.116ms, total 27.809ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.190ms, total 28.155ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.094ms, total 29.407ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.106ms, total 29.780ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.912ms, total 30.845ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.452ms, total 31.620ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.084ms, total 31.945ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.198ms, total 32.308ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.711ms, total 33.181ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.101ms, total 33.533ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.957ms, total 34.659ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize : 12.714ms, total 34.901ms, tagged coverage 69.6
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.028ms, total 36.301ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.166s, total 1.203s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.081ms, total 1.203s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.167s, total 1.203s, tagged coverage 99.9
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.351ms, total 1.204s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.142ms, total 1.205s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.086ms, total 1.205s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.434ms, total 1.205s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.082ms, total 1.206s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.909ms, total 1.207s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.148ms, total 1.207s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.045ms, total 1.207s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.144ms, total 1.208s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.915ms, total 1.209s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.077ms, total 1.209s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.471ms, total 1.210s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.115ms, total 1.210s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.040ms, total 1.210s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.086ms, total 1.210s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.311ms, total 1.211s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.049ms, total 1.211s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.293ms, total 1.211s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize : 7.299ms, total 1.211s, tagged coverage 64.4
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.028ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.045ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.022ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.495ms, total 1.213s, tagged coverage 19.2
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.018ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.021ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.019ms, total 1.213s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.250ms, total 1.214s, tagged coverage 23.2
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Compile : 32.282ms, total 1.244s, tagged coverage 0.5
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for InitializeCompiledFunction : 4.136ms, total 1.248s
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for RunCompiledFunction : 0.965ms, total 1.250s
+2020-05-18 16:12:33 root: INFO: Timer: aggregate:
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for tag 'Verify' (8): 0.241ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for tag 'RunCompiledFunction' (1): 0.965ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for tag 'ForwardRelationalLets' (9): 1.113ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for tag 'ExtractIntervalFilters' (9): 2.221ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for tag 'FoldConstants' (9): 2.228ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for tag 'Simplify' (9): 2.696ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for tag 'InitializeCompiledFunction' (1): 4.136ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for tag 'ForwardLets' (9): 8.322ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for tag 'PruneDeadFields' (9): 9.286ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for tag 'LoweringTransformation' (4): 1.166s
+2020-05-18 16:12:33 root: INFO: Timer: Fraction covered by a tagged leaf: 54.955ms (95.6%)
+2020-05-18 16:12:33 root: INFO: optimize Lowerer, initial IR: before: IR size 25: 
+(ToArray
+  (StreamMap __uid_10
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableMapGlobals
+              (TableMapRows
+                (TableRead None False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+                (InsertFields
+                  (SelectFields ()
+                    (SelectFields (trait_type phenocode pheno_sex coding modifier description description_more coding_description category n_cases_full_cohort_both_sexes n_cases_full_cohort_females n_cases_full_cohort_males n_cases_AFR n_cases_AMR n_cases_CSA n_cases_EAS n_cases_EUR n_cases_MID n_controls_AFR n_controls_AMR n_controls_CSA n_controls_EAS n_controls_EUR n_controls_MID saige_heritability_AFR saige_heritability_AMR saige_heritability_CSA saige_heritability_EAS saige_heritability_EUR saige_heritability_MID lambda_gc_AFR lambda_gc_AMR lambda_gc_CSA lambda_gc_EAS lambda_gc_EUR lambda_gc_MID filename)
+                      (Ref row)))
+                  None
+                  (coding
+                    (GetField coding
+                      (Ref row)))))
+              (InsertFields
+                (SelectFields ()
+                  (SelectFields ()
+                    (Ref global)))
+                None))
+            (InsertFields
+              (SelectFields (coding)
+                (SelectFields (coding)
+                  (Ref row)))
+              None)))))
+    (GetField coding
+      (Ref __uid_10))))
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.219ms, total 2.726ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.441ms, total 3.506ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.573ms, total 4.187ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.806ms, total 5.107ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.061ms, total 5.270ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.224ms, total 6.551ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.094ms, total 6.760ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.085ms, total 6.903ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.173ms, total 7.126ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.559ms, total 8.731ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.072ms, total 8.936ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.536ms, total 9.531ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.095ms, total 9.736ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.040ms, total 9.833ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.083ms, total 9.953ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.471ms, total 10.463ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.053ms, total 10.614ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.560ms, total 11.219ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize : 8.826ms, total 11.326ms, tagged coverage 81.0
+2020-05-18 16:12:33 root: INFO: optimize Lowerer, initial IR: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_29
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{coding:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField coding
+      (Ref __iruid_29))))
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.013ms, total 12.016ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 0.040ms, total 12.111ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.014ms, total 12.164ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for LowerMatrixToTable : 0.193ms, total 12.193ms, tagged coverage 34.2
+2020-05-18 16:12:33 root: INFO: optimize LowerMatrixToTable, post Lowering: before: IR size 8: 
+(ToArray
+  (StreamMap __iruid_29
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{coding:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField coding
+      (Ref __iruid_29))))
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.073ms, total 12.857ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.057ms, total 12.972ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.091ms, total 13.103ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.412ms, total 13.575ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.047ms, total 13.676ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.455ms, total 14.175ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.087ms, total 14.338ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.034ms, total 14.436ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.075ms, total 14.555ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.448ms, total 15.041ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.066ms, total 15.198ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.514ms, total 15.809ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.092ms, total 15.992ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.034ms, total 16.072ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.077ms, total 16.187ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.341ms, total 16.566ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.050ms, total 16.695ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.430ms, total 17.173ms
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for Optimize : 4.464ms, total 17.243ms, tagged coverage 75.8
+2020-05-18 16:12:33 root: INFO: optimize LowerMatrixToTable, post Lowering: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_32
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{coding:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField coding
+      (Ref __iruid_32))))
+2020-05-18 16:12:33 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.015ms, total 18.223ms
+2020-05-18 16:12:33 root: INFO: interpreting non compilable node: TableCollect
+2020-05-18 16:12:33 MemoryStore: INFO: Block broadcast_11 stored as values in memory (estimated size 238.1 KB, free 365.2 MB)
+2020-05-18 16:12:33 MemoryStore: INFO: Block broadcast_11_piece0 stored as bytes in memory (estimated size 23.2 KB, free 365.2 MB)
+2020-05-18 16:12:34 BlockManagerInfo: INFO: Added broadcast_11_piece0 in memory on 192.168.0.110:57518 (size: 23.2 KB, free: 366.2 MB)
+2020-05-18 16:12:34 SparkContext: INFO: Created broadcast 11 from textFile at RichSparkContext.scala:16
+2020-05-18 16:12:34 FileInputFormat: INFO: Total input paths to process : 1
+2020-05-18 16:12:34 root: INFO: encoder cache miss (0 hits, 7 misses, 0.000)
+2020-05-18 16:12:34 root: INFO: instruction count: 6: __C115etypeEncode.<init>
+2020-05-18 16:12:34 root: INFO: instruction count: 8: __C115etypeEncode.apply
+2020-05-18 16:12:34 root: INFO: instruction count: 20: __C115etypeEncode.__m116ENCODE_r_tuple_of_o_stringEND_TO_r_struct_of_o_binaryEND
+2020-05-18 16:12:34 root: INFO: instruction count: 25: __C115etypeEncode.__m117write_fields_group_0
+2020-05-18 16:12:34 root: INFO: instruction count: 19: __C115etypeEncode.__m118ENCODE_o_binary_TO_o_binary
+2020-05-18 16:12:34 SparkContext: INFO: Starting job: collect at RVD.scala:726
+2020-05-18 16:12:34 DAGScheduler: INFO: Got job 4 (collect at RVD.scala:726) with 8 output partitions
+2020-05-18 16:12:34 DAGScheduler: INFO: Final stage: ResultStage 4 (collect at RVD.scala:726)
+2020-05-18 16:12:34 DAGScheduler: INFO: Parents of final stage: List()
+2020-05-18 16:12:34 DAGScheduler: INFO: Missing parents: List()
+2020-05-18 16:12:34 DAGScheduler: INFO: Submitting ResultStage 4 (MapPartitionsRDD[44] at mapPartitions at ContextRDD.scala:157), which has no missing parents
+2020-05-18 16:12:34 MemoryStore: INFO: Block broadcast_12 stored as values in memory (estimated size 19.5 KB, free 365.2 MB)
+2020-05-18 16:12:34 MemoryStore: INFO: Block broadcast_12_piece0 stored as bytes in memory (estimated size 9.7 KB, free 365.2 MB)
+2020-05-18 16:12:34 BlockManagerInfo: INFO: Added broadcast_12_piece0 in memory on 192.168.0.110:57518 (size: 9.7 KB, free: 366.2 MB)
+2020-05-18 16:12:34 SparkContext: INFO: Created broadcast 12 from broadcast at DAGScheduler.scala:1161
+2020-05-18 16:12:34 DAGScheduler: INFO: Submitting 8 missing tasks from ResultStage 4 (MapPartitionsRDD[44] at mapPartitions at ContextRDD.scala:157) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7))
+2020-05-18 16:12:34 TaskSchedulerImpl: INFO: Adding task set 4.0 with 8 tasks
+2020-05-18 16:12:34 TaskSetManager: INFO: Starting task 0.0 in stage 4.0 (TID 32, localhost, executor driver, partition 0, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:34 TaskSetManager: INFO: Starting task 1.0 in stage 4.0 (TID 33, localhost, executor driver, partition 1, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:34 TaskSetManager: INFO: Starting task 2.0 in stage 4.0 (TID 34, localhost, executor driver, partition 2, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:34 TaskSetManager: INFO: Starting task 3.0 in stage 4.0 (TID 35, localhost, executor driver, partition 3, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:34 TaskSetManager: INFO: Starting task 4.0 in stage 4.0 (TID 36, localhost, executor driver, partition 4, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:34 TaskSetManager: INFO: Starting task 5.0 in stage 4.0 (TID 37, localhost, executor driver, partition 5, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:34 TaskSetManager: INFO: Starting task 6.0 in stage 4.0 (TID 38, localhost, executor driver, partition 6, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:34 TaskSetManager: INFO: Starting task 7.0 in stage 4.0 (TID 39, localhost, executor driver, partition 7, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:34 Executor: INFO: Running task 1.0 in stage 4.0 (TID 33)
+2020-05-18 16:12:34 Executor: INFO: Running task 5.0 in stage 4.0 (TID 37)
+2020-05-18 16:12:34 Executor: INFO: Running task 7.0 in stage 4.0 (TID 39)
+2020-05-18 16:12:34 Executor: INFO: Running task 6.0 in stage 4.0 (TID 38)
+2020-05-18 16:12:34 Executor: INFO: Running task 2.0 in stage 4.0 (TID 34)
+2020-05-18 16:12:34 Executor: INFO: Running task 3.0 in stage 4.0 (TID 35)
+2020-05-18 16:12:34 Executor: INFO: Running task 4.0 in stage 4.0 (TID 36)
+2020-05-18 16:12:34 Executor: INFO: Running task 0.0 in stage 4.0 (TID 32)
+2020-05-18 16:12:34 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2531025+506205
+2020-05-18 16:12:34 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1518615+506205
+2020-05-18 16:12:34 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3037230+506205
+2020-05-18 16:12:34 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3543435+506210
+2020-05-18 16:12:34 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:0+506205
+2020-05-18 16:12:34 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:506205+506205
+2020-05-18 16:12:34 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2024820+506205
+2020-05-18 16:12:34 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1012410+506205
+2020-05-18 16:12:34 Executor: INFO: Finished task 3.0 in stage 4.0 (TID 35). 12237 bytes result sent to driver
+2020-05-18 16:12:34 TaskSetManager: INFO: Finished task 3.0 in stage 4.0 (TID 35) in 495 ms on localhost (executor driver) (1/8)
+2020-05-18 16:12:35 Executor: INFO: Finished task 7.0 in stage 4.0 (TID 39). 26170 bytes result sent to driver
+2020-05-18 16:12:35 TaskSetManager: INFO: Finished task 7.0 in stage 4.0 (TID 39) in 887 ms on localhost (executor driver) (2/8)
+2020-05-18 16:12:35 Executor: INFO: Finished task 4.0 in stage 4.0 (TID 36). 9526 bytes result sent to driver
+2020-05-18 16:12:35 TaskSetManager: INFO: Finished task 4.0 in stage 4.0 (TID 36) in 994 ms on localhost (executor driver) (3/8)
+2020-05-18 16:12:35 Executor: INFO: Finished task 1.0 in stage 4.0 (TID 33). 15664 bytes result sent to driver
+2020-05-18 16:12:35 TaskSetManager: INFO: Finished task 1.0 in stage 4.0 (TID 33) in 1151 ms on localhost (executor driver) (4/8)
+2020-05-18 16:12:35 Executor: INFO: Finished task 6.0 in stage 4.0 (TID 38). 15392 bytes result sent to driver
+2020-05-18 16:12:35 TaskSetManager: INFO: Finished task 6.0 in stage 4.0 (TID 38) in 1324 ms on localhost (executor driver) (5/8)
+2020-05-18 16:12:35 Executor: INFO: Finished task 5.0 in stage 4.0 (TID 37). 11498 bytes result sent to driver
+2020-05-18 16:12:35 TaskSetManager: INFO: Finished task 5.0 in stage 4.0 (TID 37) in 1417 ms on localhost (executor driver) (6/8)
+2020-05-18 16:12:35 Executor: INFO: Finished task 0.0 in stage 4.0 (TID 32). 14216 bytes result sent to driver
+2020-05-18 16:12:35 TaskSetManager: INFO: Finished task 0.0 in stage 4.0 (TID 32) in 1423 ms on localhost (executor driver) (7/8)
+2020-05-18 16:12:35 Executor: INFO: Finished task 2.0 in stage 4.0 (TID 34). 12595 bytes result sent to driver
+2020-05-18 16:12:35 TaskSetManager: INFO: Finished task 2.0 in stage 4.0 (TID 34) in 1492 ms on localhost (executor driver) (8/8)
+2020-05-18 16:12:35 TaskSchedulerImpl: INFO: Removed TaskSet 4.0, whose tasks have all completed, from pool 
+2020-05-18 16:12:35 DAGScheduler: INFO: ResultStage 4 (collect at RVD.scala:726) finished in 1.500 s
+2020-05-18 16:12:35 DAGScheduler: INFO: Job 4 finished: collect at RVD.scala:726, took 1.502876 s
+2020-05-18 16:12:35 root: INFO: decoder cache miss (0 hits, 4 misses, 0.000
+2020-05-18 16:12:35 root: INFO: instruction count: 6: __C119etypeDecode.<init>
+2020-05-18 16:12:35 root: INFO: instruction count: 8: __C119etypeDecode.apply
+2020-05-18 16:12:35 root: INFO: instruction count: 38: __C119etypeDecode.__m120DECODE_r_struct_of_o_binaryEND_TO_r_tuple_of_o_stringEND
+2020-05-18 16:12:35 root: INFO: instruction count: 32: __C119etypeDecode.__m121read_fields_group_0
+2020-05-18 16:12:35 root: INFO: instruction count: 34: __C119etypeDecode.__m122INPLACE_DECODE_o_binary_TO_o_binary
+2020-05-18 16:12:35 root: INFO: took 1.780s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.781s, total 1.799s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.075ms, total 1.799s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.781s, total 1.799s, tagged coverage 100.0
+2020-05-18 16:12:35 root: INFO: optimize InterpretNonCompilable, post Lowering: before: IR size 7: 
+(ToArray
+  (StreamMap __iruid_32
+    (ToStream
+      (GetField rows
+        (Literal Struct{rows:Array[Struct{coding:String}],global:Struct{}} <literal value>)))
+    (GetField coding
+      (Ref __iruid_32))))
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 1.651ms, total 1.802s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.199ms, total 1.802s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.097ms, total 1.802s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.862ms, total 1.804s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.066ms, total 1.804s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.444ms, total 1.805s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.120ms, total 1.805s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.032ms, total 1.805s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.080ms, total 1.805s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.309ms, total 1.806s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.040ms, total 1.806s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.330ms, total 1.806s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.101ms, total 1.806s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.030ms, total 1.806s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.075ms, total 1.807s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.342ms, total 1.807s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.057ms, total 1.807s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.401ms, total 1.808s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize : 7.778ms, total 1.808s, tagged coverage 80.2
+2020-05-18 16:12:35 root: INFO: optimize InterpretNonCompilable, post Lowering: after: IR size 6:
+(ToArray
+  (StreamMap __iruid_35
+    (ToStream
+      (Literal Array[Struct{coding:String}] <literal value>))
+    (GetField coding
+      (Ref __iruid_35))))
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.029ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.038ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.026ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.358ms, total 1.809s, tagged coverage 26.2
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.035ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.027ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.023ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.231ms, total 1.810s, tagged coverage 37.3
+2020-05-18 16:12:35 root: INFO: encoder cache miss (0 hits, 8 misses, 0.000)
+2020-05-18 16:12:35 root: INFO: instruction count: 6: __C146etypeEncode.<init>
+2020-05-18 16:12:35 root: INFO: instruction count: 8: __C146etypeEncode.apply
+2020-05-18 16:12:35 root: INFO: instruction count: 8: __C146etypeEncode.__m147ENCODE_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND_TO_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND
+2020-05-18 16:12:35 root: INFO: instruction count: 16: __C146etypeEncode.__m148write_fields_group_0
+2020-05-18 16:12:35 root: INFO: instruction count: 47: __C146etypeEncode.__m149ENCODE_r_array_of_r_tuple_of_r_binaryEND_TO_r_array_of_r_struct_of_r_binaryEND
+2020-05-18 16:12:35 root: INFO: instruction count: 8: __C146etypeEncode.__m150ENCODE_r_tuple_of_r_binaryEND_TO_r_struct_of_r_binaryEND
+2020-05-18 16:12:35 root: INFO: instruction count: 16: __C146etypeEncode.__m151write_fields_group_0
+2020-05-18 16:12:35 root: INFO: instruction count: 19: __C146etypeEncode.__m152ENCODE_r_binary_TO_r_binary
+2020-05-18 16:12:35 MemoryStore: INFO: Block broadcast_13 stored as values in memory (estimated size 44.2 KB, free 365.2 MB)
+2020-05-18 16:12:35 MemoryStore: INFO: Block broadcast_13_piece0 stored as bytes in memory (estimated size 14.1 KB, free 365.1 MB)
+2020-05-18 16:12:35 BlockManagerInfo: INFO: Added broadcast_13_piece0 in memory on 192.168.0.110:57518 (size: 14.1 KB, free: 366.2 MB)
+2020-05-18 16:12:35 SparkContext: INFO: Created broadcast 13 from broadcast at SparkBackend.scala:232
+2020-05-18 16:12:35 root: INFO: instruction count: 6: __C123Compiled.<init>
+2020-05-18 16:12:35 root: INFO: instruction count: 25: __C123Compiled.apply
+2020-05-18 16:12:35 root: INFO: instruction count: 118: __C123Compiled.__m126wrapped
+2020-05-18 16:12:35 root: INFO: instruction count: 8: __C123Compiled.__m135addIRIntermediate
+2020-05-18 16:12:35 root: INFO: instruction count: 8: __C123Compiled.__m136addIRIntermediate
+2020-05-18 16:12:35 root: INFO: instruction count: 14: __C123Compiled.setPartitionIndex
+2020-05-18 16:12:35 root: INFO: instruction count: 7: __C123Compiled.addPartitionRegion
+2020-05-18 16:12:35 root: INFO: instruction count: 25: __C123Compiled.__m139DECODE_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND_TO_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND
+2020-05-18 16:12:35 root: INFO: instruction count: 11: __C123Compiled.__m140read_fields_group_0
+2020-05-18 16:12:35 root: INFO: instruction count: 58: __C123Compiled.__m141INPLACE_DECODE_r_array_of_r_struct_of_r_binaryEND_TO_r_array_of_r_tuple_of_r_binaryEND
+2020-05-18 16:12:35 root: INFO: instruction count: 17: __C123Compiled.__m142INPLACE_DECODE_r_struct_of_r_binaryEND_TO_r_tuple_of_r_binaryEND
+2020-05-18 16:12:35 root: INFO: instruction count: 11: __C123Compiled.__m143read_fields_group_0
+2020-05-18 16:12:35 root: INFO: instruction count: 34: __C123Compiled.__m144INPLACE_DECODE_r_binary_TO_r_binary
+2020-05-18 16:12:35 root: INFO: instruction count: 55: __C123Compiled.addLiterals
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile : 45.650ms, total 1.854s, tagged coverage 0.4
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for InitializeCompiledFunction : 4.522ms, total 1.858s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for RunCompiledFunction : 1.269ms, total 1.860s
+2020-05-18 16:12:35 root: INFO: Timer: all timings:
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.219ms, total 2.726ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.441ms, total 3.506ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.573ms, total 4.187ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.806ms, total 5.107ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.061ms, total 5.270ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.224ms, total 6.551ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.094ms, total 6.760ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.085ms, total 6.903ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.173ms, total 7.126ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.559ms, total 8.731ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.072ms, total 8.936ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.536ms, total 9.531ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.095ms, total 9.736ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.040ms, total 9.833ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.083ms, total 9.953ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.471ms, total 10.463ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.053ms, total 10.614ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.560ms, total 11.219ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize : 8.826ms, total 11.326ms, tagged coverage 81.0
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.013ms, total 12.016ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 0.040ms, total 12.111ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.014ms, total 12.164ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for LowerMatrixToTable : 0.193ms, total 12.193ms, tagged coverage 34.2
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.073ms, total 12.857ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.057ms, total 12.972ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.091ms, total 13.103ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.412ms, total 13.575ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.047ms, total 13.676ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.455ms, total 14.175ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.087ms, total 14.338ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.034ms, total 14.436ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.075ms, total 14.555ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.448ms, total 15.041ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.066ms, total 15.198ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.514ms, total 15.809ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.092ms, total 15.992ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.034ms, total 16.072ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.077ms, total 16.187ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.341ms, total 16.566ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.050ms, total 16.695ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.430ms, total 17.173ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize : 4.464ms, total 17.243ms, tagged coverage 75.8
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.015ms, total 18.223ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.781s, total 1.799s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.075ms, total 1.799s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.781s, total 1.799s, tagged coverage 100.0
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 1.651ms, total 1.802s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.199ms, total 1.802s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.097ms, total 1.802s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.862ms, total 1.804s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.066ms, total 1.804s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.444ms, total 1.805s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.120ms, total 1.805s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.032ms, total 1.805s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.080ms, total 1.805s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.309ms, total 1.806s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.040ms, total 1.806s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.330ms, total 1.806s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.101ms, total 1.806s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.030ms, total 1.806s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.075ms, total 1.807s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.342ms, total 1.807s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.057ms, total 1.807s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.401ms, total 1.808s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize : 7.778ms, total 1.808s, tagged coverage 80.2
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.029ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.038ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.026ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.358ms, total 1.809s, tagged coverage 26.2
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.035ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.027ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.023ms, total 1.809s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.231ms, total 1.810s, tagged coverage 37.3
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Compile : 45.650ms, total 1.854s, tagged coverage 0.4
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for InitializeCompiledFunction : 4.522ms, total 1.858s
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for RunCompiledFunction : 1.269ms, total 1.860s
+2020-05-18 16:12:35 root: INFO: Timer: aggregate:
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for tag 'Verify' (8): 0.231ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for tag 'ForwardRelationalLets' (9): 0.511ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for tag 'ExtractIntervalFilters' (9): 0.952ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for tag 'RunCompiledFunction' (1): 1.269ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for tag 'Simplify' (9): 1.324ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for tag 'FoldConstants' (9): 2.532ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for tag 'InitializeCompiledFunction' (1): 4.522ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for tag 'PruneDeadFields' (9): 4.893ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for tag 'ForwardLets' (9): 6.550ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for tag 'LoweringTransformation' (4): 1.781s
+2020-05-18 16:12:35 root: INFO: Timer: Fraction covered by a tagged leaf: 59.248ms (96.8%)
+2020-05-18 16:12:35 root: INFO: optimize Lowerer, initial IR: before: IR size 25: 
+(ToArray
+  (StreamMap __uid_12
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableMapGlobals
+              (TableMapRows
+                (TableRead None False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+                (InsertFields
+                  (SelectFields ()
+                    (SelectFields (trait_type phenocode pheno_sex coding modifier description description_more coding_description category n_cases_full_cohort_both_sexes n_cases_full_cohort_females n_cases_full_cohort_males n_cases_AFR n_cases_AMR n_cases_CSA n_cases_EAS n_cases_EUR n_cases_MID n_controls_AFR n_controls_AMR n_controls_CSA n_controls_EAS n_controls_EUR n_controls_MID saige_heritability_AFR saige_heritability_AMR saige_heritability_CSA saige_heritability_EAS saige_heritability_EUR saige_heritability_MID lambda_gc_AFR lambda_gc_AMR lambda_gc_CSA lambda_gc_EAS lambda_gc_EUR lambda_gc_MID filename)
+                      (Ref row)))
+                  None
+                  (modifier
+                    (GetField modifier
+                      (Ref row)))))
+              (InsertFields
+                (SelectFields ()
+                  (SelectFields ()
+                    (Ref global)))
+                None))
+            (InsertFields
+              (SelectFields (modifier)
+                (SelectFields (modifier)
+                  (Ref row)))
+              None)))))
+    (GetField modifier
+      (Ref __uid_12))))
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.107ms, total 1.252ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.429ms, total 1.754ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 1.043ms, total 2.859ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.975ms, total 3.928ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.135ms, total 4.236ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.698ms, total 6.035ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.128ms, total 6.297ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.090ms, total 6.449ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 1.430ms, total 7.932ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.473ms, total 8.496ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.048ms, total 8.617ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.078ms, total 9.737ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.132ms, total 10.030ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.056ms, total 10.147ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.208ms, total 10.406ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.439ms, total 10.900ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.061ms, total 11.043ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.560ms, total 11.657ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize : 10.579ms, total 11.719ms, tagged coverage 85.9
+2020-05-18 16:12:35 root: INFO: optimize Lowerer, initial IR: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_38
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{modifier:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField modifier
+      (Ref __iruid_38))))
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.013ms, total 12.362ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 0.061ms, total 12.478ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.016ms, total 12.540ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for LowerMatrixToTable : 0.235ms, total 12.581ms, tagged coverage 38.2
+2020-05-18 16:12:35 root: INFO: optimize LowerMatrixToTable, post Lowering: before: IR size 8: 
+(ToArray
+  (StreamMap __iruid_38
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{modifier:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField modifier
+      (Ref __iruid_38))))
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.196ms, total 13.298ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.085ms, total 13.502ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.287ms, total 13.860ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.349ms, total 15.512ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.087ms, total 15.862ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.919ms, total 16.879ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.137ms, total 17.153ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.115ms, total 17.336ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.200ms, total 17.604ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.068ms, total 18.744ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.082ms, total 18.964ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.634ms, total 19.668ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.149ms, total 19.943ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.059ms, total 20.087ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.138ms, total 20.284ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.590ms, total 20.953ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.084ms, total 21.138ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.758ms, total 22.012ms
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for Optimize : 9.080ms, total 22.175ms, tagged coverage 76.4
+2020-05-18 16:12:35 root: INFO: optimize LowerMatrixToTable, post Lowering: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_41
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{modifier:String}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField modifier
+      (Ref __iruid_41))))
+2020-05-18 16:12:35 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.022ms, total 23.168ms
+2020-05-18 16:12:35 root: INFO: interpreting non compilable node: TableCollect
+2020-05-18 16:12:35 MemoryStore: INFO: Block broadcast_14 stored as values in memory (estimated size 238.1 KB, free 364.9 MB)
+2020-05-18 16:12:35 MemoryStore: INFO: Block broadcast_14_piece0 stored as bytes in memory (estimated size 23.2 KB, free 364.9 MB)
+2020-05-18 16:12:35 BlockManagerInfo: INFO: Added broadcast_14_piece0 in memory on 192.168.0.110:57518 (size: 23.2 KB, free: 366.2 MB)
+2020-05-18 16:12:35 SparkContext: INFO: Created broadcast 14 from textFile at RichSparkContext.scala:16
+2020-05-18 16:12:35 FileInputFormat: INFO: Total input paths to process : 1
+2020-05-18 16:12:35 ContextCleaner: INFO: Cleaned accumulator 112
+2020-05-18 16:12:35 ContextCleaner: INFO: Cleaned accumulator 122
+2020-05-18 16:12:35 ContextCleaner: INFO: Cleaned accumulator 92
+2020-05-18 16:12:35 ContextCleaner: INFO: Cleaned accumulator 82
+2020-05-18 16:12:35 ContextCleaner: INFO: Cleaned accumulator 123
+2020-05-18 16:12:35 ContextCleaner: INFO: Cleaned accumulator 80
+2020-05-18 16:12:35 ContextCleaner: INFO: Cleaned accumulator 97
+2020-05-18 16:12:35 ContextCleaner: INFO: Cleaned accumulator 84
+2020-05-18 16:12:36 BlockManagerInfo: INFO: Removed broadcast_9_piece0 on 192.168.0.110:57518 in memory (size: 9.7 KB, free: 366.2 MB)
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 125
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 124
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 77
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 113
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 110
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 120
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 79
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 116
+2020-05-18 16:12:36 BlockManagerInfo: INFO: Removed broadcast_12_piece0 on 192.168.0.110:57518 in memory (size: 9.7 KB, free: 366.2 MB)
+2020-05-18 16:12:36 root: INFO: encoder cache miss (0 hits, 9 misses, 0.000)
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 118
+2020-05-18 16:12:36 BlockManagerInfo: INFO: Removed broadcast_8_piece0 on 192.168.0.110:57518 in memory (size: 23.2 KB, free: 366.2 MB)
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 94
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 78
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 114
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 104
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 119
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 87
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 83
+2020-05-18 16:12:36 root: INFO: instruction count: 6: __C153etypeEncode.<init>
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 98
+2020-05-18 16:12:36 root: INFO: instruction count: 8: __C153etypeEncode.apply
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 100
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 103
+2020-05-18 16:12:36 root: INFO: instruction count: 20: __C153etypeEncode.__m154ENCODE_r_tuple_of_o_stringEND_TO_r_struct_of_o_binaryEND
+2020-05-18 16:12:36 root: INFO: instruction count: 25: __C153etypeEncode.__m155write_fields_group_0
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 106
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 121
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 86
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 88
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 81
+2020-05-18 16:12:36 root: INFO: instruction count: 19: __C153etypeEncode.__m156ENCODE_o_binary_TO_o_binary
+2020-05-18 16:12:36 BlockManagerInfo: INFO: Removed broadcast_11_piece0 on 192.168.0.110:57518 in memory (size: 23.2 KB, free: 366.2 MB)
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 117
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 85
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 91
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 90
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 109
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 96
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 101
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 99
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 105
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 108
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 89
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 95
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 111
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 93
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 107
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 115
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 102
+2020-05-18 16:12:36 ContextCleaner: INFO: Cleaned accumulator 76
+2020-05-18 16:12:36 SparkContext: INFO: Starting job: collect at RVD.scala:726
+2020-05-18 16:12:36 DAGScheduler: INFO: Got job 5 (collect at RVD.scala:726) with 8 output partitions
+2020-05-18 16:12:36 DAGScheduler: INFO: Final stage: ResultStage 5 (collect at RVD.scala:726)
+2020-05-18 16:12:36 DAGScheduler: INFO: Parents of final stage: List()
+2020-05-18 16:12:36 DAGScheduler: INFO: Missing parents: List()
+2020-05-18 16:12:36 DAGScheduler: INFO: Submitting ResultStage 5 (MapPartitionsRDD[54] at mapPartitions at ContextRDD.scala:157), which has no missing parents
+2020-05-18 16:12:36 MemoryStore: INFO: Block broadcast_15 stored as values in memory (estimated size 19.5 KB, free 365.4 MB)
+2020-05-18 16:12:36 MemoryStore: INFO: Block broadcast_15_piece0 stored as bytes in memory (estimated size 9.7 KB, free 365.4 MB)
+2020-05-18 16:12:36 BlockManagerInfo: INFO: Added broadcast_15_piece0 in memory on 192.168.0.110:57518 (size: 9.7 KB, free: 366.2 MB)
+2020-05-18 16:12:36 SparkContext: INFO: Created broadcast 15 from broadcast at DAGScheduler.scala:1161
+2020-05-18 16:12:36 DAGScheduler: INFO: Submitting 8 missing tasks from ResultStage 5 (MapPartitionsRDD[54] at mapPartitions at ContextRDD.scala:157) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7))
+2020-05-18 16:12:36 TaskSchedulerImpl: INFO: Adding task set 5.0 with 8 tasks
+2020-05-18 16:12:36 TaskSetManager: INFO: Starting task 0.0 in stage 5.0 (TID 40, localhost, executor driver, partition 0, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:36 TaskSetManager: INFO: Starting task 1.0 in stage 5.0 (TID 41, localhost, executor driver, partition 1, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:36 TaskSetManager: INFO: Starting task 2.0 in stage 5.0 (TID 42, localhost, executor driver, partition 2, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:36 TaskSetManager: INFO: Starting task 3.0 in stage 5.0 (TID 43, localhost, executor driver, partition 3, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:36 TaskSetManager: INFO: Starting task 4.0 in stage 5.0 (TID 44, localhost, executor driver, partition 4, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:36 TaskSetManager: INFO: Starting task 5.0 in stage 5.0 (TID 45, localhost, executor driver, partition 5, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:36 TaskSetManager: INFO: Starting task 6.0 in stage 5.0 (TID 46, localhost, executor driver, partition 6, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:36 TaskSetManager: INFO: Starting task 7.0 in stage 5.0 (TID 47, localhost, executor driver, partition 7, PROCESS_LOCAL, 7921 bytes)
+2020-05-18 16:12:36 Executor: INFO: Running task 0.0 in stage 5.0 (TID 40)
+2020-05-18 16:12:36 Executor: INFO: Running task 3.0 in stage 5.0 (TID 43)
+2020-05-18 16:12:36 Executor: INFO: Running task 4.0 in stage 5.0 (TID 44)
+2020-05-18 16:12:36 Executor: INFO: Running task 1.0 in stage 5.0 (TID 41)
+2020-05-18 16:12:36 Executor: INFO: Running task 2.0 in stage 5.0 (TID 42)
+2020-05-18 16:12:36 Executor: INFO: Running task 6.0 in stage 5.0 (TID 46)
+2020-05-18 16:12:36 Executor: INFO: Running task 7.0 in stage 5.0 (TID 47)
+2020-05-18 16:12:36 Executor: INFO: Running task 5.0 in stage 5.0 (TID 45)
+2020-05-18 16:12:36 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2531025+506205
+2020-05-18 16:12:36 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1012410+506205
+2020-05-18 16:12:36 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3543435+506210
+2020-05-18 16:12:36 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:0+506205
+2020-05-18 16:12:36 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:1518615+506205
+2020-05-18 16:12:36 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:506205+506205
+2020-05-18 16:12:36 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:2024820+506205
+2020-05-18 16:12:36 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/release/phenotype_manifest.tsv:3037230+506205
+2020-05-18 16:12:36 Executor: INFO: Finished task 5.0 in stage 5.0 (TID 45). 11529 bytes result sent to driver
+2020-05-18 16:12:36 TaskSetManager: INFO: Finished task 5.0 in stage 5.0 (TID 45) in 682 ms on localhost (executor driver) (1/8)
+2020-05-18 16:12:37 Executor: INFO: Finished task 3.0 in stage 5.0 (TID 43). 9537 bytes result sent to driver
+2020-05-18 16:12:37 TaskSetManager: INFO: Finished task 3.0 in stage 5.0 (TID 43) in 1174 ms on localhost (executor driver) (2/8)
+2020-05-18 16:12:37 Executor: INFO: Finished task 2.0 in stage 5.0 (TID 42). 10219 bytes result sent to driver
+2020-05-18 16:12:37 TaskSetManager: INFO: Finished task 2.0 in stage 5.0 (TID 42) in 1248 ms on localhost (executor driver) (3/8)
+2020-05-18 16:12:37 Executor: INFO: Finished task 4.0 in stage 5.0 (TID 44). 7620 bytes result sent to driver
+2020-05-18 16:12:37 TaskSetManager: INFO: Finished task 4.0 in stage 5.0 (TID 44) in 1251 ms on localhost (executor driver) (4/8)
+2020-05-18 16:12:37 Executor: INFO: Finished task 7.0 in stage 5.0 (TID 47). 26170 bytes result sent to driver
+2020-05-18 16:12:37 TaskSetManager: INFO: Finished task 7.0 in stage 5.0 (TID 47) in 1268 ms on localhost (executor driver) (5/8)
+2020-05-18 16:12:37 Executor: INFO: Finished task 1.0 in stage 5.0 (TID 41). 11024 bytes result sent to driver
+2020-05-18 16:12:37 TaskSetManager: INFO: Finished task 1.0 in stage 5.0 (TID 41) in 1376 ms on localhost (executor driver) (6/8)
+2020-05-18 16:12:37 Executor: INFO: Finished task 0.0 in stage 5.0 (TID 40). 10192 bytes result sent to driver
+2020-05-18 16:12:37 TaskSetManager: INFO: Finished task 0.0 in stage 5.0 (TID 40) in 1399 ms on localhost (executor driver) (7/8)
+2020-05-18 16:12:37 Executor: INFO: Finished task 6.0 in stage 5.0 (TID 46). 16950 bytes result sent to driver
+2020-05-18 16:12:37 TaskSetManager: INFO: Finished task 6.0 in stage 5.0 (TID 46) in 1429 ms on localhost (executor driver) (8/8)
+2020-05-18 16:12:37 TaskSchedulerImpl: INFO: Removed TaskSet 5.0, whose tasks have all completed, from pool 
+2020-05-18 16:12:37 DAGScheduler: INFO: ResultStage 5 (collect at RVD.scala:726) finished in 1.439 s
+2020-05-18 16:12:37 DAGScheduler: INFO: Job 5 finished: collect at RVD.scala:726, took 1.442657 s
+2020-05-18 16:12:37 root: INFO: decoder cache miss (0 hits, 5 misses, 0.000
+2020-05-18 16:12:37 root: INFO: instruction count: 6: __C157etypeDecode.<init>
+2020-05-18 16:12:37 root: INFO: instruction count: 8: __C157etypeDecode.apply
+2020-05-18 16:12:37 root: INFO: instruction count: 38: __C157etypeDecode.__m158DECODE_r_struct_of_o_binaryEND_TO_r_tuple_of_o_stringEND
+2020-05-18 16:12:37 root: INFO: instruction count: 32: __C157etypeDecode.__m159read_fields_group_0
+2020-05-18 16:12:37 root: INFO: instruction count: 34: __C157etypeDecode.__m160INPLACE_DECODE_o_binary_TO_o_binary
+2020-05-18 16:12:37 root: INFO: took 1.686s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.686s, total 1.709s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.099ms, total 1.709s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.686s, total 1.709s, tagged coverage 100.0
+2020-05-18 16:12:37 root: INFO: optimize InterpretNonCompilable, post Lowering: before: IR size 7: 
+(ToArray
+  (StreamMap __iruid_41
+    (ToStream
+      (GetField rows
+        (Literal Struct{rows:Array[Struct{modifier:String}],global:Struct{}} <literal value>)))
+    (GetField modifier
+      (Ref __iruid_41))))
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.247ms, total 1.710s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.060ms, total 1.710s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.255ms, total 1.711s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.453ms, total 1.711s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.116ms, total 1.711s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.669ms, total 1.712s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.138ms, total 1.713s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.037ms, total 1.713s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.090ms, total 1.713s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.501ms, total 1.713s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.071ms, total 1.714s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.748ms, total 1.714s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.338ms, total 1.715s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.066ms, total 1.715s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.113ms, total 1.715s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.503ms, total 1.716s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.081ms, total 1.716s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.511ms, total 1.717s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize : 7.407ms, total 1.717s, tagged coverage 67.5
+2020-05-18 16:12:37 root: INFO: optimize InterpretNonCompilable, post Lowering: after: IR size 6:
+(ToArray
+  (StreamMap __iruid_44
+    (ToStream
+      (Literal Array[Struct{modifier:String}] <literal value>))
+    (GetField modifier
+      (Ref __iruid_44))))
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.045ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.067ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.040ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.692ms, total 1.720s, tagged coverage 22.0
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.025ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.043ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.026ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.260ms, total 1.721s, tagged coverage 36.0
+2020-05-18 16:12:37 root: INFO: encoder cache miss (0 hits, 10 misses, 0.000)
+2020-05-18 16:12:37 root: INFO: instruction count: 6: __C184etypeEncode.<init>
+2020-05-18 16:12:37 root: INFO: instruction count: 8: __C184etypeEncode.apply
+2020-05-18 16:12:37 root: INFO: instruction count: 8: __C184etypeEncode.__m185ENCODE_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND_TO_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND
+2020-05-18 16:12:37 root: INFO: instruction count: 16: __C184etypeEncode.__m186write_fields_group_0
+2020-05-18 16:12:37 root: INFO: instruction count: 47: __C184etypeEncode.__m187ENCODE_r_array_of_r_tuple_of_r_binaryEND_TO_r_array_of_r_struct_of_r_binaryEND
+2020-05-18 16:12:37 root: INFO: instruction count: 8: __C184etypeEncode.__m188ENCODE_r_tuple_of_r_binaryEND_TO_r_struct_of_r_binaryEND
+2020-05-18 16:12:37 root: INFO: instruction count: 16: __C184etypeEncode.__m189write_fields_group_0
+2020-05-18 16:12:37 root: INFO: instruction count: 19: __C184etypeEncode.__m190ENCODE_r_binary_TO_r_binary
+2020-05-18 16:12:37 MemoryStore: INFO: Block broadcast_16 stored as values in memory (estimated size 30.5 KB, free 365.4 MB)
+2020-05-18 16:12:37 MemoryStore: INFO: Block broadcast_16_piece0 stored as bytes in memory (estimated size 913.0 B, free 365.4 MB)
+2020-05-18 16:12:37 BlockManagerInfo: INFO: Added broadcast_16_piece0 in memory on 192.168.0.110:57518 (size: 913.0 B, free: 366.2 MB)
+2020-05-18 16:12:37 SparkContext: INFO: Created broadcast 16 from broadcast at SparkBackend.scala:232
+2020-05-18 16:12:37 root: INFO: instruction count: 6: __C161Compiled.<init>
+2020-05-18 16:12:37 root: INFO: instruction count: 25: __C161Compiled.apply
+2020-05-18 16:12:37 root: INFO: instruction count: 118: __C161Compiled.__m164wrapped
+2020-05-18 16:12:37 root: INFO: instruction count: 8: __C161Compiled.__m173addIRIntermediate
+2020-05-18 16:12:37 root: INFO: instruction count: 8: __C161Compiled.__m174addIRIntermediate
+2020-05-18 16:12:37 root: INFO: instruction count: 14: __C161Compiled.setPartitionIndex
+2020-05-18 16:12:37 root: INFO: instruction count: 7: __C161Compiled.addPartitionRegion
+2020-05-18 16:12:37 root: INFO: instruction count: 25: __C161Compiled.__m177DECODE_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND_TO_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND
+2020-05-18 16:12:37 root: INFO: instruction count: 11: __C161Compiled.__m178read_fields_group_0
+2020-05-18 16:12:37 root: INFO: instruction count: 58: __C161Compiled.__m179INPLACE_DECODE_r_array_of_r_struct_of_r_binaryEND_TO_r_array_of_r_tuple_of_r_binaryEND
+2020-05-18 16:12:37 root: INFO: instruction count: 17: __C161Compiled.__m180INPLACE_DECODE_r_struct_of_r_binaryEND_TO_r_tuple_of_r_binaryEND
+2020-05-18 16:12:37 root: INFO: instruction count: 11: __C161Compiled.__m181read_fields_group_0
+2020-05-18 16:12:37 root: INFO: instruction count: 34: __C161Compiled.__m182INPLACE_DECODE_r_binary_TO_r_binary
+2020-05-18 16:12:37 root: INFO: instruction count: 55: __C161Compiled.addLiterals
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile : 35.232ms, total 1.753s, tagged coverage 0.7
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for InitializeCompiledFunction : 4.100ms, total 1.757s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for RunCompiledFunction : 1.681ms, total 1.759s
+2020-05-18 16:12:37 root: INFO: Timer: all timings:
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.107ms, total 1.252ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.429ms, total 1.754ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 1.043ms, total 2.859ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.975ms, total 3.928ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.135ms, total 4.236ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.698ms, total 6.035ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.128ms, total 6.297ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.090ms, total 6.449ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 1.430ms, total 7.932ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.473ms, total 8.496ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.048ms, total 8.617ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.078ms, total 9.737ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.132ms, total 10.030ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.056ms, total 10.147ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.208ms, total 10.406ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.439ms, total 10.900ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.061ms, total 11.043ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.560ms, total 11.657ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize : 10.579ms, total 11.719ms, tagged coverage 85.9
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.013ms, total 12.362ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 0.061ms, total 12.478ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.016ms, total 12.540ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for LowerMatrixToTable : 0.235ms, total 12.581ms, tagged coverage 38.2
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.196ms, total 13.298ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.085ms, total 13.502ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.287ms, total 13.860ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.349ms, total 15.512ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.087ms, total 15.862ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.919ms, total 16.879ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.137ms, total 17.153ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.115ms, total 17.336ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.200ms, total 17.604ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.068ms, total 18.744ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.082ms, total 18.964ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.634ms, total 19.668ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.149ms, total 19.943ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.059ms, total 20.087ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.138ms, total 20.284ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.590ms, total 20.953ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.084ms, total 21.138ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.758ms, total 22.012ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize : 9.080ms, total 22.175ms, tagged coverage 76.4
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.022ms, total 23.168ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.686s, total 1.709s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.099ms, total 1.709s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.686s, total 1.709s, tagged coverage 100.0
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.247ms, total 1.710s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.060ms, total 1.710s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.255ms, total 1.711s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.453ms, total 1.711s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.116ms, total 1.711s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.669ms, total 1.712s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.138ms, total 1.713s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.037ms, total 1.713s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.090ms, total 1.713s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.501ms, total 1.713s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.071ms, total 1.714s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.748ms, total 1.714s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.338ms, total 1.715s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.066ms, total 1.715s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.113ms, total 1.715s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.503ms, total 1.716s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.081ms, total 1.716s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.511ms, total 1.717s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Optimize : 7.407ms, total 1.717s, tagged coverage 67.5
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.045ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.067ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.040ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.692ms, total 1.720s, tagged coverage 22.0
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.025ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.043ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.026ms, total 1.720s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.260ms, total 1.721s, tagged coverage 36.0
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for Compile : 35.232ms, total 1.753s, tagged coverage 0.7
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for InitializeCompiledFunction : 4.100ms, total 1.757s
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for RunCompiledFunction : 1.681ms, total 1.759s
+2020-05-18 16:12:37 root: INFO: Timer: aggregate:
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for tag 'Verify' (8): 0.286ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for tag 'ForwardRelationalLets' (9): 0.765ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for tag 'ExtractIntervalFilters' (9): 0.996ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for tag 'FoldConstants' (9): 1.571ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for tag 'RunCompiledFunction' (1): 1.681ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for tag 'Simplify' (9): 3.765ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for tag 'InitializeCompiledFunction' (1): 4.100ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for tag 'ForwardLets' (9): 6.351ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for tag 'PruneDeadFields' (9): 7.575ms
+2020-05-18 16:12:37 root: INFO: Timer: Time taken for tag 'LoweringTransformation' (4): 1.686s
+2020-05-18 16:12:37 root: INFO: Timer: Fraction covered by a tagged leaf: 49.559ms (97.2%)
+2020-05-18 16:12:37 SparkContext: INFO: Invoking stop() from shutdown hook
+2020-05-18 16:12:37 AbstractConnector: INFO: Stopped Spark@26500d5f{HTTP/1.1,[http/1.1]}{0.0.0.0:4040}
+2020-05-18 16:12:37 SparkUI: INFO: Stopped Spark web UI at http://192.168.0.110:4040
+2020-05-18 16:12:37 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
+2020-05-18 16:12:37 MemoryStore: INFO: MemoryStore cleared
+2020-05-18 16:12:37 BlockManager: INFO: BlockManager stopped
+2020-05-18 16:12:37 BlockManagerMaster: INFO: BlockManagerMaster stopped
+2020-05-18 16:12:37 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
+2020-05-18 16:12:37 SparkContext: INFO: Successfully stopped SparkContext
+2020-05-18 16:12:37 ShutdownHookManager: INFO: Shutdown hook called
+2020-05-18 16:12:37 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-448e5dcb-ca12-4d74-851d-5bdbd1bc8f2a
+2020-05-18 16:12:38 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-a656add2-4053-4b1d-bd61-b238d0aa7528
+2020-05-18 16:12:38 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-a656add2-4053-4b1d-bd61-b238d0aa7528/pyspark-91437144-2f2b-4180-b819-2859e5cab389

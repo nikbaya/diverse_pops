@@ -12,29 +12,9 @@ import argparse
 import hail as hl
 import sys
 
-
 bucket = 'gs://ukb-diverse-pops'
 ldprune_dir = f'{bucket}/ld_prune'
 
-
-PILOT_PHENOTYPES = set(map(lambda x: (x, 'irnt', 'continuous'), {'50', '699', '23104'})).union(
-    set(map(lambda x: (*x, 'categorical'), {('20004', '1095'), ('20004', '1479')}))).union(
-    set(map(lambda x: (x, '', 'icd'), {'K519', 'K509', 'E109', 'E119', 'J459', 'I251',
-                                       'K51', 'K50', 'E10', 'E11', 'J45', 'I25'}))).union(
-    set(map(lambda x: (x, 'icd10', 'icd10'), {'K519', 'K509', 'E109', 'E119', 'J459', 'I251',
-                                       'K51', 'K50', 'E10', 'E11', 'J45', 'I25'}))).union(
-    set(map(lambda x: (x, 'both_sexes', 'phecode'), {'401', '411'}))).union(
-    {('1717', '1717', 'continuous'),
-     ('random', 'random', 'continuous'),
-     ('random', 'random_strat', 'continuous'),
-     ('whr', 'whr', 'continuous'),
-     ('1747', '4', 'categorical'),
-     ('30040', 'irnt', 'continuous'),
-     ('30890', '30890', 'biomarkers'),
-     ('HMG CoA reductase inhibitor|statin', '', 'prescriptions')})
-
-def get_variant_results_path(pop: str):
-    return f'{bucket}/combined_results/results_{pop}.mt'
 
 def ht_to_tsv(args):
     r'''
@@ -84,8 +64,8 @@ def write_meta_sumstats(args):
     hl.init(default_reference='GRCh38', log='/tmp/write_meta_sumstats.log', **add_args)
     mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/meta_analysis.mt')
     
-    mt = mt0.filter_cols((hl.len(mt0.meta_analysis_data[0].pop)==6)|
-            (hl.literal(PILOT_PHENOTYPES).contains((mt0.pheno, mt0.coding, mt0.trait_type))))
+#    mt = mt0.filter_cols((hl.len(mt0.meta_analysis_data[0].pop)==6)|
+#            (hl.literal(PILOT_PHENOTYPES).contains((mt0.pheno, mt0.coding, mt0.trait_type))))
   # get phenos with results for all 6 populations
     mt2 = mt.select_cols().select_rows()
     mt2 = mt2.select_entries(Pvalue = mt2.meta_analysis.Pvalue)
@@ -147,6 +127,51 @@ def test_get_meta_sumstats(args):
 
         
 def export_loo(batch_size = 256):
+    r'''
+    For exporting p-values of meta-analysis of leave-one-out population sets
+    '''
+    meta_mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/meta_analysis.mt')
+    
+    meta_mt0 = meta_mt0.filter_cols(hl.len(meta_mt0.pheno_data.pop)==6)
+    
+    meta_mt0 = meta_mt0.annotate_cols(pheno_id = (meta_mt0.trait_type+'-'+
+                                                  meta_mt0.phenocode+'-'+
+                                                  meta_mt0.pheno_sex+
+                                                  hl.if_else(hl.len(meta_mt0.coding)>0, '-'+meta_mt0.coding, '')+
+                                                  hl.if_else(hl.len(meta_mt0.modifier)>0, '-'+meta_mt0.modifier, '')
+                                                  ).replace(' ','_').replace('/','_'))
+                
+    meta_mt0 = meta_mt0.annotate_rows(SNP = (meta_mt0.locus.contig+':'+
+                                             hl.str(meta_mt0.locus.position)+':'+
+                                             meta_mt0.alleles[0]+':'+
+                                             meta_mt0.alleles[1]))
+
+    all_pops = sorted(['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID'])
+    
+    annotate_dict = {}
+    for pop_idx, pop in enumerate(all_pops,1): # pop idx corresponds to the alphabetic ordering of the pops (entry with idx=0 is 6-pop meta-analysis)
+        annotate_dict.update({f'pval_not_{pop}': meta_mt0.meta_analysis.Pvalue[pop_idx]})
+    meta_mt1 = meta_mt0.annotate_entries(**annotate_dict)
+    
+    meta_mt1 = meta_mt1.key_cols_by('pheno_id')
+    meta_mt1 = meta_mt1.key_rows_by().drop('locus','alleles','gene','annotation','meta_analysis')
+    
+    batch_idx = 1
+    get_export_path = lambda batch_idx: f'{ldprune_dir}/loo/sumstats/batch{batch_idx}'
+    while hl.hadoop_is_dir(get_export_path(batch_idx)):
+        batch_idx += 1
+    print(f'\nExporting to: {get_export_path(batch_idx)}\n')
+    hl.experimental.export_entries_by_col(mt = meta_mt1,
+                                          path = get_export_path(batch_idx),
+                                          bgzip = True,
+                                          batch_size = batch_size,
+                                          use_string_key_as_file_name = True,
+                                          header_json_in_file = False)
+        
+def export_ma_format(batch_size=256):
+    r'''
+    Export columns for .ma format (A1, A2, freq, beta, se, N) for select phenotypes
+    '''
     meta_mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/meta_analysis.mt')
     
     highprev = hl.import_table(f'{ldprune_dir}/joined_ukbb_lancet_age_high_prev.tsv', impute=True)
@@ -154,7 +179,7 @@ def export_loo(batch_size = 256):
     pheno_list = highprev.pheno.collect()
     pheno_list = [p for p in pheno_list if p is not None]
     meta_mt0 = meta_mt0.filter_cols(hl.literal(pheno_list).contains(meta_mt0.pheno))
-    
+
     meta_mt0 = meta_mt0.annotate_cols(pheno_id = (meta_mt0.trait_type+'-'+
                                       meta_mt0.phenocode+'-'+
                                       meta_mt0.pheno_sex+
@@ -165,53 +190,45 @@ def export_loo(batch_size = 256):
     meta_mt0 = meta_mt0.annotate_rows(SNP = meta_mt0.locus.contig+':'+hl.str(meta_mt0.locus.position)+':'+meta_mt0.alleles[0]+':'+meta_mt0.alleles[1],
                                       A1 = meta_mt0.alleles[1], # .ma format requires A1 = effect allele, which in this case is A2 for UKB GWAS
                                       A2 = meta_mt0.alleles[0])
-    
-    meta_field_rename_dict = {'BETA':'b',
-                              'SE':'se',
-                              'Pvalue':'p',
-                              'AF_Allele2':'freq',
-                              'N':'N'}
 
-    pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
+    meta_field_rename_dict = {'BETA':'b',
+                          'SE':'se',
+                          'Pvalue':'p',
+                          'AF_Allele2':'freq',
+                          'N':'N'}
+    
+    all_pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
 
     for pop in ['AFR','EUR']: #['AFR','AMR','CSA','EAS','EUR','MID']:
         print(f'not_{pop}')
 
-        req_pop_list = [p for p in pops if p is not pop]
+        req_pop_list = [p for p in all_pops if p is not pop]
+
         loo_pop = meta_mt0.annotate_cols(idx = meta_mt0.meta_analysis_data.pop.index(hl.literal(req_pop_list))) # get index of which meta-analysis is the leave-on-out for current pop
         loo_pop = loo_pop.filter_cols(hl.is_defined(loo_pop.idx))
         
         annotate_dict = {}
         for field in ['AF_Allele2','BETA','SE','Pvalue','N']:
             annotate_dict.update({meta_field_rename_dict[field]: loo_pop.meta_analysis[field][loo_pop.idx]}) 
-        loo_pop = loo_pop.annotate_entries(**annotate_dict)
-        
-        print(loo_pop.count())
-
-        loo_pop = loo_pop.key_cols_by('pheno_id')
-        loo_pop = loo_pop.key_rows_by().drop('locus','alleles','gene','annotation','meta_analysis')
-        
         batch_idx = 1
-        export_out = f'{ldprune_dir}/loo/not_{pop}/batch{batch_idx}'
-        while hl.hadoop_is_dir(export_out):
-            batch_idx += 1
-            export_out = f'{ldprune_dir}/loo/not_{pop}/batch{batch_idx}'
-        checkpoint_path = f'gs://ukbb-diverse-temp-30day/loo/not_{pop}/batch{batch_idx}.mt'
-#        print(f'\nCheckpointing to: {checkpoint_path}\n')
-        loo_pop = loo_pop.checkpoint(checkpoint_path,
-                                     _read_if_exists=True,
-                                     overwrite=True)
-        loo_pop = loo_pop.filter_entries(hl.is_defined(loo_pop.b))
-        print(f'\nExporting to: {export_out}\n')
-        hl.experimental.export_entries_by_col(mt = loo_pop,
-                                              path = export_out,
-                                              bgzip = True,
-                                              batch_size = batch_size,
-                                              use_string_key_as_file_name = True,
-                                              header_json_in_file = False)
-        
 
-    
+    export_out = f'{ldprune_dir}/loo/not_{pop}/batch{batch_idx}'
+    while hl.hadoop_is_dir(export_out):
+        batch_idx += 1
+        export_out = f'{ldprune_dir}/loo/not_{pop}/batch{batch_idx}'
+    checkpoint_path = f'gs://ukbb-diverse-temp-30day/loo/not_{pop}/batch{batch_idx}.mt'
+#        print(f'\nCheckpointing to: {checkpoint_path}\n')
+    loo_pop = loo_pop.checkpoint(checkpoint_path,
+                                 _read_if_exists=True,
+                                 overwrite=True)
+    loo_pop = loo_pop.filter_entries(hl.is_defined(loo_pop.b))
+    print(f'\nExporting to: {export_out}\n')
+    hl.experimental.export_entries_by_col(mt = loo_pop,
+                                          path = export_out,
+                                          bgzip = True,
+                                          batch_size = batch_size,
+                                          use_string_key_as_file_name = True,
+                                          header_json_in_file = False)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -248,18 +265,10 @@ if __name__ == '__main__':
         test_get_meta_sumstats(args)
     elif args.write_meta_sumstats:
         write_meta_sumstats(args)
-    elif args.export_results:
-        export_results(batch_size=args.batch_size)
-    elif args.export_pop_pheno_pairs:
-        export_pop_pheno_pairs()
     elif args.export_loo:
         export_loo(batch_size=args.batch_size)
-    elif args.make_pheno_manifest:
-        make_pheno_manifest(args)
-    elif args.make_variant_manifest:
-        make_variant_manifest(args)
 #    except:
 #        hl.copy_log('gs://ukbb-diverse-temp-30day/nb_hail.log')
-#        
+        
 
         
