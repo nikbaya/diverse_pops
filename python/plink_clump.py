@@ -229,12 +229,10 @@ def run_method(p, pop, trait_type, phenocode, pheno_sex, coding, modifier,
     task_suffix = f'not_{pop}-{make_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier)}'
     # TODO: if method = 'sbayesr' check if LD matrix has already been calculated
     
-    n_threads = 8
-    
     tasks = []
         
     ## run plink clumping
-    for chrom in range(22,23):
+    for chrom in range(1,23):
         ## read ref ld plink files 
         bfile = read_plink_input_group_chrom(p=p, 
                                              method=method,
@@ -250,15 +248,17 @@ def run_method(p, pop, trait_type, phenocode, pheno_sex, coding, modifier,
         get_betas.command(' '.join(['set','-ex']))
         
         if method == 'clump':
-            clump_memory = -15*(chrom-1)+400 # Memory requested for PLINK clumping in MB. equation: -15*(chrom-1) + 400 is based on 400 MB for chr 1, 80 MB for chr 22
-            get_betas.memory(f'{clump_memory}M') # default: 30G
+#            clump_memory = -15*(chrom-1)+400 # Memory requested for PLINK clumping in MB. equation: -15*(chrom-1) + 500 is based on 400 MB for chr 1, 80 MB for chr 22
+            clump_memory = 1 # in GB
+            get_betas.memory(clump_memory) # default: 30G
 #            get_betas.command(f' gunzip -c {ss} | grep "^{chrom}:\|SNP" |'+"awk '{ print $1,$7 }' | head")
 #            get_betas.command(f'head {bfile.bim}')
 #            get_betas.command(' '.join([f'gunzip -c {ss} | grep "^{chrom}:\|SNP" > {get_betas.ofile}_ss']))
             
             get_betas.command(' '.join(['plink',
                                         '--bfile', str(bfile),
-                                        '--memory',str(clump_memory),
+                                        '--memory',str(clump_memory*1000),
+                                        '--threads','1', # explicitly set threads to 1
 #                                        '--clump', f'{get_betas.ofile}_ss',
                                         '--clump', '<(','grep',f'"^{chrom}:\|SNP"', str(ss), ')',
                                         '--clump-field P',
@@ -336,28 +336,29 @@ def run_method(p, pop, trait_type, phenocode, pheno_sex, coding, modifier,
     p.write_output(get_betas_sink.ofile, output_txt)
     
     ## import as hail table and save
-#    tsv_to_ht = p.new_job(name=f'{method}_to_ht_{task_suffix}')
-#    tsv_to_ht = tsv_to_ht.image('gcr.io/ukbb-diversepops-neale/hail_utils:3.4')
-#    tsv_to_ht.storage('1G')
-#    tsv_to_ht.memory('100M')
-#    tsv_to_ht.cpu(n_threads)
-#    tsv_to_ht.depends_on(get_betas_sink)
-#    
-#    tsv_to_ht.command(' '.join(['set','-ex']))
-#    tsv_to_ht.command(' '.join(['PYTHONPATH=$PYTHONPATH:/',
-#                        'PYSPARK_SUBMIT_ARGS="--conf spark.driver.memory=4g --conf spark.executor.memory=24g pyspark-shell"']))
-#    tsv_to_ht.command(' '.join(['python3', str(hail_script),
-#                         '--input_file', output_txt,
-#                         '--tsv_to_ht',
-#                         '--pop', pop,
-#                         '--trait_type', trait_type,
-#                         '--phenocode', phenocode,
-#                         '--pheno_sex', pheno_sex,
-#                         '--output_file', output_ht,
-#                         '--n_threads', str(n_threads),
-#                         '--overwrite']+
-#                         (['--coding',coding] if coding != '' else [])+
-#                         (['--modifier',modifier] if modifier != '' else [])))    
+    n_threads = 8
+    tsv_to_ht = p.new_job(name=f'{method}_to_ht_{task_suffix}')
+    tsv_to_ht = tsv_to_ht.image('gcr.io/ukbb-diversepops-neale/hail_utils:3.4')
+    tsv_to_ht.storage('1G')
+    tsv_to_ht.memory('100M')
+    tsv_to_ht.cpu(n_threads)
+    tsv_to_ht.depends_on(get_betas_sink)
+    
+    tsv_to_ht.command(' '.join(['set','-ex']))
+    tsv_to_ht.command(' '.join(['PYTHONPATH=$PYTHONPATH:/',
+                        'PYSPARK_SUBMIT_ARGS="--conf spark.driver.memory=4g --conf spark.executor.memory=24g pyspark-shell"']))
+    tsv_to_ht.command(' '.join(['python3', str(hail_script),
+                         '--input_file', output_txt,
+                         '--tsv_to_ht',
+                         '--pop', pop,
+                         '--trait_type', trait_type,
+                         '--phenocode', phenocode,
+                         '--pheno_sex', pheno_sex,
+                         '--output_file', output_ht,
+                         '--n_threads', str(n_threads),
+                         '--overwrite']+
+                         (['--coding',coding] if coding != '' else [])+
+                         (['--modifier',modifier] if modifier != '' else [])))    
 
 def main():
     pops = ['AFR','EUR'] # 'AFR']#

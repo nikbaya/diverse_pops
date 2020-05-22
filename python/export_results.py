@@ -13,14 +13,13 @@ import hail as hl
 from itertools import combinations
 from time import time
 from math import ceil
-
+from diverse_pops.utils.results import get_variant_results_path, get_analysis_data_path, load_final_sumstats_mt
 
 
 bucket = 'gs://ukb-diverse-pops'
+public_bucket = 'gs://ukb-diverse-pops-public/'
 ldprune_dir = f'{bucket}/ld_prune'
 
-def get_variant_results_path(pop: str, extension='mt'):
-    return f'{bucket}/combined_results/results_{pop}.{extension}'
 
 def export_results(num_pops, trait_types='all', batch_size=256):
     r'''
@@ -28,7 +27,8 @@ def export_results(num_pops, trait_types='all', batch_size=256):
     '''
     assert trait_types in {'all','quant','binary'}, "trait_types must be one of the following: {'all','quant','binary'}"
     hl.init(default_reference='GRCh38', log='/tmp/export_entries_by_col.log')
-    mt0 = hl.read_matrix_table(get_variant_results_path(pop='full'))
+    mt0 = load_final_sumstats_mt(annotate_with_nearest_gene=False,
+                                 separate_columns_by_pop=False)
     meta_mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/meta_analysis.mt')
     
     mt0 = mt0.annotate_cols(pheno_id = (mt0.trait_type+'-'+
@@ -281,27 +281,27 @@ def export_binary_eur(cluster_idx, num_clusters=10, batch_size = 256):
 def make_pheno_manifest():
     # mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/results_full.mt')
     # mt0_cols = mt0.cols()
-    ht0 = hl.read_table('gs://ukb-diverse-pops-public/sumstats_qc_analysis/lambda/lambdas_full.ht')
+    pheno_qual_ht = hl.read_table(get_analysis_data_path('lambda', 'lambdas', 'full', 'ht'))
     
     annotate_dict = {}
     for field in ['n_cases','n_controls','heritability','lambda_gc']:
         for pop in ['AFR','AMR','CSA','EAS','EUR','MID']:
             new_field = field if field!='heritability' else 'saige_heritability' # new field name (only applicable to saige heritability)
-            idx = ht0.pheno_data.pop.index(pop)
-            field_expr = ht0.pheno_data[field]
+            idx = pheno_qual_ht.pheno_data.pop.index(pop)
+            field_expr = pheno_qual_ht.pheno_data[field]
             annotate_dict.update({f'{new_field}_{pop}': hl.if_else(hl.is_nan(idx),
                                                                hl.null(field_expr[0].dtype),
                                                                field_expr[idx])})
-    annotate_dict.update({'filename':(ht0.trait_type+'-'+
-                                     ht0.phenocode+'-'+
-                                     ht0.pheno_sex+
-                                     hl.if_else(hl.len(ht0.coding)>0, '-'+ht0.coding, '')+
-                                     hl.if_else(hl.len(ht0.modifier)>0, '-'+ht0.modifier, '')+
+    annotate_dict.update({'filename':(pheno_qual_ht.trait_type+'-'+
+                                     pheno_qual_ht.phenocode+'-'+
+                                     pheno_qual_ht.pheno_sex+
+                                     hl.if_else(hl.len(pheno_qual_ht.coding)>0, '-'+pheno_qual_ht.coding, '')+
+                                     hl.if_else(hl.len(pheno_qual_ht.modifier)>0, '-'+pheno_qual_ht.modifier, '')+
                                      '.tsv.bgz'
                                      ).replace(' ','_').replace('/','_')})
-    ht1 = ht0.annotate(**annotate_dict)
-    ht1 = ht1.drop('pheno_data')
-    ht1.export(f'{ldprune_dir}/release/phenotype_manifest.tsv.bgz')
+    pheno_qual_ht = pheno_qual_ht.annotate(**annotate_dict)
+    pheno_qual_ht = pheno_qual_ht.drop('pheno_data')
+    pheno_qual_ht.export(f'{ldprune_dir}/release/phenotype_manifest.tsv.bgz')
     
 def make_variant_manifest():
     # mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/results_full.mt')
