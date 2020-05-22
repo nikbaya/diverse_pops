@@ -170,13 +170,14 @@ def export_results(num_pops, trait_types='all', batch_size=256):
 def export_binary_eur(cluster_idx, num_clusters=10, batch_size = 256):
     r'''
     Export summary statistics for binary traits defined only for EUR. 
-    Given the large number of such traits (4222), it makes sense to batch this 
+    Given the large number of such traits (4197), it makes sense to batch this 
     across `num_clusters` clusters for reduced wall time and robustness to mid-export errors.
     NOTE: `cluster_idx` is 1-indexed.
     '''
     
     hl.init(default_reference='GRCh38', log='/tmp/export_entries_by_col.log')
-    mt0 = hl.read_matrix_table(get_variant_results_path(pop='full'))
+    mt0 = load_final_sumstats_mt(annotate_with_nearest_gene=False,
+                                 separate_columns_by_pop=False)
     meta_mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/meta_analysis.mt')
     
     
