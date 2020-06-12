@@ -1,0 +1,1051 @@
+2020-06-11 09:13:47 Hail: INFO: Running Hail version 0.2.43-d7da1fd14f3c
+2020-06-11 09:13:47 SparkContext: WARN: Using an existing SparkContext; some configuration may not take effect.
+2020-06-11 09:13:48 CodecPool: INFO: Got brand-new decompressor [.gz]
+2020-06-11 09:13:49 root: INFO: RegionPool: initialized for thread 15: Thread-4
+2020-06-11 09:13:50 CodecPool: INFO: Got brand-new decompressor [.gz]
+2020-06-11 09:13:51 CodecPool: INFO: Got brand-new decompressor [.gz]
+2020-06-11 09:13:51 CodecPool: INFO: Got brand-new decompressor [.gz]
+2020-06-11 09:14:31 root: INFO: optimize Lowerer, initial IR: before: IR size 87: 
+(GetField rows
+  (TableCollect
+    (TableHead 40
+      (TableMapRows
+        (TableMapRows
+          (TableOrderBy ()
+            (TableRead None False "{\"path\":\"gs://ukbb-diverse-temp-30day/results-test/not_AFR/biomarkers-30600-both_sexes-irnt/clump_results-test.ht\",\"name\":\"TableNativeReader\"}"))
+          (InsertFields
+            (SelectFields ()
+              (SelectFields (contig F varid pos P TOTAL NSIG S05 S01 S001 S0001 SP2)
+                (Ref row)))
+            None
+            (contig
+              (GetField contig
+                (Ref row)))
+            (F
+              (GetField F
+                (Ref row)))
+            (varid
+              (GetField varid
+                (Ref row)))
+            (pos
+              (GetField pos
+                (Ref row)))
+            (P
+              (GetField P
+                (Ref row)))
+            (TOTAL
+              (GetField TOTAL
+                (Ref row)))
+            (NSIG
+              (GetField NSIG
+                (Ref row)))
+            (S05
+              (GetField S05
+                (Ref row)))
+            (S01
+              (GetField S01
+                (Ref row)))
+            (S001
+              (GetField S001
+                (Ref row)))
+            (S0001
+              (GetField S0001
+                (Ref row)))
+            (SP2
+              (GetField SP2
+                (Ref row)))))
+        (InsertFields
+          (SelectFields ()
+            (SelectFields (contig F varid pos P TOTAL NSIG S05 S01 S001 S0001 SP2)
+              (Ref row)))
+          None
+          (contig
+            (ApplySpecial showStr () String
+              (GetField contig
+                (Ref row))
+              (I32 266)))
+          (F
+            (ApplySpecial showStr () String
+              (GetField F
+                (Ref row))
+              (I32 266)))
+          (varid
+            (ApplySpecial showStr () String
+              (GetField varid
+                (Ref row))
+              (I32 266)))
+          (pos
+            (ApplySpecial showStr () String
+              (GetField pos
+                (Ref row))
+              (I32 266)))
+          (P
+            (ApplySpecial showStr () String
+              (GetField P
+                (Ref row))
+              (I32 266)))
+          (TOTAL
+            (ApplySpecial showStr () String
+              (GetField TOTAL
+                (Ref row))
+              (I32 266)))
+          (NSIG
+            (ApplySpecial showStr () String
+              (GetField NSIG
+                (Ref row))
+              (I32 266)))
+          (S05
+            (ApplySpecial showStr () String
+              (GetField S05
+                (Ref row))
+              (I32 266)))
+          (S01
+            (ApplySpecial showStr () String
+              (GetField S01
+                (Ref row))
+              (I32 266)))
+          (S001
+            (ApplySpecial showStr () String
+              (GetField S001
+                (Ref row))
+              (I32 266)))
+          (S0001
+            (ApplySpecial showStr () String
+              (GetField S0001
+                (Ref row))
+              (I32 266)))
+          (SP2
+            (ApplySpecial showStr () String
+              (GetField SP2
+                (Ref row))
+              (I32 266))))))))
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 2.480ms, total 41.613ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 6.309ms, total 49.432ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- Simplify : 15.123ms, total 65.125ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 13.331ms, total 79.008ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 2.172ms, total 81.588ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 16.393ms, total 98.346ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.772ms, total 99.438ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 1.057ms, total 100.873ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.585ms, total 101.704ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 6.263ms, total 108.158ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.803ms, total 109.217ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 3.358ms, total 112.809ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize : 74.463ms, total 113.229ms, tagged coverage 92.2
+2020-06-11 09:14:31 root: INFO: optimize Lowerer, initial IR: after: IR size 57:
+(GetField rows
+  (TableCollect
+    (TableMapRows
+      (TableHead 40
+        (TableOrderBy ()
+          (TableRead None False "{\"path\":\"gs://ukbb-diverse-temp-30day/results-test/not_AFR/biomarkers-30600-both_sexes-irnt/clump_results-test.ht\",\"name\":\"TableNativeReader\"}")))
+      (InsertFields
+        (SelectFields ()
+          (Ref row))
+        None
+        (contig
+          (ApplySpecial showStr () String
+            (GetField contig
+              (Ref row))
+            (I32 266)))
+        (F
+          (ApplySpecial showStr () String
+            (GetField F
+              (Ref row))
+            (I32 266)))
+        (varid
+          (ApplySpecial showStr () String
+            (GetField varid
+              (Ref row))
+            (I32 266)))
+        (pos
+          (ApplySpecial showStr () String
+            (GetField pos
+              (Ref row))
+            (I32 266)))
+        (P
+          (ApplySpecial showStr () String
+            (GetField P
+              (Ref row))
+            (I32 266)))
+        (TOTAL
+          (ApplySpecial showStr () String
+            (GetField TOTAL
+              (Ref row))
+            (I32 266)))
+        (NSIG
+          (ApplySpecial showStr () String
+            (GetField NSIG
+              (Ref row))
+            (I32 266)))
+        (S05
+          (ApplySpecial showStr () String
+            (GetField S05
+              (Ref row))
+            (I32 266)))
+        (S01
+          (ApplySpecial showStr () String
+            (GetField S01
+              (Ref row))
+            (I32 266)))
+        (S001
+          (ApplySpecial showStr () String
+            (GetField S001
+              (Ref row))
+            (I32 266)))
+        (S0001
+          (ApplySpecial showStr () String
+            (GetField S0001
+              (Ref row))
+            (I32 266)))
+        (SP2
+          (ApplySpecial showStr () String
+            (GetField SP2
+              (Ref row))
+            (I32 266)))))))
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.484ms, total 117.599ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 8.057ms, total 126.074ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.084ms, total 126.571ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for LowerMatrixToTable : 9.783ms, total 126.715ms, tagged coverage 88.2
+2020-06-11 09:14:31 root: INFO: optimize LowerMatrixToTable, post Lowering: before: IR size 57: 
+(GetField rows
+  (TableCollect
+    (TableMapRows
+      (TableHead 40
+        (TableOrderBy ()
+          (TableRead None False "{\"path\":\"gs://ukbb-diverse-temp-30day/results-test/not_AFR/biomarkers-30600-both_sexes-irnt/clump_results-test.ht\",\"name\":\"TableNativeReader\"}")))
+      (InsertFields
+        (SelectFields ()
+          (Ref row))
+        None
+        (contig
+          (ApplySpecial showStr () String
+            (GetField contig
+              (Ref row))
+            (I32 266)))
+        (F
+          (ApplySpecial showStr () String
+            (GetField F
+              (Ref row))
+            (I32 266)))
+        (varid
+          (ApplySpecial showStr () String
+            (GetField varid
+              (Ref row))
+            (I32 266)))
+        (pos
+          (ApplySpecial showStr () String
+            (GetField pos
+              (Ref row))
+            (I32 266)))
+        (P
+          (ApplySpecial showStr () String
+            (GetField P
+              (Ref row))
+            (I32 266)))
+        (TOTAL
+          (ApplySpecial showStr () String
+            (GetField TOTAL
+              (Ref row))
+            (I32 266)))
+        (NSIG
+          (ApplySpecial showStr () String
+            (GetField NSIG
+              (Ref row))
+            (I32 266)))
+        (S05
+          (ApplySpecial showStr () String
+            (GetField S05
+              (Ref row))
+            (I32 266)))
+        (S01
+          (ApplySpecial showStr () String
+            (GetField S01
+              (Ref row))
+            (I32 266)))
+        (S001
+          (ApplySpecial showStr () String
+            (GetField S001
+              (Ref row))
+            (I32 266)))
+        (S0001
+          (ApplySpecial showStr () String
+            (GetField S0001
+              (Ref row))
+            (I32 266)))
+        (SP2
+          (ApplySpecial showStr () String
+            (GetField SP2
+              (Ref row))
+            (I32 266)))))))
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.257ms, total 129.347ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.906ms, total 130.432ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.506ms, total 131.092ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 3.764ms, total 135.017ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.319ms, total 135.574ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 3.147ms, total 138.879ms
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for Optimize : 10.203ms, total 139.286ms, tagged coverage 87.2
+2020-06-11 09:14:31 root: INFO: optimize LowerMatrixToTable, post Lowering: after: IR size 57:
+(GetField rows
+  (TableCollect
+    (TableMapRows
+      (TableHead 40
+        (TableOrderBy ()
+          (TableRead None False "{\"path\":\"gs://ukbb-diverse-temp-30day/results-test/not_AFR/biomarkers-30600-both_sexes-irnt/clump_results-test.ht\",\"name\":\"TableNativeReader\"}")))
+      (InsertFields
+        (SelectFields ()
+          (Ref row))
+        None
+        (contig
+          (ApplySpecial showStr () String
+            (GetField contig
+              (Ref row))
+            (I32 266)))
+        (F
+          (ApplySpecial showStr () String
+            (GetField F
+              (Ref row))
+            (I32 266)))
+        (varid
+          (ApplySpecial showStr () String
+            (GetField varid
+              (Ref row))
+            (I32 266)))
+        (pos
+          (ApplySpecial showStr () String
+            (GetField pos
+              (Ref row))
+            (I32 266)))
+        (P
+          (ApplySpecial showStr () String
+            (GetField P
+              (Ref row))
+            (I32 266)))
+        (TOTAL
+          (ApplySpecial showStr () String
+            (GetField TOTAL
+              (Ref row))
+            (I32 266)))
+        (NSIG
+          (ApplySpecial showStr () String
+            (GetField NSIG
+              (Ref row))
+            (I32 266)))
+        (S05
+          (ApplySpecial showStr () String
+            (GetField S05
+              (Ref row))
+            (I32 266)))
+        (S01
+          (ApplySpecial showStr () String
+            (GetField S01
+              (Ref row))
+            (I32 266)))
+        (S001
+          (ApplySpecial showStr () String
+            (GetField S001
+              (Ref row))
+            (I32 266)))
+        (S0001
+          (ApplySpecial showStr () String
+            (GetField S0001
+              (Ref row))
+            (I32 266)))
+        (SP2
+          (ApplySpecial showStr () String
+            (GetField SP2
+              (Ref row))
+            (I32 266)))))))
+2020-06-11 09:14:31 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.062ms, total 141.869ms
+2020-06-11 09:14:31 root: INFO: interpreting non compilable node: TableCollect
+2020-06-11 09:14:32 CodecPool: INFO: Got brand-new decompressor [.gz]
+2020-06-11 09:14:32 root: INFO: decoder cache miss (0 hits, 1 misses, 0.000
+2020-06-11 09:14:32 root: INFO: instruction count: 6: __C1etypeDecode.<init>
+2020-06-11 09:14:32 root: INFO: instruction count: 8: __C1etypeDecode.apply
+2020-06-11 09:14:32 root: INFO: instruction count: 19: __C1etypeDecode.__m2DECODE_r_struct_of_END_TO_r_tuple_of_END
+2020-06-11 09:14:32 CodecPool: INFO: Got brand-new decompressor [.gz]
+2020-06-11 09:14:32 root: INFO: decoder cache miss (0 hits, 2 misses, 0.000
+2020-06-11 09:14:32 root: INFO: instruction count: 6: __C3etypeDecode.<init>
+2020-06-11 09:14:32 root: INFO: instruction count: 8: __C3etypeDecode.apply
+2020-06-11 09:14:32 root: INFO: instruction count: 47: __C3etypeDecode.__m4DECODE_r_struct_of_o_binaryANDo_binaryANDo_binaryANDo_binaryANDo_binaryANDo_binaryANDo_binaryANDo_binaryANDo_binaryANDo_binaryANDo_binaryANDo_binaryEND_TO_r_tuple_of_o_stringANDo_stringANDo_stringANDo_stringANDo_stringANDo_stringANDo_stringANDo_stringANDo_stringANDo_stringANDo_stringANDo_stringEND
+2020-06-11 09:14:32 root: INFO: instruction count: 340: __C3etypeDecode.__m5read_fields_group_0
+2020-06-11 09:14:32 root: INFO: instruction count: 34: __C3etypeDecode.__m6INPLACE_DECODE_o_binary_TO_o_binary
+2020-06-11 09:14:32 MemoryStore: INFO: Block broadcast_0 stored as values in memory (estimated size 238.1 KB, free 366.1 MB)
+2020-06-11 09:14:33 MemoryStore: INFO: Block broadcast_0_piece0 stored as bytes in memory (estimated size 23.2 KB, free 366.0 MB)
+2020-06-11 09:14:33 BlockManagerInfo: INFO: Added broadcast_0_piece0 in memory on 10.0.0.51:51427 (size: 23.2 KB, free: 366.3 MB)
+2020-06-11 09:14:33 SparkContext: INFO: Created broadcast 0 from broadcast at SparkBackend.scala:232
+2020-06-11 09:14:33 SparkContext: INFO: Starting job: runJob at ContextRDD.scala:351
+2020-06-11 09:14:33 DAGScheduler: INFO: Got job 0 (runJob at ContextRDD.scala:351) with 1 output partitions
+2020-06-11 09:14:33 DAGScheduler: INFO: Final stage: ResultStage 0 (runJob at ContextRDD.scala:351)
+2020-06-11 09:14:33 DAGScheduler: INFO: Parents of final stage: List()
+2020-06-11 09:14:33 DAGScheduler: INFO: Missing parents: List()
+2020-06-11 09:14:33 DAGScheduler: INFO: Submitting ResultStage 0 (MapPartitionsRDD[3] at mapPartitions at ContextRDD.scala:239), which has no missing parents
+2020-06-11 09:14:33 MemoryStore: INFO: Block broadcast_1 stored as values in memory (estimated size 11.1 KB, free 366.0 MB)
+2020-06-11 09:14:33 MemoryStore: INFO: Block broadcast_1_piece0 stored as bytes in memory (estimated size 6.5 KB, free 366.0 MB)
+2020-06-11 09:14:33 BlockManagerInfo: INFO: Added broadcast_1_piece0 in memory on 10.0.0.51:51427 (size: 6.5 KB, free: 366.3 MB)
+2020-06-11 09:14:33 SparkContext: INFO: Created broadcast 1 from broadcast at DAGScheduler.scala:1161
+2020-06-11 09:14:33 DAGScheduler: INFO: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[3] at mapPartitions at ContextRDD.scala:239) (first 15 tasks are for partitions Vector(0))
+2020-06-11 09:14:33 TaskSchedulerImpl: INFO: Adding task set 0.0 with 1 tasks
+2020-06-11 09:14:33 TaskSetManager: INFO: Starting task 0.0 in stage 0.0 (TID 0, localhost, executor driver, partition 0, PROCESS_LOCAL, 7697 bytes)
+2020-06-11 09:14:33 Executor: INFO: Running task 0.0 in stage 0.0 (TID 0)
+2020-06-11 09:14:33 root: INFO: RegionPool: initialized for thread 61: Executor task launch worker for task 0
+2020-06-11 09:14:34 Executor: INFO: Finished task 0.0 in stage 0.0 (TID 0). 752 bytes result sent to driver
+2020-06-11 09:14:34 TaskSetManager: INFO: Finished task 0.0 in stage 0.0 (TID 0) in 571 ms on localhost (executor driver) (1/1)
+2020-06-11 09:14:34 TaskSchedulerImpl: INFO: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+2020-06-11 09:14:34 DAGScheduler: INFO: ResultStage 0 (runJob at ContextRDD.scala:351) finished in 0.633 s
+2020-06-11 09:14:34 DAGScheduler: INFO: Job 0 finished: runJob at ContextRDD.scala:351, took 0.679167 s
+2020-06-11 09:14:34 root: INFO: optimize Lowerer, initial IR: before: IR size 54: 
+(Coalesce
+  (InsertFields
+    (SelectFields ()
+      (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+    None
+    (contig
+      (ApplySpecial showStr () String
+        (GetField contig
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (F
+      (ApplySpecial showStr () String
+        (GetField F
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (varid
+      (ApplySpecial showStr () String
+        (GetField varid
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (pos
+      (ApplySpecial showStr () String
+        (GetField pos
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (P
+      (ApplySpecial showStr () String
+        (GetField P
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (TOTAL
+      (ApplySpecial showStr () String
+        (GetField TOTAL
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (NSIG
+      (ApplySpecial showStr () String
+        (GetField NSIG
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S05
+      (ApplySpecial showStr () String
+        (GetField S05
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S01
+      (ApplySpecial showStr () String
+        (GetField S01
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S001
+      (ApplySpecial showStr () String
+        (GetField S001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S0001
+      (ApplySpecial showStr () String
+        (GetField S0001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (SP2
+      (ApplySpecial showStr () String
+        (GetField SP2
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266))))
+  (Die Struct{contig:String,F:String,varid:String,pos:String,P:String,TOTAL:String,NSIG:String,S05:String,S01:String,S001:String,S0001:String,SP2:String}
+    (Str "Internal e...")))
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 1.280ms, total 2.402s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.201ms, total 2.402s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.805ms, total 2.403s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 2.572ms, total 2.406s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.296ms, total 2.406s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 3.657ms, total 2.410s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 10.037ms, total 2.411s, tagged coverage 87.8
+2020-06-11 09:14:34 root: INFO: optimize Lowerer, initial IR: after: IR size 54:
+(Coalesce
+  (InsertFields
+    (SelectFields ()
+      (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+    None
+    (contig
+      (ApplySpecial showStr () String
+        (GetField contig
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (F
+      (ApplySpecial showStr () String
+        (GetField F
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (varid
+      (ApplySpecial showStr () String
+        (GetField varid
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (pos
+      (ApplySpecial showStr () String
+        (GetField pos
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (P
+      (ApplySpecial showStr () String
+        (GetField P
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (TOTAL
+      (ApplySpecial showStr () String
+        (GetField TOTAL
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (NSIG
+      (ApplySpecial showStr () String
+        (GetField NSIG
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S05
+      (ApplySpecial showStr () String
+        (GetField S05
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S01
+      (ApplySpecial showStr () String
+        (GetField S01
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S001
+      (ApplySpecial showStr () String
+        (GetField S001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S0001
+      (ApplySpecial showStr () String
+        (GetField S0001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (SP2
+      (ApplySpecial showStr () String
+        (GetField SP2
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266))))
+  (Die Struct{contig:String,F:String,varid:String,pos:String,P:String,TOTAL:String,NSIG:String,S05:String,S01:String,S001:String,S0001:String,SP2:String}
+    (Str "Internal e...")))
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.384ms, total 2.413s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- LoweringTransformation : 0.379ms, total 2.414s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.099ms, total 2.414s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR : 1.301ms, total 2.414s, tagged coverage 66.2
+2020-06-11 09:14:34 root: INFO: optimize InlineApplyIR, post Lowering: before: IR size 54: 
+(Coalesce
+  (InsertFields
+    (SelectFields ()
+      (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+    None
+    (contig
+      (ApplySpecial showStr () String
+        (GetField contig
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (F
+      (ApplySpecial showStr () String
+        (GetField F
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (varid
+      (ApplySpecial showStr () String
+        (GetField varid
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (pos
+      (ApplySpecial showStr () String
+        (GetField pos
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (P
+      (ApplySpecial showStr () String
+        (GetField P
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (TOTAL
+      (ApplySpecial showStr () String
+        (GetField TOTAL
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (NSIG
+      (ApplySpecial showStr () String
+        (GetField NSIG
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S05
+      (ApplySpecial showStr () String
+        (GetField S05
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S01
+      (ApplySpecial showStr () String
+        (GetField S01
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S001
+      (ApplySpecial showStr () String
+        (GetField S001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S0001
+      (ApplySpecial showStr () String
+        (GetField S0001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (SP2
+      (ApplySpecial showStr () String
+        (GetField SP2
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266))))
+  (Die Struct{contig:String,F:String,varid:String,pos:String,P:String,TOTAL:String,NSIG:String,S05:String,S01:String,S001:String,S0001:String,SP2:String}
+    (Str "Internal e...")))
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.278ms, total 2.416s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.194ms, total 2.417s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.654ms, total 2.418s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 2.833ms, total 2.421s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.419ms, total 2.421s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 2.534ms, total 2.424s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 8.162ms, total 2.424s, tagged coverage 84.7
+2020-06-11 09:14:34 root: INFO: optimize InlineApplyIR, post Lowering: after: IR size 54:
+(Coalesce
+  (InsertFields
+    (SelectFields ()
+      (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+    None
+    (contig
+      (ApplySpecial showStr () String
+        (GetField contig
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (F
+      (ApplySpecial showStr () String
+        (GetField F
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (varid
+      (ApplySpecial showStr () String
+        (GetField varid
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (pos
+      (ApplySpecial showStr () String
+        (GetField pos
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (P
+      (ApplySpecial showStr () String
+        (GetField P
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (TOTAL
+      (ApplySpecial showStr () String
+        (GetField TOTAL
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (NSIG
+      (ApplySpecial showStr () String
+        (GetField NSIG
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S05
+      (ApplySpecial showStr () String
+        (GetField S05
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S01
+      (ApplySpecial showStr () String
+        (GetField S01
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S001
+      (ApplySpecial showStr () String
+        (GetField S001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S0001
+      (ApplySpecial showStr () String
+        (GetField S0001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (SP2
+      (ApplySpecial showStr () String
+        (GetField SP2
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266))))
+  (Die Struct{contig:String,F:String,varid:String,pos:String,P:String,TOTAL:String,NSIG:String,S05:String,S01:String,S001:String,S0001:String,SP2:String}
+    (Str "Internal e...")))
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.167ms, total 2.427s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.810ms, total 2.428s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.359ms, total 2.428s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs : 2.070ms, total 2.429s, tagged coverage 64.5
+2020-06-11 09:14:34 root: INFO: optimize LowerArrayAggsToRunAggs, post Lowering: before: IR size 54: 
+(Coalesce
+  (InsertFields
+    (SelectFields ()
+      (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+    None
+    (contig
+      (ApplySpecial showStr () String
+        (GetField contig
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (F
+      (ApplySpecial showStr () String
+        (GetField F
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (varid
+      (ApplySpecial showStr () String
+        (GetField varid
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (pos
+      (ApplySpecial showStr () String
+        (GetField pos
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (P
+      (ApplySpecial showStr () String
+        (GetField P
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (TOTAL
+      (ApplySpecial showStr () String
+        (GetField TOTAL
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (NSIG
+      (ApplySpecial showStr () String
+        (GetField NSIG
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S05
+      (ApplySpecial showStr () String
+        (GetField S05
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S01
+      (ApplySpecial showStr () String
+        (GetField S01
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S001
+      (ApplySpecial showStr () String
+        (GetField S001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S0001
+      (ApplySpecial showStr () String
+        (GetField S0001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (SP2
+      (ApplySpecial showStr () String
+        (GetField SP2
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266))))
+  (Die Struct{contig:String,F:String,varid:String,pos:String,P:String,TOTAL:String,NSIG:String,S05:String,S01:String,S001:String,S0001:String,SP2:String}
+    (Str "Internal e...")))
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.226ms, total 2.435s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.198ms, total 2.436s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.464ms, total 2.436s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 1.662ms, total 2.438s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.303ms, total 2.439s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 5.142ms, total 2.444s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 9.266ms, total 2.444s, tagged coverage 86.3
+2020-06-11 09:14:34 root: INFO: optimize LowerArrayAggsToRunAggs, post Lowering: after: IR size 54:
+(Coalesce
+  (InsertFields
+    (SelectFields ()
+      (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+    None
+    (contig
+      (ApplySpecial showStr () String
+        (GetField contig
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (F
+      (ApplySpecial showStr () String
+        (GetField F
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (varid
+      (ApplySpecial showStr () String
+        (GetField varid
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (pos
+      (ApplySpecial showStr () String
+        (GetField pos
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (P
+      (ApplySpecial showStr () String
+        (GetField P
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (TOTAL
+      (ApplySpecial showStr () String
+        (GetField TOTAL
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (NSIG
+      (ApplySpecial showStr () String
+        (GetField NSIG
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S05
+      (ApplySpecial showStr () String
+        (GetField S05
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S01
+      (ApplySpecial showStr () String
+        (GetField S01
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S001
+      (ApplySpecial showStr () String
+        (GetField S001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (S0001
+      (ApplySpecial showStr () String
+        (GetField S0001
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266)))
+    (SP2
+      (ApplySpecial showStr () String
+        (GetField SP2
+          (In +PCStruct{contig:PCString,F:PCString,varid:PCString,pos:PCString,P:PCString,TOTAL:PCString,NSIG:PCString,S05:PCString,S01:PCString,S001:PCString,S0001:PCString,SP2:PCString} 1))
+        (I32 266))))
+  (Die Struct{contig:String,F:String,varid:String,pos:String,P:String,TOTAL:String,NSIG:String,S05:String,S01:String,S001:String,S0001:String,SP2:String}
+    (Str "Internal e...")))
+2020-06-11 09:14:34 root: INFO: encoder cache miss (0 hits, 1 misses, 0.000)
+2020-06-11 09:14:34 root: INFO: instruction count: 6: __C50etypeEncode.<init>
+2020-06-11 09:14:34 root: INFO: instruction count: 8: __C50etypeEncode.apply
+2020-06-11 09:14:34 root: INFO: instruction count: 8: __C50etypeEncode.__m51ENCODE_r_tuple_of_r_stringEND_TO_r_struct_of_r_binaryEND
+2020-06-11 09:14:34 root: INFO: instruction count: 16: __C50etypeEncode.__m52write_fields_group_0
+2020-06-11 09:14:34 root: INFO: instruction count: 19: __C50etypeEncode.__m53ENCODE_r_binary_TO_r_binary
+2020-06-11 09:14:34 MemoryStore: INFO: Block broadcast_2 stored as values in memory (estimated size 104.0 B, free 366.0 MB)
+2020-06-11 09:14:34 MemoryStore: INFO: Block broadcast_2_piece0 stored as bytes in memory (estimated size 109.0 B, free 366.0 MB)
+2020-06-11 09:14:34 BlockManagerInfo: INFO: Added broadcast_2_piece0 in memory on 10.0.0.51:51427 (size: 109.0 B, free: 366.3 MB)
+2020-06-11 09:14:34 SparkContext: INFO: Created broadcast 2 from broadcast at SparkBackend.scala:232
+2020-06-11 09:14:34 root: INFO: instruction count: 6: __C7Compiled.<init>
+2020-06-11 09:14:34 root: INFO: instruction count: 58: __C7Compiled.apply
+2020-06-11 09:14:34 root: INFO: instruction count: 1450: __C7Compiled.__m14wrapped
+2020-06-11 09:14:34 root: INFO: instruction count: 14: __C7Compiled.__m17setup_null
+2020-06-11 09:14:34 root: INFO: instruction count: 8: __C7Compiled.__m20addIRIntermediate
+2020-06-11 09:14:34 root: INFO: instruction count: 14: __C7Compiled.setPartitionIndex
+2020-06-11 09:14:34 root: INFO: instruction count: 7: __C7Compiled.addPartitionRegion
+2020-06-11 09:14:34 root: INFO: instruction count: 25: __C7Compiled.__m46DECODE_r_struct_of_r_binaryEND_TO_r_tuple_of_r_stringEND
+2020-06-11 09:14:34 root: INFO: instruction count: 11: __C7Compiled.__m47read_fields_group_0
+2020-06-11 09:14:34 root: INFO: instruction count: 34: __C7Compiled.__m48INPLACE_DECODE_r_binary_TO_r_binary
+2020-06-11 09:14:34 root: INFO: instruction count: 41: __C7Compiled.addLiterals
+2020-06-11 09:14:34 root: INFO: encoder cache miss (0 hits, 2 misses, 0.000)
+2020-06-11 09:14:34 root: INFO: instruction count: 6: __C54etypeEncode.<init>
+2020-06-11 09:14:34 root: INFO: instruction count: 8: __C54etypeEncode.apply
+2020-06-11 09:14:34 root: INFO: instruction count: 8: __C54etypeEncode.__m55ENCODE_r_tuple_of_r_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringEND_TO_r_struct_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryEND
+2020-06-11 09:14:34 root: INFO: instruction count: 148: __C54etypeEncode.__m56write_fields_group_0
+2020-06-11 09:14:34 root: INFO: instruction count: 19: __C54etypeEncode.__m57ENCODE_r_binary_TO_r_binary
+2020-06-11 09:14:34 SparkContext: INFO: Starting job: collect at RVD.scala:727
+2020-06-11 09:14:34 DAGScheduler: INFO: Got job 1 (collect at RVD.scala:727) with 1 output partitions
+2020-06-11 09:14:34 DAGScheduler: INFO: Final stage: ResultStage 1 (collect at RVD.scala:727)
+2020-06-11 09:14:34 DAGScheduler: INFO: Parents of final stage: List()
+2020-06-11 09:14:34 DAGScheduler: INFO: Missing parents: List()
+2020-06-11 09:14:34 DAGScheduler: INFO: Submitting ResultStage 1 (MapPartitionsRDD[9] at mapPartitions at ContextRDD.scala:160), which has no missing parents
+2020-06-11 09:14:34 MemoryStore: INFO: Block broadcast_3 stored as values in memory (estimated size 31.6 KB, free 366.0 MB)
+2020-06-11 09:14:34 MemoryStore: INFO: Block broadcast_3_piece0 stored as bytes in memory (estimated size 14.9 KB, free 366.0 MB)
+2020-06-11 09:14:34 BlockManagerInfo: INFO: Added broadcast_3_piece0 in memory on 10.0.0.51:51427 (size: 14.9 KB, free: 366.3 MB)
+2020-06-11 09:14:34 SparkContext: INFO: Created broadcast 3 from broadcast at DAGScheduler.scala:1161
+2020-06-11 09:14:34 DAGScheduler: INFO: Submitting 1 missing tasks from ResultStage 1 (MapPartitionsRDD[9] at mapPartitions at ContextRDD.scala:160) (first 15 tasks are for partitions Vector(0))
+2020-06-11 09:14:34 TaskSchedulerImpl: INFO: Adding task set 1.0 with 1 tasks
+2020-06-11 09:14:34 TaskSetManager: INFO: Starting task 0.0 in stage 1.0 (TID 1, localhost, executor driver, partition 0, PROCESS_LOCAL, 7791 bytes)
+2020-06-11 09:14:34 Executor: INFO: Running task 0.0 in stage 1.0 (TID 1)
+2020-06-11 09:14:34 Executor: INFO: Finished task 0.0 in stage 1.0 (TID 1). 9705 bytes result sent to driver
+2020-06-11 09:14:34 TaskSetManager: INFO: Finished task 0.0 in stage 1.0 (TID 1) in 356 ms on localhost (executor driver) (1/1)
+2020-06-11 09:14:34 TaskSchedulerImpl: INFO: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+2020-06-11 09:14:34 DAGScheduler: INFO: ResultStage 1 (collect at RVD.scala:727) finished in 0.366 s
+2020-06-11 09:14:34 DAGScheduler: INFO: Job 1 finished: collect at RVD.scala:727, took 0.369339 s
+2020-06-11 09:14:34 root: INFO: decoder cache miss (0 hits, 3 misses, 0.000
+2020-06-11 09:14:34 root: INFO: instruction count: 6: __C58etypeDecode.<init>
+2020-06-11 09:14:34 root: INFO: instruction count: 8: __C58etypeDecode.apply
+2020-06-11 09:14:34 root: INFO: instruction count: 25: __C58etypeDecode.__m59DECODE_r_struct_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryEND_TO_r_tuple_of_r_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringEND
+2020-06-11 09:14:34 root: INFO: instruction count: 88: __C58etypeDecode.__m60read_fields_group_0
+2020-06-11 09:14:34 root: INFO: instruction count: 34: __C58etypeDecode.__m61INPLACE_DECODE_r_binary_TO_r_binary
+2020-06-11 09:14:34 root: INFO: took 2.889s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 2.891s, total 3.034s, tagged coverage 0.9
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.046ms, total 3.034s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable : 2.892s, total 3.034s, tagged coverage 0.9
+2020-06-11 09:14:34 root: INFO: optimize InterpretNonCompilable, post Lowering: before: IR size 2: 
+(GetField rows
+  (Literal Struct{rows:Array[Struct{contig:String,F:String,varid:String,pos:String,P:String,TOTAL:String,NSIG:String,S05:String,S01:String,S001:String,S0001:String,SP2:String}],global:Struct{}} <literal value>))
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.201ms, total 3.035s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.272ms, total 3.035s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.024ms, total 3.035s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.110ms, total 3.035s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.024ms, total 3.036s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.052ms, total 3.036s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.035ms, total 3.036s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.009ms, total 3.036s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.017ms, total 3.036s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.067ms, total 3.037s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.063ms, total 3.037s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.045ms, total 3.037s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize : 2.688ms, total 3.037s, tagged coverage 34.2
+2020-06-11 09:14:34 root: INFO: optimize InterpretNonCompilable, post Lowering: after: IR size 1:
+(Literal Array[Struct{contig:String,F:String,varid:String,pos:String,P:String,TOTAL:String,NSIG:String,S05:String,S01:String,S001:String,S0001:String,SP2:String}] <literal value>)
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.013ms, total 3.040s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.017ms, total 3.040s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.010ms, total 3.041s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.528ms, total 3.041s, tagged coverage 7.6
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.009ms, total 3.041s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.013ms, total 3.041s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.009ms, total 3.041s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.326ms, total 3.041s, tagged coverage 9.6
+2020-06-11 09:14:34 root: INFO: encoder cache miss (0 hits, 3 misses, 0.000)
+2020-06-11 09:14:34 root: INFO: instruction count: 6: __C78etypeEncode.<init>
+2020-06-11 09:14:34 root: INFO: instruction count: 8: __C78etypeEncode.apply
+2020-06-11 09:14:34 root: INFO: instruction count: 8: __C78etypeEncode.__m79ENCODE_r_tuple_of_r_array_of_r_tuple_of_r_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringENDEND_TO_r_struct_of_r_array_of_r_struct_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryENDEND
+2020-06-11 09:14:34 root: INFO: instruction count: 16: __C78etypeEncode.__m80write_fields_group_0
+2020-06-11 09:14:34 root: INFO: instruction count: 47: __C78etypeEncode.__m81ENCODE_r_array_of_r_tuple_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryEND_TO_r_array_of_r_struct_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryEND
+2020-06-11 09:14:34 root: INFO: instruction count: 8: __C78etypeEncode.__m82ENCODE_r_tuple_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryEND_TO_r_struct_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryEND
+2020-06-11 09:14:34 root: INFO: instruction count: 148: __C78etypeEncode.__m83write_fields_group_0
+2020-06-11 09:14:34 root: INFO: instruction count: 19: __C78etypeEncode.__m84ENCODE_r_binary_TO_r_binary
+2020-06-11 09:14:34 MemoryStore: INFO: Block broadcast_4 stored as values in memory (estimated size 14.3 KB, free 366.0 MB)
+2020-06-11 09:14:34 MemoryStore: INFO: Block broadcast_4_piece0 stored as bytes in memory (estimated size 7.3 KB, free 366.0 MB)
+2020-06-11 09:14:34 BlockManagerInfo: INFO: Added broadcast_4_piece0 in memory on 10.0.0.51:51427 (size: 7.3 KB, free: 366.2 MB)
+2020-06-11 09:14:34 SparkContext: INFO: Created broadcast 4 from broadcast at SparkBackend.scala:232
+2020-06-11 09:14:34 root: INFO: instruction count: 6: __C62Compiled.<init>
+2020-06-11 09:14:34 root: INFO: instruction count: 31: __C62Compiled.apply
+2020-06-11 09:14:34 root: INFO: instruction count: 8: __C62Compiled.__m68addIRIntermediate
+2020-06-11 09:14:34 root: INFO: instruction count: 14: __C62Compiled.setPartitionIndex
+2020-06-11 09:14:34 root: INFO: instruction count: 7: __C62Compiled.addPartitionRegion
+2020-06-11 09:14:34 root: INFO: instruction count: 25: __C62Compiled.__m71DECODE_r_struct_of_r_array_of_r_struct_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryENDEND_TO_r_tuple_of_r_array_of_r_tuple_of_r_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringANDr_stringENDEND
+2020-06-11 09:14:34 root: INFO: instruction count: 11: __C62Compiled.__m72read_fields_group_0
+2020-06-11 09:14:34 root: INFO: instruction count: 58: __C62Compiled.__m73INPLACE_DECODE_r_array_of_r_struct_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryEND_TO_r_array_of_r_tuple_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryEND
+2020-06-11 09:14:34 root: INFO: instruction count: 17: __C62Compiled.__m74INPLACE_DECODE_r_struct_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryEND_TO_r_tuple_of_r_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryANDr_binaryEND
+2020-06-11 09:14:34 root: INFO: instruction count: 88: __C62Compiled.__m75read_fields_group_0
+2020-06-11 09:14:34 root: INFO: instruction count: 34: __C62Compiled.__m76INPLACE_DECODE_r_binary_TO_r_binary
+2020-06-11 09:14:34 root: INFO: instruction count: 55: __C62Compiled.addLiterals
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile : 33.481ms, total 3.071s, tagged coverage 0.2
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InitializeCompiledFunction : 1.466ms, total 3.073s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for RunCompiledFunction : 0.036ms, total 3.074s
+2020-06-11 09:14:34 root: INFO: Timer: all timings:
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 2.480ms, total 41.613ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 6.309ms, total 49.432ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- Simplify : 15.123ms, total 65.125ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 13.331ms, total 79.008ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 2.172ms, total 81.588ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 16.393ms, total 98.346ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.772ms, total 99.438ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 1.057ms, total 100.873ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.585ms, total 101.704ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 6.263ms, total 108.158ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.803ms, total 109.217ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 3.358ms, total 112.809ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize : 74.463ms, total 113.229ms, tagged coverage 92.2
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.484ms, total 117.599ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 8.057ms, total 126.074ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.084ms, total 126.571ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for LowerMatrixToTable : 9.783ms, total 126.715ms, tagged coverage 88.2
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.257ms, total 129.347ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.906ms, total 130.432ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.506ms, total 131.092ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 3.764ms, total 135.017ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.319ms, total 135.574ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 3.147ms, total 138.879ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize : 10.203ms, total 139.286ms, tagged coverage 87.2
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.062ms, total 141.869ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 1.280ms, total 2.402s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.201ms, total 2.402s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.805ms, total 2.403s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 2.572ms, total 2.406s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.296ms, total 2.406s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 3.657ms, total 2.410s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 10.037ms, total 2.411s, tagged coverage 87.8
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.384ms, total 2.413s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- LoweringTransformation : 0.379ms, total 2.414s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.099ms, total 2.414s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR : 1.301ms, total 2.414s, tagged coverage 66.2
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.278ms, total 2.416s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.194ms, total 2.417s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.654ms, total 2.418s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 2.833ms, total 2.421s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.419ms, total 2.421s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 2.534ms, total 2.424s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 8.162ms, total 2.424s, tagged coverage 84.7
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.167ms, total 2.427s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.810ms, total 2.428s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.359ms, total 2.428s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs : 2.070ms, total 2.429s, tagged coverage 64.5
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.226ms, total 2.435s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.198ms, total 2.436s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.464ms, total 2.436s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 1.662ms, total 2.438s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.303ms, total 2.439s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 5.142ms, total 2.444s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 9.266ms, total 2.444s, tagged coverage 86.3
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 2.891s, total 3.034s, tagged coverage 0.9
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.046ms, total 3.034s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InterpretNonCompilable : 2.892s, total 3.034s, tagged coverage 0.9
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.201ms, total 3.035s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.272ms, total 3.035s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.024ms, total 3.035s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.110ms, total 3.035s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.024ms, total 3.036s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.052ms, total 3.036s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.035ms, total 3.036s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.009ms, total 3.036s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.017ms, total 3.036s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.067ms, total 3.037s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.063ms, total 3.037s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.045ms, total 3.037s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Optimize : 2.688ms, total 3.037s, tagged coverage 34.2
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.013ms, total 3.040s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.017ms, total 3.040s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.010ms, total 3.041s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.528ms, total 3.041s, tagged coverage 7.6
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.009ms, total 3.041s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.013ms, total 3.041s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.009ms, total 3.041s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.326ms, total 3.041s, tagged coverage 9.6
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for Compile : 33.481ms, total 3.071s, tagged coverage 0.2
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for InitializeCompiledFunction : 1.466ms, total 3.073s
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for RunCompiledFunction : 0.036ms, total 3.074s
+2020-06-11 09:14:34 root: INFO: Timer: aggregate:
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for tag 'RunCompiledFunction' (1): 0.036ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for tag 'InitializeCompiledFunction' (1): 1.466ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for tag 'Verify' (12): 1.726ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for tag 'ForwardRelationalLets' (8): 4.399ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for tag 'FoldConstants' (8): 5.530ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for tag 'ExtractIntervalFilters' (8): 9.147ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for tag 'LoweringTransformation' (5): 9.276ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for tag 'Simplify' (8): 18.178ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for tag 'ForwardLets' (8): 30.601ms
+2020-06-11 09:14:34 root: INFO: Timer: Time taken for tag 'PruneDeadFields' (8): 34.328ms
+2020-06-11 09:14:34 root: INFO: Timer: Fraction covered by a tagged leaf: 2.970s (3.7%)
+2020-06-11 09:25:25 SparkContext: INFO: Invoking stop() from shutdown hook
+2020-06-11 09:25:25 AbstractConnector: INFO: Stopped Spark@375aac7a{HTTP/1.1,[http/1.1]}{0.0.0.0:4043}
+2020-06-11 09:25:25 SparkUI: INFO: Stopped Spark web UI at http://10.0.0.51:4043
+2020-06-11 09:25:25 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
+2020-06-11 09:25:25 root: INFO: RegionPool: FREE: 128.0K allocated (128.0K blocks / 0 chunks), regions.size = 2, 0 current java objects, 0 max java objects, thread 61: Executor task launch worker for task 0
+2020-06-11 09:25:25 MemoryStore: INFO: MemoryStore cleared
+2020-06-11 09:25:25 BlockManager: INFO: BlockManager stopped
+2020-06-11 09:25:25 BlockManagerMaster: INFO: BlockManagerMaster stopped
+2020-06-11 09:25:25 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
+2020-06-11 09:25:25 SparkContext: INFO: Successfully stopped SparkContext
+2020-06-11 09:25:25 ShutdownHookManager: INFO: Shutdown hook called
+2020-06-11 09:25:25 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-74023cff-9558-418c-a7b7-0b4b86852fdd
+2020-06-11 09:25:25 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-74023cff-9558-418c-a7b7-0b4b86852fdd/pyspark-b2201d13-748d-4834-86d6-4d629a7873b3
+2020-06-11 09:25:25 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-96363285-cdba-4f45-b1b4-ea5fac3bedb2

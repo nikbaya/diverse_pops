@@ -124,49 +124,7 @@ def test_get_meta_sumstats(args):
                              SNP = loo_ht0.locus.contig+':'+hl.str(loo_ht0.locus.position)+':'+loo_ht0.alleles[0]+':'+loo_ht0.alleles[1])
     loo_ht1 = loo_ht1.filter(hl.is_defined(loo_ht1.pval))
     loo_ht1.export(args.output_file)
-
-        
-def export_loo(batch_size = 256):
-    r'''
-    For exporting p-values of meta-analysis of leave-one-out population sets
-    '''
-    meta_mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/meta_analysis.mt')
-    
-    meta_mt0 = meta_mt0.filter_cols(hl.len(meta_mt0.pheno_data.pop)==6)
-    
-    meta_mt0 = meta_mt0.annotate_cols(pheno_id = (meta_mt0.trait_type+'-'+
-                                                  meta_mt0.phenocode+'-'+
-                                                  meta_mt0.pheno_sex+
-                                                  hl.if_else(hl.len(meta_mt0.coding)>0, '-'+meta_mt0.coding, '')+
-                                                  hl.if_else(hl.len(meta_mt0.modifier)>0, '-'+meta_mt0.modifier, '')
-                                                  ).replace(' ','_').replace('/','_'))
-                
-    meta_mt0 = meta_mt0.annotate_rows(SNP = (meta_mt0.locus.contig+':'+
-                                             hl.str(meta_mt0.locus.position)+':'+
-                                             meta_mt0.alleles[0]+':'+
-                                             meta_mt0.alleles[1]))
-
-    all_pops = sorted(['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID'])
-    
-    annotate_dict = {}
-    for pop_idx, pop in enumerate(all_pops,1): # pop idx corresponds to the alphabetic ordering of the pops (entry with idx=0 is 6-pop meta-analysis)
-        annotate_dict.update({f'pval_not_{pop}': meta_mt0.meta_analysis.Pvalue[pop_idx]})
-    meta_mt1 = meta_mt0.annotate_entries(**annotate_dict)
-    
-    meta_mt1 = meta_mt1.key_cols_by('pheno_id')
-    meta_mt1 = meta_mt1.key_rows_by().drop('locus','alleles','gene','annotation','meta_analysis')
-    
-    batch_idx = 1
-    get_export_path = lambda batch_idx: f'{ldprune_dir}/loo/sumstats/batch{batch_idx}'
-    while hl.hadoop_is_dir(get_export_path(batch_idx)):
-        batch_idx += 1
-    print(f'\nExporting to: {get_export_path(batch_idx)}\n')
-    hl.experimental.export_entries_by_col(mt = meta_mt1,
-                                          path = get_export_path(batch_idx),
-                                          bgzip = True,
-                                          batch_size = batch_size,
-                                          use_string_key_as_file_name = True,
-                                          header_json_in_file = False)
+   
         
 def export_ma_format(batch_size=256):
     r'''
@@ -237,19 +195,12 @@ if __name__ == '__main__':
     parser.add_argument('--input_file', help='Input file of variant results')
     parser.add_argument('--output_file', help='Output file of variant results')
     parser.add_argument('--pop', type=str, help='Population to be left out')
-    parser.add_argument('--trait_type', type=str, help='trait_type in meta-analyzed sumstats')
-    parser.add_argument('--phenocode', type=str, help='phenocode in meta-analyzed sumstats')
-    parser.add_argument('--pheno_sex', type=str, help='pheno_sex in meta-analyzed sumstats')
-    parser.add_argument('--coding', type=str, default='', help='coding in meta-analyzed sumstats')
-    parser.add_argument('--modifier', type=str, default='', help='modifier in meta-analyzed sumstats')
     parser.add_argument('--ht_to_tsv', action='store_true')
     parser.add_argument('--tsv_to_ht', action='store_true')
     parser.add_argument('--write_meta_sumstats', action='store_true')
     parser.add_argument('--get_meta_sumstats', action='store_true')
     parser.add_argument('--test_get_meta_sumstats', action='store_true')
-    parser.add_argument('--export_results', action='store_true')
-    parser.add_argument('--export_pop_pheno_pairs', action='store_true')
-    parser.add_argument('--export_loo', action='store_true')
+    parser.add_argument('--export_pop_pheno_pairs', action='store_true')    
     parser.add_argument('--batch_size', type=int, default=256, help='max number of phenotypes per batch for export_entries_by_col')
     parser.add_argument('--overwrite', default=False, action='store_true', help='overwrite existing files')
     args = parser.parse_args()
@@ -265,8 +216,7 @@ if __name__ == '__main__':
         test_get_meta_sumstats(args)
     elif args.write_meta_sumstats:
         write_meta_sumstats(args)
-    elif args.export_loo:
-        export_loo(batch_size=args.batch_size)
+
 #    except:
 #        hl.copy_log('gs://ukbb-diverse-temp-30day/nb_hail.log')
         
