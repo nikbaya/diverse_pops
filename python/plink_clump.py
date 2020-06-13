@@ -9,7 +9,7 @@ Clumping GWAS results with PLINK
 """
 
 import hail as hl
-from hailtop import batch
+import hailtop.batch as hb
 import random 
 
 bucket = 'gs://ukb-diverse-pops'
@@ -130,6 +130,46 @@ def get_meta_sumstats(p, pop, pheno_id, method):
             return None            
     return get_meta_ss.ofile
 
+def get_sumstats_v2(p, pop, pheno_id, method, start_chrom=1, end_chrom=22):
+    assert method in {'clump','sbayesr'}
+    filename=f'{pheno_id}.tsv.bgz'
+    trait_type = pheno_id.split('-')[0]
+    trait_category = 'quant' if trait_type in ['continuous','biomarkers'] else 'binary'
+
+    ss_dir = f'gs://ukb-diverse-pops/sumstats_flat_files'
+    tabix_dir = f'gs://ukb-diverse-pops/sumstats_flat_files_tabix'
+    meta_ss = p.read_input(f'{ss_dir}/{filename}')
+    tabix = p.read_input(f'{tabix_dir}/{filename}.tbi')
+
+    get_ss = p.new_job(name=f'get_ss_{pheno_id}')
+    get_ss = get_ss.image('gcr.io/ukbb-diversepops-neale/nbaya_tabix:latest')
+    get_ss.storage('1G')
+    get_ss.cpu(1)
+    get_ss.command(' '.join(['set','-ex']))
+#    bgz_fname = f'{get_ss.ofile}.bgz'
+#    tbi_fname = f'{get_ss.ofile}.bgz.tbi'
+    bgz_fname = f'{get_ss.ofile}.bgz'
+    tbi_fname = f'{get_ss.ofile}.bgz.tbi'
+    get_ss.command(' '.join(['mv',meta_ss,bgz_fname]))
+    get_ss.command(' '.join(['mv',tabix,tbi_fname]))
+    pval_col_idx = 8 if trait_category == 'quant' else 9 # due to additional AF columns in binary traits, pvalue column location may change
+    get_ss.command('\n'.join(
+            f'''
+            tabix -h {bgz_fname} {chrom} | \\
+            awk '{{print $1=$1":"$2":"$3":"$4, $2=${pval_col_idx}}}' | \\
+            sed -e 's/pval_meta/P/g' \\
+                -e 's/chr:pos:ref:alt/SNP/g' | \\
+            awk '$2!="NA" {{print}}' > {get_ss[f"ofile_{chrom}"]}
+            '''
+            for chrom in range(start_chrom, end_chrom+1)
+            )
+    )
+    ss_dict = {
+            chrom:get_ss[f'ofile_{chrom}']
+            for chrom in range(start_chrom,end_chrom+1)
+    }
+    return ss_dict
+    
 def get_ss_chrom(p, pheno_id, chrom):
     filename = f'{pheno_id}.tsv.bgz'
     trait_type = pheno_id.split('-')[0]
@@ -195,9 +235,12 @@ def get_adj_betas(p, pop, pheno_id, hail_script):
 #                               coding=coding,
 #                               modifier=modifier,
 #                               method='clump')
-        ss = 1
+        ss_dict = get_sumstats_v2(p=p,
+                                  pop=pop, 
+                                  pheno_id=pheno_id,
+                                  method='clump')
         
-        if ss!=None:
+        if ss_dict!=None:
             
             run_method(p=p, 
                        pop=pop, 
@@ -205,7 +248,7 @@ def get_adj_betas(p, pop, pheno_id, hail_script):
                        hail_script=hail_script, 
                        output_txt=clump_output_txt,
                        output_ht=clump_output_ht,
-                       ss=ss,
+                       ss_dict=ss_dict,
                        method='clump')
         
 #    if not hl.hadoop_is_file(f'{sbayesr_output_ht}/_SUCCESS'):
@@ -224,7 +267,7 @@ def get_adj_betas(p, pop, pheno_id, hail_script):
 #                   method='sbayesr')
         
         
-def run_method(p, pop, pheno_id, hail_script, output_txt, output_ht, ss, method):
+def run_method(p, pop, pheno_id, hail_script, output_txt, output_ht, ss_dict, method):
     r'''
     Runs either PLINK clump (method = 'clump') or SBayesR (method = 'sbayesr')
     '''
@@ -236,16 +279,16 @@ def run_method(p, pop, pheno_id, hail_script, output_txt, output_ht, ss, method)
     tasks = []
         
     ## run plink clumping
-    for chrom in range(1,23):
+    for chrom, ss_chrom in ss_dict.items():
         ## read ref ld plink files 
         bfile = read_plink_input_group_chrom(p=p, 
                                              method=method,
                                              subset=f'not_{pop}',
                                              chrom=chrom)
         
-        ss_chrom = get_ss_chrom(p=p, 
-                          pheno_id=pheno_id, 
-                          chrom=chrom)
+#        ss_chrom = get_ss_chrom(p=p, 
+#                          pheno_id=pheno_id, 
+#                          chrom=chrom)
         
         get_betas = p.new_job(name=f'{method}_{task_suffix}_chr{chrom}')
         
@@ -364,11 +407,11 @@ def run_method(p, pop, pheno_id, hail_script, output_txt, output_ht, ss, method)
                          '--overwrite']))    
 
 def main():    
-    backend = batch.ServiceBackend(billing_project='ukb_diverse_pops',
+    backend = hb.ServiceBackend(billing_project='ukb_diverse_pops',
                                    bucket='ukbb-diverse-temp-30day/nb-batch-tmp')
 #    backend = batch.LocalBackend(tmp_dir='/tmp/batch/')
     
-    p = batch.batch.Batch(name='test-clump', backend=backend,
+    p = hb.batch.Batch(name='test-clump', backend=backend,
                           default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:0.1',
                           default_storage='500Mi', default_cpu=8)
     
