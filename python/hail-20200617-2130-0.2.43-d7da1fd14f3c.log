@@ -2983,3 +2983,220 @@
 2020-06-18 08:08:10 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
 2020-06-18 08:08:10 BlockManager: INFO: Reporting 2 blocks to the master.
 2020-06-18 08:08:10 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:08:20 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:08:20 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:08:20 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:08:20 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:08:20 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:08:20 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:08:30 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:08:30 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:08:30 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:08:30 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:08:30 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:08:30 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:08:40 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:08:40 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:08:40 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:08:40 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:08:40 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:08:40 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:08:50 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:08:50 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:08:50 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:08:50 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:08:50 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:08:50 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:09:00 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:09:00 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:09:00 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:00 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:00 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:09:00 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:09:10 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:09:10 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:09:10 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:10 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:10 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:09:10 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:09:20 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:09:20 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:09:20 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:20 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:20 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:09:20 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:09:30 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:09:30 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:09:30 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:30 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:30 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:09:30 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:09:40 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:09:40 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:09:40 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:40 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:40 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:09:40 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:09:50 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:09:50 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:09:50 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:50 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:09:50 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:09:50 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:10:00 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:10:00 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:10:00 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:00 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:00 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:10:00 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:10:10 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:10:10 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:10:10 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:10 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:10 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:10:10 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:10:20 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:10:20 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:10:20 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:20 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:20 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:10:20 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:10:30 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:10:30 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:10:30 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:30 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:30 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:10:30 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:10:40 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:10:40 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:10:40 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:40 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:40 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:10:40 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:10:50 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:10:50 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:10:50 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:50 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:10:50 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:10:50 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:11:00 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:11:00 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:11:00 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:00 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:00 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:11:00 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:11:10 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:11:10 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:11:10 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:10 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:10 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:11:10 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:11:20 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:11:20 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:11:20 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:20 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:20 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:11:20 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:11:30 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:11:30 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:11:30 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:30 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:30 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:11:30 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:11:40 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:11:40 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:11:40 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:40 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:40 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:11:40 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:11:50 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:11:50 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:11:50 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:50 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:11:50 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:11:50 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:12:00 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:12:00 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:12:00 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:00 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:00 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:12:00 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:12:10 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:12:10 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:12:10 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:10 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:10 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:12:10 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:12:20 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:12:20 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:12:20 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:20 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:20 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:12:20 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:12:30 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:12:30 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:12:30 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:30 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:30 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:12:30 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:12:40 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:12:40 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:12:40 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:40 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:40 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:12:40 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:12:50 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:12:50 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:12:50 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:50 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:12:50 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:12:50 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:13:00 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:13:00 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:13:00 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:00 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:00 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:13:00 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:13:10 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:13:10 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:13:10 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:10 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:10 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:13:10 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:13:20 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:13:20 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:13:20 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:20 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:20 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:13:20 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:13:30 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:13:30 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:13:30 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:30 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:30 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:13:30 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:13:40 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:13:40 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:13:40 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:40 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:40 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:13:40 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:13:50 Executor: INFO: Told to re-register on heartbeat
+2020-06-18 08:13:50 BlockManager: INFO: BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None) re-registering with master
+2020-06-18 08:13:50 BlockManagerMaster: INFO: Registering BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:50 BlockManagerMaster: INFO: Registered BlockManager BlockManagerId(driver, 10.0.0.51, 50431, None)
+2020-06-18 08:13:50 BlockManager: INFO: Reporting 2 blocks to the master.
+2020-06-18 08:13:50 BlockManagerInfo: INFO: Updated broadcast_0_piece0 in memory on 10.0.0.51:50431 (current size: 3.2 KB, original size: 3.2 KB, free: 366.3 MB)
+2020-06-18 08:13:51 SparkContext: INFO: Invoking stop() from shutdown hook
+2020-06-18 08:13:51 AbstractConnector: INFO: Stopped Spark@2462687a{HTTP/1.1,[http/1.1]}{0.0.0.0:4041}
+2020-06-18 08:13:51 SparkUI: INFO: Stopped Spark web UI at http://10.0.0.51:4041
+2020-06-18 08:13:51 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
+2020-06-18 08:13:51 MemoryStore: INFO: MemoryStore cleared
+2020-06-18 08:13:51 BlockManager: INFO: BlockManager stopped
+2020-06-18 08:13:51 BlockManagerMaster: INFO: BlockManagerMaster stopped
+2020-06-18 08:13:51 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
+2020-06-18 08:13:51 SparkContext: INFO: Successfully stopped SparkContext
+2020-06-18 08:13:51 ShutdownHookManager: INFO: Shutdown hook called
+2020-06-18 08:13:51 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-634b9f3d-aa0a-443a-81d6-c6b9a1688198/pyspark-0da5f1a6-671a-4969-88d9-0662191cb061
+2020-06-18 08:13:51 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-480f4d94-5b5b-4f9f-af9a-d174b47c73dd
+2020-06-18 08:13:51 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-634b9f3d-aa0a-443a-81d6-c6b9a1688198

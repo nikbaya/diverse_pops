@@ -113,7 +113,6 @@ def get_ukb_af_ht_path(with_x = True):
     return f'{bucket}/imputed/ukb_frequencies{"_with_x" if with_x else ""}.ht'
 
 
-
 def get_pop_prop_dict(pop_dict: dict, pop: str, not_pop: bool = False) -> (dict, int):
     r'''
     Get population proportions in `pop_dict` for a population `pop`.
@@ -159,7 +158,7 @@ def get_subset(mt_pop, pop_dict: dict, pop: str, n_max: int, not_pop: bool = Fal
     
     return ht_sample
     
-def to_plink(pop: str, mt, ht_sample, not_pop: bool = False, overwrite=False):
+def to_plink(pop: str, subsets_dir, mt, ht_sample, not_pop: bool = False, overwrite=False):
     r'''
     Exports matrix table to PLINK2 files
     '''
@@ -178,17 +177,8 @@ def to_plink(pop: str, mt, ht_sample, not_pop: bool = False, overwrite=False):
                         output = bfile_path, 
                         ind_id = mt_sample.s,
                         varid = mt_sample.varid) # varid used to be rsid
-    
-
-if __name__=='__main__':
-    
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--pop', default=None, type=str, help='population to use')
-    parser.add_argument('--overwrite_plink', default=False, action='store_true', help='whether to overwrite existing PLINK files')
-    args = parser.parse_args()
-    
-    
-    n_max = 50000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
+def main(args):
+    n_max = 5000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
     not_pop = True
     
     subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k' 
@@ -234,7 +224,18 @@ if __name__=='__main__':
     
     print(f'... exporting to plink (pop={pop}, not_pop={not_pop}) ...')
     to_plink(pop = pop,
+             subsets_dir=subsets_dir,
              mt = mt_pop,
              ht_sample = ht_sample,
              not_pop = not_pop,
              overwrite=args.overwrite_plink)
+    
+
+if __name__=='__main__':
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--pop', default=None, type=str, help='population to use')
+    parser.add_argument('--overwrite_plink', default=False, action='store_true', help='whether to overwrite existing PLINK files')
+    args = parser.parse_args()
+    
+    main(args=args)

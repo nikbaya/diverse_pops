@@ -22546,3 +22546,16 @@ java.lang.OutOfMemoryError: Java heap space
 2020-06-17 21:14:33 ContextCleaner: INFO: Cleaned accumulator 889
 2020-06-17 21:14:33 ContextCleaner: INFO: Cleaned accumulator 859
 2020-06-17 21:14:33 ContextCleaner: INFO: Cleaned accumulator 900
+2020-06-18 11:00:13 SparkContext: INFO: Invoking stop() from shutdown hook
+2020-06-18 11:00:13 AbstractConnector: INFO: Stopped Spark@44f8c641{HTTP/1.1,[http/1.1]}{0.0.0.0:4040}
+2020-06-18 11:00:13 SparkUI: INFO: Stopped Spark web UI at http://10.0.0.51:4040
+2020-06-18 11:00:13 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
+2020-06-18 11:00:14 MemoryStore: INFO: MemoryStore cleared
+2020-06-18 11:00:14 BlockManager: INFO: BlockManager stopped
+2020-06-18 11:00:14 BlockManagerMaster: INFO: BlockManagerMaster stopped
+2020-06-18 11:00:14 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
+2020-06-18 11:00:15 SparkContext: INFO: Successfully stopped SparkContext
+2020-06-18 11:00:15 ShutdownHookManager: INFO: Shutdown hook called
+2020-06-18 11:00:15 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-e6b7e860-630a-4783-9f95-2f6fe31b4bb5
+2020-06-18 11:00:15 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-7e2b16a9-2898-4ae7-adb1-12626c633d91
+2020-06-18 11:00:15 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-7e2b16a9-2898-4ae7-adb1-12626c633d91/pyspark-a2446a82-6743-4426-b469-9a4255d819de
