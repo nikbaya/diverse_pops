@@ -11,6 +11,9 @@ Hail script for clumping GWAS results with PLINK
 import argparse
 import hail as hl
 import sys
+import ukb_common
+#from ukbb_pan_ancestry import get_pheno_manifest_path
+from ukb_common import mwzj_hts_by_tree
 
 bucket = 'gs://ukb-diverse-pops'
 ldprune_dir = f'{bucket}/ld_prune'
@@ -51,7 +54,22 @@ def tsv_to_ht(args):
                     'f9':'S001',
                     'f10':'S0001',
                     'f11':'SP2'})
-    print(ht.describe())
+    # TODO: Remove rows with empty strings?
+    ht = ht.filter(ht.contig!='')
+    ht = ht.key_by(locus = hl.locus(contig=ht.contig,
+                                    pos=hl.int(ht.pos),
+                                    reference_genome='GRCh37'),
+                   alleles = hl.array([ht.varid.split(':')[2],
+                                       ht.varid.split(':')[3]])
+    )
+    ht = ht.annotate_globals(trait_type = args.trait_type,
+                             phenocode = args.phenocode,
+                             pheno_sex = args.pheno_sex,
+                             coding = args.coding,
+                             modifier = args.modifier)
+    ht = ht.drop('contig','varid','pos')
+#    print(ht.describe())
+#    ht.select().show()
     ht.write(args.output_file, overwrite=args.overwrite)
 
 def write_meta_sumstats(args):
@@ -188,6 +206,97 @@ def export_ma_format(batch_size=256):
                                           use_string_key_as_file_name = True,
                                           header_json_in_file = False)
 
+#def read_clump_ht(pheno_manifest, path):
+#    ht = hl.read_table(path)
+#    if list(ht.key)==[]:
+#        pass
+#    pheno_id = path.split('/')[-2]
+    
+    
+
+#def mwzj_hts_by_tree(all_hts, temp_dir, globals_for_col_key, 
+#                           debug=False, inner_mode = 'overwrite', repartition_final: int = None):
+#    r'''
+#    Adapted from ukb_common mwzj_hts_by_tree()
+#    Uses read_clump_ht() instead of read_table()
+#    '''
+#    chunk_size = int(len(all_hts) ** 0.5) + 1
+#    outer_hts = []
+#    
+#    checkpoint_kwargs = {inner_mode: True}
+#    if repartition_final is not None:
+#        intervals = ukb_common.get_n_even_intervals(repartition_final)
+#        checkpoint_kwargs['_intervals'] = intervals
+#    
+#    if debug: print(f'Running chunk size {chunk_size}...')
+#    for i in range(chunk_size):
+#        if i * chunk_size >= len(all_hts): break
+#        hts = all_hts[i * chunk_size:(i + 1) * chunk_size]
+#        if debug: print(f'Going from {i * chunk_size} to {(i + 1) * chunk_size} ({len(hts)} HTs)...')
+#        try:
+#            if isinstance(hts[0], str):
+#                hts = list(map(lambda x: hl.read_table(x), hts))
+#            ht = hl.Table.multi_way_zip_join(hts, 'row_field_name', 'global_field_name')
+#        except:
+#            if debug:
+#                print(f'problem in range {i * chunk_size}-{i * chunk_size + chunk_size}')
+#                _ = [ht.describe() for ht in hts]
+#            raise
+#        outer_hts.append(ht.checkpoint(f'{temp_dir}/temp_output_{i}.ht', _read_if_exists=True, **checkpoint_kwargs))
+#    ht = hl.Table.multi_way_zip_join(outer_hts, 'row_field_name_outer', 'global_field_name_outer')
+#    ht = ht.transmute(inner_row=hl.flatmap(lambda i:
+#                                           hl.cond(hl.is_missing(ht.row_field_name_outer[i].row_field_name),
+#                                                   hl.range(0, hl.len(ht.global_field_name_outer[i].global_field_name))
+#                                                   .map(lambda _: hl.null(ht.row_field_name_outer[i].row_field_name.dtype.element_type)),
+#                                                   ht.row_field_name_outer[i].row_field_name),
+#                                           hl.range(hl.len(ht.global_field_name_outer))))
+#    ht = ht.transmute_globals(inner_global=hl.flatmap(lambda x: x.global_field_name, ht.global_field_name_outer))
+#    mt = ht._unlocalize_entries('inner_row', 'inner_global', globals_for_col_key)
+#    return mt
+
+def resume_mwzj(temp_dir, globals_for_col_key):
+    ls = hl.hadoop_ls(temp_dir)
+    paths = [x['path'] for x in ls if 'temp_output' in x['path'] ]
+    chunk_size = len(paths)
+    outer_hts = []
+    for i in range(chunk_size):
+        outer_hts.append(hl.read_table(f'{temp_dir}/temp_output_{i}.ht'))
+    ht = hl.Table.multi_way_zip_join(outer_hts, 'row_field_name_outer', 'global_field_name_outer')
+    ht = ht.transmute(inner_row=hl.flatmap(lambda i:
+                                           hl.cond(hl.is_missing(ht.row_field_name_outer[i].row_field_name),
+                                                   hl.range(0, hl.len(ht.global_field_name_outer[i].global_field_name))
+                                                   .map(lambda _: hl.null(ht.row_field_name_outer[i].row_field_name.dtype.element_type)),
+                                                   ht.row_field_name_outer[i].row_field_name),
+                                           hl.range(hl.len(ht.global_field_name_outer))))
+    ht = ht.transmute_globals(inner_global=hl.flatmap(lambda x: x.global_field_name, ht.global_field_name_outer))
+    mt = ht._unlocalize_entries('inner_row', 'inner_global', globals_for_col_key)
+    return mt
+
+def join_clump_results(pop):
+    pheno_manifest = hl.import_table(
+    #            get_pheno_manifest_path(), 
+            'gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz', # hardcoded path to avoid having to change user-pays
+            impute=True, 
+            key=ukb_common.PHENO_KEY_FIELDS)
+    pheno_manifest = pheno_manifest.annotate(pheno_id = pheno_manifest.filename.replace('.tsv.bgz',''))
+    
+    clump_results_dir = f'{ldprune_dir}/results/not_{pop}'
+#    pheno_ids = ['biomarkers-30600-both_sexes-irnt',
+#                 'biomarkers-30610-both_sexes-irnt']
+#    all_hts = [f'{clump_results_dir}/{pheno_id}/clump_results.ht'
+#               for pheno_id in pheno_ids]
+    ls = hl.hadoop_ls(f'{clump_results_dir}/*')
+    all_hts = [x['path'] for x in ls if 'clump_results.ht' in x['path']]
+    
+    temp_dir = 'gs://ukbb-diverse-temp-30day/nb-temp'
+    globals_for_col_key = ukb_common.PHENO_KEY_FIELDS
+#    mt = mwzj_hts_by_tree(all_hts=all_hts,
+#                         temp_dir=temp_dir,
+#                         globals_for_col_key=globals_for_col_key)
+    mt = resume_mwzj(temp_dir=temp_dir,
+                     globals_for_col_key=globals_for_col_key)
+    mt.write(f'{ldprune_dir}/clump_results/not_{pop}.mt')
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
@@ -195,12 +304,18 @@ if __name__ == '__main__':
     parser.add_argument('--input_file', help='Input file of variant results')
     parser.add_argument('--output_file', help='Output file of variant results')
     parser.add_argument('--pop', type=str, help='Population to be left out')
+    parser.add_argument('--trait_type', type=str, help='trait_type in meta-analyzed sumstats')
+    parser.add_argument('--phenocode', type=str, help='phenocode in meta-analyzed sumstats')
+    parser.add_argument('--pheno_sex', type=str, help='pheno_sex in meta-analyzed sumstats')
+    parser.add_argument('--coding', type=str, default='', help='coding in meta-analyzed sumstats')
+    parser.add_argument('--modifier', type=str, default='', help='modifier in meta-analyzed sumstats')
     parser.add_argument('--ht_to_tsv', action='store_true')
     parser.add_argument('--tsv_to_ht', action='store_true')
     parser.add_argument('--write_meta_sumstats', action='store_true')
     parser.add_argument('--get_meta_sumstats', action='store_true')
     parser.add_argument('--test_get_meta_sumstats', action='store_true')
     parser.add_argument('--export_pop_pheno_pairs', action='store_true')    
+    parser.add_argument('--join_clump_results', action='store_true')    
     parser.add_argument('--batch_size', type=int, default=256, help='max number of phenotypes per batch for export_entries_by_col')
     parser.add_argument('--overwrite', default=False, action='store_true', help='overwrite existing files')
     args = parser.parse_args()
@@ -216,6 +331,8 @@ if __name__ == '__main__':
         test_get_meta_sumstats(args)
     elif args.write_meta_sumstats:
         write_meta_sumstats(args)
+    elif args.join_clump_results:
+        join_clump_results(pop=args.pop)
 
 #    except:
 #        hl.copy_log('gs://ukbb-diverse-temp-30day/nb_hail.log')

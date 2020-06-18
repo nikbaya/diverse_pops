@@ -59,27 +59,35 @@ def get_pheno_list(pheno_manifest, pop: str):
                           pheno_manifest.coding.collect(),
                           pheno_manifest.modifier.collect()))
 
-    seed = all_pops.index(pop)#1
-    random.seed(a=seed)
-    random.shuffle(pheno_list)
-    
-    n_traits = 1
-    print(f'\nWARNING: For testing purposes, only using first {n_traits} traits (random seed: {seed})\n')
-    pheno_list = pheno_list[:n_traits]
+#    seed = all_pops.index(pop)#1
+#    random.seed(a=seed)
+#    random.shuffle(pheno_list)
+#    
+#    n_traits = 1
+#    print(f'\nWARNING: For testing purposes, only using first {n_traits} traits (random seed: {seed})\n')
+#    pheno_list = pheno_list[:n_traits]
     
     print(pheno_list)
     print(f'\nNumber of phenotypes for not_{pop}: {len(pheno_list)}')
     
     return pheno_list
 
-def make_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier):
+def get_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier):
     pheno_id = (trait_type+'-'+
                 phenocode+'-'+
                 pheno_sex+
                 ('-'+coding if len(coding)>0 else '')+
                 ('-'+modifier if len(modifier)>0 else '')
                 ).replace(' ','_').replace('/','_')
-    return pheno_id    
+    return pheno_id
+
+def get_pheno_key_dict(trait_type, phenocode, pheno_sex, coding, modifier):
+    pheno_key_dict = {'trait_type': trait_type,
+                      'phenocode': phenocode,
+                      'pheno_sex': pheno_sex,
+                      'coding': coding,
+                      'modifier': modifier}
+    return pheno_key_dict
 
 #def get_meta_sumstats(p, pop, pheno_id, method):
 #    assert method in {'clump','sbayesr'}
@@ -199,7 +207,7 @@ def get_sumstats(p, pop, pheno_id, method, start_chrom=1, end_chrom=22):
         
     return ss_dict
     
-def get_adj_betas(p, pop, pheno_id, hail_script):
+def get_adj_betas(p, pop, pheno_key_dict, pheno_id, hail_script):
     r'''
     wrapper method for both PLINK clumping and SBayesR
     '''
@@ -211,21 +219,23 @@ def get_adj_betas(p, pop, pheno_id, hail_script):
 #    sbayesr_output_txt = f'{output_dir}/sbayesr_results-test.txt' # SBayesR output txt file
 #    sbayesr_output_ht = f'{output_dir}/sbayesr_results-test.ht' # SBayesR output hail table
     
-    test_run = True
+    overwrite = True
     
-    if test_run:
-        print('\n\nWARNING: Test run may overwrite existing results!\n')
+    if overwrite:
+        print('\n\nWARNING: Existing results may be overwritten!\n')
     
-    if not hl.hadoop_is_file(f'{clump_output_ht}/_SUCCESS') or test_run:
+    if not hl.hadoop_is_file(f'{clump_output_ht}/_SUCCESS') or overwrite:
 
-        ss_dict = get_sumstats(p=p,
-                               pop=pop, 
-                               pheno_id=pheno_id,
-                               method='clump')
+#        ss_dict = get_sumstats(p=p,
+#                               pop=pop, 
+#                               pheno_id=pheno_id,
+#                               method='clump')
+        ss_dict = None
             
         run_method(p=p, 
                    pop=pop, 
-                   pheno_id=pheno_id,  
+                   pheno_id=pheno_id, 
+                   pheno_key_dict=pheno_key_dict,
                    hail_script=hail_script, 
                    output_txt=clump_output_txt,
                    output_ht=clump_output_ht,
@@ -248,7 +258,7 @@ def get_adj_betas(p, pop, pheno_id, hail_script):
 #                   method='sbayesr')
         
         
-def run_method(p, pop, pheno_id, hail_script, output_txt, output_ht, ss_dict, method):
+def run_method(p, pop, pheno_key_dict, pheno_id, hail_script, output_txt, output_ht, ss_dict, method):
     r'''
     Runs either PLINK clump (method = 'clump') or SBayesR (method = 'sbayesr')
     '''
@@ -257,107 +267,107 @@ def run_method(p, pop, pheno_id, hail_script, output_txt, output_ht, ss_dict, me
     task_suffix = f'not_{pop}-{pheno_id}'
     # TODO: if method = 'sbayesr' check if LD matrix has already been calculated
     
-    tasks = []
-        
-    ## run plink clumping
-    for chrom, ss_chrom in ss_dict.items():
-        ## read ref ld plink files 
-        bfile = read_plink_input_group_chrom(p=p, 
-                                             method=method,
-                                             subset=f'not_{pop}',
-                                             chrom=chrom)
-        
-        get_betas = p.new_job(name=f'{method}_{task_suffix}_chr{chrom}')
-        
-        # TODO: change image to include GCTB if running SBayesR?
-        get_betas.storage('5G')
-        get_betas.cpu(1) # plink clump cannot multithread
-        
-        get_betas.command(' '.join(['set','-ex']))
-        
-        if method == 'clump':
-#            clump_memory = -15*(chrom-1)+400 # Memory requested for PLINK clumping in MB. equation: -15*(chrom-1) + 500 is based on 400 MB for chr 1, 80 MB for chr 22
-            clump_memory = 3.75 # in GB
-            get_betas.memory(clump_memory) # default: 30G
-            
-            get_betas.command(' '.join(['plink',
-                                        '--bfile', str(bfile),
-                                        '--memory',str(clump_memory*1000), # memory in MB
-                                        '--threads','1', # explicitly set threads to 1
-                                        '--clump', ss_chrom,
-                                        '--clump-field P',
-                                        '--clump-snp-field SNP',
-                                        '--clump-p1 1',
-                                        '--clump-p2 1',
-                                        '--clump-r2 0.1',
-                                        '--clump-kb 500',
-                                        '--chr', str(chrom),
-                                        '--out',f'{get_betas.ofile}_tmp']))
-            get_betas.command(' '.join(['awk',"'{ print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12 }'",
-                                        "OFS='\t'",f'{get_betas.ofile}_tmp.clumped','2>','/dev/null',
-                                 '|','tail -n+2','>',str(get_betas.ofile)]))
-        elif method == 'sbayesr':
-            ldm_type = 'full' # options: full, sparse
-            ldm_path = f'{ldprune_dir}/subsets_50k/not_{pop}/ldm/not_{pop}.hm3.chr{chrom}.maf_gt_0.ldm.{ldm_type}'
-#            ldm_path = f'{ldprune_dir}/subsets_50k/not_{pop}/ldm/not_{pop}.hm3.chr{chrom}.maf_gt_0.chisq_5.ldm.sparse'
-            
-            if hl.hadoop_is_file(f'{ldm_path}.info') and hl.hadoop_is_file(f'{ldm_path}.bin'):
-                ldm = p.read_input_group(info=f'{ldm_path}.info',
-                                         bin=f'{ldm_path}.bin')
-            else:
-                make_ldm = p.new_job(name=f'make_{ldm_type}_ldm_{task_suffix}.chr{chrom}')
-                make_ldm.memory('60G')
-                make_ldm.command(' '.join(['wget',
-                                        'https://cnsgenomics.com/software/gctb/download/gctb_2.0_Linux.zip',
-                                        '-P', '~/']))
-                make_ldm.command(' '.join(['unzip','~/gctb_2.0_Linux.zip','-d','~/']))
-                make_ldm.command(' '.join(['ls','-ltrR','~/']))
-                make_ldm.command(' '.join(['mv','~/gctb_2.0_Linux/gctb','/usr/local/bin/']))
-                make_ldm.command(' '.join(['plink',
-                                           '--bfile', str(bfile),
-                                           '--maf 0.0000000001',
-                                           '--make-bed',
-                                           '--out', f'{make_ldm.ofile}_tmp1']))
-                make_ldm.command(' '.join(['gctb',
-                                            '--bfile', f'{make_ldm.ofile}_tmp1',
-#                                            '--snp 1-1000',
-                                            f'--make-{ldm_type}-ldm', 
-                                            '--out',f'{make_ldm.ofile}_tmp2']))
-                # TODO: use both .bin and .info files
-                make_ldm.command(' '.join(['mv',f'{make_ldm.ofile}_tmp2.ldm.{ldm_type}', str(make_ldm.ofile)]))
-                p.write_output(make_ldm.ofile, ldm_path)
-                ldm = make_ldm.ofile
-                
-            get_betas.declare_resource_group(out={'log':'{root}.log',
-                                                  'snpRes':'{root}.snpRes',
-                                                  'parRes':'{root}.parRes',
-                                                  'mcmcsamples.SnpEffects':'{root}.mcmcsamples.SnpEffects',
-                                                  'mcmcsamples.Par':'{root}.mcmcsamples.Par'})
-            get_betas.command(' '.join(['wget',
-                                        'https://cnsgenomics.com/software/gctb/download/gctb_2.0_Linux.zip',
-                                        '-P', '~/']))
-            get_betas.memory('18G')
-            get_betas.command(' '.join(['unzip','~/gctb_2.0_Linux.zip','-d','~/']))
-            get_betas.command(' '.join(['ls','-ltrR','~/']))
-            get_betas.command(' '.join(['mv','~/gctb_2.0_Linux/gctb','/usr/local/bin/']))
-            get_betas.command(' '.join(['gctb',
-                                        '--sbayes R', 
-                                        '--ldm', str(ldm),
-                                        '--pi 0.95,0.02,0.02,0.01',
-                                        '--gamma 0.0,0.01,0.1,1',
-                                        '--gwas-summary', f' <( gunzip -c {ss} | grep -v "NA" )',
-                                        '--chain-length 10000',
-                                        '--burn-in 2000',
-                                        '--out-freq 10',
-                                        '--out',f'{get_betas.out}']))
-            get_betas.command(' '.join(['head',f'{get_betas.out}.snpRes']))
-            get_betas.command(' '.join(['mv',f'{get_betas.out}.snpRes', str(get_betas.ofile)]))
-            
-        tasks.append(get_betas)
-
-    get_betas_sink = p.new_job(name=f'{method}_sink_{task_suffix}')
-    get_betas_sink.command(f'cat {" ".join([t.ofile for t in tasks])} > {get_betas_sink.ofile}') # this task implicitly depends on the chromosome scatter tasks
-    p.write_output(get_betas_sink.ofile, output_txt)
+#    tasks = []
+#        
+#    ## run plink clumping
+#    for chrom, ss_chrom in ss_dict.items():
+#        ## read ref ld plink files 
+#        bfile = read_plink_input_group_chrom(p=p, 
+#                                             method=method,
+#                                             subset=f'not_{pop}',
+#                                             chrom=chrom)
+#        
+#        get_betas = p.new_job(name=f'{method}_{task_suffix}_chr{chrom}')
+#        
+#        # TODO: change image to include GCTB if running SBayesR?
+#        get_betas.storage('5G')
+#        get_betas.cpu(1) # plink clump cannot multithread
+#        
+#        get_betas.command(' '.join(['set','-ex']))
+#        
+#        if method == 'clump':
+##            clump_memory = -15*(chrom-1)+400 # Memory requested for PLINK clumping in MB. equation: -15*(chrom-1) + 500 is based on 400 MB for chr 1, 80 MB for chr 22
+#            clump_memory = 3.75 # in GB
+#            get_betas.memory(clump_memory) # default: 30G
+#            assert False, "annotate globals with col key"
+#            get_betas.command(' '.join(['plink',
+#                                        '--bfile', str(bfile),
+#                                        '--memory',str(clump_memory*1000), # memory in MB
+#                                        '--threads','1', # explicitly set threads to 1
+#                                        '--clump', ss_chrom,
+#                                        '--clump-field P',
+#                                        '--clump-snp-field SNP',
+#                                        '--clump-p1 1',
+#                                        '--clump-p2 1',
+#                                        '--clump-r2 0.1',
+#                                        '--clump-kb 500',
+#                                        '--chr', str(chrom),
+#                                        '--out',f'{get_betas.ofile}_tmp']))
+#            get_betas.command(' '.join(['awk',"'{ print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12 }'",
+#                                        "OFS='\t'",f'{get_betas.ofile}_tmp.clumped','2>','/dev/null',
+#                                 '|','tail -n+2','>',str(get_betas.ofile)]))
+#        elif method == 'sbayesr':
+#            ldm_type = 'full' # options: full, sparse
+#            ldm_path = f'{ldprune_dir}/subsets_50k/not_{pop}/ldm/not_{pop}.hm3.chr{chrom}.maf_gt_0.ldm.{ldm_type}'
+##            ldm_path = f'{ldprune_dir}/subsets_50k/not_{pop}/ldm/not_{pop}.hm3.chr{chrom}.maf_gt_0.chisq_5.ldm.sparse'
+#            
+#            if hl.hadoop_is_file(f'{ldm_path}.info') and hl.hadoop_is_file(f'{ldm_path}.bin'):
+#                ldm = p.read_input_group(info=f'{ldm_path}.info',
+#                                         bin=f'{ldm_path}.bin')
+#            else:
+#                make_ldm = p.new_job(name=f'make_{ldm_type}_ldm_{task_suffix}.chr{chrom}')
+#                make_ldm.memory('60G')
+#                make_ldm.command(' '.join(['wget',
+#                                        'https://cnsgenomics.com/software/gctb/download/gctb_2.0_Linux.zip',
+#                                        '-P', '~/']))
+#                make_ldm.command(' '.join(['unzip','~/gctb_2.0_Linux.zip','-d','~/']))
+#                make_ldm.command(' '.join(['ls','-ltrR','~/']))
+#                make_ldm.command(' '.join(['mv','~/gctb_2.0_Linux/gctb','/usr/local/bin/']))
+#                make_ldm.command(' '.join(['plink',
+#                                           '--bfile', str(bfile),
+#                                           '--maf 0.0000000001',
+#                                           '--make-bed',
+#                                           '--out', f'{make_ldm.ofile}_tmp1']))
+#                make_ldm.command(' '.join(['gctb',
+#                                            '--bfile', f'{make_ldm.ofile}_tmp1',
+##                                            '--snp 1-1000',
+#                                            f'--make-{ldm_type}-ldm', 
+#                                            '--out',f'{make_ldm.ofile}_tmp2']))
+#                # TODO: use both .bin and .info files
+#                make_ldm.command(' '.join(['mv',f'{make_ldm.ofile}_tmp2.ldm.{ldm_type}', str(make_ldm.ofile)]))
+#                p.write_output(make_ldm.ofile, ldm_path)
+#                ldm = make_ldm.ofile
+#                
+#            get_betas.declare_resource_group(out={'log':'{root}.log',
+#                                                  'snpRes':'{root}.snpRes',
+#                                                  'parRes':'{root}.parRes',
+#                                                  'mcmcsamples.SnpEffects':'{root}.mcmcsamples.SnpEffects',
+#                                                  'mcmcsamples.Par':'{root}.mcmcsamples.Par'})
+#            get_betas.command(' '.join(['wget',
+#                                        'https://cnsgenomics.com/software/gctb/download/gctb_2.0_Linux.zip',
+#                                        '-P', '~/']))
+#            get_betas.memory('18G')
+#            get_betas.command(' '.join(['unzip','~/gctb_2.0_Linux.zip','-d','~/']))
+#            get_betas.command(' '.join(['ls','-ltrR','~/']))
+#            get_betas.command(' '.join(['mv','~/gctb_2.0_Linux/gctb','/usr/local/bin/']))
+#            get_betas.command(' '.join(['gctb',
+#                                        '--sbayes R', 
+#                                        '--ldm', str(ldm),
+#                                        '--pi 0.95,0.02,0.02,0.01',
+#                                        '--gamma 0.0,0.01,0.1,1',
+#                                        '--gwas-summary', f' <( gunzip -c {ss} | grep -v "NA" )',
+#                                        '--chain-length 10000',
+#                                        '--burn-in 2000',
+#                                        '--out-freq 10',
+#                                        '--out',f'{get_betas.out}']))
+#            get_betas.command(' '.join(['head',f'{get_betas.out}.snpRes']))
+#            get_betas.command(' '.join(['mv',f'{get_betas.out}.snpRes', str(get_betas.ofile)]))
+#            
+#        tasks.append(get_betas)
+#
+#    get_betas_sink = p.new_job(name=f'{method}_sink_{task_suffix}')
+#    get_betas_sink.command(f'cat {" ".join([t.ofile for t in tasks])} > {get_betas_sink.ofile}') # this task implicitly depends on the chromosome scatter tasks
+#    p.write_output(get_betas_sink.ofile, output_txt)
     
     ## import as hail table and save
     n_threads = 8
@@ -366,8 +376,7 @@ def run_method(p, pop, pheno_id, hail_script, output_txt, output_ht, ss_dict, me
     tsv_to_ht.storage('1G')
     tsv_to_ht.memory('100M')
     tsv_to_ht.cpu(n_threads)
-    tsv_to_ht.depends_on(get_betas_sink)
-    
+#    tsv_to_ht.depends_on(get_betas_sink)
     tsv_to_ht.command(' '.join(['set','-ex']))
     tsv_to_ht.command(' '.join(['PYTHONPATH=$PYTHONPATH:/',
                         'PYSPARK_SUBMIT_ARGS="--conf spark.driver.memory=4g --conf spark.executor.memory=24g pyspark-shell"']))
@@ -375,16 +384,21 @@ def run_method(p, pop, pheno_id, hail_script, output_txt, output_ht, ss_dict, me
                          '--input_file', f'"{output_txt}"', # output_txt must be doubly enclosed by quotes needed for files with "|" in their pheno_id
                          '--tsv_to_ht',
                          '--pop', pop,
+                         '--trait_type', f'''"{pheno_key_dict['trait_type']}"''',
+                         '--phenocode', f'''"{pheno_key_dict['phenocode']}"''',
+                         '--pheno_sex', f'''"{pheno_key_dict['pheno_sex']}"''',
                          '--output_file', f'"{output_ht}"', # output_ht must be doubly enclosed by quotes needed for files with "|" in their pheno_id
-                         '--n_threads', str(n_threads),
-                         '--overwrite']))    
+#                         '--n_threads', str(n_threads),
+                         '--overwrite']+
+                         (['--coding',f'''"{pheno_key_dict['coding']}"'''] if pheno_key_dict['coding'] != '' else [])+
+                         (['--modifier',f'''"{pheno_key_dict['modifier']}"'''] if pheno_key_dict['modifier'] != '' else [])))
 
 def main():    
     backend = hb.ServiceBackend(billing_project='ukb_diverse_pops',
                                    bucket='ukbb-diverse-temp-30day/nb-batch-tmp')
 #    backend = batch.LocalBackend(tmp_dir='/tmp/batch/')
     
-    p = hb.batch.Batch(name='test-clump', backend=backend,
+    p = hb.batch.Batch(name='clump', backend=backend,
                           default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:0.1',
                           default_storage='500Mi', default_cpu=8)
     
@@ -401,9 +415,12 @@ def main():
                                     pop=pop)
     
         for trait_type, phenocode, pheno_sex, coding, modifier in pheno_list:
-            pheno_id = make_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier)
+            pheno_key_dict = get_pheno_key_dict(trait_type, phenocode, pheno_sex, coding, modifier)
+            pheno_id = get_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier)
+            
             get_adj_betas(p=p, 
                           pop=pop, 
+                          pheno_key_dict=pheno_key_dict,
                           pheno_id=pheno_id, 
                           hail_script=hail_script)
     p.run(open=True)
