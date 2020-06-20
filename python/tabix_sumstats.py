@@ -39,7 +39,8 @@ if __name__=="__main__":
     
     b = hb.Batch(name='tabix', backend=backend,
                  default_image='gcr.io/ukbb-diversepops-neale/nbaya_tabix:latest',
-                 default_storage='2G', default_cpu=1)
+                 default_storage='100M', # works with 2G
+                 default_cpu=1)
     
 #    sumstats_dir = f'{bucket}/sumstats_flat_files'
 #    sumstats_dir = f'{ldprune_dir}/export_results/update'

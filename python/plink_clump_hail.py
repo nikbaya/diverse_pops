@@ -268,6 +268,7 @@ def join_clump_results(pop):
     r'''
     Wrapper for mwzj
     '''
+    pop = pop.upper()
     pheno_manifest = hl.import_table(
     #            get_pheno_manifest_path(), 
             'gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz', # hardcoded path to avoid having to change user-pays
@@ -279,7 +280,7 @@ def join_clump_results(pop):
     ls = hl.hadoop_ls(f'{clump_results_dir}/*')
     all_hts = [x['path'] for x in ls if 'clump_results.ht' in x['path']]
     
-    temp_dir = 'gs://ukbb-diverse-temp-30day/nb-temp'
+    temp_dir = f'gs://ukbb-diverse-temp-30day/nb-temp/{pop}'
     globals_for_col_key = ukb_common.PHENO_KEY_FIELDS
     mt = mwzj_hts_by_tree(all_hts=all_hts,
                          temp_dir=temp_dir,

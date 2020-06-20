@@ -43,7 +43,7 @@ def annotate_chr_pos(b, path, use_tabix=False):
             gunzip -c {ss} | \\
             sed -e 's/SNP/chr:pos:a1:a2/g' \\
                 -e 's/:/\t/g'  | \\
-            awk 'BEGIN {{ OFS = "\t" }} {{ print $1=$1,$2=$2,$3=$3,$4=$4,$5=$1":"$2":"$3":"$4,$5,$6,$7,$8,$9,$10 }}' | \\
+            awk 'BEGIN {{ OFS = "\t" }} {{ print $1,$2,$3,$4,$1":"$2":"$3":"$4,$5,$6,$7,$8,$9,$10 }}' | \\
             sed 's/chr:pos:a1:a2/SNP/g' | \\
             bgzip > {j["bgz"]}{".tsv.bgz" if use_tabix else ""}
             '''

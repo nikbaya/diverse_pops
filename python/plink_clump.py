@@ -51,8 +51,8 @@ def get_pheno_list(pheno_manifest, pop: str):
     Returns list of phenotypes for population `pop`.
     '''
     
-#    pheno_manifest = pheno_manifest.filter(~pheno_manifest.pops.contains(pop)) # get 5 pop traits not defined for `pop`
-    pheno_manifest = pheno_manifest.filter(pheno_manifest.num_pops==6) # get 6 pop traits
+    pheno_manifest = pheno_manifest.filter(~pheno_manifest.pops.contains(pop)) # get 5 pop traits not defined for `pop`
+#    pheno_manifest = pheno_manifest.filter(pheno_manifest.num_pops==6) # get 6 pop traits
     
     pheno_list = list(zip(pheno_manifest.trait_type.collect(),
                           pheno_manifest.phenocode.collect(), 
@@ -64,7 +64,7 @@ def get_pheno_list(pheno_manifest, pop: str):
 #    random.seed(a=seed)
 #    random.shuffle(pheno_list)
 #    
-#    n_traits = 2
+#    n_traits = 1
 #    print(f'\nWARNING: For testing purposes, only using a max of {n_traits} traits (random seed: {seed})\n')
 #    pheno_list = pheno_list[:n_traits]
     
@@ -106,7 +106,7 @@ def get_sumstats(p, pop, pheno_id, method, chromosomes=all_chromosomes):
     
     get_ss = p.new_job(name=f'get_ss_{pheno_id}')
     get_ss = get_ss.image('gcr.io/ukbb-diversepops-neale/nbaya_tabix:latest')
-    get_ss.storage('1G')
+    get_ss.storage('100M') # default: 1G
     get_ss.cpu(1)
     bgz_fname = f'{get_ss.ofile}.bgz'
     tbi_fname = f'{get_ss.ofile}.bgz.tbi'
@@ -128,8 +128,7 @@ def get_sumstats(p, pop, pheno_id, method, chromosomes=all_chromosomes):
                 '''
                 for chrom in chromosomes
                 )
-        )        
-        []
+        )            
     elif hl.hadoop_is_file(ss_fname) and hl.hadoop_is_file(tabix_fname): # phenotype is 5-pop (this conditional block must come after checking for 6-pop LOO results)
         print(f'Using 5-pop sumstats for {pheno_id}')
         ss = p.read_input(ss_fname)
@@ -190,6 +189,8 @@ def get_adj_betas(p, pop, pheno_key_dict, pheno_id, hail_script):
                    output_ht=clump_output_ht,
                    ss_dict=ss_dict,
                    method='clump')
+    else:
+        print(f'\n\nSkipping {pheno_id} because results ht exists and overwrite=False\n')
         
 #    if not hl.hadoop_is_file(f'{sbayesr_output_ht}/_SUCCESS'):
 #        if overwrite:
@@ -231,12 +232,12 @@ def run_method(p, pop, pheno_key_dict, pheno_id, hail_script, output_txt, output
         get_betas = p.new_job(name=f'{method}_{task_suffix}_chr{chrom}')
         
         # TODO: change image to include GCTB if running SBayesR?
-        get_betas.storage('5G')
         get_betas.cpu(1) # plink clump cannot multithread
         
         get_betas.command(' '.join(['set','-ex']))
         
         if method == 'clump':
+            get_betas.storage('5G') # default: 5G
 #            clump_memory = -15*(chrom-1)+400 # Memory requested for PLINK clumping in MB. equation: -15*(chrom-1) + 500 is based on 400 MB for chr 1, 80 MB for chr 22
             clump_memory = 3.75 # in GB
             get_betas.memory(clump_memory) # default: 30G
@@ -350,7 +351,7 @@ def main():
                                    bucket='ukbb-diverse-temp-30day/nb-batch-tmp')
 #    backend = batch.LocalBackend(tmp_dir='/tmp/batch/')
     
-    p = hb.batch.Batch(name='clump', backend=backend,
+    p = hb.batch.Batch(name='clump-5pop', backend=backend,
                           default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:0.1',
                           default_storage='500Mi', default_cpu=8)
     
@@ -363,7 +364,7 @@ def main():
     pheno_manifest = pheno_manifest.filter(pheno_manifest.num_pops>=5) # necessary for LOO clumping
     
 #    for pop in all_pops[:1]:   
-    for pop in ['EUR']:
+    for pop in ['AFR','AMR','CSA','EAS','MID']:
         pheno_list = get_pheno_list(pheno_manifest=pheno_manifest,
                                     pop=pop)
     
