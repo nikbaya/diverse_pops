@@ -81,32 +81,55 @@ def get_sample_file(chromosome: str = '1'):
     return f'gs://ukb31063/ukb31063.{chromosome}.sample'
 
 def get_ukb_imputed_data(chromosome: str = '1', variant_list: hl.Table = None, entry_fields = ('GP', )):
-    if chromosome == 'all':
+    if chromosome == 'autosomes':
         chromosome = '{' + ','.join(map(str, range(1, 23))) + '}'
+    if chromosome == 'all':
+        chromosome = '{' + ','.join(map(str, list(range(1, 23))+['X'])) + '}'
     add_args = {}
     if variant_list is not None:
         add_args['variants'] = variant_list
     return hl.import_bgen(ukb_imputed_bgen_path.format(chromosome), entry_fields=entry_fields,
                           sample_file=get_sample_file(chromosome), **add_args)
 
-def get_mt(chrom: str = 'all', pop: str = 'all', imputed: bool = True, min_mac: int = 20, 
-                    entry_fields = ('GP', ), not_pop: bool = False):
+def get_filtered_not_pop_mt(chrom: str = 'all',
+                            pop: str = 'all',
+                            imputed: bool = True,
+                            min_mac: int = 20,
+                            entry_fields=('GP',),
+                            filter_mac_instead_of_ac: bool = False,
+                            not_pop: bool = False):
+    r'''
+    Based on `get_filtered_mt()` from ukbb_pan_ancestry.resources.genotypes
+    This version has the option to filter to all populations but `pop` if `not_pop`=True
+    '''
+    assert ((pop!='all')|(not_pop!=True)), 'ERROR: `pop` cannot be "all" if `not_pop`=True'
+    # get ac or mac based on filter_mac_instead_of_ac
+    def get_ac(af, an):
+        if filter_mac_instead_of_ac:
+            return (0.5 - hl.abs(0.5 - af)) * an
+        else:
+            return af * an
+
     if imputed:
         ht = hl.read_table(get_ukb_af_ht_path())
-        if pop == 'all':
-            ht = ht.filter(hl.any(lambda x: ht.af[x] * ht.an[x] >= min_mac, hl.literal(POPS)))
+        if pop == 'all' or not_pop:
+            ht = ht.filter(hl.any(lambda x: get_ac(ht.af[x], ht.an[x]) >= min_mac, hl.literal(POPS)))
         else:
-            ht = ht.filter(ht.af[pop] * ht.an[pop] >= min_mac)
+            ht = ht.filter(get_ac(ht.af[pop], ht.an[pop]) >= min_mac)
         mt = get_ukb_imputed_data(chrom, variant_list=ht, entry_fields=entry_fields)
     else:
         mt = hl.read_matrix_table('gs://ukb31063/ukb31063.genotype.mt')
 
     covariates_ht = get_covariates()
     hq_samples_ht = get_hq_samples()
-    # TODO: confirm that this is correct set
     mt = mt.annotate_cols(**covariates_ht[mt.s])
     mt = mt.filter_cols(hl.is_defined(mt.pop) & hl.is_defined(hq_samples_ht[mt.s]))
 
+    if pop != 'all' and not_pop: 
+        mt = mt.filter_cols(mt.pop != pop)
+    elif pop != 'all' and ~not_pop:
+        mt = mt.filter_cols(mt.pop == pop)
+        
     return mt
 
 def get_ukb_af_ht_path(with_x = True):
@@ -158,25 +181,50 @@ def get_subset(mt_pop, pop_dict: dict, pop: str, n_max: int, not_pop: bool = Fal
     
     return ht_sample
     
-def to_plink(pop: str, subsets_dir, mt, ht_sample, not_pop: bool = False, overwrite=False):
+def to_plink(pop: str, 
+             subsets_dir, 
+             mt, 
+             ht_sample, 
+             not_pop: bool = False, 
+             chr_x_only: bool = False,
+             export_varid: bool = True,
+             overwrite=False):
     r'''
     Exports matrix table to PLINK2 files
     '''
     assert 'GT' in mt.entry, "mt must have 'GT' as an entry field"
     assert mt.GT.dtype==hl.tcall, "entry field 'GT' must be of type `Call`"
-    bfile_path = f'{subsets_dir}/{"not_" if not_pop else ""}{pop}/{"not_" if not_pop else ""}{pop}'
+    print(chr_x_only)
+    bfile_path = f'{subsets_dir}/{"not_" if not_pop else ""}{pop}_new/{"not_" if not_pop else ""}{pop}'
+    if chr_x_only: bfile_path += '.chrX'
     
     if not overwrite and all([hl.hadoop_exists(f'{bfile_path}.{suffix}') for suffix in ['bed','bim','fam']]):
         print(f'\nPLINK files already exist for {"not_" if not_pop else ""}{pop}')
         print(bfile_path)
     else:
         print(f'Saving to bfile prefix {bfile_path}')
-        mt_sample = mt.filter_cols(hl.is_defined(ht_sample[mt.s]))
-        mt_sample = mt_sample.annotate_rows(varid = hl.str(mt_sample.locus)+'_'+mt_sample.alleles[0]+'_'+mt_sample.alleles[1])
+        mt_sample = mt.annotate_rows(varid = hl.str(mt.locus)+':'+mt.alleles[0]+':'+mt.alleles[1])
+        mt_sample = mt_sample.filter_cols(hl.is_defined(ht_sample[mt_sample.s]))
         hl.export_plink(dataset = mt_sample, 
                         output = bfile_path, 
                         ind_id = mt_sample.s,
                         varid = mt_sample.varid) # varid used to be rsid
+def export_varid(args):
+    n_max = 5000
+    subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k' 
+    
+    mt = get_filtered_not_pop_mt(chrom='autosomes' if not args.chr_x_only else 'X', 
+                                 entry_fields=('GT',)) # default entry_fields will be 'GP', we need 'GT' for exporting to PLINK
+    
+    mt_sample = mt.annotate_rows(chrom = mt.locus.contig,
+                                 pos = mt.locus.position,
+                                 varid = hl.str(mt.locus)+':'+mt.alleles[0]+':'+mt.alleles[1])
+    
+    rows = mt_sample.rows()
+    rows = rows.key_by()
+    rows = rows.select('chrom','pos','varid')
+    rows.export(f'{subsets_dir}/varid.txt',delimiter=' ')
+        
 def main(args):
     n_max = 5000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
     not_pop = True
@@ -190,26 +238,27 @@ def main(args):
     f'''
     pop: {pop}
     not_pop: {not_pop}
+    chr_x_only: {args.chr_x_only}
     overwrite_plink: {args.overwrite_plink}
     ''')
 
-    mt0 = get_mt(chrom='all', entry_fields = ('GT',)) # default entry_fields will be 'GP', we need 'GT' for exporting to PLINK
- 
-    ## get mt of population (or every population but that population if `not_pop`=True)
-    if not_pop:
-        mt_pop = mt0.filter_cols(mt0.pop != pop)
-    else:    
-        mt_pop = mt0.filter_cols(mt0.pop == pop)
-    print(f'\n\nmt sample ct ({pop}, not_pop={not_pop}): {mt_pop.count_cols()}\n\n')
-    
 
-    ht_sample_path = f'{subsets_dir}/{"not_" if not_pop else ""}{pop}/{"not_" if not_pop else ""}{pop}.ht'
+    mt_pop = get_filtered_not_pop_mt(chrom='autosomes' if not args.chr_x_only else 'X', 
+                                     pop=pop,
+                                     entry_fields=('GT',),
+                                     not_pop=not_pop) # default entry_fields will be 'GP', we need 'GT' for exporting to PLINK
+
+    print(f'\n\nmt sample ct ({pop}, not_pop={not_pop}): {mt_pop.count_cols()}\n\n')
+    print(f'\n\nmt variant ct ({pop}, not_pop={not_pop}): {mt_pop.count_rows()}\n\n')
     
+    ht_sample_path = f'{subsets_dir}/{"not_" if not_pop else ""}{pop}.ht'
+    print(ht_sample_path)
     if hl.hadoop_exists(f'{ht_sample_path}/_SUCCESS'):
         ht_sample = hl.read_table(ht_sample_path)
         print(f'... Subset ht already exists for pop={pop}, not_pop={not_pop} ...')
         print(f'\n\nSubset ht sample ct: {ht_sample.count()}\n\n')
     else:
+        pass
         print(f'... getting subset (pop={pop}, not_pop={not_pop}) ...')
         
         ht_sample = get_subset(mt_pop = mt_pop,
@@ -228,6 +277,7 @@ def main(args):
              mt = mt_pop,
              ht_sample = ht_sample,
              not_pop = not_pop,
+             chr_x_only=args.chr_x_only,
              overwrite=args.overwrite_plink)
     
 
@@ -235,7 +285,12 @@ if __name__=='__main__':
     
     parser = argparse.ArgumentParser()
     parser.add_argument('--pop', default=None, type=str, help='population to use')
+    parser.add_argument('--chr_x_only', default=False, action='store_true', help='Only export chr X')
     parser.add_argument('--overwrite_plink', default=False, action='store_true', help='whether to overwrite existing PLINK files')
+    parser.add_argument('--export_varid', default=False, action='store_true', help='export varids')
     args = parser.parse_args()
     
-    main(args=args)
+    if args.export_varid:
+        export_varid(args=args)
+    else:
+        main(args=args)

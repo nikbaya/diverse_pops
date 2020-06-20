@@ -12,10 +12,10 @@ import hail as hl
 import hailtop.batch as hb
 
 bucket = 'gs://ukb-diverse-pops'
-ldprune_dir = f'{bucket}/ld_prune/'
+ldprune_dir = f'{bucket}/ld_prune'
 loo_sumstats_dir = f'{ldprune_dir}/loo/sumstats/batch1'    
-scratch_dir = f'gs://ukbb-diverse-temp-30day/nb-tabix-scratch'
-out_dir = f'{scratch_dir}/loo'
+#scratch_dir = f'gs://ukbb-diverse-temp-30day/nb-tabix-scratch'
+out_dir = f'{ldprune_dir}/loo/sumstats/batch2'
 
 def get_paths():
     pheno_manifest = hl.import_table(f'{ldprune_dir}/phenotype_manifest.tsv.bgz', impute=True)
@@ -36,14 +36,14 @@ def annotate_chr_pos(b, path, use_tabix=False):
     
     ss = b.read_input(path=path)
     
-    j = b.new_job(f'egt_chr_pos_{pheno_id}')
+    j = b.new_job(f'get_chr_pos_{pheno_id}')
     j.command('set -ex')
     j.command(' '
             f'''
             gunzip -c {ss} | \\
             sed -e 's/SNP/chr:pos:a1:a2/g' \\
                 -e 's/:/\t/g'  | \\
-            awk 'BEGIN {{ OFS = "\t" }} {{ print $1=$1,$2=$2,$3=$3,$4=$4,$5=$1":"$2":"$3":"$4,$6,$7,$8,$9,$10,$11 }}' | \\
+            awk 'BEGIN {{ OFS = "\t" }} {{ print $1=$1,$2=$2,$3=$3,$4=$4,$5=$1":"$2":"$3":"$4,$5,$6,$7,$8,$9,$10 }}' | \\
             sed 's/chr:pos:a1:a2/SNP/g' | \\
             bgzip > {j["bgz"]}{".tsv.bgz" if use_tabix else ""}
             '''
@@ -57,7 +57,7 @@ def annotate_chr_pos(b, path, use_tabix=False):
         j.command(f'mv {j["bgz"]}.tsv.bgz {j["bgz"]}')
         j.command(f'mv {j["bgz"]}.tsv.bgz.tbi {j["tbi"]}')
         
-        b.write_output(j['tbi'], f'{out_dir}/{pheno_id}.tsv.bgz.tbi')
+        b.write_output(j['tbi'], f'{out_dir}_tabix/{pheno_id}.tsv.bgz.tbi')
         
     b.write_output(j['bgz'], f'{out_dir}/{pheno_id}.tsv.bgz')
     
@@ -75,7 +75,7 @@ def main():
                  default_storage='2G', default_cpu=1)
 
     
-    paths = get_paths()[:10]
+    paths = get_paths()
     
     for path in paths:
         print(path)

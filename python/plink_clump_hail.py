@@ -54,9 +54,8 @@ def tsv_to_ht(args):
                     'f9':'S001',
                     'f10':'S0001',
                     'f11':'SP2'})
-    # TODO: Remove rows with empty strings?
-    ht = ht.filter(ht.contig!='')
-    ht = ht.key_by(locus = hl.locus(contig=ht.contig,
+    ht = ht.filter(ht.contig!='') # added because there were some files with extra lines with empty strings
+    ht = ht.key_by(locus = hl.locus(contig=ht.contig, 
                                     pos=hl.int(ht.pos),
                                     reference_genome='GRCh37'),
                    alleles = hl.array([ht.varid.split(':')[2],
@@ -205,13 +204,6 @@ def export_ma_format(batch_size=256):
                                           batch_size = batch_size,
                                           use_string_key_as_file_name = True,
                                           header_json_in_file = False)
-
-#def read_clump_ht(pheno_manifest, path):
-#    ht = hl.read_table(path)
-#    if list(ht.key)==[]:
-#        pass
-#    pheno_id = path.split('/')[-2]
-    
     
 
 #def mwzj_hts_by_tree(all_hts, temp_dir, globals_for_col_key, 
@@ -273,6 +265,9 @@ def resume_mwzj(temp_dir, globals_for_col_key):
     return mt
 
 def join_clump_results(pop):
+    r'''
+    Wrapper for mwzj
+    '''
     pheno_manifest = hl.import_table(
     #            get_pheno_manifest_path(), 
             'gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz', # hardcoded path to avoid having to change user-pays
@@ -281,20 +276,16 @@ def join_clump_results(pop):
     pheno_manifest = pheno_manifest.annotate(pheno_id = pheno_manifest.filename.replace('.tsv.bgz',''))
     
     clump_results_dir = f'{ldprune_dir}/results/not_{pop}'
-#    pheno_ids = ['biomarkers-30600-both_sexes-irnt',
-#                 'biomarkers-30610-both_sexes-irnt']
-#    all_hts = [f'{clump_results_dir}/{pheno_id}/clump_results.ht'
-#               for pheno_id in pheno_ids]
     ls = hl.hadoop_ls(f'{clump_results_dir}/*')
     all_hts = [x['path'] for x in ls if 'clump_results.ht' in x['path']]
     
     temp_dir = 'gs://ukbb-diverse-temp-30day/nb-temp'
     globals_for_col_key = ukb_common.PHENO_KEY_FIELDS
-#    mt = mwzj_hts_by_tree(all_hts=all_hts,
-#                         temp_dir=temp_dir,
-#                         globals_for_col_key=globals_for_col_key)
-    mt = resume_mwzj(temp_dir=temp_dir,
-                     globals_for_col_key=globals_for_col_key)
+    mt = mwzj_hts_by_tree(all_hts=all_hts,
+                         temp_dir=temp_dir,
+                         globals_for_col_key=globals_for_col_key)
+#    mt = resume_mwzj(temp_dir=temp_dir, # NOTE: only use if all the temp hts have been created
+#                     globals_for_col_key=globals_for_col_key)
     mt.write(f'{ldprune_dir}/clump_results/not_{pop}.mt')
 
 if __name__ == '__main__':
