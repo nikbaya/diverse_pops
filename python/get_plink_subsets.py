@@ -195,7 +195,7 @@ def to_plink(pop: str,
     assert 'GT' in mt.entry, "mt must have 'GT' as an entry field"
     assert mt.GT.dtype==hl.tcall, "entry field 'GT' must be of type `Call`"
     print(chr_x_only)
-    bfile_path = f'{subsets_dir}/{"not_" if not_pop else ""}{pop}_new/{"not_" if not_pop else ""}{pop}'
+    bfile_path = f'{subsets_dir}/{"not_" if not_pop else ""}{pop}/{"not_" if not_pop else ""}{pop}'
     if chr_x_only: bfile_path += '.chrX'
     
     if not overwrite and all([hl.hadoop_exists(f'{bfile_path}.{suffix}') for suffix in ['bed','bim','fam']]):
@@ -227,7 +227,7 @@ def export_varid(args):
         
 def main(args):
     n_max = 5000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
-    not_pop = True
+    not_pop = False
     
     subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k' 
     
@@ -241,7 +241,6 @@ def main(args):
     chr_x_only: {args.chr_x_only}
     overwrite_plink: {args.overwrite_plink}
     ''')
-
 
     mt_pop = get_filtered_not_pop_mt(chrom='autosomes' if not args.chr_x_only else 'X', 
                                      pop=pop,

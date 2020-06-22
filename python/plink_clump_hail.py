@@ -18,6 +18,7 @@ from ukb_common import mwzj_hts_by_tree
 bucket = 'gs://ukb-diverse-pops'
 ldprune_dir = f'{bucket}/ld_prune'
 
+all_pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
 
 def ht_to_tsv(args):
     r'''
@@ -264,7 +265,7 @@ def resume_mwzj(temp_dir, globals_for_col_key):
     mt = ht._unlocalize_entries('inner_row', 'inner_global', globals_for_col_key)
     return mt
 
-def join_clump_results(pop):
+def join_clump_hts(pop):
     r'''
     Wrapper for mwzj
     '''
@@ -280,14 +281,39 @@ def join_clump_results(pop):
     ls = hl.hadoop_ls(f'{clump_results_dir}/*')
     all_hts = [x['path'] for x in ls if 'clump_results.ht' in x['path']]
     
-    temp_dir = f'gs://ukbb-diverse-temp-30day/nb-temp/{pop}'
+    temp_dir = f'gs://ukbb-diverse-temp-30day/nb-temp/not_{pop}'
     globals_for_col_key = ukb_common.PHENO_KEY_FIELDS
     mt = mwzj_hts_by_tree(all_hts=all_hts,
                          temp_dir=temp_dir,
                          globals_for_col_key=globals_for_col_key)
 #    mt = resume_mwzj(temp_dir=temp_dir, # NOTE: only use if all the temp hts have been created
 #                     globals_for_col_key=globals_for_col_key)
-    mt.write(f'{ldprune_dir}/clump_results/not_{pop}.mt')
+    mt.write(f'{ldprune_dir}/clump_results/not_{pop}.mt', overwrite=True)
+    
+def make_full_clump_mt():
+    mts = []
+    for pop in all_pops:
+        pop_array = [p for p in all_pops if p!=pop]
+        mt = hl.read_matrix_table(f'{ldprune_dir}/clump_results/not_{pop}.mt')
+        print(mt.count_cols())
+        mt = mt.annotate_cols(pop = hl.literal(pop_array))
+        mt = mt.select_entries(plink_clump=mt.entry)
+        mts.append(mt)
+    for pop in all_pops:
+        pop_array = [pop]
+        mt = hl.read_matrix_table(f'{ldprune_dir}/clump_results/{pop}.mt')
+        print(mt.count_cols())
+        mt = mt.annotate_cols(pop = hl.literal(pop_array))
+        mt = mt.select_entries(plink_clump=mt.entry)
+        mts.append(mt)
+    
+    full_mt = mts[0]
+    for mt in mts[1:]:
+        full_mt = full_mt.union_cols(mt, row_join_type='outer')
+        
+    full_mt = full_mt.collect_cols_by_key()
+    
+    full_mt.write(f'{ldprune_dir}/clump_results/full_clump_results.mt')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -307,7 +333,8 @@ if __name__ == '__main__':
     parser.add_argument('--get_meta_sumstats', action='store_true')
     parser.add_argument('--test_get_meta_sumstats', action='store_true')
     parser.add_argument('--export_pop_pheno_pairs', action='store_true')    
-    parser.add_argument('--join_clump_results', action='store_true')    
+    parser.add_argument('--join_clump_hts', action='store_true')    
+    parser.add_argument('--make_full_clump_mt', action='store_true')    
     parser.add_argument('--batch_size', type=int, default=256, help='max number of phenotypes per batch for export_entries_by_col')
     parser.add_argument('--overwrite', default=False, action='store_true', help='overwrite existing files')
     args = parser.parse_args()
@@ -323,8 +350,10 @@ if __name__ == '__main__':
         test_get_meta_sumstats(args)
     elif args.write_meta_sumstats:
         write_meta_sumstats(args)
-    elif args.join_clump_results:
-        join_clump_results(pop=args.pop)
+    elif args.join_clump_hts:
+        join_clump_hts(pop=args.pop)
+    elif args.make_full_clump_mt:
+        make_full_clump_mt()
 
 #    except:
 #        hl.copy_log('gs://ukbb-diverse-temp-30day/nb_hail.log')

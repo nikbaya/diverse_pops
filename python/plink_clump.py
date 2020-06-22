@@ -51,8 +51,8 @@ def get_pheno_list(pheno_manifest, pop: str):
     Returns list of phenotypes for population `pop`.
     '''
     
-    pheno_manifest = pheno_manifest.filter(~pheno_manifest.pops.contains(pop)) # get 5 pop traits not defined for `pop`
-#    pheno_manifest = pheno_manifest.filter(pheno_manifest.num_pops==6) # get 6 pop traits
+#    pheno_manifest = pheno_manifest.filter(~pheno_manifest.pops.contains(pop)) # get 5 pop traits not defined for `pop`
+    pheno_manifest = pheno_manifest.filter(pheno_manifest.num_pops==6) # get 6 pop traits
     
     pheno_list = list(zip(pheno_manifest.trait_type.collect(),
                           pheno_manifest.phenocode.collect(), 
@@ -341,7 +341,6 @@ def run_method(p, pop, pheno_key_dict, pheno_id, hail_script, output_txt, output
                          '--phenocode', f'''"{pheno_key_dict['phenocode']}"''',
                          '--pheno_sex', f'''"{pheno_key_dict['pheno_sex']}"''',
                          '--output_file', f'"{output_ht}"', # output_ht must be doubly enclosed by quotes needed for files with "|" in their pheno_id
-#                         '--n_threads', str(n_threads),
                          '--overwrite']+
                          (['--coding',f'''"{pheno_key_dict['coding']}"'''] if pheno_key_dict['coding'] != '' else [])+
                          (['--modifier',f'''"{pheno_key_dict['modifier']}"'''] if pheno_key_dict['modifier'] != '' else [])))
@@ -351,7 +350,7 @@ def main():
                                    bucket='ukbb-diverse-temp-30day/nb-batch-tmp')
 #    backend = batch.LocalBackend(tmp_dir='/tmp/batch/')
     
-    p = hb.batch.Batch(name='clump-5pop', backend=backend,
+    p = hb.batch.Batch(name='clump-not_MID-6pop', backend=backend,
                           default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:0.1',
                           default_storage='500Mi', default_cpu=8)
     
@@ -364,7 +363,7 @@ def main():
     pheno_manifest = pheno_manifest.filter(pheno_manifest.num_pops>=5) # necessary for LOO clumping
     
 #    for pop in all_pops[:1]:   
-    for pop in ['AFR','AMR','CSA','EAS','MID']:
+    for pop in ['MID']:
         pheno_list = get_pheno_list(pheno_manifest=pheno_manifest,
                                     pop=pop)
     
