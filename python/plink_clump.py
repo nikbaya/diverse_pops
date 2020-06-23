@@ -51,8 +51,8 @@ def get_pheno_list(pheno_manifest, pop: str):
     Returns list of phenotypes for population `pop`.
     '''
     
-#    pheno_manifest = pheno_manifest.filter(~pheno_manifest.pops.contains(pop)) # get 5 pop traits not defined for `pop`
-    pheno_manifest = pheno_manifest.filter(pheno_manifest.num_pops==6) # get 6 pop traits
+    pheno_manifest = pheno_manifest.filter(~pheno_manifest.pops.contains(pop)) # get 5 pop traits not defined for `pop`
+#    pheno_manifest = pheno_manifest.filter(pheno_manifest.num_pops==6) # get 6 pop traits
     
     pheno_list = list(zip(pheno_manifest.trait_type.collect(),
                           pheno_manifest.phenocode.collect(), 
@@ -68,7 +68,7 @@ def get_pheno_list(pheno_manifest, pop: str):
 #    print(f'\nWARNING: For testing purposes, only using a max of {n_traits} traits (random seed: {seed})\n')
 #    pheno_list = pheno_list[:n_traits]
     
-    print(pheno_list)
+#    print(pheno_list)
     print(f'\nNumber of phenotypes for not_{pop}: {len(pheno_list)}')
     
     return pheno_list
@@ -95,6 +95,11 @@ def get_sumstats(p, pop, pheno_id, method, chromosomes=all_chromosomes):
     filename=f'{pheno_id}.tsv.bgz'
     trait_type = pheno_id.split('-')[0]
     trait_category = 'quant' if trait_type in ['continuous','biomarkers'] else 'binary'
+    
+    variant_manifest_fname = f'{ldprune_dir}/variant_qc/full_variant_qc_metrics.txt.bgz'
+    variant_manifest_tabix_fname = f'{ldprune_dir}/variant_qc_tabix/full_variant_qc_metrics.txt.bgz.tbi'
+    variant_manifest = p.read_input(variant_manifest_fname)
+    variant_manifest_tabix = p.read_input(variant_manifest_tabix_fname)
 
     loo_6pop_dir = f'{ldprune_dir}/loo/sumstats/batch2'
     loo_6pop_ss_fname = f'{loo_6pop_dir}/{filename}'
@@ -111,7 +116,12 @@ def get_sumstats(p, pop, pheno_id, method, chromosomes=all_chromosomes):
     bgz_fname = f'{get_ss.ofile}.bgz'
     tbi_fname = f'{get_ss.ofile}.bgz.tbi'
     get_ss.command(' '.join(['set','-ex']))
+    variant_manifest_bgz = f'{get_ss.ofile}.variants.bgz'
+    variant_manifest_tbi = f'{get_ss.ofile}.variants.bgz.tbi'
+    get_ss.command(' '.join(['mv',variant_manifest, variant_manifest_bgz]))
+    get_ss.command(' '.join(['mv',variant_manifest_tabix, variant_manifest_tbi]))
     if hl.hadoop_is_file(loo_6pop_ss_fname) and hl.hadoop_is_file(loo_6pop_tabix_fname): # phenotype is 6-pop and has leave-one-out sumstats generated. 
+        assert False, "don't run 6-pop LOO"
         print(f'Using 6-pop LOO sumstats for {pheno_id}')
         ss = p.read_input(loo_6pop_ss_fname)
         tabix = p.read_input(loo_6pop_tabix_fname)
@@ -137,17 +147,32 @@ def get_sumstats(p, pop, pheno_id, method, chromosomes=all_chromosomes):
         get_ss.command(' '.join(['mv',ss,bgz_fname])) # necessary instead of changing path extension for input files
         get_ss.command(' '.join(['mv',tabix,tbi_fname])) # necessary instead of changing path extension for input files
         
+#        pval_col_idx = 8 if trait_category == 'quant' else 9 # due to additional AF columns in binary traits, pvalue column location may change
+#        get_ss.command('\n'.join(
+#                f'''
+#                tabix -h {bgz_fname} {chrom} | \\
+#                awk '{{print $1=$1":"$2":"$3":"$4, $2=${pval_col_idx}}}' | \\
+#                sed -e 's/pval_meta/P/g' \\
+#                    -e 's/chr:pos:ref:alt/SNP/g' | \\
+#                awk '$2!="NA" {{print}}' > {get_ss[f"ofile_{chrom}"]}
+#                '''
+#                for chrom in chromosomes
+#                )
+#        )
         pval_col_idx = 8 if trait_category == 'quant' else 9 # due to additional AF columns in binary traits, pvalue column location may change
         get_ss.command('\n'.join(
                 f'''
-                tabix -h {bgz_fname} {chrom} | \\
-                awk '{{print $1=$1":"$2":"$3":"$4, $2=${pval_col_idx}}}' | \\
-                sed -e 's/pval_meta/P/g' \\
-                    -e 's/chr:pos:ref:alt/SNP/g' | \\
-                awk '$2!="NA" {{print}}' > {get_ss[f"ofile_{chrom}"]}
+                paste <( tabix -h {bgz_fname} {chrom} | \\
+                        awk '{{print $1=$1":"$2":"$3":"$4, $2=${pval_col_idx}}}' | \\
+                        sed -e 's/pval_meta/P/g' -e 's/chr:pos:ref:alt/SNP/g' ) \\
+                      <( tabix -h {variant_manifest_bgz} {chrom} | \\
+                        awk '{{ print $9 }}' ) | \\
+                grep -v "NA\|false" | \\
+                cut -f1,2 > {get_ss[f"ofile_{chrom}"]}
                 '''
                 for chrom in chromosomes
                 )
+                
         )
         
     ss_dict = {
@@ -161,7 +186,8 @@ def get_adj_betas(p, pop, pheno_key_dict, pheno_id, hail_script):
     r'''
     wrapper method for both PLINK clumping and SBayesR
     '''
-    output_dir = f'{ldprune_dir}/results/not_{pop}/{pheno_id}' # for testing
+#    output_dir = f'{ldprune_dir}/results/not_{pop}/{pheno_id}' 
+    output_dir = f'{ldprune_dir}/results_high_quality/not_{pop}/{pheno_id}' 
 
     clump_output_txt = f'{output_dir}/clump_results.txt' # PLINK clump output txt file
     clump_output_ht = f'{output_dir}/clump_results.ht' # PLINK clump output hail table
@@ -169,7 +195,7 @@ def get_adj_betas(p, pop, pheno_key_dict, pheno_id, hail_script):
 #    sbayesr_output_txt = f'{output_dir}/sbayesr_results-test.txt' # SBayesR output txt file
 #    sbayesr_output_ht = f'{output_dir}/sbayesr_results-test.ht' # SBayesR output hail table
     
-    overwrite = True
+    overwrite = False
     clump_file_exists = hl.hadoop_is_file(f'{clump_output_ht}/_SUCCESS')
     if not clump_file_exists or overwrite:
         if clump_file_exists and overwrite:
@@ -350,7 +376,7 @@ def main():
                                    bucket='ukbb-diverse-temp-30day/nb-batch-tmp')
 #    backend = batch.LocalBackend(tmp_dir='/tmp/batch/')
     
-    p = hb.batch.Batch(name='clump-not_MID-6pop', backend=backend,
+    p = hb.batch.Batch(name='clump-hq-5pop', backend=backend,
                           default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:0.1',
                           default_storage='500Mi', default_cpu=8)
     
@@ -363,7 +389,7 @@ def main():
     pheno_manifest = pheno_manifest.filter(pheno_manifest.num_pops>=5) # necessary for LOO clumping
     
 #    for pop in all_pops[:1]:   
-    for pop in ['MID']:
+    for pop in all_pops:
         pheno_list = get_pheno_list(pheno_manifest=pheno_manifest,
                                     pop=pop)
     
@@ -389,7 +415,9 @@ def main():
 
 if __name__=="__main__":
     
-    hl.init(default_reference='GRCh38')
+    hl.init(default_reference='GRCh38', 
+            spark_conf={'spark.hadoop.fs.gs.requester.pays.mode': 'AUTO', 
+                        'spark.hadoop.fs.gs.requester.pays.project.id': 'ukbb-diversepops-neale'})
     main()
     
     

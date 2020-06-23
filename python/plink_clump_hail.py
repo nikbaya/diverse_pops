@@ -12,7 +12,7 @@ import argparse
 import hail as hl
 import sys
 import ukb_common
-#from ukbb_pan_ancestry import get_pheno_manifest_path
+from ukbb_pan_ancestry import get_clumping_results_path #get_pheno_manifest_path
 from ukb_common import mwzj_hts_by_tree
 
 bucket = 'gs://ukb-diverse-pops'
@@ -277,35 +277,38 @@ def join_clump_hts(pop):
             key=ukb_common.PHENO_KEY_FIELDS)
     pheno_manifest = pheno_manifest.annotate(pheno_id = pheno_manifest.filename.replace('.tsv.bgz',''))
     
-    clump_results_dir = f'{ldprune_dir}/results/not_{pop}'
+#    clump_results_dir = f'{ldprune_dir}/results/not_{pop}'
+    clump_results_dir = f'{ldprune_dir}/results_high_quality/not_{pop}'
     ls = hl.hadoop_ls(f'{clump_results_dir}/*')
     all_hts = [x['path'] for x in ls if 'clump_results.ht' in x['path']]
     
-    temp_dir = f'gs://ukbb-diverse-temp-30day/nb-temp/not_{pop}'
+    temp_dir = f'gs://ukbb-diverse-temp-30day/nb-temp/not_{pop}-hq'
     globals_for_col_key = ukb_common.PHENO_KEY_FIELDS
     mt = mwzj_hts_by_tree(all_hts=all_hts,
                          temp_dir=temp_dir,
                          globals_for_col_key=globals_for_col_key)
 #    mt = resume_mwzj(temp_dir=temp_dir, # NOTE: only use if all the temp hts have been created
 #                     globals_for_col_key=globals_for_col_key)
-    mt.write(f'{ldprune_dir}/clump_results/not_{pop}.mt', overwrite=True)
+#    mt.write(f'{ldprune_dir}/clump_results/not_{pop}.mt', overwrite=True)
+    mt.write(f'{ldprune_dir}/clump_results_high_quality/not_{pop}.mt', overwrite=True)
     
-def make_full_clump_mt():
+def make_full_clump_mt(high_quality_only=False):
     mts = []
     for pop in all_pops:
         pop_array = [p for p in all_pops if p!=pop]
-        mt = hl.read_matrix_table(f'{ldprune_dir}/clump_results/not_{pop}.mt')
+#        mt = hl.read_matrix_table(f'{ldprune_dir}/clump_results/not_{pop}.mt')
+        mt = hl.read_matrix_table(f'{ldprune_dir}/clump_results_high_quality/not_{pop}.mt') # alternative path for results that are filtered to high quality variants before clumping
         print(mt.count_cols())
         mt = mt.annotate_cols(pop = hl.literal(pop_array))
         mt = mt.select_entries(plink_clump=mt.entry)
         mts.append(mt)
-    for pop in all_pops:
-        pop_array = [pop]
-        mt = hl.read_matrix_table(f'{ldprune_dir}/clump_results/{pop}.mt')
-        print(mt.count_cols())
-        mt = mt.annotate_cols(pop = hl.literal(pop_array))
-        mt = mt.select_entries(plink_clump=mt.entry)
-        mts.append(mt)
+#    for pop in all_pops:
+#        pop_array = [pop]
+#        mt = hl.read_matrix_table(f'{ldprune_dir}/clump_results/{pop}.mt')
+#        print(mt.count_cols())
+#        mt = mt.annotate_cols(pop = hl.literal(pop_array))
+#        mt = mt.select_entries(plink_clump=mt.entry)
+#        mts.append(mt)
     
     full_mt = mts[0]
     for mt in mts[1:]:
@@ -313,7 +316,9 @@ def make_full_clump_mt():
         
     full_mt = full_mt.collect_cols_by_key()
     
-    full_mt.write(f'{ldprune_dir}/clump_results/full_clump_results.mt')
+#    full_mt.write(f'{ldprune_dir}/clump_results/full_clump_results.mt')
+#    full_mt.write(f'{ldprune_dir}/clump_results_high_quality/full_clump_results.mt')
+    full_mt.write(get_clumping_results_path(pop='full',high_quality_only=high_quality_only))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

@@ -1,0 +1,1201 @@
+2020-06-22 14:48:17 Hail: INFO: Running Hail version 0.2.43-d7da1fd14f3c
+2020-06-22 14:48:17 SparkContext: WARN: Using an existing SparkContext; some configuration may not take effect.
+2020-06-22 14:48:18 root: INFO: RegionPool: initialized for thread 15: Thread-4
+2020-06-22 14:48:19 root: INFO: globbing path gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz returned 1 files: phenotype_manifest.tsv.bgz
+2020-06-22 14:48:20 MemoryStore: INFO: Block broadcast_0 stored as values in memory (estimated size 238.1 KB, free 366.1 MB)
+2020-06-22 14:48:20 MemoryStore: INFO: Block broadcast_0_piece0 stored as bytes in memory (estimated size 23.2 KB, free 366.0 MB)
+2020-06-22 14:48:20 BlockManagerInfo: INFO: Added broadcast_0_piece0 in memory on 10.0.0.51:57531 (size: 23.2 KB, free: 366.3 MB)
+2020-06-22 14:48:20 SparkContext: INFO: Created broadcast 0 from textFile at RichSparkContext.scala:16
+2020-06-22 14:48:21 FileInputFormat: INFO: Total input paths to process : 1
+2020-06-22 14:48:21 Hail: INFO: Reading table to impute column types
+2020-06-22 14:48:21 SparkContext: INFO: Starting job: reduce at TextTableReader.scala:201
+2020-06-22 14:48:21 DAGScheduler: INFO: Got job 0 (reduce at TextTableReader.scala:201) with 8 output partitions
+2020-06-22 14:48:21 DAGScheduler: INFO: Final stage: ResultStage 0 (reduce at TextTableReader.scala:201)
+2020-06-22 14:48:21 DAGScheduler: INFO: Parents of final stage: List()
+2020-06-22 14:48:21 DAGScheduler: INFO: Missing parents: List()
+2020-06-22 14:48:21 DAGScheduler: INFO: Submitting ResultStage 0 (MapPartitionsRDD[4] at mapPartitions at TextTableReader.scala:172), which has no missing parents
+2020-06-22 14:48:21 MemoryStore: INFO: Block broadcast_1 stored as values in memory (estimated size 6.7 KB, free 366.0 MB)
+2020-06-22 14:48:21 MemoryStore: INFO: Block broadcast_1_piece0 stored as bytes in memory (estimated size 3.5 KB, free 366.0 MB)
+2020-06-22 14:48:21 BlockManagerInfo: INFO: Added broadcast_1_piece0 in memory on 10.0.0.51:57531 (size: 3.5 KB, free: 366.3 MB)
+2020-06-22 14:48:21 SparkContext: INFO: Created broadcast 1 from broadcast at DAGScheduler.scala:1161
+2020-06-22 14:48:21 DAGScheduler: INFO: Submitting 8 missing tasks from ResultStage 0 (MapPartitionsRDD[4] at mapPartitions at TextTableReader.scala:172) (first 15 tasks are for partitions Vector(0, 1, 2, 3, 4, 5, 6, 7))
+2020-06-22 14:48:21 TaskSchedulerImpl: INFO: Adding task set 0.0 with 8 tasks
+2020-06-22 14:48:21 TaskSetManager: INFO: Starting task 0.0 in stage 0.0 (TID 0, localhost, executor driver, partition 0, PROCESS_LOCAL, 7917 bytes)
+2020-06-22 14:48:21 TaskSetManager: INFO: Starting task 1.0 in stage 0.0 (TID 1, localhost, executor driver, partition 1, PROCESS_LOCAL, 7917 bytes)
+2020-06-22 14:48:21 TaskSetManager: INFO: Starting task 2.0 in stage 0.0 (TID 2, localhost, executor driver, partition 2, PROCESS_LOCAL, 7917 bytes)
+2020-06-22 14:48:21 TaskSetManager: INFO: Starting task 3.0 in stage 0.0 (TID 3, localhost, executor driver, partition 3, PROCESS_LOCAL, 7917 bytes)
+2020-06-22 14:48:21 TaskSetManager: INFO: Starting task 4.0 in stage 0.0 (TID 4, localhost, executor driver, partition 4, PROCESS_LOCAL, 7917 bytes)
+2020-06-22 14:48:21 TaskSetManager: INFO: Starting task 5.0 in stage 0.0 (TID 5, localhost, executor driver, partition 5, PROCESS_LOCAL, 7917 bytes)
+2020-06-22 14:48:21 TaskSetManager: INFO: Starting task 6.0 in stage 0.0 (TID 6, localhost, executor driver, partition 6, PROCESS_LOCAL, 7917 bytes)
+2020-06-22 14:48:21 TaskSetManager: INFO: Starting task 7.0 in stage 0.0 (TID 7, localhost, executor driver, partition 7, PROCESS_LOCAL, 7917 bytes)
+2020-06-22 14:48:21 Executor: INFO: Running task 3.0 in stage 0.0 (TID 3)
+2020-06-22 14:48:21 Executor: INFO: Running task 1.0 in stage 0.0 (TID 1)
+2020-06-22 14:48:21 Executor: INFO: Running task 6.0 in stage 0.0 (TID 6)
+2020-06-22 14:48:21 Executor: INFO: Running task 7.0 in stage 0.0 (TID 7)
+2020-06-22 14:48:21 Executor: INFO: Running task 4.0 in stage 0.0 (TID 4)
+2020-06-22 14:48:21 Executor: INFO: Running task 2.0 in stage 0.0 (TID 2)
+2020-06-22 14:48:21 Executor: INFO: Running task 0.0 in stage 0.0 (TID 0)
+2020-06-22 14:48:21 Executor: INFO: Running task 5.0 in stage 0.0 (TID 5)
+2020-06-22 14:48:21 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz:1243585+177658
+2020-06-22 14:48:21 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz:710620+177655
+2020-06-22 14:48:21 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz:355310+177655
+2020-06-22 14:48:21 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz:177655+177655
+2020-06-22 14:48:21 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz:888275+177655
+2020-06-22 14:48:21 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz:1065930+177655
+2020-06-22 14:48:21 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz:532965+177655
+2020-06-22 14:48:21 HadoopRDD: INFO: Input split: gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz:0+177655
+2020-06-22 14:48:21 CodecPool: INFO: Got brand-new decompressor [.bgz]
+2020-06-22 14:48:21 CodecPool: INFO: Got brand-new decompressor [.bgz]
+2020-06-22 14:48:21 CodecPool: INFO: Got brand-new decompressor [.bgz]
+2020-06-22 14:48:21 CodecPool: INFO: Got brand-new decompressor [.bgz]
+2020-06-22 14:48:21 CodecPool: INFO: Got brand-new decompressor [.bgz]
+2020-06-22 14:48:21 CodecPool: INFO: Got brand-new decompressor [.bgz]
+2020-06-22 14:48:21 CodecPool: INFO: Got brand-new decompressor [.bgz]
+2020-06-22 14:48:21 CodecPool: INFO: Got brand-new decompressor [.bgz]
+2020-06-22 14:48:21 Executor: INFO: Finished task 5.0 in stage 0.0 (TID 5). 1125 bytes result sent to driver
+2020-06-22 14:48:21 TaskSetManager: INFO: Finished task 5.0 in stage 0.0 (TID 5) in 616 ms on localhost (executor driver) (1/8)
+2020-06-22 14:48:22 Executor: INFO: Finished task 7.0 in stage 0.0 (TID 7). 1168 bytes result sent to driver
+2020-06-22 14:48:22 Executor: INFO: Finished task 6.0 in stage 0.0 (TID 6). 1125 bytes result sent to driver
+2020-06-22 14:48:22 Executor: INFO: Finished task 1.0 in stage 0.0 (TID 1). 1168 bytes result sent to driver
+2020-06-22 14:48:22 TaskSetManager: INFO: Finished task 7.0 in stage 0.0 (TID 7) in 736 ms on localhost (executor driver) (2/8)
+2020-06-22 14:48:22 TaskSetManager: INFO: Finished task 6.0 in stage 0.0 (TID 6) in 738 ms on localhost (executor driver) (3/8)
+2020-06-22 14:48:22 Executor: INFO: Finished task 3.0 in stage 0.0 (TID 3). 1125 bytes result sent to driver
+2020-06-22 14:48:22 TaskSetManager: INFO: Finished task 3.0 in stage 0.0 (TID 3) in 741 ms on localhost (executor driver) (4/8)
+2020-06-22 14:48:22 TaskSetManager: INFO: Finished task 1.0 in stage 0.0 (TID 1) in 746 ms on localhost (executor driver) (5/8)
+2020-06-22 14:48:22 Executor: INFO: Finished task 4.0 in stage 0.0 (TID 4). 1125 bytes result sent to driver
+2020-06-22 14:48:22 TaskSetManager: INFO: Finished task 4.0 in stage 0.0 (TID 4) in 746 ms on localhost (executor driver) (6/8)
+2020-06-22 14:48:22 Executor: INFO: Finished task 2.0 in stage 0.0 (TID 2). 1125 bytes result sent to driver
+2020-06-22 14:48:22 TaskSetManager: INFO: Finished task 2.0 in stage 0.0 (TID 2) in 752 ms on localhost (executor driver) (7/8)
+2020-06-22 14:48:22 Executor: INFO: Finished task 0.0 in stage 0.0 (TID 0). 1125 bytes result sent to driver
+2020-06-22 14:48:22 TaskSetManager: INFO: Finished task 0.0 in stage 0.0 (TID 0) in 796 ms on localhost (executor driver) (8/8)
+2020-06-22 14:48:22 TaskSchedulerImpl: INFO: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+2020-06-22 14:48:22 DAGScheduler: INFO: ResultStage 0 (reduce at TextTableReader.scala:201) finished in 0.894 s
+2020-06-22 14:48:22 DAGScheduler: INFO: Job 0 finished: reduce at TextTableReader.scala:201, took 0.962361 s
+2020-06-22 14:48:22 Hail: INFO: Finished type imputation
+  Loading column 'trait_type' as type 'str' (imputed)
+  Loading column 'phenocode' as type 'str' (imputed)
+  Loading column 'pheno_sex' as type 'str' (imputed)
+  Loading column 'coding' as type 'str' (imputed)
+  Loading column 'modifier' as type 'str' (imputed)
+  Loading column 'description' as type 'str' (imputed)
+  Loading column 'description_more' as type 'str' (imputed)
+  Loading column 'coding_description' as type 'str' (imputed)
+  Loading column 'category' as type 'str' (imputed)
+  Loading column 'n_cases_full_cohort_both_sexes' as type 'int32' (imputed)
+  Loading column 'n_cases_full_cohort_females' as type 'int32' (imputed)
+  Loading column 'n_cases_full_cohort_males' as type 'int32' (imputed)
+  Loading column 'pops' as type 'str' (imputed)
+  Loading column 'num_pops' as type 'int32' (imputed)
+  Loading column 'n_cases_AFR' as type 'int32' (imputed)
+  Loading column 'n_cases_AMR' as type 'int32' (imputed)
+  Loading column 'n_cases_CSA' as type 'int32' (imputed)
+  Loading column 'n_cases_EAS' as type 'int32' (imputed)
+  Loading column 'n_cases_EUR' as type 'int32' (imputed)
+  Loading column 'n_cases_MID' as type 'int32' (imputed)
+  Loading column 'n_controls_AFR' as type 'int32' (imputed)
+  Loading column 'n_controls_AMR' as type 'int32' (imputed)
+  Loading column 'n_controls_CSA' as type 'int32' (imputed)
+  Loading column 'n_controls_EAS' as type 'int32' (imputed)
+  Loading column 'n_controls_EUR' as type 'int32' (imputed)
+  Loading column 'n_controls_MID' as type 'int32' (imputed)
+  Loading column 'saige_heritability_AFR' as type 'float64' (imputed)
+  Loading column 'saige_heritability_AMR' as type 'float64' (imputed)
+  Loading column 'saige_heritability_CSA' as type 'float64' (imputed)
+  Loading column 'saige_heritability_EAS' as type 'float64' (imputed)
+  Loading column 'saige_heritability_EUR' as type 'float64' (imputed)
+  Loading column 'saige_heritability_MID' as type 'float64' (imputed)
+  Loading column 'lambda_gc_AFR' as type 'float64' (imputed)
+  Loading column 'lambda_gc_AMR' as type 'float64' (imputed)
+  Loading column 'lambda_gc_CSA' as type 'float64' (imputed)
+  Loading column 'lambda_gc_EAS' as type 'float64' (imputed)
+  Loading column 'lambda_gc_EUR' as type 'float64' (imputed)
+  Loading column 'lambda_gc_MID' as type 'float64' (imputed)
+  Loading column 'filename' as type 'str' (imputed)
+  Loading column 'filename_tabix' as type 'str' (imputed)
+  Loading column 'dropbox_link' as type 'str' (imputed)
+  Loading column 'dropbox_link_tabix' as type 'str' (imputed)
+  Loading column 'wget' as type 'str' (imputed)
+  Loading column 'wget_tabix' as type 'str' (imputed)
+  Loading column 'size_in_bytes' as type 'int64' (imputed)
+  Loading column 'size_in_bytes_tabix' as type 'int32' (imputed)
+  Loading column 'md5_hex' as type 'str' (imputed)
+  Loading column 'md5_hex_tabix' as type 'str' (imputed)
+2020-06-22 14:48:22 root: INFO: optimize Lowerer, initial IR: before: IR size 39: 
+(ToArray
+  (StreamMap __uid_4
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableMapGlobals
+              (TableMapRows
+                (TableFilter
+                  (TableFilter
+                    (TableRead None False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+                    (Coalesce
+                      (ApplyComparisonOp GTEQ
+                        (GetField num_pops
+                          (Ref row))
+                        (I32 5))
+                      (False)))
+                  (Coalesce
+                    (ApplyComparisonOp EQ
+                      (GetField num_pops
+                        (Ref row))
+                      (I32 5))
+                    (False)))
+                (InsertFields
+                  (SelectFields ()
+                    (SelectFields (trait_type phenocode pheno_sex coding modifier description description_more coding_description category n_cases_full_cohort_both_sexes n_cases_full_cohort_females n_cases_full_cohort_males pops num_pops n_cases_AFR n_cases_AMR n_cases_CSA n_cases_EAS n_cases_EUR n_cases_MID n_controls_AFR n_controls_AMR n_controls_CSA n_controls_EAS n_controls_EUR n_controls_MID saige_heritability_AFR saige_heritability_AMR saige_heritability_CSA saige_heritability_EAS saige_heritability_EUR saige_heritability_MID lambda_gc_AFR lambda_gc_AMR lambda_gc_CSA lambda_gc_EAS lambda_gc_EUR lambda_gc_MID filename filename_tabix dropbox_link dropbox_link_tabix wget wget_tabix size_in_bytes size_in_bytes_tabix md5_hex md5_hex_tabix)
+                      (Ref row)))
+                  None
+                  (trait_type
+                    (GetField trait_type
+                      (Ref row)))))
+              (InsertFields
+                (SelectFields ()
+                  (SelectFields ()
+                    (Ref global)))
+                None))
+            (InsertFields
+              (SelectFields (trait_type)
+                (SelectFields (trait_type)
+                  (Ref row)))
+              None)))))
+    (GetField trait_type
+      (Ref __uid_4))))
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 2.563ms, total 50.690ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 8.532ms, total 60.906ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- Simplify : 17.755ms, total 79.172ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 15.918ms, total 95.615ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 1.342ms, total 97.395ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 147.419ms, total 245.167ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.500ms, total 246.227ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.275ms, total 246.715ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.428ms, total 247.309ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 2.381ms, total 249.889ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.294ms, total 250.481ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 2.797ms, total 253.647ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.425ms, total 254.460ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.145ms, total 254.806ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- Simplify : 2.953ms, total 257.909ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 2.434ms, total 260.760ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.205ms, total 261.212ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.590ms, total 263.001ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize : 215.563ms, total 263.190ms, tagged coverage 96.5
+2020-06-22 14:48:22 root: INFO: optimize Lowerer, initial IR: after: IR size 25:
+(ToArray
+  (StreamMap __iruid_2
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableFilter
+              (TableRead Table{global:Struct{},key:[],row:Struct{trait_type:String,num_pops:Int32}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+              (ApplySpecial land () Boolean
+                (Coalesce
+                  (ApplyComparisonOp GTEQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))
+                (Coalesce
+                  (ApplyComparisonOp EQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))))
+            (SelectFields (trait_type)
+              (Ref row))))))
+    (GetField trait_type
+      (Ref __iruid_2))))
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.692ms, total 269.166ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 8.827ms, total 278.480ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.125ms, total 279.229ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for LowerMatrixToTable : 11.359ms, total 279.547ms, tagged coverage 84.9
+2020-06-22 14:48:22 root: INFO: optimize LowerMatrixToTable, post Lowering: before: IR size 25: 
+(ToArray
+  (StreamMap __iruid_2
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableFilter
+              (TableRead Table{global:Struct{},key:[],row:Struct{trait_type:String,num_pops:Int32}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+              (ApplySpecial land () Boolean
+                (Coalesce
+                  (ApplyComparisonOp GTEQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))
+                (Coalesce
+                  (ApplyComparisonOp EQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))))
+            (SelectFields (trait_type)
+              (Ref row))))))
+    (GetField trait_type
+      (Ref __iruid_2))))
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.172ms, total 281.712ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.170ms, total 282.066ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.461ms, total 282.679ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 3.341ms, total 286.203ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.248ms, total 286.754ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 3.498ms, total 290.427ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.770ms, total 291.775ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.214ms, total 292.315ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.403ms, total 292.880ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 2.352ms, total 295.461ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.171ms, total 295.906ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.817ms, total 297.870ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.385ms, total 298.628ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.148ms, total 298.980ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.538ms, total 299.787ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 8.285ms, total 308.366ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.315ms, total 309.159ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 2.690ms, total 312.110ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for Optimize : 30.900ms, total 312.432ms, tagged coverage 84.1
+2020-06-22 14:48:22 root: INFO: optimize LowerMatrixToTable, post Lowering: after: IR size 25:
+(ToArray
+  (StreamMap __iruid_5
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableFilter
+              (TableRead Table{global:Struct{},key:[],row:Struct{trait_type:String,num_pops:Int32}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+              (ApplySpecial land () Boolean
+                (Coalesce
+                  (ApplyComparisonOp GTEQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))
+                (Coalesce
+                  (ApplyComparisonOp EQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))))
+            (SelectFields (trait_type)
+              (Ref row))))))
+    (GetField trait_type
+      (Ref __iruid_5))))
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.039ms, total 314.242ms
+2020-06-22 14:48:22 root: INFO: interpreting non compilable node: TableCollect
+2020-06-22 14:48:22 MemoryStore: INFO: Block broadcast_2 stored as values in memory (estimated size 238.1 KB, free 365.8 MB)
+2020-06-22 14:48:22 MemoryStore: INFO: Block broadcast_2_piece0 stored as bytes in memory (estimated size 23.2 KB, free 365.8 MB)
+2020-06-22 14:48:22 BlockManagerInfo: INFO: Added broadcast_2_piece0 in memory on 10.0.0.51:57531 (size: 23.2 KB, free: 366.3 MB)
+2020-06-22 14:48:22 SparkContext: INFO: Created broadcast 2 from broadcast at SparkBackend.scala:232
+2020-06-22 14:48:22 root: INFO: optimize Lowerer, initial IR: before: IR size 15: 
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.312ms, total 421.307ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.074ms, total 421.616ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.287ms, total 422.042ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.931ms, total 423.123ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.133ms, total 423.431ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 1.033ms, total 424.599ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 3.971ms, total 424.961ms, tagged coverage 69.7
+2020-06-22 14:48:22 root: INFO: optimize Lowerer, initial IR: after: IR size 15:
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.647ms, total 427.148ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- LoweringTransformation : 0.603ms, total 428.819ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.048ms, total 429.222ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR : 2.872ms, total 429.366ms, tagged coverage 45.2
+2020-06-22 14:48:22 root: INFO: optimize InlineApplyIR, post Lowering: before: IR size 15: 
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.122ms, total 430.108ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.079ms, total 430.322ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.194ms, total 430.648ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.943ms, total 431.716ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.292ms, total 432.273ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.960ms, total 433.435ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 3.710ms, total 433.692ms, tagged coverage 69.8
+2020-06-22 14:48:22 root: INFO: optimize InlineApplyIR, post Lowering: after: IR size 15:
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.039ms, total 434.721ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.880ms, total 435.761ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.333ms, total 436.392ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs : 1.880ms, total 436.559ms, tagged coverage 66.6
+2020-06-22 14:48:22 root: INFO: optimize LowerArrayAggsToRunAggs, post Lowering: before: IR size 15: 
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.111ms, total 437.280ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.066ms, total 437.485ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.226ms, total 437.833ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 1.634ms, total 439.615ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.116ms, total 439.984ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.570ms, total 440.700ms
+2020-06-22 14:48:22 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 3.701ms, total 440.865ms, tagged coverage 73.6
+2020-06-22 14:48:22 root: INFO: optimize LowerArrayAggsToRunAggs, post Lowering: after: IR size 15:
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:22 root: INFO: instruction count: 6: __C1Compiled.<init>
+2020-06-22 14:48:22 root: INFO: instruction count: 156: __C1Compiled.apply
+2020-06-22 14:48:22 root: INFO: instruction count: 26: __C1Compiled.__m2cord
+2020-06-22 14:48:22 root: INFO: instruction count: 38: __C1Compiled.__m3cord
+2020-06-22 14:48:22 root: INFO: instruction count: 14: __C1Compiled.setPartitionIndex
+2020-06-22 14:48:22 root: INFO: instruction count: 7: __C1Compiled.addPartitionRegion
+2020-06-22 14:48:23 root: INFO: encoder cache miss (0 hits, 1 misses, 0.000)
+2020-06-22 14:48:23 root: INFO: instruction count: 6: __C6etypeEncode.<init>
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C6etypeEncode.apply
+2020-06-22 14:48:23 root: INFO: instruction count: 4: __C6etypeEncode.__m7ENCODE_r_tuple_of_END_TO_r_struct_of_END
+2020-06-22 14:48:23 root: INFO: decoder cache miss (0 hits, 1 misses, 0.000
+2020-06-22 14:48:23 root: INFO: instruction count: 6: __C8etypeDecode.<init>
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C8etypeDecode.apply
+2020-06-22 14:48:23 root: INFO: instruction count: 19: __C8etypeDecode.__m9DECODE_r_struct_of_END_TO_r_tuple_of_END
+2020-06-22 14:48:23 MemoryStore: INFO: Block broadcast_3 stored as values in memory (estimated size 1816.0 B, free 365.8 MB)
+2020-06-22 14:48:23 MemoryStore: INFO: Block broadcast_3_piece0 stored as bytes in memory (estimated size 926.0 B, free 365.8 MB)
+2020-06-22 14:48:23 BlockManagerInfo: INFO: Added broadcast_3_piece0 in memory on 10.0.0.51:57531 (size: 926.0 B, free: 366.3 MB)
+2020-06-22 14:48:23 SparkContext: INFO: Created broadcast 3 from broadcast at SparkBackend.scala:232
+2020-06-22 14:48:23 root: INFO: optimize Lowerer, initial IR: before: IR size 5: 
+(Coalesce
+  (SelectFields (trait_type)
+    (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{trait_type:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.111ms, total 776.185ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.034ms, total 776.387ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.087ms, total 776.600ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.420ms, total 777.180ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.050ms, total 777.398ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.281ms, total 777.821ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 1.948ms, total 778.018ms, tagged coverage 50.4
+2020-06-22 14:48:23 root: INFO: optimize Lowerer, initial IR: after: IR size 5:
+(Coalesce
+  (SelectFields (trait_type)
+    (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{trait_type:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.016ms, total 778.409ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- LoweringTransformation : 0.028ms, total 778.614ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.018ms, total 778.770ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR : 0.500ms, total 778.890ms, tagged coverage 12.4
+2020-06-22 14:48:23 root: INFO: optimize InlineApplyIR, post Lowering: before: IR size 5: 
+(Coalesce
+  (SelectFields (trait_type)
+    (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{trait_type:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.085ms, total 779.486ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.061ms, total 779.882ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.180ms, total 780.360ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.485ms, total 781.107ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.081ms, total 781.447ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.238ms, total 781.842ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 2.585ms, total 781.980ms, tagged coverage 43.7
+2020-06-22 14:48:23 root: INFO: optimize InlineApplyIR, post Lowering: after: IR size 5:
+(Coalesce
+  (SelectFields (trait_type)
+    (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{trait_type:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.028ms, total 782.515ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.122ms, total 782.796ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.018ms, total 782.972ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs : 0.733ms, total 783.215ms, tagged coverage 22.8
+2020-06-22 14:48:23 root: INFO: optimize LowerArrayAggsToRunAggs, post Lowering: before: IR size 5: 
+(Coalesce
+  (SelectFields (trait_type)
+    (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{trait_type:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.212ms, total 783.909ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.070ms, total 784.521ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.486ms, total 785.312ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.584ms, total 786.289ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.056ms, total 786.599ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.228ms, total 786.964ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 3.431ms, total 787.109ms, tagged coverage 47.7
+2020-06-22 14:48:23 root: INFO: optimize LowerArrayAggsToRunAggs, post Lowering: after: IR size 5:
+(Coalesce
+  (SelectFields (trait_type)
+    (In +PCStruct{trait_type:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{trait_type:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:23 root: INFO: encoder cache miss (0 hits, 2 misses, 0.000)
+2020-06-22 14:48:23 root: INFO: instruction count: 6: __C22etypeEncode.<init>
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C22etypeEncode.apply
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C22etypeEncode.__m23ENCODE_r_tuple_of_r_stringEND_TO_r_struct_of_r_binaryEND
+2020-06-22 14:48:23 root: INFO: instruction count: 16: __C22etypeEncode.__m24write_fields_group_0
+2020-06-22 14:48:23 root: INFO: instruction count: 19: __C22etypeEncode.__m25ENCODE_r_binary_TO_r_binary
+2020-06-22 14:48:23 MemoryStore: INFO: Block broadcast_4 stored as values in memory (estimated size 104.0 B, free 365.8 MB)
+2020-06-22 14:48:23 MemoryStore: INFO: Block broadcast_4_piece0 stored as bytes in memory (estimated size 109.0 B, free 365.8 MB)
+2020-06-22 14:48:23 BlockManagerInfo: INFO: Added broadcast_4_piece0 in memory on 10.0.0.51:57531 (size: 109.0 B, free: 366.3 MB)
+2020-06-22 14:48:23 SparkContext: INFO: Created broadcast 4 from broadcast at SparkBackend.scala:232
+2020-06-22 14:48:23 root: INFO: instruction count: 6: __C10Compiled.<init>
+2020-06-22 14:48:23 root: INFO: instruction count: 56: __C10Compiled.apply
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C10Compiled.__m14addIRIntermediate
+2020-06-22 14:48:23 root: INFO: instruction count: 14: __C10Compiled.setPartitionIndex
+2020-06-22 14:48:23 root: INFO: instruction count: 7: __C10Compiled.addPartitionRegion
+2020-06-22 14:48:23 root: INFO: instruction count: 25: __C10Compiled.__m18DECODE_r_struct_of_r_binaryEND_TO_r_tuple_of_r_stringEND
+2020-06-22 14:48:23 root: INFO: instruction count: 11: __C10Compiled.__m19read_fields_group_0
+2020-06-22 14:48:23 root: INFO: instruction count: 34: __C10Compiled.__m20INPLACE_DECODE_r_binary_TO_r_binary
+2020-06-22 14:48:23 root: INFO: instruction count: 41: __C10Compiled.addLiterals
+2020-06-22 14:48:23 root: INFO: encoder cache miss (0 hits, 3 misses, 0.000)
+2020-06-22 14:48:23 root: INFO: instruction count: 6: __C26etypeEncode.<init>
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C26etypeEncode.apply
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C26etypeEncode.__m27ENCODE_r_tuple_of_r_stringEND_TO_r_struct_of_r_binaryEND
+2020-06-22 14:48:23 root: INFO: instruction count: 16: __C26etypeEncode.__m28write_fields_group_0
+2020-06-22 14:48:23 root: INFO: instruction count: 19: __C26etypeEncode.__m29ENCODE_r_binary_TO_r_binary
+2020-06-22 14:48:23 SparkContext: INFO: Starting job: collect at RVD.scala:727
+2020-06-22 14:48:23 DAGScheduler: INFO: Got job 1 (collect at RVD.scala:727) with 1 output partitions
+2020-06-22 14:48:23 DAGScheduler: INFO: Final stage: ResultStage 1 (collect at RVD.scala:727)
+2020-06-22 14:48:23 DAGScheduler: INFO: Parents of final stage: List()
+2020-06-22 14:48:23 DAGScheduler: INFO: Missing parents: List()
+2020-06-22 14:48:23 DAGScheduler: INFO: Submitting ResultStage 1 (MapPartitionsRDD[10] at mapPartitions at ContextRDD.scala:160), which has no missing parents
+2020-06-22 14:48:23 MemoryStore: INFO: Block broadcast_5 stored as values in memory (estimated size 23.9 KB, free 365.8 MB)
+2020-06-22 14:48:23 MemoryStore: INFO: Block broadcast_5_piece0 stored as bytes in memory (estimated size 12.7 KB, free 365.7 MB)
+2020-06-22 14:48:23 BlockManagerInfo: INFO: Added broadcast_5_piece0 in memory on 10.0.0.51:57531 (size: 12.7 KB, free: 366.2 MB)
+2020-06-22 14:48:23 SparkContext: INFO: Created broadcast 5 from broadcast at DAGScheduler.scala:1161
+2020-06-22 14:48:23 DAGScheduler: INFO: Submitting 1 missing tasks from ResultStage 1 (MapPartitionsRDD[10] at mapPartitions at ContextRDD.scala:160) (first 15 tasks are for partitions Vector(0))
+2020-06-22 14:48:23 TaskSchedulerImpl: INFO: Adding task set 1.0 with 1 tasks
+2020-06-22 14:48:23 TaskSetManager: INFO: Starting task 0.0 in stage 1.0 (TID 8, localhost, executor driver, partition 0, PROCESS_LOCAL, 7989 bytes)
+2020-06-22 14:48:23 Executor: INFO: Running task 0.0 in stage 1.0 (TID 8)
+2020-06-22 14:48:23 root: INFO: RegionPool: initialized for thread 60: Executor task launch worker for task 8
+2020-06-22 14:48:23 root: INFO: RegionPool: REPORT_THRESHOLD: 256.0K allocated (256.0K blocks / 0 chunks), regions.size = 3, 0 current java objects, 0 max java objects, thread 60: Executor task launch worker for task 8
+2020-06-22 14:48:23 Executor: INFO: Finished task 0.0 in stage 1.0 (TID 8). 8519 bytes result sent to driver
+2020-06-22 14:48:23 TaskSetManager: INFO: Finished task 0.0 in stage 1.0 (TID 8) in 510 ms on localhost (executor driver) (1/1)
+2020-06-22 14:48:23 TaskSchedulerImpl: INFO: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+2020-06-22 14:48:23 DAGScheduler: INFO: ResultStage 1 (collect at RVD.scala:727) finished in 0.525 s
+2020-06-22 14:48:23 DAGScheduler: INFO: Job 1 finished: collect at RVD.scala:727, took 0.528652 s
+2020-06-22 14:48:23 root: INFO: decoder cache miss (0 hits, 2 misses, 0.000
+2020-06-22 14:48:23 root: INFO: instruction count: 6: __C30etypeDecode.<init>
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C30etypeDecode.apply
+2020-06-22 14:48:23 root: INFO: instruction count: 25: __C30etypeDecode.__m31DECODE_r_struct_of_r_binaryEND_TO_r_tuple_of_r_stringEND
+2020-06-22 14:48:23 root: INFO: instruction count: 11: __C30etypeDecode.__m32read_fields_group_0
+2020-06-22 14:48:23 root: INFO: instruction count: 34: __C30etypeDecode.__m33INPLACE_DECODE_r_binary_TO_r_binary
+2020-06-22 14:48:23 root: INFO: took 1.148s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.153s, total 1.468s, tagged coverage 1.3
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.148ms, total 1.468s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.155s, total 1.469s, tagged coverage 1.3
+2020-06-22 14:48:23 root: INFO: optimize InterpretNonCompilable, post Lowering: before: IR size 7: 
+(ToArray
+  (StreamMap __iruid_5
+    (ToStream
+      (GetField rows
+        (Literal Struct{rows:Array[Struct{trait_type:String}],global:Struct{}} <literal value>)))
+    (GetField trait_type
+      (Ref __iruid_5))))
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.523ms, total 1.470s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.455ms, total 1.471s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.180ms, total 1.472s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.684ms, total 1.473s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.067ms, total 1.473s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.347ms, total 1.473s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.101ms, total 1.474s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.026ms, total 1.474s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.081ms, total 1.474s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.430ms, total 1.474s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.051ms, total 1.475s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.514ms, total 1.475s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.174ms, total 1.476s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.047ms, total 1.476s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.085ms, total 1.476s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.352ms, total 1.477s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.048ms, total 1.477s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.297ms, total 1.478s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize : 7.731ms, total 1.478s, tagged coverage 57.7
+2020-06-22 14:48:23 root: INFO: optimize InterpretNonCompilable, post Lowering: after: IR size 6:
+(ToArray
+  (StreamMap __iruid_9
+    (ToStream
+      (Literal Array[Struct{trait_type:String}] <literal value>))
+    (GetField trait_type
+      (Ref __iruid_9))))
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.024ms, total 1.482s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.065ms, total 1.482s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.023ms, total 1.482s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.716ms, total 1.482s, tagged coverage 15.7
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.026ms, total 1.482s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.021ms, total 1.483s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.019ms, total 1.483s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.442ms, total 1.483s, tagged coverage 15.1
+2020-06-22 14:48:23 root: INFO: encoder cache miss (0 hits, 4 misses, 0.000)
+2020-06-22 14:48:23 root: INFO: instruction count: 6: __C57etypeEncode.<init>
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C57etypeEncode.apply
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C57etypeEncode.__m58ENCODE_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND_TO_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND
+2020-06-22 14:48:23 root: INFO: instruction count: 16: __C57etypeEncode.__m59write_fields_group_0
+2020-06-22 14:48:23 root: INFO: instruction count: 47: __C57etypeEncode.__m60ENCODE_r_array_of_r_tuple_of_r_binaryEND_TO_r_array_of_r_struct_of_r_binaryEND
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C57etypeEncode.__m61ENCODE_r_tuple_of_r_binaryEND_TO_r_struct_of_r_binaryEND
+2020-06-22 14:48:23 root: INFO: instruction count: 16: __C57etypeEncode.__m62write_fields_group_0
+2020-06-22 14:48:23 root: INFO: instruction count: 19: __C57etypeEncode.__m63ENCODE_r_binary_TO_r_binary
+2020-06-22 14:48:23 MemoryStore: INFO: Block broadcast_6 stored as values in memory (estimated size 4.9 KB, free 365.7 MB)
+2020-06-22 14:48:23 MemoryStore: INFO: Block broadcast_6_piece0 stored as bytes in memory (estimated size 175.0 B, free 365.7 MB)
+2020-06-22 14:48:23 BlockManagerInfo: INFO: Added broadcast_6_piece0 in memory on 10.0.0.51:57531 (size: 175.0 B, free: 366.2 MB)
+2020-06-22 14:48:23 SparkContext: INFO: Created broadcast 6 from broadcast at SparkBackend.scala:232
+2020-06-22 14:48:23 root: INFO: instruction count: 6: __C34Compiled.<init>
+2020-06-22 14:48:23 root: INFO: instruction count: 25: __C34Compiled.apply
+2020-06-22 14:48:23 root: INFO: instruction count: 118: __C34Compiled.__m37wrapped
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C34Compiled.__m46addIRIntermediate
+2020-06-22 14:48:23 root: INFO: instruction count: 8: __C34Compiled.__m47addIRIntermediate
+2020-06-22 14:48:23 root: INFO: instruction count: 14: __C34Compiled.setPartitionIndex
+2020-06-22 14:48:23 root: INFO: instruction count: 7: __C34Compiled.addPartitionRegion
+2020-06-22 14:48:23 root: INFO: instruction count: 25: __C34Compiled.__m50DECODE_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND_TO_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND
+2020-06-22 14:48:23 root: INFO: instruction count: 11: __C34Compiled.__m51read_fields_group_0
+2020-06-22 14:48:23 root: INFO: instruction count: 58: __C34Compiled.__m52INPLACE_DECODE_r_array_of_r_struct_of_r_binaryEND_TO_r_array_of_r_tuple_of_r_binaryEND
+2020-06-22 14:48:23 root: INFO: instruction count: 17: __C34Compiled.__m53INPLACE_DECODE_r_struct_of_r_binaryEND_TO_r_tuple_of_r_binaryEND
+2020-06-22 14:48:23 root: INFO: instruction count: 11: __C34Compiled.__m54read_fields_group_0
+2020-06-22 14:48:23 root: INFO: instruction count: 34: __C34Compiled.__m55INPLACE_DECODE_r_binary_TO_r_binary
+2020-06-22 14:48:23 root: INFO: instruction count: 55: __C34Compiled.addLiterals
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile : 83.700ms, total 1.562s, tagged coverage 0.2
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InitializeCompiledFunction : 1.729ms, total 1.565s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for RunCompiledFunction : 0.177ms, total 1.566s
+2020-06-22 14:48:23 root: INFO: Timer: all timings:
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 2.563ms, total 50.690ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 8.532ms, total 60.906ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 17.755ms, total 79.172ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 15.918ms, total 95.615ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 1.342ms, total 97.395ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 147.419ms, total 245.167ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.500ms, total 246.227ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.275ms, total 246.715ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.428ms, total 247.309ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 2.381ms, total 249.889ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.294ms, total 250.481ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 2.797ms, total 253.647ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.425ms, total 254.460ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.145ms, total 254.806ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 2.953ms, total 257.909ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 2.434ms, total 260.760ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.205ms, total 261.212ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.590ms, total 263.001ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize : 215.563ms, total 263.190ms, tagged coverage 96.5
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.692ms, total 269.166ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 8.827ms, total 278.480ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.125ms, total 279.229ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for LowerMatrixToTable : 11.359ms, total 279.547ms, tagged coverage 84.9
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.172ms, total 281.712ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.170ms, total 282.066ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.461ms, total 282.679ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 3.341ms, total 286.203ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.248ms, total 286.754ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 3.498ms, total 290.427ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.770ms, total 291.775ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.214ms, total 292.315ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.403ms, total 292.880ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 2.352ms, total 295.461ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.171ms, total 295.906ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.817ms, total 297.870ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.385ms, total 298.628ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.148ms, total 298.980ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.538ms, total 299.787ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 8.285ms, total 308.366ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.315ms, total 309.159ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 2.690ms, total 312.110ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize : 30.900ms, total 312.432ms, tagged coverage 84.1
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.039ms, total 314.242ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.312ms, total 421.307ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.074ms, total 421.616ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.287ms, total 422.042ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.931ms, total 423.123ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.133ms, total 423.431ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 1.033ms, total 424.599ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 3.971ms, total 424.961ms, tagged coverage 69.7
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.647ms, total 427.148ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- LoweringTransformation : 0.603ms, total 428.819ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.048ms, total 429.222ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR : 2.872ms, total 429.366ms, tagged coverage 45.2
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.122ms, total 430.108ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.079ms, total 430.322ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.194ms, total 430.648ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.943ms, total 431.716ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.292ms, total 432.273ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.960ms, total 433.435ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 3.710ms, total 433.692ms, tagged coverage 69.8
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.039ms, total 434.721ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.880ms, total 435.761ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.333ms, total 436.392ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs : 1.880ms, total 436.559ms, tagged coverage 66.6
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.111ms, total 437.280ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.066ms, total 437.485ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.226ms, total 437.833ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 1.634ms, total 439.615ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.116ms, total 439.984ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.570ms, total 440.700ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 3.701ms, total 440.865ms, tagged coverage 73.6
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.111ms, total 776.185ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.034ms, total 776.387ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.087ms, total 776.600ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.420ms, total 777.180ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.050ms, total 777.398ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.281ms, total 777.821ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 1.948ms, total 778.018ms, tagged coverage 50.4
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.016ms, total 778.409ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- LoweringTransformation : 0.028ms, total 778.614ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.018ms, total 778.770ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR : 0.500ms, total 778.890ms, tagged coverage 12.4
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.085ms, total 779.486ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.061ms, total 779.882ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.180ms, total 780.360ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.485ms, total 781.107ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.081ms, total 781.447ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.238ms, total 781.842ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 2.585ms, total 781.980ms, tagged coverage 43.7
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.028ms, total 782.515ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.122ms, total 782.796ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.018ms, total 782.972ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs : 0.733ms, total 783.215ms, tagged coverage 22.8
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.212ms, total 783.909ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.070ms, total 784.521ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.486ms, total 785.312ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.584ms, total 786.289ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.056ms, total 786.599ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.228ms, total 786.964ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 3.431ms, total 787.109ms, tagged coverage 47.7
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.153s, total 1.468s, tagged coverage 1.3
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.148ms, total 1.468s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.155s, total 1.469s, tagged coverage 1.3
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.523ms, total 1.470s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.455ms, total 1.471s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.180ms, total 1.472s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.684ms, total 1.473s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.067ms, total 1.473s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.347ms, total 1.473s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.101ms, total 1.474s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.026ms, total 1.474s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.081ms, total 1.474s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.430ms, total 1.474s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.051ms, total 1.475s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.514ms, total 1.475s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.174ms, total 1.476s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.047ms, total 1.476s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.085ms, total 1.476s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 0.352ms, total 1.477s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.048ms, total 1.477s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 0.297ms, total 1.478s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Optimize : 7.731ms, total 1.478s, tagged coverage 57.7
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.024ms, total 1.482s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.065ms, total 1.482s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.023ms, total 1.482s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.716ms, total 1.482s, tagged coverage 15.7
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.026ms, total 1.482s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.021ms, total 1.483s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.019ms, total 1.483s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 0.442ms, total 1.483s, tagged coverage 15.1
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for Compile : 83.700ms, total 1.562s, tagged coverage 0.2
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for InitializeCompiledFunction : 1.729ms, total 1.565s
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for RunCompiledFunction : 0.177ms, total 1.566s
+2020-06-22 14:48:23 root: INFO: Timer: aggregate:
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for tag 'RunCompiledFunction' (1): 0.177ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for tag 'InitializeCompiledFunction' (1): 1.729ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for tag 'Verify' (16): 2.243ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for tag 'ForwardRelationalLets' (15): 3.466ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for tag 'FoldConstants' (15): 6.566ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for tag 'ExtractIntervalFilters' (15): 10.395ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for tag 'LoweringTransformation' (7): 10.545ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for tag 'Simplify' (15): 24.344ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for tag 'ForwardLets' (15): 41.174ms
+2020-06-22 14:48:23 root: INFO: Timer: Time taken for tag 'PruneDeadFields' (15): 164.279ms
+2020-06-22 14:48:23 root: INFO: Timer: Fraction covered by a tagged leaf: 1.308s (16.8%)
+2020-06-22 14:48:24 root: INFO: optimize Lowerer, initial IR: before: IR size 39: 
+(ToArray
+  (StreamMap __uid_6
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableMapGlobals
+              (TableMapRows
+                (TableFilter
+                  (TableFilter
+                    (TableRead None False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+                    (Coalesce
+                      (ApplyComparisonOp GTEQ
+                        (GetField num_pops
+                          (Ref row))
+                        (I32 5))
+                      (False)))
+                  (Coalesce
+                    (ApplyComparisonOp EQ
+                      (GetField num_pops
+                        (Ref row))
+                      (I32 5))
+                    (False)))
+                (InsertFields
+                  (SelectFields ()
+                    (SelectFields (trait_type phenocode pheno_sex coding modifier description description_more coding_description category n_cases_full_cohort_both_sexes n_cases_full_cohort_females n_cases_full_cohort_males pops num_pops n_cases_AFR n_cases_AMR n_cases_CSA n_cases_EAS n_cases_EUR n_cases_MID n_controls_AFR n_controls_AMR n_controls_CSA n_controls_EAS n_controls_EUR n_controls_MID saige_heritability_AFR saige_heritability_AMR saige_heritability_CSA saige_heritability_EAS saige_heritability_EUR saige_heritability_MID lambda_gc_AFR lambda_gc_AMR lambda_gc_CSA lambda_gc_EAS lambda_gc_EUR lambda_gc_MID filename filename_tabix dropbox_link dropbox_link_tabix wget wget_tabix size_in_bytes size_in_bytes_tabix md5_hex md5_hex_tabix)
+                      (Ref row)))
+                  None
+                  (phenocode
+                    (GetField phenocode
+                      (Ref row)))))
+              (InsertFields
+                (SelectFields ()
+                  (SelectFields ()
+                    (Ref global)))
+                None))
+            (InsertFields
+              (SelectFields (phenocode)
+                (SelectFields (phenocode)
+                  (Ref row)))
+              None)))))
+    (GetField phenocode
+      (Ref __uid_6))))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.195ms, total 3.117ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.853ms, total 4.228ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- Simplify : 1.913ms, total 6.385ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 2.565ms, total 9.138ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.248ms, total 9.566ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 3.054ms, total 12.733ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.360ms, total 13.332ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.136ms, total 13.633ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.290ms, total 14.040ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.095ms, total 15.233ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.182ms, total 15.648ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.475ms, total 17.285ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.245ms, total 17.731ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.122ms, total 18.032ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.249ms, total 18.367ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.141ms, total 19.603ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.110ms, total 19.874ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.730ms, total 21.680ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize : 18.948ms, total 21.866ms, tagged coverage 84.2
+2020-06-22 14:48:24 root: INFO: optimize Lowerer, initial IR: after: IR size 25:
+(ToArray
+  (StreamMap __iruid_12
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableFilter
+              (TableRead Table{global:Struct{},key:[],row:Struct{phenocode:String,num_pops:Int32}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+              (ApplySpecial land () Boolean
+                (Coalesce
+                  (ApplyComparisonOp GTEQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))
+                (Coalesce
+                  (ApplyComparisonOp EQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))))
+            (SelectFields (phenocode)
+              (Ref row))))))
+    (GetField phenocode
+      (Ref __iruid_12))))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.057ms, total 23.944ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 0.371ms, total 24.649ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.049ms, total 24.929ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for LowerMatrixToTable : 1.190ms, total 25.071ms, tagged coverage 40.1
+2020-06-22 14:48:24 root: INFO: optimize LowerMatrixToTable, post Lowering: before: IR size 25: 
+(ToArray
+  (StreamMap __iruid_12
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableFilter
+              (TableRead Table{global:Struct{},key:[],row:Struct{phenocode:String,num_pops:Int32}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+              (ApplySpecial land () Boolean
+                (Coalesce
+                  (ApplyComparisonOp GTEQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))
+                (Coalesce
+                  (ApplyComparisonOp EQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))))
+            (SelectFields (phenocode)
+              (Ref row))))))
+    (GetField phenocode
+      (Ref __iruid_12))))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.116ms, total 27.029ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.162ms, total 27.363ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.276ms, total 27.731ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.296ms, total 29.116ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.124ms, total 29.494ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.884ms, total 31.470ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.231ms, total 31.984ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.117ms, total 32.219ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.232ms, total 32.539ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 1.114ms, total 33.723ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.160ms, total 34.038ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.603ms, total 35.726ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- FoldConstants : 0.261ms, total 36.252ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ExtractIntervalFilters : 0.132ms, total 36.541ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- Simplify : 0.260ms, total 36.874ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardLets : 2.004ms, total 38.947ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- ForwardRelationalLets : 0.214ms, total 39.379ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize -- PruneDeadFields : 1.345ms, total 40.864ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for Optimize : 14.092ms, total 40.997ms, tagged coverage 81.8
+2020-06-22 14:48:24 root: INFO: optimize LowerMatrixToTable, post Lowering: after: IR size 25:
+(ToArray
+  (StreamMap __iruid_15
+    (ToStream
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableFilter
+              (TableRead Table{global:Struct{},key:[],row:Struct{phenocode:String,num_pops:Int32}} False "{\"files\":[\"gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"impute\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+              (ApplySpecial land () Boolean
+                (Coalesce
+                  (ApplyComparisonOp GTEQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))
+                (Coalesce
+                  (ApplyComparisonOp EQ
+                    (GetField num_pops
+                      (Ref row))
+                    (I32 5))
+                  (False))))
+            (SelectFields (phenocode)
+              (Ref row))))))
+    (GetField phenocode
+      (Ref __iruid_15))))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.035ms, total 41.802ms
+2020-06-22 14:48:24 root: INFO: interpreting non compilable node: TableCollect
+2020-06-22 14:48:24 root: INFO: optimize Lowerer, initial IR: before: IR size 15: 
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.391ms, total 44.416ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.082ms, total 44.690ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.268ms, total 45.084ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 2.598ms, total 47.903ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.175ms, total 48.381ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.620ms, total 49.195ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 5.319ms, total 49.338ms, tagged coverage 77.7
+2020-06-22 14:48:24 root: INFO: optimize Lowerer, initial IR: after: IR size 15:
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.038ms, total 49.721ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- LoweringTransformation : 0.031ms, total 49.816ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.033ms, total 49.907ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR : 0.280ms, total 49.961ms, tagged coverage 36.1
+2020-06-22 14:48:24 root: INFO: optimize InlineApplyIR, post Lowering: before: IR size 15: 
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.067ms, total 50.305ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.078ms, total 50.445ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.153ms, total 50.680ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 1.044ms, total 51.811ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.118ms, total 52.055ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.505ms, total 52.636ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 2.514ms, total 52.749ms, tagged coverage 78.1
+2020-06-22 14:48:24 root: INFO: optimize InlineApplyIR, post Lowering: after: IR size 15:
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.038ms, total 53.232ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.032ms, total 53.337ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.057ms, total 53.451ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs : 0.316ms, total 53.507ms, tagged coverage 40.2
+2020-06-22 14:48:24 root: INFO: optimize LowerArrayAggsToRunAggs, post Lowering: before: IR size 15: 
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.082ms, total 53.862ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.050ms, total 53.975ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 3.795ms, total 57.845ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.592ms, total 58.604ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.090ms, total 58.801ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.603ms, total 59.473ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 5.820ms, total 59.596ms, tagged coverage 89.6
+2020-06-22 14:48:24 root: INFO: optimize LowerArrayAggsToRunAggs, post Lowering: after: IR size 15:
+(Coalesce
+  (ApplySpecial land () Boolean
+    (Coalesce
+      (ApplyComparisonOp GTEQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False))
+    (Coalesce
+      (ApplyComparisonOp EQ
+        (GetField num_pops
+          (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 0))
+        (I32 5))
+      (False)))
+  (False))
+2020-06-22 14:48:24 root: INFO: instruction count: 6: __C64Compiled.<init>
+2020-06-22 14:48:24 root: INFO: instruction count: 156: __C64Compiled.apply
+2020-06-22 14:48:24 root: INFO: instruction count: 26: __C64Compiled.__m65cord
+2020-06-22 14:48:24 root: INFO: instruction count: 38: __C64Compiled.__m66cord
+2020-06-22 14:48:24 root: INFO: instruction count: 14: __C64Compiled.setPartitionIndex
+2020-06-22 14:48:24 root: INFO: instruction count: 7: __C64Compiled.addPartitionRegion
+2020-06-22 14:48:24 root: INFO: encoder cache hit
+2020-06-22 14:48:24 root: INFO: decoder cache hit
+2020-06-22 14:48:24 MemoryStore: INFO: Block broadcast_7 stored as values in memory (estimated size 1816.0 B, free 365.7 MB)
+2020-06-22 14:48:24 MemoryStore: INFO: Block broadcast_7_piece0 stored as bytes in memory (estimated size 926.0 B, free 365.7 MB)
+2020-06-22 14:48:24 BlockManagerInfo: INFO: Added broadcast_7_piece0 in memory on 10.0.0.51:57531 (size: 926.0 B, free: 366.2 MB)
+2020-06-22 14:48:24 SparkContext: INFO: Created broadcast 7 from broadcast at SparkBackend.scala:232
+2020-06-22 14:48:24 root: INFO: optimize Lowerer, initial IR: before: IR size 5: 
+(Coalesce
+  (SelectFields (phenocode)
+    (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{phenocode:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.071ms, total 81.926ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.023ms, total 82.050ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.084ms, total 82.195ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.304ms, total 82.571ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.042ms, total 82.686ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.186ms, total 82.938ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 1.173ms, total 83.025ms, tagged coverage 60.5
+2020-06-22 14:48:24 root: INFO: optimize Lowerer, initial IR: after: IR size 5:
+(Coalesce
+  (SelectFields (phenocode)
+    (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{phenocode:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.015ms, total 83.320ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- LoweringTransformation : 0.015ms, total 83.405ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR -- Verify : 0.014ms, total 83.484ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- InlineApplyIR : 0.266ms, total 83.569ms, tagged coverage 16.8
+2020-06-22 14:48:24 root: INFO: optimize InlineApplyIR, post Lowering: before: IR size 5: 
+(Coalesce
+  (SelectFields (phenocode)
+    (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{phenocode:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.086ms, total 83.920ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.031ms, total 84.037ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.120ms, total 84.246ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.544ms, total 84.897ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.104ms, total 85.227ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.336ms, total 85.719ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 2.056ms, total 85.885ms, tagged coverage 59.4
+2020-06-22 14:48:24 root: INFO: optimize InlineApplyIR, post Lowering: after: IR size 5:
+(Coalesce
+  (SelectFields (phenocode)
+    (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{phenocode:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.019ms, total 86.233ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- LoweringTransformation : 0.018ms, total 86.320ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs -- Verify : 0.015ms, total 86.390ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- LowerArrayAggsToRunAggs : 0.228ms, total 86.440ms, tagged coverage 22.7
+2020-06-22 14:48:24 root: INFO: optimize LowerArrayAggsToRunAggs, post Lowering: before: IR size 5: 
+(Coalesce
+  (SelectFields (phenocode)
+    (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{phenocode:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.040ms, total 86.716ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.029ms, total 86.807ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.093ms, total 86.960ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.511ms, total 87.531ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.066ms, total 87.826ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.401ms, total 88.383ms
+2020-06-22 14:48:24 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation -- Optimize : 1.841ms, total 88.514ms, tagged coverage 61.9
+2020-06-22 14:48:24 root: INFO: optimize LowerArrayAggsToRunAggs, post Lowering: after: IR size 5:
+(Coalesce
+  (SelectFields (phenocode)
+    (In +PCStruct{phenocode:+PCString,num_pops:+PInt32} 1))
+  (Die Struct{phenocode:String}
+    (Str "Internal e...")))
+2020-06-22 14:48:24 root: INFO: encoder cache hit
+2020-06-22 14:48:24 MemoryStore: INFO: Block broadcast_8 stored as values in memory (estimated size 104.0 B, free 365.7 MB)
+2020-06-22 14:48:24 MemoryStore: INFO: Block broadcast_8_piece0 stored as bytes in memory (estimated size 109.0 B, free 365.7 MB)
+2020-06-22 14:48:24 BlockManagerInfo: INFO: Added broadcast_8_piece0 in memory on 10.0.0.51:57531 (size: 109.0 B, free: 366.2 MB)
+2020-06-22 14:48:24 SparkContext: INFO: Created broadcast 8 from broadcast at SparkBackend.scala:232
+2020-06-22 14:48:24 root: INFO: instruction count: 6: __C69Compiled.<init>
+2020-06-22 14:48:24 root: INFO: instruction count: 56: __C69Compiled.apply
+2020-06-22 14:48:24 root: INFO: instruction count: 8: __C69Compiled.__m73addIRIntermediate
+2020-06-22 14:48:24 root: INFO: instruction count: 14: __C69Compiled.setPartitionIndex
+2020-06-22 14:48:24 root: INFO: instruction count: 7: __C69Compiled.addPartitionRegion
+2020-06-22 14:48:24 root: INFO: instruction count: 25: __C69Compiled.__m77DECODE_r_struct_of_r_binaryEND_TO_r_tuple_of_r_stringEND
+2020-06-22 14:48:24 root: INFO: instruction count: 11: __C69Compiled.__m78read_fields_group_0
+2020-06-22 14:48:24 root: INFO: instruction count: 34: __C69Compiled.__m79INPLACE_DECODE_r_binary_TO_r_binary
+2020-06-22 14:48:24 root: INFO: instruction count: 41: __C69Compiled.addLiterals
+2020-06-22 14:48:24 root: INFO: encoder cache miss (2 hits, 5 misses, 0.286)
+2020-06-22 14:48:24 root: INFO: instruction count: 6: __C81etypeEncode.<init>
+2020-06-22 14:48:24 root: INFO: instruction count: 8: __C81etypeEncode.apply
+2020-06-22 14:48:24 root: INFO: instruction count: 8: __C81etypeEncode.__m82ENCODE_r_tuple_of_r_stringEND_TO_r_struct_of_r_binaryEND
+2020-06-22 14:48:24 root: INFO: instruction count: 16: __C81etypeEncode.__m83write_fields_group_0
+2020-06-22 14:48:24 root: INFO: instruction count: 19: __C81etypeEncode.__m84ENCODE_r_binary_TO_r_binary
+2020-06-22 14:48:24 SparkContext: INFO: Starting job: collect at RVD.scala:727
+2020-06-22 14:48:24 DAGScheduler: INFO: Got job 2 (collect at RVD.scala:727) with 1 output partitions
+2020-06-22 14:48:24 DAGScheduler: INFO: Final stage: ResultStage 2 (collect at RVD.scala:727)
+2020-06-22 14:48:24 DAGScheduler: INFO: Parents of final stage: List()
+2020-06-22 14:48:24 DAGScheduler: INFO: Missing parents: List()
+2020-06-22 14:48:24 DAGScheduler: INFO: Submitting ResultStage 2 (MapPartitionsRDD[16] at mapPartitions at ContextRDD.scala:160), which has no missing parents
+2020-06-22 14:48:24 MemoryStore: INFO: Block broadcast_9 stored as values in memory (estimated size 24.0 KB, free 365.7 MB)
+2020-06-22 14:48:24 MemoryStore: INFO: Block broadcast_9_piece0 stored as bytes in memory (estimated size 12.7 KB, free 365.7 MB)
+2020-06-22 14:48:24 BlockManagerInfo: INFO: Added broadcast_9_piece0 in memory on 10.0.0.51:57531 (size: 12.7 KB, free: 366.2 MB)
+2020-06-22 14:48:24 SparkContext: INFO: Created broadcast 9 from broadcast at DAGScheduler.scala:1161
+2020-06-22 14:48:24 DAGScheduler: INFO: Submitting 1 missing tasks from ResultStage 2 (MapPartitionsRDD[16] at mapPartitions at ContextRDD.scala:160) (first 15 tasks are for partitions Vector(0))
+2020-06-22 14:48:24 TaskSchedulerImpl: INFO: Adding task set 2.0 with 1 tasks
+2020-06-22 14:48:24 TaskSetManager: INFO: Starting task 0.0 in stage 2.0 (TID 9, localhost, executor driver, partition 0, PROCESS_LOCAL, 7989 bytes)
+2020-06-22 14:48:24 Executor: INFO: Running task 0.0 in stage 2.0 (TID 9)
+2020-06-22 14:48:24 TaskSchedulerImpl: INFO: Cancelling stage 2
+2020-06-22 14:48:24 TaskSchedulerImpl: INFO: Killing all running tasks in stage 2: Stage cancelled
+2020-06-22 14:48:24 Executor: INFO: Executor is trying to kill task 0.0 in stage 2.0 (TID 9), reason: Stage cancelled
+2020-06-22 14:48:24 TaskSchedulerImpl: INFO: Stage 2 was cancelled
+2020-06-22 14:48:24 DAGScheduler: INFO: ResultStage 2 (collect at RVD.scala:727) failed in 0.153 s due to Job 2 cancelled as part of cancellation of all jobs
+2020-06-22 14:48:24 DAGScheduler: INFO: Job 2 failed: collect at RVD.scala:727, took 0.157496 s
+2020-06-22 14:48:24 SparkContext: INFO: Invoking stop() from shutdown hook
+2020-06-22 14:48:24 ContextCleaner: INFO: Cleaned accumulator 50
+2020-06-22 14:48:24 ContextCleaner: INFO: Cleaned accumulator 16
+2020-06-22 14:48:24 ContextCleaner: INFO: Cleaned accumulator 24
+2020-06-22 14:48:24 AbstractConnector: INFO: Stopped Spark@39288e60{HTTP/1.1,[http/1.1]}{0.0.0.0:4040}
+2020-06-22 14:48:24 SparkUI: INFO: Stopped Spark web UI at http://10.0.0.51:4040
+2020-06-22 14:48:24 BlockManagerInfo: INFO: Removed broadcast_5_piece0 on 10.0.0.51:57531 in memory (size: 12.7 KB, free: 366.2 MB)
+2020-06-22 14:48:24 Executor: INFO: Executor killed task 0.0 in stage 2.0 (TID 9), reason: Stage cancelled
+2020-06-22 14:48:24 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
+2020-06-22 14:48:24 MemoryStore: INFO: MemoryStore cleared
+2020-06-22 14:48:24 BlockManager: INFO: BlockManager stopped
+2020-06-22 14:48:24 BlockManagerMaster: INFO: BlockManagerMaster stopped
+2020-06-22 14:48:24 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
+2020-06-22 14:48:24 SparkContext: INFO: Successfully stopped SparkContext
+2020-06-22 14:48:24 ShutdownHookManager: INFO: Shutdown hook called
+2020-06-22 14:48:24 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-e6493a18-3bf7-4b57-8669-b88aabf7d780
+2020-06-22 14:48:24 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-161ce054-e733-4dd2-8d3e-5852281305b4
+2020-06-22 14:48:24 ShutdownHookManager: INFO: Deleting directory /private/var/folders/56/q7rh2y5x7hj4n359_13dgwxcmtwz20/T/spark-161ce054-e733-4dd2-8d3e-5852281305b4/pyspark-28cddd74-2879-460c-96a2-52ff1b1da86f
