@@ -1,0 +1,36 @@
+all_phenotypes	is_age_related	is_heritable	description	code	code_pan_anc	rank_prevalence	category	prev_grouped_ages	median_age_onset	variable_type	source	h2	h2_se	h2_z	n_non_missing	n_missing	n_controls	n_cases	Neff
+Diastolic BP	TRUE	TRUE	"Diastolic blood pressure, automated reading"	4079_irnt	4079_irnt	1	Cardiovascular	21057	59	continuous_irnt	phesant	0.14329073	0.005786318	24.76371575	340162	21032	NA	NA	340162
+Hypertension	TRUE	TRUE	"Non-cancer illness code, self-reported: hypertension"	20002_1065	20002_1065	1	Cardiovascular	21057	59	binary	phesant	0.130153359	0.005690064	22.87379361	361141	53	267581	93560	277286.47
+Systolic BP	TRUE	TRUE	"Systolic blood pressure, automated reading"	4080_irnt	4080_irnt	1	Cardiovascular	21057	59	continuous_irnt	phesant	0.151248203	0.006341358	23.85107652	340159	21035	NA	NA	340159
+Raised Total Cholesterol	TRUE	TRUE	"Non-cancer illness code, self-reported: high cholesterol"	20002_1473	20002_1473	2	Endocrine	20514	56	binary	phesant	0.04798532	0.00465489	10.3085824	361141	53	317184	43957	154426.74
+Osteoarthritis	TRUE	TRUE	"Non-cancer illness code, self-reported: osteoarthritis"	20002_1465	20002_1465	3	Musculoskeletal	13465	61	binary	phesant	0.021940915	0.002595271	8.454190039	361141	53	331095	30046	110185
+LDL-C	TRUE	TRUE	LDL direct (mmol/L)	30780_irnt	30780_irnt	4	Endocrine	12722	57	continuous_irnt	biomarkers	0.082466945	0.016846023	4.895336127	343621	17518	NA	NA	343621
+Triglycerides	TRUE	TRUE	Triglycerides (mmol/L)	30870_irnt	30870_irnt	5	Endocrine	9599	57	continuous_irnt	biomarkers	0.218168629	0.036463991	5.983125354	343992	17147	NA	NA	343992
+Cataracts	TRUE	TRUE	Diagnoses - main ICD10: H26 Other cataract	H26	H26	6	Eye	9081	74	categorical	icd10	0.014194178	0.002520307	5.631923416	361194	0	349888	11306	43808.41
+Deafness	TRUE	TRUE	Hearing aid user	3393	3393_3393	8	Ear	7495	52	binary	phesant	0.022014226	0.00356444	6.176069011	219358	141836	208416	10942	41584.77
+GERD	TRUE	TRUE	Diagnoses - main ICD10: K21 Gastro-oesophageal reflux disease	K21	K21	9	Digestive	6437	50	categorical	icd10	0.012967134	0.002293569	5.653692103	361194	0	350451	10743	41693.88
+Chronic Kidney Disease	TRUE	FALSE	Diagnoses - main ICD10: N18 Chronic renal failure	N18	N18	11	Genitourinary	5866	74	categorical	icd10	0.001857606	0.002016937	0.921003522	361194	0	360673	521	2080.99
+eGFR	TRUE	FALSE	NA	NA	NA	11	Genitourinary	5866	74	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
+Fasting Glucose	TRUE	TRUE	Glucose (mmol/L)	30740_irnt	30740_irnt	12	Endocrine	5840	61	continuous_irnt	biomarkers	0.089154508	0.014779215	6.03242496	314916	46223	NA	NA	314916
+Type 2 Diabetes Mellitus	TRUE	TRUE	Diabetes diagnosed by doctor	2443	250.2	12	Endocrine	5840	61	binary	phesant	0.044821008	0.00340279	13.17183986	360192	1002	342917	17275	65785.93
+Atrial Fibrillation	TRUE	TRUE	Diagnoses - main ICD10: I48 Atrial fibrillation and flutter	I48	I48	13	Cardiovascular	5786	74	categorical	icd10	0.015740669	0.002826012	5.569923128	361194	0	354838	6356	24976.61
+HDL-C	TRUE	TRUE	HDL cholesterol (mmol/L)	30760_irnt	30760_irnt	14	Endocrine	5523	57	continuous_irnt	biomarkers	0.32951424	0.070933541	4.645393913	315133	46006	NA	NA	315133
+Angina	TRUE	TRUE	"Non-cancer illness code, self-reported: angina"	20002_1074	20002_1074	15	Cardiovascular	5377	64	binary	phesant	0.026703021	0.002994512	8.917320552	361141	53	349771	11370	44048.13
+Diverticular Disease	TRUE	TRUE	Diagnoses - main ICD10: K57 Diverticular disease of intestine	K57	K57	16	Digestive	5264	67	categorical	icd10	0.022861612	0.002331084	9.807289342	361194	0	348532	12662	48872.49
+Diaphragmatic Hernia	TRUE	TRUE	Diagnoses - main ICD10: K44 Diaphragmatic hernia	K44	K44	17	Digestive	4858	60	categorical	icd10	0.00975317	0.002231434	4.37080767	361194	0	353152	8042	31451.78
+Gastritis	TRUE	FALSE	Diagnoses - main ICD10: K29 Gastritis and duodenitis	K29	K29	18	Digestive	4852	51	categorical	icd10	0.008913	0.00241515	3.690454439	361194	0	348516	12678	48932
+Spondylosis	TRUE	FALSE	"Non-cancer illness code, self-reported: cervical spondylosis"	20002_1478	20002_1478	20	Musculoskeletal	4811	57	binary	phesant	0.00357423	0.00195136	1.831660611	361141	53	358631	2510	9970.22
+Oesophageal Ulcer	TRUE	FALSE	Ulcer of oesophagus	K11_OESULC	K11_OESULC	21	Digestive	4713	53	categorical	finngen	0.009218887	0.003046431	3.026127141	361194	0	358096	3098	12285.71
+COPD	TRUE	FALSE	"Non-cancer illness code, self-reported: emphysema/chronic bronchitis"	20002_1113	20002_1113	24	Respiratory	4134	66	binary	phesant	0.01085652	0.003157026	3.438843445	361141	53	356110	5031	19843.66
+Heart Failure	TRUE	FALSE	"Non-cancer illness code, self-reported: heart failure/pulmonary odema"	20002_1076	20002_1076	25	Cardiovascular	3835	76	binary	phesant	0.003693883	0.002239056	1.649750649	361141	53	360894	247	987.32
+Primary Skin Malignancy	TRUE	TRUE	Malignant neoplasm of skin	C3_SKIN	172	26	Cancers	3750	68	categorical	finngen	0.033699522	0.006138261	5.49007602	361194	0	344663	16531	63097.66
+Osteoporosis/BMD	TRUE	TRUE	Heel bone mineral density (BMD)	3148_irnt	3148_irnt	27	Musculoskeletal	3744	71	continuous_irnt	phesant	0.317506407	0.031144603	10.1945882	206496	154698	NA	NA	206496
+Myocardial Infarction	TRUE	TRUE	Major coronary heart disease event	I9_CHD	411.2	28	Cardiovascular	3607	65	categorical	finngen	0.02193159	0.002843033	7.714151301	361194	0	351037	10157	39485.52
+Alzheimer's Disease	TRUE	FALSE	Alzheimer’s disease	AD	20107_1	29	Psychiatric	3345	83	categorical	finngen	-0.001762592	0.002214951	-0.795770183	361194	0	361075	119	475.84
+Urinary Incontinance	TRUE	FALSE	"Non-cancer illness code, self-reported: urinary frequency / incontinence"	20002_1202	20002_1202	30	Genitourinary	3277	52	binary	phesant	0.004950147	0.002165988	2.285399096	361141	53	359889	1252	4990.64
+ARMD	TRUE	FALSE	Eye problems/disorders: Macular degeneration	6148_5	6148_5	41	Eye	2086	77	binary	phesant	-0.003318404	0.006047087	-0.548760707	117890	243304	115164	2726	10651.86
+Ischemic Stroke	TRUE	FALSE	Vascular/heart problems diagnosed by doctor: Stroke	6150_3	6150_3	48	Cardiovascular	1728	74	binary	phesant	0.004244144	0.0020045	2.117307426	360420	774	354833	5587	22001.58
+Coronary Artery Disease	TRUE	TRUE	"Ischaemic heart disease, wide definition"	I9_IHD	411	55	Cardiovascular	1260	70	categorical	finngen	0.03838142	0.004143376	9.263320039	361194	0	340337	20857	78610.48
+Sepsis	TRUE	FALSE	"Non-cancer illness code, self-reported: septicaemia / sepsis"	20002_1657	20002_1657	57	Infections	1185	64	binary	phesant	-1.63E-04	0.00184529	-0.088305457	361141	53	360903	238	951.37
+Rheumatoid Arthritis	TRUE	FALSE	"Non-cancer illness code, self-reported: rheumatoid arthritis"	20002_1464	20002_1464	59	Musculoskeletal	1095	58	binary	phesant	0.004662525	0.002054388	2.269544262	361141	53	357124	4017	15889.27
+Parkinson's Disease	TRUE	FALSE	Diagnoses - main ICD10: G20 Parkinson's disease	G20	20111_11	73	Neurological	633	74	categorical	icd10	-4.12E-04	0.001979783	-0.207886728	361194	0	360988	206	823.53

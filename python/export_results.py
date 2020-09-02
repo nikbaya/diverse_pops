@@ -14,6 +14,7 @@ from itertools import combinations
 from time import time
 from math import ceil
 from ukbb_pan_ancestry.utils.results import load_final_sumstats_mt, get_meta_analysis_results_path
+from ukbb_pan_ancestry import PHENO_KEY_FIELDS
 
 bucket = 'gs://ukb-diverse-pops'
 public_bucket = 'gs://ukb-diverse-pops-public'
@@ -370,8 +371,18 @@ def make_pheno_manifest():
                                           ).replace(' ','_').replace('/','_')+
                                           '.tsv.bgz'})
     ht = ht.annotate(**annotate_dict)
-#    dropbox_dir= f'{bucket}/sumstats_flat_files'
-#    ht = ht.annotate('file_location' = dropbox_dir+'/'+})
+    aws_bucket = 'https://pan-ukb-us-east-1.s3.amazonaws.com/sumstats_release'
+    ht = ht.annotate(aws_link = aws_bucket+'/'+ht.filename,
+                     aws_link_tabix = aws_bucket+'_tabix/'+ht.filename+'.tbi')
+    
+    other_fields_ht = hl.import_table('{ldprune_dir}/release/md5_hex_and_file_size.tsv.bgz',
+                                      force_bgz=True, key=PHENO_KEY_FIELDS)
+    other_fields = ['size_in_bytes','size_in_bytes_tabix','md5_hex','md5_hex_tabix']
+    
+    ht = ht.annotate(wget = 'wget '+ht.aws_link,
+                     wget_tabix = 'wget '+ht.aws_link_tabix,
+                     **{f:other_fields_ht[ht.key][f] for f in other_fields})
+    
     ht = ht.drop('pheno_data','pheno_indices')
     ht.export(f'{bucket}/combined_results/phenotype_manifest.tsv.bgz')
     
@@ -396,7 +407,7 @@ if __name__=="__main__":
                        phenocode=args.phenocode)
     elif args.export_binary_eur:
         export_binary_eur(cluster_idx=args.cluster_idx)
-    elif args.make_pheno_manifest:
-        make_pheno_manifest()
     elif args.export_loo:
         export_loo(batch_size=args.batch_size)
+    elif args.make_pheno_manifest:
+        make_pheno_manifest()

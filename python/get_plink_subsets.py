@@ -227,7 +227,7 @@ def export_varid(args):
         
 def main(args):
     n_max = 5000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
-    not_pop = False
+    not_pop = args.not_pop
     
     subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k' 
     
@@ -284,6 +284,7 @@ if __name__=='__main__':
     
     parser = argparse.ArgumentParser()
     parser.add_argument('--pop', default=None, type=str, help='population to use')
+    parser.add_argument('--not_pop', default=False, action='store_true', help='if true, get leave-one-out pop set without `pop`')
     parser.add_argument('--chr_x_only', default=False, action='store_true', help='Only export chr X')
     parser.add_argument('--overwrite_plink', default=False, action='store_true', help='whether to overwrite existing PLINK files')
     parser.add_argument('--export_varid', default=False, action='store_true', help='export varids')

@@ -1,4 +1,4 @@
-FROM {{ hailgenetics/genetics:0.2.37 }}
+FROM hailgenetics/genetics:0.2.37
 
 RUN mkdir htslib && \
 	(cd htslib && \
@@ -8,5 +8,5 @@ RUN mkdir htslib && \
     cd htslib-1.10.2 && \
     ./configure --prefix=$PWD && \
     make && \
-    make install &&
+    make install && \
 	mv tabix bgzip /bin/ )

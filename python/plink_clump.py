@@ -46,19 +46,26 @@ def read_plink_input_group_chrom(p, method, subset, chrom):
                                   bim=f'{prefix}.hm3.chr{chrom}.bim',
                                   fam=f'{prefix}.fam')
 
-def get_pheno_list(pheno_manifest, pop: str):
+def get_pheno_list(pheno_manifest, pop: str, not_pop: bool = False):
     r'''
-    Returns list of phenotypes for population `pop`.
+    Returns list of phenotypes for population `pop`. If `not_pop`=True, returns
+    all phenotypes not defined for that population.
     '''
     
-    pheno_manifest = pheno_manifest.filter(~pheno_manifest.pops.contains(pop)) # get 5 pop traits not defined for `pop`
-#    pheno_manifest = pheno_manifest.filter(pheno_manifest.num_pops==6) # get 6 pop traits
+    if not_pop:
+#        pheno_manifest = pheno_manifest[((pheno_manifest.num_pops==5)&(~pheno_manifest.pops.str.contains(pop)))|
+#                (pheno_manifest.num_pops==6)]
+        pheno_manifest = pheno_manifest[pheno_manifest.num_pops==6] # get 6 pop traits only for testing leave-one-out 
+    else:
+        pheno_manifest = pheno_manifest[pheno_manifest.pops.str.contains(pop)] 
+#    pheno_manifest = pheno_manifest[pheno_manifest.num_pops==2] # added to divide batches
     
-    pheno_list = list(zip(pheno_manifest.trait_type.collect(),
-                          pheno_manifest.phenocode.collect(), 
-                          pheno_manifest.pheno_sex.collect(),
-                          pheno_manifest.coding.collect(),
-                          pheno_manifest.modifier.collect()))
+    pheno_manifest = pheno_manifest.sort_values(by='num_pops')
+
+#    pheno_manifest = pheno_manifest.drop_duplicates(subset='num_pops') # FOR TESTING PURPOSES (to test single pheno for each num_pops)
+    
+    pheno_list = pheno_manifest[['trait_type','phenocode','pheno_sex','coding',
+                                 'modifier','pops']].values
 
 #    seed = all_pops.index(pop)#1
 #    random.seed(a=seed)
@@ -69,8 +76,8 @@ def get_pheno_list(pheno_manifest, pop: str):
 #    pheno_list = pheno_list[:n_traits]
     
 #    print(pheno_list)
-    print(f'\nNumber of phenotypes for not_{pop}: {len(pheno_list)}')
-    
+    print(f'\nNumber of phenotypes for {"not_" if not_pop else ""}{pop}: {len(pheno_list)}')
+
     return pheno_list
 
 def get_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier):
@@ -82,16 +89,18 @@ def get_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier):
                 ).replace(' ','_').replace('/','_')
     return pheno_id
 
-def get_pheno_key_dict(trait_type, phenocode, pheno_sex, coding, modifier):
+def get_pheno_key_dict(trait_type, phenocode, pheno_sex, coding, modifier, pops):
     pheno_key_dict = {'trait_type': trait_type,
                       'phenocode': phenocode,
                       'pheno_sex': pheno_sex,
                       'coding': coding,
-                      'modifier': modifier}
+                      'modifier': modifier,
+                      'pops': pops.split(',') if isinstance(pops, str) else pops}
     return pheno_key_dict
 
-def get_sumstats(p, pop, pheno_id, method, chromosomes=all_chromosomes):
+def get_sumstats(p, pop, not_pop, pops, high_quality, pheno_id, method, chromosomes=all_chromosomes):
     assert method in {'clump','sbayesr'}
+    num_pops = len(pops)
     filename=f'{pheno_id}.tsv.bgz'
     trait_type = pheno_id.split('-')[0]
     trait_category = 'quant' if trait_type in ['continuous','biomarkers'] else 'binary'
@@ -120,15 +129,15 @@ def get_sumstats(p, pop, pheno_id, method, chromosomes=all_chromosomes):
     variant_manifest_tbi = f'{get_ss.ofile}.variants.bgz.tbi'
     get_ss.command(' '.join(['mv',variant_manifest, variant_manifest_bgz]))
     get_ss.command(' '.join(['mv',variant_manifest_tabix, variant_manifest_tbi]))
-    if hl.hadoop_is_file(loo_6pop_ss_fname) and hl.hadoop_is_file(loo_6pop_tabix_fname): # phenotype is 6-pop and has leave-one-out sumstats generated. 
-        assert False, "don't run 6-pop LOO"
-        print(f'Using 6-pop LOO sumstats for {pheno_id}')
+        
+    if not_pop and hl.hadoop_is_file(loo_6pop_ss_fname) and hl.hadoop_is_file(loo_6pop_tabix_fname): # phenotype is 6-pop and has leave-one-out sumstats generated. 
+#        assert False, "don't run 6-pop LOO"
+        print(f'Using 6-pop LOO sumstats for {pheno_id} ({"not_" if not_pop else ""}{pop})')
         ss = p.read_input(loo_6pop_ss_fname)
         tabix = p.read_input(loo_6pop_tabix_fname)
         
         get_ss.command(' '.join(['mv',ss,bgz_fname])) # necessary instead of changing path extension for input files
         get_ss.command(' '.join(['mv',tabix,tbi_fname])) # necessary instead of changing path extension for input files
-        
         get_ss.command('\n'.join(
                 f'''
                 tabix -h {bgz_fname} {chrom} | \\
@@ -138,43 +147,59 @@ def get_sumstats(p, pop, pheno_id, method, chromosomes=all_chromosomes):
                 '''
                 for chrom in chromosomes
                 )
-        )            
-    elif hl.hadoop_is_file(ss_fname) and hl.hadoop_is_file(tabix_fname): # phenotype is 5-pop (this conditional block must come after checking for 6-pop LOO results)
-        print(f'Using 5-pop sumstats for {pheno_id}')
+        )
+    elif hl.hadoop_is_file(ss_fname) and hl.hadoop_is_file(tabix_fname): # this conditional block must come after checking for 6-pop LOO results
+        print(f'Using {num_pops}-pop sumstats for {pheno_id} ({"not_" if not_pop else ""}{pop})')
         ss = p.read_input(ss_fname)
         tabix = p.read_input(tabix_fname)
     
         get_ss.command(' '.join(['mv',ss,bgz_fname])) # necessary instead of changing path extension for input files
         get_ss.command(' '.join(['mv',tabix,tbi_fname])) # necessary instead of changing path extension for input files
         
-#        pval_col_idx = 8 if trait_category == 'quant' else 9 # due to additional AF columns in binary traits, pvalue column location may change
-#        get_ss.command('\n'.join(
-#                f'''
-#                tabix -h {bgz_fname} {chrom} | \\
-#                awk '{{print $1=$1":"$2":"$3":"$4, $2=${pval_col_idx}}}' | \\
-#                sed -e 's/pval_meta/P/g' \\
-#                    -e 's/chr:pos:ref:alt/SNP/g' | \\
-#                awk '$2!="NA" {{print}}' > {get_ss[f"ofile_{chrom}"]}
-#                '''
-#                for chrom in chromosomes
-#                )
-#        )
-        pval_col_idx = 8 if trait_category == 'quant' else 9 # due to additional AF columns in binary traits, pvalue column location may change
-        get_ss.command('\n'.join(
-                f'''
-                paste <( tabix -h {bgz_fname} {chrom} | \\
-                        awk '{{print $1=$1":"$2":"$3":"$4, $2=${pval_col_idx}}}' | \\
-                        sed -e 's/pval_meta/P/g' -e 's/chr:pos:ref:alt/SNP/g' ) \\
-                      <( tabix -h {variant_manifest_bgz} {chrom} | \\
-                        awk '{{ print $9 }}' ) | \\
-                grep -v "NA\|false" | \\
-                cut -f1,2 > {get_ss[f"ofile_{chrom}"]}
-                '''
-                for chrom in chromosomes
-                )
-                
-        )
+        if not_pop: # if clumping on meta-analyzed sumstats
+            pval_col_idx = 8 if trait_category == 'quant' else 9 # due to additional AF columns in binary traits, pvalue column location may change
+            awk_arg1 = ''
+            awk_arg2 = '$2!="NA"'+ ('&& $3!="false"' if high_quality else '') # exclude pval(col 2)=NA; if high_quality: exclude high_quality(col 3)=false
+        else: # if clumping single population results
+            pval_col_idx = (4+((4+(trait_category =='binary')+1) if num_pops>1 else 0)+
+                            ((trait_category == 'binary')+3)*num_pops+
+                             pops.index(pop)+1)
+
+            low_confidence_col_idx = (4+ # first 4 cols
+                                      ((4+(trait_category =='binary')+1) if num_pops>1 else 0)+ # meta-analysis fields
+                                      ((trait_category == 'binary')+4)*num_pops+ # per-pop fields
+                                      pops.index(pop)+1)
+            awk_arg1 = f', $3=${low_confidence_col_idx}'
+            awk_arg2 = '$2!="NA" && $3!="true"' + (' && $4!="false"' if high_quality else '') # exclude pval(col 2)=NA, low_confidence(col 3)=True; if high_quality: exclude high_quality(col 4)=False
+
+        # TODO: If possible, consolidate the following blocks
+        sed_arg = "-e 's/pval_meta/P/g'" if not_pop else f"-e 's/pval_{pop}/P/g'" # sed argument for replacing column name
         
+        if high_quality: 
+            get_ss.command('\n'.join(
+                    f'''
+                    paste <( tabix -h {bgz_fname} {chrom} | \\
+                            awk '{{print $1=$1":"$2":"$3":"$4, $2=${pval_col_idx}{awk_arg1}}}' | \\
+                            sed -e 's/chr:pos:ref:alt/SNP/g' {sed_arg} ) \\
+                          <( tabix -h {variant_manifest_bgz} {chrom} | \\
+                            awk '{{ print $9 }}' ) | \\
+                    awk '{{if({awk_arg2}) print $1,$2}}' > {get_ss[f"ofile_{chrom}"]}
+                    '''
+                    for chrom in chromosomes
+                    )
+            )
+        else:
+            get_ss.command('\n'.join(
+                    f'''
+                    tabix -h {bgz_fname} {chrom} | \\
+                    awk '{{print $1=$1":"$2":"$3":"$4, $2=${pval_col_idx}{awk_arg1}}}' | \\
+                    sed -e 's/chr:pos:ref:alt/SNP/g' {sed_arg} | \\
+                    awk '{{if({awk_arg2}) print $1,$2}}' > {get_ss[f"ofile_{chrom}"]}
+                    '''
+                    for chrom in chromosomes
+                    )
+            )
+                              
     ss_dict = {
             chrom: get_ss[f'ofile_{chrom}']
             for chrom in chromosomes
@@ -182,12 +207,11 @@ def get_sumstats(p, pop, pheno_id, method, chromosomes=all_chromosomes):
         
     return ss_dict
     
-def get_adj_betas(p, pop, pheno_key_dict, pheno_id, hail_script):
+def get_adj_betas(p, pop, not_pop, pheno_key_dict, pheno_id, high_quality, hail_script):
     r'''
     wrapper method for both PLINK clumping and SBayesR
     '''
-#    output_dir = f'{ldprune_dir}/results/not_{pop}/{pheno_id}' 
-    output_dir = f'{ldprune_dir}/results_high_quality/not_{pop}/{pheno_id}' 
+    output_dir = f'{ldprune_dir}/results{"_high_quality" if high_quality else ""}/{"not_" if not_pop else ""}{pop}/{pheno_id}' 
 
     clump_output_txt = f'{output_dir}/clump_results.txt' # PLINK clump output txt file
     clump_output_ht = f'{output_dir}/clump_results.ht' # PLINK clump output hail table
@@ -195,7 +219,8 @@ def get_adj_betas(p, pop, pheno_key_dict, pheno_id, hail_script):
 #    sbayesr_output_txt = f'{output_dir}/sbayesr_results-test.txt' # SBayesR output txt file
 #    sbayesr_output_ht = f'{output_dir}/sbayesr_results-test.ht' # SBayesR output hail table
     
-    overwrite = False
+    overwrite = True
+    
     clump_file_exists = hl.hadoop_is_file(f'{clump_output_ht}/_SUCCESS')
     if not clump_file_exists or overwrite:
         if clump_file_exists and overwrite:
@@ -203,15 +228,19 @@ def get_adj_betas(p, pop, pheno_key_dict, pheno_id, hail_script):
 
         ss_dict = get_sumstats(p=p,
                                pop=pop, 
+                               not_pop=not_pop,
+                               pops=pheno_key_dict['pops'],
+                               high_quality=high_quality,
                                pheno_id=pheno_id,
                                method='clump')
             
         run_method(p=p, 
                    pop=pop, 
+                   not_pop=not_pop,
                    pheno_id=pheno_id, 
                    pheno_key_dict=pheno_key_dict,
                    hail_script=hail_script, 
-                   output_txt=clump_output_txt,
+                   output_txt=clump_output_txt, 
                    output_ht=clump_output_ht,
                    ss_dict=ss_dict,
                    method='clump')
@@ -236,13 +265,13 @@ def get_adj_betas(p, pop, pheno_key_dict, pheno_id, hail_script):
 #                   method='sbayesr')
         
         
-def run_method(p, pop, pheno_key_dict, pheno_id, hail_script, output_txt, output_ht, ss_dict, method):
+def run_method(p, pop, not_pop, pheno_key_dict, pheno_id, hail_script, output_txt, output_ht, ss_dict, method):
     r'''
     Runs either PLINK clump (method = 'clump') or SBayesR (method = 'sbayesr')
     '''
     assert method in {'clump','sbayesr'}
     
-    task_suffix = f'not_{pop}-{pheno_id}'
+    task_suffix = f'{"not_" if not_pop else ""}{pop}-{pheno_id}'
     # TODO: if method = 'sbayesr' check if LD matrix has already been calculated
     
     tasks = []
@@ -252,7 +281,7 @@ def run_method(p, pop, pheno_key_dict, pheno_id, hail_script, output_txt, output
         ## read ref ld plink files 
         bfile = read_plink_input_group_chrom(p=p, 
                                              method=method,
-                                             subset=f'not_{pop}',
+                                             subset=f'{"not_" if not_pop else ""}{pop}',
                                              chrom=chrom)
         
         get_betas = p.new_job(name=f'{method}_{task_suffix}_chr{chrom}')
@@ -283,8 +312,11 @@ def run_method(p, pop, pheno_key_dict, pheno_id, hail_script, output_txt, output
                                         '--chr', str(chrom),
                                         '--out',f'{get_betas.ofile}_tmp']))
             get_betas.command(' '.join(['awk',"'{ print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12 }'",
-                                        "OFS='\t'",f'{get_betas.ofile}_tmp.clumped','2>','/dev/null',
-                                 '|','tail -n+2','>',str(get_betas.ofile)]))
+                                        "OFS='\t'",f'{get_betas.ofile}_tmp.clumped',
+                                        '2>','/dev/null','|',
+                                        'tail -n+2','|',  # don't include header
+                                        "sed '/^[[:space:]]*$/d'", # remove 2 empty lines created by PLINK at the end of the output file 
+                                        '>',str(get_betas.ofile)]))
         elif method == 'sbayesr':
             ldm_type = 'full' # options: full, sparse
             ldm_path = f'{ldprune_dir}/subsets_50k/not_{pop}/ldm/not_{pop}.hm3.chr{chrom}.maf_gt_0.ldm.{ldm_type}'
@@ -375,8 +407,11 @@ def main():
     backend = hb.ServiceBackend(billing_project='ukb_diverse_pops',
                                    bucket='ukbb-diverse-temp-30day/nb-batch-tmp')
 #    backend = batch.LocalBackend(tmp_dir='/tmp/batch/')
+
+    high_quality=True
+    not_pop=True
     
-    p = hb.batch.Batch(name='clump-hq-5pop', backend=backend,
+    p = hb.batch.Batch(name=f'clump-{"hq-" if high_quality else ""}not-afr-cleanup', backend=backend,
                           default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:0.1',
                           default_storage='500Mi', default_cpu=8)
     
@@ -386,20 +421,26 @@ def main():
     ## get phenotype manifest
     pheno_manifest = hl.import_table(f'{ldprune_dir}/phenotype_manifest.tsv.bgz',
                                      impute=True)
-    pheno_manifest = pheno_manifest.filter(pheno_manifest.num_pops>=5) # necessary for LOO clumping
+    pheno_manifest = pheno_manifest.to_pandas()
     
-#    for pop in all_pops[:1]:   
-    for pop in all_pops:
-        pheno_list = get_pheno_list(pheno_manifest=pheno_manifest,
-                                    pop=pop)
+
+    for pop in ['AFR']:
+    for not_pop in [True, False]:
+        for pop in all_pops:
+
+            pheno_list = get_pheno_list(pheno_manifest=pheno_manifest,
+                                        pop=pop,
+                                        not_pop=not_pop)
     
-        for trait_type, phenocode, pheno_sex, coding, modifier in pheno_list:
-            pheno_key_dict = get_pheno_key_dict(trait_type, phenocode, pheno_sex, coding, modifier)
+        for trait_type, phenocode, pheno_sex, coding, modifier, pops in pheno_list:
+            pheno_key_dict = get_pheno_key_dict(trait_type, phenocode, pheno_sex, coding, modifier, pops)
             pheno_id = get_pheno_id(trait_type, phenocode, pheno_sex, coding, modifier)
-            
-            get_adj_betas(p=p, 
+
+            get_adj_betas(p=p,
                           pop=pop, 
+                          not_pop=not_pop,
                           pheno_key_dict=pheno_key_dict,
+                          high_quality=high_quality,
                           pheno_id=pheno_id, 
                           hail_script=hail_script)
     p.run(open=True)

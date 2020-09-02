@@ -13,7 +13,7 @@ import hail as hl
 import sys
 import ukb_common
 from ukbb_pan_ancestry import get_clumping_results_path #get_pheno_manifest_path
-from ukb_common import mwzj_hts_by_tree
+#from ukb_common import mwzj_hts_by_tree
 
 bucket = 'gs://ukb-diverse-pops'
 ldprune_dir = f'{bucket}/ld_prune'
@@ -42,7 +42,19 @@ def tsv_to_ht(args):
     if args.n_threads is not None:
         add_args['master'] = f'local[{args.n_threads}]'
     hl.init(default_reference='GRCh38', log='/tmp/tsv_to_ht.log', **add_args)
-    ht = hl.import_table(args.input_file, no_header=True)
+    ht = hl.import_table(args.input_file, no_header=True, impute=False, 
+                         types={'f0':hl.tstr, 
+                                'f1':hl.tint, # casting to non-str type doesn't work if there are empty strings (as there may be in some of the existing clump_results.txt files)
+                                'f2':hl.tstr,
+                                'f3':hl.tint, 
+                                'f4':hl.tfloat,
+                                'f5':hl.tint,
+                                'f6':hl.tint,
+                                'f7':hl.tint,
+                                'f8':hl.tint,
+                                'f9':hl.tint,
+                                'f10':hl.tint,
+                                'f11':hl.tstr})
     ht = ht.rename({'f0':'contig',
                     'f1':'F',
                     'f2':'varid',
@@ -55,9 +67,12 @@ def tsv_to_ht(args):
                     'f9':'S001',
                     'f10':'S0001',
                     'f11':'SP2'})
+
     ht = ht.filter(ht.contig!='') # added because there were some files with extra lines with empty strings
+    ht = ht.order_by('P')
+    ht = ht.add_index()
     ht = ht.key_by(locus = hl.locus(contig=ht.contig, 
-                                    pos=hl.int(ht.pos),
+                                    pos=ht.pos,
                                     reference_genome='GRCh37'),
                    alleles = hl.array([ht.varid.split(':')[2],
                                        ht.varid.split(':')[3]])
@@ -68,81 +83,10 @@ def tsv_to_ht(args):
                              coding = args.coding,
                              modifier = args.modifier)
     ht = ht.drop('contig','varid','pos')
-#    print(ht.describe())
+    ht.describe()
 #    ht.select().show()
     ht.write(args.output_file, overwrite=args.overwrite)
 
-def write_meta_sumstats(args):
-    r'''
-    Extracting entries from full meta-analysis mt. Run separately, not in pipeline
-    '''
-    add_args = {}
-    if args.n_threads is not None:
-        add_args['master'] = f'local[{args.n_threads}]'
-    hl.init(default_reference='GRCh38', log='/tmp/write_meta_sumstats.log', **add_args)
-    mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/meta_analysis.mt')
-    
-#    mt = mt0.filter_cols((hl.len(mt0.meta_analysis_data[0].pop)==6)|
-#            (hl.literal(PILOT_PHENOTYPES).contains((mt0.pheno, mt0.coding, mt0.trait_type))))
-  # get phenos with results for all 6 populations
-    mt2 = mt.select_cols().select_rows()
-    mt2 = mt2.select_entries(Pvalue = mt2.meta_analysis.Pvalue)
-#    hl.experimental.export_entries_by_col(mt=mt2, path=, batch_size: int = 256, bgzip: bool = True, header_json_in_file: bool = True)
-    ht1 = mt2.entries()
-    ht1 = ht1.key_by('pheno','trait_type','coding','locus','alleles')
-    ht1.describe()
-    ht1 = ht1.annotate(varid = hl.str(ht1.locus)+'_'+ht1.alleles[0]+'_'+ht1.alleles[1])
-    out = f'{ldprune_dir}/meta_analysis.all_pops.ht'
-    print(f'\n...Writing meta-analysis sumstats for all pops...\nFrom: {args.input_file}\nTo:{out}')
-    ht1.write(out, overwrite=True)
-
-def get_meta_sumstats(args):
-    print(ldprune_dir)
-    print(f'\n...Getting meta-analysis sumstats...\nUsing: {args.input_file}\n')
-    pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
-    add_args = {}
-    if args.n_threads is not None:
-        add_args['master'] = f'local[{args.n_threads}]'
-    hl.init(default_reference='GRCh38', log='/tmp/mt_to_tsv.log', **add_args)
-    ht = hl.read_table(args.input_file)
-    ht_pheno = ht.filter((ht.pheno==args.pheno)&
-                         (ht.coding==args.coding)&
-                         (ht.trait_type==args.trait_type))
-    loo_meta_idx = pops.index(args.pop)+1 # get index of leave-one-out meta-analysis result for population `pop`
-    ht_pheno = ht_pheno.key_by('varid') # key by varid, then select P so that those are the only fields when exporting to tsv
-    ht_pheno = ht_pheno.select(P=ht_pheno.Pvalue[loo_meta_idx])
-    ht_pheno = ht_pheno.filter(hl.is_defined(ht_pheno.P))
-    ht_pheno.export(args.output_file)
-
-def test_get_meta_sumstats(args):
-    r'''
-    '''
-    print(ldprune_dir)
-    print(f'\n...Getting meta-analysis sumstats...')
-    all_pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
-    pop = args.pop
-    add_args = {}
-    if args.n_threads is not None:
-        add_args['master'] = f'local[{args.n_threads}]'
-    hl.init(default_reference='GRCh38', log='/tmp/mt_to_tsv.log', **add_args)
-    meta_mt0 = hl.read_matrix_table('gs://ukb-diverse-pops/combined_results/meta_analysis.mt')
-    trait_type, phenocode, pheno_sex, coding, modifier = "biomarkers", "30600", "both_sexes", "30600", ""
-    meta_mt1 = meta_mt0.filter_cols((meta_mt0.trait_type==trait_type)&
-                                    (meta_mt0.phenocode==phenocode)&
-                                    (meta_mt0.pheno_sex==pheno_sex)&
-                                    (meta_mt0.coding==coding)&
-                                    (meta_mt0.modifier==modifier))
-    
-    req_pop_list = [p for p in all_pops if p is not pop]
-    meta_mt1 = meta_mt1.annotate_cols(idx = meta_mt1.meta_analysis_data.pop.index(hl.literal(req_pop_list))) # get index of which meta-analysis is the leave-on-out for current pop
-    loo_mt = meta_mt1.filter_cols(hl.is_defined(meta_mt1.idx))
-    loo_ht0 = loo_mt.entries()
-    loo_ht0 = loo_ht0.key_by()
-    loo_ht1 = loo_ht0.select(pval = loo_ht0.meta_analysis.Pvalue[loo_ht0.idx],
-                             SNP = loo_ht0.locus.contig+':'+hl.str(loo_ht0.locus.position)+':'+loo_ht0.alleles[0]+':'+loo_ht0.alleles[1])
-    loo_ht1 = loo_ht1.filter(hl.is_defined(loo_ht1.pval))
-    loo_ht1.export(args.output_file)
-   
         
 def export_ma_format(batch_size=256):
     r'''
@@ -207,45 +151,62 @@ def export_ma_format(batch_size=256):
                                           header_json_in_file = False)
     
 
-#def mwzj_hts_by_tree(all_hts, temp_dir, globals_for_col_key, 
-#                           debug=False, inner_mode = 'overwrite', repartition_final: int = None):
-#    r'''
-#    Adapted from ukb_common mwzj_hts_by_tree()
-#    Uses read_clump_ht() instead of read_table()
-#    '''
-#    chunk_size = int(len(all_hts) ** 0.5) + 1
-#    outer_hts = []
-#    
-#    checkpoint_kwargs = {inner_mode: True}
-#    if repartition_final is not None:
-#        intervals = ukb_common.get_n_even_intervals(repartition_final)
-#        checkpoint_kwargs['_intervals'] = intervals
-#    
-#    if debug: print(f'Running chunk size {chunk_size}...')
-#    for i in range(chunk_size):
-#        if i * chunk_size >= len(all_hts): break
-#        hts = all_hts[i * chunk_size:(i + 1) * chunk_size]
-#        if debug: print(f'Going from {i * chunk_size} to {(i + 1) * chunk_size} ({len(hts)} HTs)...')
-#        try:
-#            if isinstance(hts[0], str):
-#                hts = list(map(lambda x: hl.read_table(x), hts))
-#            ht = hl.Table.multi_way_zip_join(hts, 'row_field_name', 'global_field_name')
-#        except:
-#            if debug:
-#                print(f'problem in range {i * chunk_size}-{i * chunk_size + chunk_size}')
-#                _ = [ht.describe() for ht in hts]
-#            raise
-#        outer_hts.append(ht.checkpoint(f'{temp_dir}/temp_output_{i}.ht', _read_if_exists=True, **checkpoint_kwargs))
-#    ht = hl.Table.multi_way_zip_join(outer_hts, 'row_field_name_outer', 'global_field_name_outer')
-#    ht = ht.transmute(inner_row=hl.flatmap(lambda i:
-#                                           hl.cond(hl.is_missing(ht.row_field_name_outer[i].row_field_name),
-#                                                   hl.range(0, hl.len(ht.global_field_name_outer[i].global_field_name))
-#                                                   .map(lambda _: hl.null(ht.row_field_name_outer[i].row_field_name.dtype.element_type)),
-#                                                   ht.row_field_name_outer[i].row_field_name),
-#                                           hl.range(hl.len(ht.global_field_name_outer))))
-#    ht = ht.transmute_globals(inner_global=hl.flatmap(lambda x: x.global_field_name, ht.global_field_name_outer))
-#    mt = ht._unlocalize_entries('inner_row', 'inner_global', globals_for_col_key)
-#    return mt
+def mwzj_hts_by_tree(all_hts, temp_dir, globals_for_col_key, 
+                     debug=False, inner_mode = 'overwrite', repartition_final: int = None,
+                     read_if_exists = False):
+    r'''
+    Adapted from ukb_common mwzj_hts_by_tree()
+    Uses read_clump_ht() instead of read_table()
+    '''
+    chunk_size = int(len(all_hts) ** 0.5) + 1
+    outer_hts = []
+    
+    if read_if_exists: print('\n\nWARNING: Intermediate tables will not be overwritten if they already exist\n\n')
+    
+    checkpoint_kwargs = {inner_mode: True if not read_if_exists else False,
+                         '_read_if_exists': read_if_exists} #
+    if repartition_final is not None:
+        intervals = ukb_common.get_n_even_intervals(repartition_final)
+        checkpoint_kwargs['_intervals'] = intervals
+    
+    if debug: print(f'Running chunk size {chunk_size}...')
+    for i in range(chunk_size):
+        if i * chunk_size >= len(all_hts): break
+        hts = all_hts[i * chunk_size:(i + 1) * chunk_size]
+        if debug: print(f'Going from {i * chunk_size} to {(i + 1) * chunk_size} ({len(hts)} HTs)...')
+        try:
+            if isinstance(hts[0], str):
+                def read_clump_ht(f):
+                    ht = hl.read_table(f)
+                    ht = ht.drop('idx')
+#                    ht = ht.select(F=ht.F,
+#                                   P=ht.P,
+#                                   TOTAL=ht.TOTAL,
+#                                   NSIG=ht.NSIG,
+#                                   S05=ht.S05,
+#                                   S01=ht.S01,
+#                                   S001=ht.S001,
+#                                   S0001=ht.S0001,
+#                                   SP2=ht.SP2)
+                    return ht
+                hts = list(map(read_clump_ht, hts))
+            ht = hl.Table.multi_way_zip_join(hts, 'row_field_name', 'global_field_name')
+        except:
+            if debug:
+                print(f'problem in range {i * chunk_size}-{i * chunk_size + chunk_size}')
+                _ = [ht.describe() for ht in hts]
+            raise
+        outer_hts.append(ht.checkpoint(f'{temp_dir}/temp_output_{i}.ht', **checkpoint_kwargs))
+    ht = hl.Table.multi_way_zip_join(outer_hts, 'row_field_name_outer', 'global_field_name_outer')
+    ht = ht.transmute(inner_row=hl.flatmap(lambda i:
+                                           hl.cond(hl.is_missing(ht.row_field_name_outer[i].row_field_name),
+                                                   hl.range(0, hl.len(ht.global_field_name_outer[i].global_field_name))
+                                                   .map(lambda _: hl.null(ht.row_field_name_outer[i].row_field_name.dtype.element_type)),
+                                                   ht.row_field_name_outer[i].row_field_name),
+                                           hl.range(hl.len(ht.global_field_name_outer))))
+    ht = ht.transmute_globals(inner_global=hl.flatmap(lambda x: x.global_field_name, ht.global_field_name_outer))
+    mt = ht._unlocalize_entries('inner_row', 'inner_global', globals_for_col_key)
+    return mt
 
 def resume_mwzj(temp_dir, globals_for_col_key):
     ls = hl.hadoop_ls(temp_dir)
@@ -265,7 +226,7 @@ def resume_mwzj(temp_dir, globals_for_col_key):
     mt = ht._unlocalize_entries('inner_row', 'inner_global', globals_for_col_key)
     return mt
 
-def join_clump_hts(pop):
+def join_clump_hts(pop, not_pop, high_quality=False, overwrite=False):
     r'''
     Wrapper for mwzj
     '''
@@ -274,51 +235,91 @@ def join_clump_hts(pop):
     #            get_pheno_manifest_path(), 
             'gs://ukb-diverse-pops/ld_prune/phenotype_manifest.tsv.bgz', # hardcoded path to avoid having to change user-pays
             impute=True, 
-            key=ukb_common.PHENO_KEY_FIELDS)
+            key=ukb_common.PHENO_KEY_FIELDS
+            )
     pheno_manifest = pheno_manifest.annotate(pheno_id = pheno_manifest.filename.replace('.tsv.bgz',''))
     
-#    clump_results_dir = f'{ldprune_dir}/results/not_{pop}'
-    clump_results_dir = f'{ldprune_dir}/results_high_quality/not_{pop}'
+    clump_results_dir = f'{ldprune_dir}/results{"_high_quality" if high_quality else ""}/{"not_" if not_pop else ""}{pop}'
     ls = hl.hadoop_ls(f'{clump_results_dir}/*')
     all_hts = [x['path'] for x in ls if 'clump_results.ht' in x['path']]
     
-    temp_dir = f'gs://ukbb-diverse-temp-30day/nb-temp/not_{pop}-hq'
+    temp_dir = f'gs://ukbb-diverse-temp-30day/nb-temp/{"not_" if not_pop else ""}{pop}{"-hq" if high_quality else ""}'
     globals_for_col_key = ukb_common.PHENO_KEY_FIELDS
     mt = mwzj_hts_by_tree(all_hts=all_hts,
                          temp_dir=temp_dir,
                          globals_for_col_key=globals_for_col_key)
 #    mt = resume_mwzj(temp_dir=temp_dir, # NOTE: only use if all the temp hts have been created
 #                     globals_for_col_key=globals_for_col_key)
-#    mt.write(f'{ldprune_dir}/clump_results/not_{pop}.mt', overwrite=True)
-    mt.write(f'{ldprune_dir}/clump_results_high_quality/not_{pop}.mt', overwrite=True)
-    
-def make_full_clump_mt(high_quality_only=False):
-    mts = []
-    for pop in all_pops:
-        pop_array = [p for p in all_pops if p!=pop]
-#        mt = hl.read_matrix_table(f'{ldprune_dir}/clump_results/not_{pop}.mt')
-        mt = hl.read_matrix_table(f'{ldprune_dir}/clump_results_high_quality/not_{pop}.mt') # alternative path for results that are filtered to high quality variants before clumping
-        print(mt.count_cols())
-        mt = mt.annotate_cols(pop = hl.literal(pop_array))
+
+    mt.write(get_clumping_results_path(pop=pop,
+                                       not_pop=not_pop,
+                                       high_quality=high_quality), 
+             overwrite=overwrite)
+
+def munge_mt(pop, not_pop, high_quality, parts=None):
+    r'''
+    For processing MTs before joining into the full clump mt
+    '''
+    pop_array = [p for p in all_pops if p!=pop] if not_pop else [pop]
+    mt = hl.read_matrix_table(path=get_clumping_results_path(pop=pop,not_pop=not_pop,high_quality=high_quality),
+                              _intervals=parts) # alternative path for results that are filtered to high quality variants before clumping
+    print(f'{"not_" if not_pop else ""}{pop}: {mt.count_cols()}')
+    mt = mt.annotate_cols(clump_pops = hl.literal(pop_array))
+    if 'idx' in mt.entry.keys():
+        mt = mt.select_entries(plink_clump=mt.entry.drop('idx')) # needed to clean up not_EAS and not_MID MTs (8/4/20)
+    else:
         mt = mt.select_entries(plink_clump=mt.entry)
-        mts.append(mt)
-#    for pop in all_pops:
-#        pop_array = [pop]
-#        mt = hl.read_matrix_table(f'{ldprune_dir}/clump_results/{pop}.mt')
-#        print(mt.count_cols())
-#        mt = mt.annotate_cols(pop = hl.literal(pop_array))
-#        mt = mt.select_entries(plink_clump=mt.entry)
-#        mts.append(mt)
+    mt.describe()
+    return mt
+
+def make_single_pop_clump_mt(high_quality=False, overwrite=False):
+    mts = []
+    not_pop=False
     
+    n_partitions = 5000
+    parts = hl.read_matrix_table(get_clumping_results_path(pop='EUR',not_pop=not_pop,high_quality=high_quality))._calculate_new_partitions(n_partitions)
+    
+    # for all single-pop clumping results
+    for pop in all_pops:
+        mts.append(munge_mt(pop=pop,
+                            not_pop=not_pop,
+                            high_quality=high_quality,
+                            parts=parts))
+    
+    singlepop_mt = mts[0]
+    for mt in mts[1:]:
+        singlepop_mt = singlepop_mt.union_cols(mt, row_join_type='outer')
+        
+    singlepop_mt = singlepop_mt.collect_cols_by_key()
+        
+    singlepop_mt.write(get_clumping_results_path(pop='single_pop',high_quality=high_quality), 
+                       overwrite=overwrite)
+    # 2020-08-06 17:51:23 Hail: INFO: wrote matrix table with 24870911 rows and 7221 columns in 5000 partitions
+    # Time: 2hr 48 min (ran with 2 workers, 150 preemptibles for first ~1hr, then removed all preemptibles)
+    
+def make_full_clump_mt(high_quality=False, overwrite=False):
+    mts = []
+    
+    n_partitions = 5000 
+    parts = hl.read_matrix_table(get_clumping_results_path(pop='EUR',not_pop=False,high_quality=high_quality))._calculate_new_partitions(n_partitions)
+
+    for not_pop in [True, False]:
+        for pop in all_pops:
+            mts.append(munge_mt(pop=pop,
+                                not_pop=not_pop,
+                                high_quality=high_quality,
+                                parts=parts))
     full_mt = mts[0]
     for mt in mts[1:]:
         full_mt = full_mt.union_cols(mt, row_join_type='outer')
         
     full_mt = full_mt.collect_cols_by_key()
     
-#    full_mt.write(f'{ldprune_dir}/clump_results/full_clump_results.mt')
-#    full_mt.write(f'{ldprune_dir}/clump_results_high_quality/full_clump_results.mt')
-    full_mt.write(get_clumping_results_path(pop='full',high_quality_only=high_quality_only))
+    full_mt.write(get_clumping_results_path(pop='full',high_quality=high_quality), 
+                  overwrite=overwrite)
+    # 2020-08-07 06:17:10 Hail: INFO: wrote matrix table with 28024109 rows and 7221 columns in 5000 partitions
+    # Time: 5hr 6 min (ran with 2 workers, 150 preemptibles for first ~1hr, then removed all preemptibles)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -334,13 +335,12 @@ if __name__ == '__main__':
     parser.add_argument('--modifier', type=str, default='', help='modifier in meta-analyzed sumstats')
     parser.add_argument('--ht_to_tsv', action='store_true')
     parser.add_argument('--tsv_to_ht', action='store_true')
-    parser.add_argument('--write_meta_sumstats', action='store_true')
-    parser.add_argument('--get_meta_sumstats', action='store_true')
-    parser.add_argument('--test_get_meta_sumstats', action='store_true')
-    parser.add_argument('--export_pop_pheno_pairs', action='store_true')    
-    parser.add_argument('--join_clump_hts', action='store_true')    
+    parser.add_argument('--not_pop', action='store_true', help='whether pop set is a not_{pop}')
+    parser.add_argument('--join_clump_hts', default=False, action='store_true')    
     parser.add_argument('--make_full_clump_mt', action='store_true')    
+    parser.add_argument('--make_single_pop_clump_mt', action='store_true')    
     parser.add_argument('--batch_size', type=int, default=256, help='max number of phenotypes per batch for export_entries_by_col')
+    parser.add_argument('--high_quality', default=False, action='store_true', help='Use high quality variants only')
     parser.add_argument('--overwrite', default=False, action='store_true', help='overwrite existing files')
     args = parser.parse_args()
     
@@ -349,19 +349,18 @@ if __name__ == '__main__':
         ht_to_tsv(args)
     elif args.tsv_to_ht:
         tsv_to_ht(args)
-    elif args.get_meta_sumstats:
-        get_meta_sumstats(args)
-    elif args.test_get_meta_sumstats:
-        test_get_meta_sumstats(args)
-    elif args.write_meta_sumstats:
-        write_meta_sumstats(args)
     elif args.join_clump_hts:
-        join_clump_hts(pop=args.pop)
+        join_clump_hts(pop=args.pop, 
+                       not_pop=args.not_pop,
+                       high_quality=args.high_quality,
+                       overwrite=args.overwrite)
     elif args.make_full_clump_mt:
-        make_full_clump_mt()
+        make_full_clump_mt(high_quality=args.high_quality,
+                           overwrite=args.overwrite)
+    elif args.make_single_pop_clump_mt:
+        make_single_pop_clump_mt(high_quality=args.high_quality, 
+                                 overwrite=args.overwrite)
 
 #    except:
 #        hl.copy_log('gs://ukbb-diverse-temp-30day/nb_hail.log')
-        
-
         
