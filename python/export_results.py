@@ -375,7 +375,7 @@ def make_pheno_manifest():
     ht = ht.annotate(aws_link = aws_bucket+'/'+ht.filename,
                      aws_link_tabix = aws_bucket+'_tabix/'+ht.filename+'.tbi')
     
-    other_fields_ht = hl.import_table('{ldprune_dir}/release/md5_hex_and_file_size.tsv.bgz',
+    other_fields_ht = hl.import_table(f'{ldprune_dir}/release/md5_hex_and_file_size.tsv.bgz',
                                       force_bgz=True, key=PHENO_KEY_FIELDS)
     other_fields = ['size_in_bytes','size_in_bytes_tabix','md5_hex','md5_hex_tabix']
     
