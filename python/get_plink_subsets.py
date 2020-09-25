@@ -41,7 +41,7 @@ def get_filtered_not_pop_mt(pops: list,
                             filter_mac_instead_of_ac: bool = False):
     r'''
     Wraps `get_filtered_mt()` from ukbb_pan_ancestry.resources.genotypes
-    This filters to 
+    This filters to samples from populations listed in `pops`.
     '''
     assert len(pops)>0 and pops.issubset(POPS)
     
@@ -204,9 +204,7 @@ def main(args):
 if __name__=='__main__':
     
     parser = argparse.ArgumentParser()
-    parser.add_argument('--pop', default=None, type=str, help='population to use')
-    parser.add_argument('--not_pop', default=False, action='store_true', help='if true, get leave-one-out pop set without `pop`')
-    parser.add_argument('--chr_x_only', default=False, action='store_true', help='Only export chr X')
+    parser.add_argument('--pops', default=None, type=str, help='population to use')
     parser.add_argument('--overwrite_plink', default=False, action='store_true', help='whether to overwrite existing PLINK files')
     parser.add_argument('--export_varid', default=False, action='store_true', help='export varids')
     args = parser.parse_args()
