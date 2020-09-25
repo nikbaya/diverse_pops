@@ -68,8 +68,7 @@ from ukbb_pan_ancestry.resources.generic import get_hq_samples, get_pruned_tsv_p
 #     ht = hl.read_table(get_covariates_ht_path())
 #     return ht.key_by(s=key_type(ht.s))
 
-from ukbb_pan_ancestry.resources.genotypes import get_sample_file, get_ukb_af_ht_path, \
-                                                  get_filtered_mt
+from ukbb_pan_ancestry.resources.genotypes import get_filtered_mt
 
 # from https://github.com/atgu/ukbb_pan_ancestry/blob/master/resources/genotypes.py
 #   - get_sample_file()
@@ -162,7 +161,7 @@ def get_filtered_not_pop_mt(chrom: str = 'all',
     Wraps `get_filtered_mt()` from ukbb_pan_ancestry.resources.genotypes
     This version has the option to filter to all populations but `pop` if `not_pop`=True
     '''
-    assert pop in POPS
+    assert pop in POPS or pop=='all'
     assert ((pop!='all')|(not_pop!=True)), 'ERROR: `pop` cannot be "all" if `not_pop`=True'
     
     kwargs = {
@@ -226,7 +225,7 @@ def get_subset(mt_pop, pop_dict: dict, pop: str, n_max: int, not_pop: bool = Fal
     print({k:v*n_sample for k,v in pop_prop_dict.items()})
         
     cols = mt_pop.cols()
-    if not not_pop and n_sample == pop_dict[pop]: # if sampling a single population `pop` and n_sample is the same as the population's size
+    if not not_pop and pop!='ALL_POPS' and n_sample == pop_dict[pop]: # if sampling a single population `pop` and n_sample is the same as the population's size. WARNING: Order of conditional statements matters.
         ht_sample = cols
     else:
         cols = cols.annotate(tmp_rand = hl.rand_norm())
