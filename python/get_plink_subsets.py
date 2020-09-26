@@ -15,8 +15,6 @@ from ukbb_pan_ancestry.resources.genotypes import get_filtered_mt
 from ukbb_pan_ancestry.resources.results import get_pheno_manifest_path
 from ukbb_pan_ancestry import POPS
 
-hl.init(log='/tmp/hail.log')
-
 bucket = 'gs://ukb-diverse-pops'
 
 MIN_CASES = 50
@@ -180,6 +178,11 @@ def batch_split_by_chrom(args):
     r'''
     Splits bfiles by chromosome, for later use by plink_clump.py
     '''
+    
+    hl.init(default_reference='GRCh38', 
+            spark_conf={'spark.hadoop.fs.gs.requester.pays.mode': 'AUTO', 
+                        'spark.hadoop.fs.gs.requester.pays.project.id': 'ukbb-diversepops-neale'})
+    
     pops_list = get_pops_list(args)
     
     n_max = 5000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
@@ -191,7 +194,7 @@ def batch_split_by_chrom(args):
     
     b = hb.batch.Batch(name='split_by_chrom', backend=backend,
                        default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:0.1',
-                       default_storage='50G', default_cpu=8)
+                       default_storage='30G', default_cpu=8)
         
     for pops in pops_list:
         pops_str = '-'.join(pops)
@@ -204,14 +207,13 @@ def batch_split_by_chrom(args):
             print(f'\nAll per-chrom PLINK files created for {pops_str}')
         else:
             if not all(map(hl.hadoop_is_file, master_bfile_paths)):
-                print('\nWARNING: Insufficient files to split into per-chrom bed/bim files\n'+
-                      f'Skipping {pops_str} split-by-chrom!')
+                print(f'\nWARNING: Insufficient files for {pops_str} to split into per-chrom bed/bim files, skipping\n')
                 continue
             else:
-                print(f'\n... starting bfile split for {pops_str} ...\n')
+                print(f'\n... Running bfile per-chrom split for {pops_str} ...')
                 prefix = f'{subsets_dir}/{pops_str}/{pops_str}'
                 bfile = b.read_input_group(
-                    {suffix:f'{prefix}.{suffix}' for suffix in ['bed','bim','fam']}
+                    **{suffix:f'{prefix}.{suffix}' for suffix in ['bed','bim','fam']}
                     )
                 split = b.new_job(name=f'split_by_chrom_{pops_str}')
                 for chrom in chroms:
@@ -223,19 +225,23 @@ def batch_split_by_chrom(args):
                         --bfile {bfile} \\
                         --chr {chrom} \\
                         --output-chr M \\
+                        --make-bed \\
                         --out {split[f"ofile_{chrom}"]}
                         '''
                         )
-                    # b.write_output(split[f'ofile_{chrom}'], get_bfile_chr_path(bfile_prefix, chrom).replace('ld_prune/subsets', 'ld_prune/tmp-subsets'))
+                    # print(f"saving to {get_bfile_chr_path(bfile_prefix, chrom)}")
+                    b.write_output(split[f'ofile_{chrom}'], get_bfile_chr_path(bfile_prefix, chrom))
 
     b.run(open=True)
     backend.close()
 
         
 def main(args):
-        
+    
+    hl.init(log='/tmp/hail.log')
+    
     n_max = 5000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
-    subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k-tmp' 
+    subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k' 
     
     pops_list = get_pops_list(args)
     print(f'overwrite_plink: {args.overwrite_plink}')
