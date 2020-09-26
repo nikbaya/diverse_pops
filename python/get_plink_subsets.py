@@ -11,13 +11,12 @@ Get PLINK subsets for clumping
 import hail as hl
 import argparse
 from ukbb_pan_ancestry.resources.genotypes import get_filtered_mt
+from ukbb_pan_ancestry.resources.results import get_pheno_manifest_path
+from ukbb_pan_ancestry import POPS
 
 hl.init(log='/tmp/hail.log')
 
 bucket = 'gs://ukb-diverse-pops'
-REFERENCE_GENOME = 'GRCh37'
-CHROMOSOMES = list(map(str, range(1, 23))) + ['X', 'XY']
-POPS = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
 
 MIN_CASES = 50
 MIN_CASES_ALL = 100
@@ -32,8 +31,12 @@ pop_dict = {
     'MID': 1599
             }
 
+chroms = list(range(1,23))+['X']
 
-def get_filtered_not_pop_mt(pops: list,
+def get_bfile_chr_path(bfile_prefix, chrom):
+    return f'{bfile_prefix}.chr{chrom}'
+
+def get_mt_filtered_by_pops(pops: list,
                             chrom: str = 'all',
                             imputed: bool = True,
                             min_mac: int = 20,
@@ -43,17 +46,15 @@ def get_filtered_not_pop_mt(pops: list,
     Wraps `get_filtered_mt()` from ukbb_pan_ancestry.resources.genotypes
     This filters to samples from populations listed in `pops`.
     '''
-    assert len(pops)>0 and pops.issubset(POPS)
+    assert len(pops)>0 and set(pops).issubset(POPS)
     
-    kwargs = {
-        'pop':('all' if len(pops)>1 else pops[0]),
-        'imputed':imputed,
-        'min_mac':min_mac,
-        'entry_fields':entry_fields,
-        'filter_mac_instead_of_ac':filter_mac_instead_of_ac
-        }
-    
-    mt = get_filtered_mt(chrom=chrom, **kwargs)
+    mt = get_filtered_mt(chrom=chrom, 
+                         pop='all' if len(pops)>1 else pops[0],
+                         imputed=imputed,
+                         min_mac=min_mac,
+                         entry_fields=entry_fields,
+                         filter_mac_instead_of_ac=filter_mac_instead_of_ac
+                         )
     
     if len(pops)>1:
         mt = mt.filter_cols(hl.set(pops).contains(mt.pop))
@@ -70,15 +71,12 @@ def get_pop_prop_dict(pop_dict: dict, pops: list) -> (dict, int):
     pop_prop_dict = {k: v/n_total for k,v in tmp_pop_dict.items()}
     return pop_prop_dict, n_total
 
-def get_subset(mt_pop, pop_dict: dict, pop: str, n_max: int, not_pop: bool = False):
+def get_subset(mt_pop, pop_dict: dict, pops: list, n_max: int):
     r'''
-    Get Hail table sample of max size = `n_max` for population `pop`.
-    If `not_pop`=True, this gets the sample subset with every population except
-    population `pop`.
+    Get Hail table sample of max size = `n_max` for list of populations `pops`.
     '''
     pop_prop_dict, n_total = get_pop_prop_dict(pop_dict=pop_dict, 
-                                               pop=pop, 
-                                               not_pop=not_pop)
+                                               pops=pops)
 
     limiting_pop = min(pop_prop_dict, key=pop_prop_dict.get)
     n_sample = int(min(pop_dict[limiting_pop]/pop_prop_dict[limiting_pop], n_max))
@@ -87,7 +85,7 @@ def get_subset(mt_pop, pop_dict: dict, pop: str, n_max: int, not_pop: bool = Fal
     print({k:v*n_sample for k,v in pop_prop_dict.items()})
         
     cols = mt_pop.cols()
-    if not not_pop and pop!='ALL_POPS' and n_sample == pop_dict[pop]: # if sampling a single population `pop` and n_sample is the same as the population's size. WARNING: Order of conditional statements matters.
+    if len(pops)==1 and n_sample == pop_dict[pops[0]]: # if sampling a single population `pop` and n_sample is the same as the population's size. 
         ht_sample = cols
     else:
         cols = cols.annotate(tmp_rand = hl.rand_norm())
@@ -100,12 +98,12 @@ def get_subset(mt_pop, pop_dict: dict, pop: str, n_max: int, not_pop: bool = Fal
     
     return ht_sample
     
-def to_plink(pop: str, 
+def to_plink(pops: list, 
              subsets_dir, 
              mt, 
              ht_sample, 
-             not_pop: bool = False, 
-             chr_x_only: bool = False,
+             chrom,
+             bfile_path,
              export_varid: bool = True,
              overwrite=False):
     r'''
@@ -115,12 +113,9 @@ def to_plink(pop: str,
     '''
     assert 'GT' in mt.entry, "mt must have 'GT' as an entry field"
     assert mt.GT.dtype==hl.tcall, "entry field 'GT' must be of type `Call`"
-    print(chr_x_only)
-    bfile_path = f'{subsets_dir}/{"not_" if not_pop else ""}{pop}/{"not_" if not_pop else ""}{pop}'
-    if chr_x_only: bfile_path += '.chrX'
     
-    if not overwrite and all([hl.hadoop_exists(f'{bfile_path}.{suffix}') for suffix in ['bed','bim','fam']]):
-        print(f'\nPLINK files already exist for {"not_" if not_pop else ""}{pop}')
+    if not overwrite and all([hl.hadoop_exists(f'{bfile_path}.{suffix}') for suffix in ['bed','bim']]):
+        print(f'\nPLINK .bed and .bim files already exist for {pops}, chr{chrom}')
         print(bfile_path)
     else:
         print(f'Saving to bfile prefix {bfile_path}')
@@ -130,11 +125,16 @@ def to_plink(pop: str,
                         output = bfile_path, 
                         ind_id = mt_sample.s,
                         varid = mt_sample.varid) # varid used to be rsid
+
 def export_varid(args):
+    r'''
+    Only used to check varids
+    '''
     n_max = 5000
     subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k' 
     
-    mt = get_filtered_not_pop_mt(chrom='all' if not args.chr_x_only else 'X', 
+    mt = get_mt_filtered_by_pops(chrom='all', 
+                                 pop='all',
                                  entry_fields=('GT',)) # default entry_fields will be 'GP', we need 'GT' for exporting to PLINK
     
     mt_sample = mt.annotate_rows(chrom = mt.locus.contig,
@@ -147,59 +147,83 @@ def export_varid(args):
     rows.export(f'{subsets_dir}/varid.txt',delimiter=' ')
         
 def main(args):
+    if args.pops is None:
+        pheno_manifest = hl.import_table(get_pheno_manifest_path())
+        pops_list_all = pheno_manifest.pops.collect()
+        pops_list_all = sorted(list(set(pops_list_all)))
+        pops_list_all = [p.split(',') for p in pops_list_all] # list of lists of strings
+        idx = range(args.paridx, len(pops_list_all), args.parsplit)
+        pops_list = [pops for i, pops in enumerate(pops_list_all) if i in idx]
+    else:
+        pops = sorted(args.pops.upper().split('-'))
+        assert set(pops).issubset(POPS), f'Invalid populations: {set(pops).difference(POPS)}'
+        pops_list = [pops] # list of list of strings
+        
     n_max = 5000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
-    not_pop = args.not_pop
     
     subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k' 
     
-    pop = args.pop.upper()
-    assert pop in POPS+['ALL_POPS'], f'Invalid population passed pop flag: {pop}'
-    
-    print(
-    f'''
-    pop: {pop}
-    not_pop: {not_pop}
-    chr_x_only: {args.chr_x_only}
-    overwrite_plink: {args.overwrite_plink}
-    ''')
+    print(f'''\n\npops: {'-'.join(pops) if len(pops_list)==1 else f"{len(pops_list)} of {len(pops_list_all)} combinations"}\n'''+
+          f'overwrite_plink: {args.overwrite_plink}')
 
-    mt_pop = get_filtered_not_pop_mt(chrom='all' if not args.chr_x_only else 'X',  # chrom='all' includes autosomes and chrX
-                                     pop='all' if args.pop=='ALL_POPS' else pop,
-                                     entry_fields=('GT',),
-                                     not_pop=not_pop) # default entry_fields will be 'GP', we need 'GT' for exporting to PLINK
-
-    print(f'\n\nmt sample ct ({pop}, not_pop={not_pop}): {mt_pop.count_cols()}\n\n')
-    print(f'\n\nmt variant ct ({pop}, not_pop={not_pop}): {mt_pop.count_rows()}\n\n')
-    
-    ht_sample_path = f'{subsets_dir}/{"not_" if not_pop else ""}{pop}.ht'
-    print(ht_sample_path)
-    if hl.hadoop_exists(f'{ht_sample_path}/_SUCCESS'):
-        ht_sample = hl.read_table(ht_sample_path)
-        print(f'... Subset ht already exists for pop={pop}, not_pop={not_pop} ...')
-        print(f'\n\nSubset ht sample ct: {ht_sample.count()}\n\n')
-    else:
-        pass
-        print(f'... getting subset (pop={pop}, not_pop={not_pop}) ...')
-        
-        ht_sample = get_subset(mt_pop = mt_pop,
-                               pop_dict = pop_dict, 
-                               pop = pop, 
-                               n_max = n_max, 
-                               not_pop = not_pop)
-        
-        ht_sample_ct = ht_sample.count()
-        print(f'\n\nht_sample_ct: {ht_sample_ct}\n\n')
-        ht_sample = ht_sample.checkpoint(ht_sample_path)
-    
-    print(f'... exporting to plink (pop={pop}, not_pop={not_pop}) ...')
-    to_plink(pop = pop,
-             subsets_dir=subsets_dir,
-             mt = mt_pop,
-             ht_sample = ht_sample,
-             not_pop = not_pop,
-             chr_x_only=args.chr_x_only,
-             overwrite=args.overwrite_plink)
-    
+    for pops in pops_list:
+        pops_str = '-'.join(pops)
+        ht_sample_path = f'{subsets_dir}/{pops_str}/{pops_str}.ht'
+        bfile_prefix = f'{subsets_dir}/{pops_str}/{pops_str}'
+        master_fam_path = f'{bfile_prefix}.fam' # single fam file to avoid redundancy
+        bfile_paths = [f'{get_bfile_chr_path(bfile_prefix, chrom)}.{suffix}' for chrom in chroms for suffix in ['bed','bim']]
+        if not args.overwrite_plink and all(list(map(hl.hadoop_is_file, 
+                                                     [f'{ht_sample_path}/_SUCCESS', master_fam_path]+bfile_paths))):
+            print(f'\nAll files already created for {pops_str}!')
+            continue
+        else:
+            print(f'\n... Starting PLINK exports for {pops_str} ...')
+        for chrom in chroms:
+            if not args.overwrite_plink and all(list(map(hl.hadoop_is_file,
+                                                         [master_fam_path]+ # include check for master fam in case this needs to be created
+                                                         [f'{get_bfile_chr_path(bfile_prefix, chrom)}.{suffix}' for suffix in ['bed','bim']]))):
+                print(f'PLINK chrom-specific bed/bim files already created for {pops_str}, chr{chrom}')
+                continue
+            print(f'\n... Starting chr{chrom} ...\n')
+            mt_pop = get_mt_filtered_by_pops(pops=pops,
+                                             chrom=chrom,  # chrom='all' includes autosomes and chrX
+                                             entry_fields=('GT',)) # default entry_fields will be 'GP', we need 'GT' for exporting to PLINK
+            n_rows, n_cols = mt_pop.count()        
+            print(f'\n\nmt variant ct ({pops_str}, chr{chrom}): {n_rows}')
+            print(f'mt sample ct ({pops_str}, chr{chrom}): {n_cols}\n\n')
+            
+            ## keep this in the chrom for-loop because mt_pop is defined within the loop
+            if hl.hadoop_is_file(f'{ht_sample_path}/_SUCCESS'):
+                ht_sample = hl.read_table(ht_sample_path)
+                ht_sample_ct = ht_sample.count()
+                print(f'... Subset ht already exists for pops={pops_str} ...')
+                print(f'\nSubset ht sample ct: {ht_sample_ct}\n\n')
+            else:
+            
+                print(f'... Getting sample subset ({pops_str}) ...\n')
+                
+                ht_sample = get_subset(mt_pop = mt_pop,
+                                       pop_dict = pop_dict, 
+                                       pops = pops, 
+                                       n_max = n_max)
+                
+                ht_sample_ct = ht_sample.count()
+                print(f'\n\nht_sample_ct: {ht_sample_ct}\n\n')
+                ht_sample = ht_sample.checkpoint(ht_sample_path)
+            
+            print(f'... Exporting to PLINK ({pops_str}, chr{chrom}) ...')
+            bfile_chr_path = f'{bfile_prefix}.chr{chrom}'
+            to_plink(pops = pops,
+                     subsets_dir=subsets_dir,
+                     mt = mt_pop,
+                     ht_sample = ht_sample,
+                     chrom = chrom,
+                     bfile_path = bfile_chr_path,
+                     overwrite=args.overwrite_plink)
+            
+            if not hl.hadoop_is_file(master_fam_path):
+                print(f'Creating {master_fam_path} by copying chrom-specific fam file for chr{chrom}')
+                hl.hadoop_copy(get_bfile_chr_path(bfile_prefix, chrom)+'.fam', master_fam_path)
 
 if __name__=='__main__':
     
@@ -207,6 +231,8 @@ if __name__=='__main__':
     parser.add_argument('--pops', default=None, type=str, help='population to use')
     parser.add_argument('--overwrite_plink', default=False, action='store_true', help='whether to overwrite existing PLINK files')
     parser.add_argument('--export_varid', default=False, action='store_true', help='export varids')
+    parser.add_argument('--parsplit', type=int, default=1, help="number of parallel batches to split pop combinations into")
+    parser.add_argument('--paridx', type=int, default=0, help="which of the parallel batches to run (zero-indexed)")
     args = parser.parse_args()
     
     if args.export_varid:

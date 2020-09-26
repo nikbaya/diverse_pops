@@ -53,12 +53,12 @@ def get_pheno_list(pheno_manifest, pop: str, not_pop: bool = False):
     '''
     
     if not_pop:
-#        pheno_manifest = pheno_manifest[((pheno_manifest.num_pops==5)&(~pheno_manifest.pops.str.contains(pop)))|
-#                (pheno_manifest.num_pops==6)]
-        pheno_manifest = pheno_manifest[pheno_manifest.num_pops==6] # get 6 pop traits only for testing leave-one-out 
+        pheno_manifest = pheno_manifest[((pheno_manifest.num_pops==5)&(~pheno_manifest.pops.str.contains(pop)))|
+                                        (pheno_manifest.num_pops==6)]
+    elif pop=='ALL_POPS':
+        pheno_manifest = pheno_manifest[pheno_manifest.num_pops==6]
     else:
         pheno_manifest = pheno_manifest[pheno_manifest.pops.str.contains(pop)] 
-#    pheno_manifest = pheno_manifest[pheno_manifest.num_pops==2] # added to divide batches
     
     pheno_manifest = pheno_manifest.sort_values(by='num_pops')
 
