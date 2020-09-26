@@ -10,6 +10,7 @@ Get PLINK subsets for clumping
 
 import hail as hl
 import argparse
+import hailtop.batch as hb
 from ukbb_pan_ancestry.resources.genotypes import get_filtered_mt
 from ukbb_pan_ancestry.resources.results import get_pheno_manifest_path
 from ukbb_pan_ancestry import POPS
@@ -33,8 +34,30 @@ pop_dict = {
 
 chroms = list(range(1,23))+['X']
 
+
+def get_pops_list(args):
+    r'''
+    Generates list of population combinations. If `pops`=None, this will read 
+    the phenotype manifest to get all population combinations.
+    '''
+    if args.pops is None:
+        pheno_manifest = hl.import_table(get_pheno_manifest_path())
+        pops_list_all = pheno_manifest.pops.collect()
+        pops_list_all = sorted(list(set(pops_list_all)))
+        pops_list_all = [p.split(',') for p in pops_list_all] # list of lists of strings
+        idx = range(args.paridx, len(pops_list_all), args.parsplit)
+        pops_list = [pops for i, pops in enumerate(pops_list_all) if i in idx]
+    else:
+        pops = sorted(args.pops.upper().split('-'))
+        assert set(pops).issubset(POPS), f'Invalid populations: {set(pops).difference(POPS)}'
+        pops_list = [pops] # list of list of strings
+    print(f'''\n\npops: {'-'.join(pops) if len(pops_list)==1 else f"{len(pops_list)} of {len(pops_list_all)} combinations"}\n''')
+    return pops_list
+
+
 def get_bfile_chr_path(bfile_prefix, chrom):
     return f'{bfile_prefix}.chr{chrom}'
+
 
 def get_mt_filtered_by_pops(pops: list,
                             chrom: str = 'all',
@@ -45,16 +68,24 @@ def get_mt_filtered_by_pops(pops: list,
     r'''
     Wraps `get_filtered_mt()` from ukbb_pan_ancestry.resources.genotypes
     This filters to samples from populations listed in `pops`.
+
+    NOTE: If chrom='all', this loads all autosomes AND chrX.
+    
     '''
     assert len(pops)>0 and set(pops).issubset(POPS)
     
-    mt = get_filtered_mt(chrom=chrom, 
-                         pop='all' if len(pops)>1 else pops[0],
-                         imputed=imputed,
-                         min_mac=min_mac,
-                         entry_fields=entry_fields,
-                         filter_mac_instead_of_ac=filter_mac_instead_of_ac
-                         )
+    kwargs = {'pop': 'all' if len(pops)>1 else pops[0],
+              'imputed': imputed,
+              'min_mac': min_mac,
+              'entry_fields': entry_fields,
+              'filter_mac_instead_of_ac': filter_mac_instead_of_ac
+              }
+    
+    mt = get_filtered_mt(chrom=chrom,  **kwargs) # in this case chrom='all' gets autosomes
+    
+    if chrom=='all':
+        mt_x = get_filtered_mt(chrom='X', **kwargs)
+        mt = mt.union_rows(mt_x)
     
     if len(pops)>1:
         mt = mt.filter_cols(hl.set(pops).contains(mt.pop))
@@ -102,7 +133,6 @@ def to_plink(pops: list,
              subsets_dir, 
              mt, 
              ht_sample, 
-             chrom,
              bfile_path,
              export_varid: bool = True,
              overwrite=False):
@@ -115,7 +145,7 @@ def to_plink(pops: list,
     assert mt.GT.dtype==hl.tcall, "entry field 'GT' must be of type `Call`"
     
     if not overwrite and all([hl.hadoop_exists(f'{bfile_path}.{suffix}') for suffix in ['bed','bim']]):
-        print(f'\nPLINK .bed and .bim files already exist for {pops}, chr{chrom}')
+        print(f'\nPLINK .bed and .bim files already exist for {bfile_path}')
         print(bfile_path)
     else:
         print(f'Saving to bfile prefix {bfile_path}')
@@ -145,54 +175,86 @@ def export_varid(args):
     rows = rows.key_by()
     rows = rows.select('chrom','pos','varid')
     rows.export(f'{subsets_dir}/varid.txt',delimiter=' ')
+    
+def batch_split_by_chrom(args):
+    r'''
+    Splits bfiles by chromosome, for later use by plink_clump.py
+    '''
+    pops_list = get_pops_list(args)
+    
+    n_max = 5000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
+    subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k'
+    
+    backend = hb.ServiceBackend(billing_project='ukb_diverse_pops',
+                                bucket='ukbb-diverse-temp-30day/nb-batch-tmp')
+#    backend = batch.LocalBackend(tmp_dir='/tmp/batch/')
+    
+    b = hb.batch.Batch(name='split_by_chrom', backend=backend,
+                       default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:0.1',
+                       default_storage='50G', default_cpu=8)
+        
+    for pops in pops_list:
+        pops_str = '-'.join(pops)
+        bfile_prefix = f'{subsets_dir}/{pops_str}/{pops_str}'
+        master_bfile_paths = [f'{bfile_prefix}.{suffix}' for suffix in ['bed','bim','fam']]
+        master_fam_path = f'{bfile_prefix}.fam'
+        bfile_chr_paths = [f'{get_bfile_chr_path(bfile_prefix, chrom)}.{suffix}' for chrom in chroms for suffix in ['bed','bim']]
+        if not args.overwrite_plink and all(list(map(hl.hadoop_is_file, 
+                                                      [master_fam_path]+bfile_chr_paths))):
+            print(f'\nAll per-chrom PLINK files created for {pops_str}')
+        else:
+            if not all(map(hl.hadoop_is_file, master_bfile_paths)):
+                print('\nWARNING: Insufficient files to split into per-chrom bed/bim files\n'+
+                      f'Skipping {pops_str} split-by-chrom!')
+                continue
+            else:
+                print(f'\n... starting bfile split for {pops_str} ...\n')
+                prefix = f'{subsets_dir}/{pops_str}/{pops_str}'
+                bfile = b.read_input_group(
+                    {suffix:f'{prefix}.{suffix}' for suffix in ['bed','bim','fam']}
+                    )
+                split = b.new_job(name=f'split_by_chrom_{pops_str}')
+                for chrom in chroms:
+                    split.declare_resource_group(**{f'ofile_{chrom}':{'bed': '{root}.bed',
+                                                                      'bim': '{root}.bim'}}) # exclude fam file to avoid redundancy
+                    split.command(
+                        f'''
+                        plink \\
+                        --bfile {bfile} \\
+                        --chr {chrom} \\
+                        --output-chr M \\
+                        --out {split[f"ofile_{chrom}"]}
+                        '''
+                        )
+                    # b.write_output(split[f'ofile_{chrom}'], get_bfile_chr_path(bfile_prefix, chrom).replace('ld_prune/subsets', 'ld_prune/tmp-subsets'))
+
+    b.run(open=True)
+    backend.close()
+
         
 def main(args):
-    if args.pops is None:
-        pheno_manifest = hl.import_table(get_pheno_manifest_path())
-        pops_list_all = pheno_manifest.pops.collect()
-        pops_list_all = sorted(list(set(pops_list_all)))
-        pops_list_all = [p.split(',') for p in pops_list_all] # list of lists of strings
-        idx = range(args.paridx, len(pops_list_all), args.parsplit)
-        pops_list = [pops for i, pops in enumerate(pops_list_all) if i in idx]
-    else:
-        pops = sorted(args.pops.upper().split('-'))
-        assert set(pops).issubset(POPS), f'Invalid populations: {set(pops).difference(POPS)}'
-        pops_list = [pops] # list of list of strings
         
     n_max = 5000 # maximum number of samples in subset (equal to final sample size if there are sufficient samples for each population)
+    subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k-tmp' 
     
-    subsets_dir = f'{bucket}/ld_prune/subsets_{round(n_max/1e3)}k' 
-    
-    print(f'''\n\npops: {'-'.join(pops) if len(pops_list)==1 else f"{len(pops_list)} of {len(pops_list_all)} combinations"}\n'''+
-          f'overwrite_plink: {args.overwrite_plink}')
+    pops_list = get_pops_list(args)
+    print(f'overwrite_plink: {args.overwrite_plink}')
 
     for pops in pops_list:
         pops_str = '-'.join(pops)
         ht_sample_path = f'{subsets_dir}/{pops_str}/{pops_str}.ht'
         bfile_prefix = f'{subsets_dir}/{pops_str}/{pops_str}'
-        master_fam_path = f'{bfile_prefix}.fam' # single fam file to avoid redundancy
-        bfile_paths = [f'{get_bfile_chr_path(bfile_prefix, chrom)}.{suffix}' for chrom in chroms for suffix in ['bed','bim']]
-        if not args.overwrite_plink and all(list(map(hl.hadoop_is_file, 
-                                                     [f'{ht_sample_path}/_SUCCESS', master_fam_path]+bfile_paths))):
-            print(f'\nAll files already created for {pops_str}!')
+        
+        master_bfile_paths = [f'{bfile_prefix}.{suffix}' for suffix in ['bed','bim','fam']]
+        
+        if not args.overwrite_plink and all(map(hl.hadoop_is_file, 
+                                                [f'{ht_sample_path}/_SUCCESS']+master_bfile_paths)):
             continue
         else:
             print(f'\n... Starting PLINK exports for {pops_str} ...')
-        for chrom in chroms:
-            if not args.overwrite_plink and all(list(map(hl.hadoop_is_file,
-                                                         [master_fam_path]+ # include check for master fam in case this needs to be created
-                                                         [f'{get_bfile_chr_path(bfile_prefix, chrom)}.{suffix}' for suffix in ['bed','bim']]))):
-                print(f'PLINK chrom-specific bed/bim files already created for {pops_str}, chr{chrom}')
-                continue
-            print(f'\n... Starting chr{chrom} ...\n')
             mt_pop = get_mt_filtered_by_pops(pops=pops,
-                                             chrom=chrom,  # chrom='all' includes autosomes and chrX
+                                             chrom='all',  # chrom='all' includes autosomes and chrX
                                              entry_fields=('GT',)) # default entry_fields will be 'GP', we need 'GT' for exporting to PLINK
-            n_rows, n_cols = mt_pop.count()        
-            print(f'\n\nmt variant ct ({pops_str}, chr{chrom}): {n_rows}')
-            print(f'mt sample ct ({pops_str}, chr{chrom}): {n_cols}\n\n')
-            
-            ## keep this in the chrom for-loop because mt_pop is defined within the loop
             if hl.hadoop_is_file(f'{ht_sample_path}/_SUCCESS'):
                 ht_sample = hl.read_table(ht_sample_path)
                 ht_sample_ct = ht_sample.count()
@@ -203,27 +265,80 @@ def main(args):
                 print(f'... Getting sample subset ({pops_str}) ...\n')
                 
                 ht_sample = get_subset(mt_pop = mt_pop,
-                                       pop_dict = pop_dict, 
-                                       pops = pops, 
-                                       n_max = n_max)
+                                        pop_dict = pop_dict, 
+                                        pops = pops, 
+                                        n_max = n_max)
                 
                 ht_sample_ct = ht_sample.count()
                 print(f'\n\nht_sample_ct: {ht_sample_ct}\n\n')
                 ht_sample = ht_sample.checkpoint(ht_sample_path)
             
-            print(f'... Exporting to PLINK ({pops_str}, chr{chrom}) ...')
-            bfile_chr_path = f'{bfile_prefix}.chr{chrom}'
+            print(f'... Exporting to PLINK ({pops_str}) ...')
             to_plink(pops = pops,
-                     subsets_dir=subsets_dir,
-                     mt = mt_pop,
-                     ht_sample = ht_sample,
-                     chrom = chrom,
-                     bfile_path = bfile_chr_path,
-                     overwrite=args.overwrite_plink)
+                      subsets_dir=subsets_dir,
+                      mt = mt_pop,
+                      ht_sample = ht_sample,
+                      bfile_path = bfile_prefix,
+                      overwrite=args.overwrite_plink)
+        
+        # master_fam_path = f'{bfile_prefix}.fam' # single fam file to avoid redundancy
+        # bfile_chr_paths = [f'{get_bfile_chr_path(bfile_prefix, chrom)}.{suffix}' for chrom in chroms for suffix in ['bed','bim']]
+        # if not args.overwrite_plink and all(list(map(hl.hadoop_is_file, 
+        #                                              [f'{ht_sample_path}/_SUCCESS', master_fam_path]+bfile_paths))):
+        
+        # bfile_paths = [f'{get_bfile_chr_path(bfile_prefix, chrom)}.{suffix}' for chrom in chroms for suffix in ['bed','bim']]
+        # if not args.overwrite_plink and all(list(map(hl.hadoop_is_file, 
+        #                                              [f'{ht_sample_path}/_SUCCESS', master_fam_path]+bfile_paths))):
+        #     print(f'\nAll files already created for {pops_str}!')
+        #     continue
+        # else:
+        #     print(f'\n... Starting PLINK exports for {pops_str} ...')
+        # for chrom in chroms:
+        #     if not args.overwrite_plink and all(list(map(hl.hadoop_is_file,
+        #                                                  [master_fam_path]+ # include check for master fam in case this needs to be created
+        #                                                  [f'{get_bfile_chr_path(bfile_prefix, chrom)}.{suffix}' for suffix in ['bed','bim']]))):
+        #         print(f'PLINK chrom-specific bed/bim files already created for {pops_str}, chr{chrom}')
+        #         continue
+        #     print(f'\n... Starting chr{chrom} ...\n')
+        #     mt_pop = get_mt_filtered_by_pops(pops=pops,
+        #                                      chrom=chrom,  # chrom='all' includes autosomes and chrX
+        #                                      entry_fields=('GT',)) # default entry_fields will be 'GP', we need 'GT' for exporting to PLINK
+        #     n_rows, n_cols = mt_pop.count()        
+        #     print(f'\n\nmt variant ct ({pops_str}, chr{chrom}): {n_rows}')
+        #     print(f'mt sample ct ({pops_str}, chr{chrom}): {n_cols}\n\n')
             
-            if not hl.hadoop_is_file(master_fam_path):
-                print(f'Creating {master_fam_path} by copying chrom-specific fam file for chr{chrom}')
-                hl.hadoop_copy(get_bfile_chr_path(bfile_prefix, chrom)+'.fam', master_fam_path)
+        #     ## keep this in the chrom for-loop because mt_pop is defined within the loop
+        #     if hl.hadoop_is_file(f'{ht_sample_path}/_SUCCESS'):
+        #         ht_sample = hl.read_table(ht_sample_path)
+        #         ht_sample_ct = ht_sample.count()
+        #         print(f'... Subset ht already exists for pops={pops_str} ...')
+        #         print(f'\nSubset ht sample ct: {ht_sample_ct}\n\n')
+        #     else:
+            
+        #         print(f'... Getting sample subset ({pops_str}) ...\n')
+                
+        #         ht_sample = get_subset(mt_pop = mt_pop,
+        #                                pop_dict = pop_dict, 
+        #                                pops = pops, 
+        #                                n_max = n_max)
+                
+        #         ht_sample_ct = ht_sample.count()
+        #         print(f'\n\nht_sample_ct: {ht_sample_ct}\n\n')
+        #         ht_sample = ht_sample.checkpoint(ht_sample_path)
+            
+        #     print(f'... Exporting to PLINK ({pops_str}, chr{chrom}) ...')
+        #     bfile_chr_path = f'{bfile_prefix}.chr{chrom}'
+        #     to_plink(pops = pops,
+        #              subsets_dir=subsets_dir,
+        #              mt = mt_pop,
+        #              ht_sample = ht_sample,
+        #              chrom = chrom,
+        #              bfile_path = bfile_chr_path,
+        #              overwrite=args.overwrite_plink)
+            
+        #     if not hl.hadoop_is_file(master_fam_path):
+        #         print(f'Creating {master_fam_path} by copying chrom-specific fam file for chr{chrom}')
+        #         hl.hadoop_copy(get_bfile_chr_path(bfile_prefix, chrom)+'.fam', master_fam_path)
 
 if __name__=='__main__':
     
@@ -231,11 +346,14 @@ if __name__=='__main__':
     parser.add_argument('--pops', default=None, type=str, help='population to use')
     parser.add_argument('--overwrite_plink', default=False, action='store_true', help='whether to overwrite existing PLINK files')
     parser.add_argument('--export_varid', default=False, action='store_true', help='export varids')
+    parser.add_argument('--batch_split_by_chrom', default=False, action='store_true', help='Whether to split PLINK files into per-chrom files')
     parser.add_argument('--parsplit', type=int, default=1, help="number of parallel batches to split pop combinations into")
     parser.add_argument('--paridx', type=int, default=0, help="which of the parallel batches to run (zero-indexed)")
     args = parser.parse_args()
     
     if args.export_varid:
         export_varid(args=args)
+    if args.batch_split_by_chrom:
+        batch_split_by_chrom(args)
     else:
         main(args=args)
