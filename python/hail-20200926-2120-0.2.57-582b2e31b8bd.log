@@ -1,0 +1,558 @@
+2020-09-26 21:20:48 Hail: INFO: Running Hail version 0.2.57-582b2e31b8bd
+2020-09-26 21:20:49 SparkContext: WARN: Using an existing SparkContext; some configuration may not take effect.
+2020-09-26 21:20:49 root: INFO: RegionPool: initialized for thread 15: Thread-4
+2020-09-26 21:20:50 root: INFO: globbing path gs://ukb-diverse-pops-public/sumstats_release/phenotype_manifest.tsv.bgz returned 1 files: phenotype_manifest.tsv.bgz
+2020-09-26 21:20:51 Hail: INFO: Loading 48 fields. Counts by type:
+  str: 48
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- Verify : 0.311ms, total 23.058ms
+2020-09-26 21:20:51 root: INFO: optimize optimize: relationalLowerer, initial IR: before: IR size 25: 
+(ToArray
+  (StreamMap __uid_4
+    (ToStream False
+      (GetField rows
+        (TableCollect
+          (TableMapRows
+            (TableMapGlobals
+              (TableMapRows
+                (TableRead None False "{\"files\":[\"gs://ukb-diverse-pops-public/sumstats_release/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}")
+                (InsertFields
+                  (SelectFields ()
+                    (SelectFields (trait_type phenocode pheno_sex coding modifier description description_more coding_description category n_cases_full_cohort_both_sexes n_cases_full_cohort_females n_cases_full_cohort_males pops num_pops n_cases_AFR n_cases_AMR n_cases_CSA n_cases_EAS n_cases_EUR n_cases_MID n_controls_AFR n_controls_AMR n_controls_CSA n_controls_EAS n_controls_EUR n_controls_MID saige_heritability_AFR saige_heritability_AMR saige_heritability_CSA saige_heritability_EAS saige_heritability_EUR saige_heritability_MID lambda_gc_AFR lambda_gc_AMR lambda_gc_CSA lambda_gc_EAS lambda_gc_EUR lambda_gc_MID filename filename_tabix aws_link aws_link_tabix wget wget_tabix size_in_bytes size_in_bytes_tabix md5_hex md5_hex_tabix)
+                      (Ref row)))
+                  None
+                  (pops
+                    (GetField pops
+                      (Ref row)))))
+              (InsertFields
+                (SelectFields ()
+                  (SelectFields ()
+                    (Ref global)))
+                None))
+            (InsertFields
+              (SelectFields (pops)
+                (SelectFields (pops)
+                  (Ref row)))
+              None)))))
+    (GetField pops
+      (Ref __uid_4))))
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 4.324ms, total 38.437ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 4.147ms, total 42.949ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 9.381ms, total 52.715ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 9.546ms, total 62.908ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 1.156ms, total 64.555ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 8.606ms, total 73.496ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 0.250ms, total 74.001ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.076ms, total 74.236ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 0.151ms, total 74.498ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 0.764ms, total 75.419ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.042ms, total 75.623ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.579ms, total 76.325ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 0.131ms, total 76.592ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.035ms, total 76.729ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 0.271ms, total 77.102ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 1.007ms, total 78.310ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.065ms, total 78.771ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.850ms, total 79.846ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize : 46.335ms, total 80.142ms, tagged coverage 89.3
+2020-09-26 21:20:51 root: INFO: optimize optimize: relationalLowerer, initial IR: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_2
+    (ToStream False
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{pops:String}} False "{\"files\":[\"gs://ukb-diverse-pops-public/sumstats_release/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField pops
+      (Ref __iruid_2))))
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation : 59.184ms, total 83.495ms, tagged coverage 69.9
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- Verify : 0.031ms, total 84.148ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR : 61.812ms, total 84.421ms, tagged coverage 67.5
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.019ms, total 84.862ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 6.625ms, total 91.753ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.030ms, total 92.066ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for LowerMatrixToTable : 7.441ms, total 92.278ms, tagged coverage 89.7
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- Verify : 0.011ms, total 92.552ms
+2020-09-26 21:20:51 root: INFO: optimize optimize: relationalLowerer, after LowerMatrixToTable: before: IR size 8: 
+(ToArray
+  (StreamMap __iruid_2
+    (ToStream False
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{pops:String}} False "{\"files\":[\"gs://ukb-diverse-pops-public/sumstats_release/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField pops
+      (Ref __iruid_2))))
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- FoldConstants : 0.154ms, total 93.533ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.103ms, total 93.852ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- Simplify : 0.088ms, total 94.122ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardLets : 1.023ms, total 95.266ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.073ms, total 95.676ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.685ms, total 96.505ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- FoldConstants : 0.170ms, total 96.942ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.046ms, total 97.166ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- Simplify : 0.127ms, total 97.446ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardLets : 0.956ms, total 98.553ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.056ms, total 98.936ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.850ms, total 99.985ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- FoldConstants : 0.221ms, total 100.462ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.044ms, total 100.723ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- Simplify : 0.094ms, total 100.928ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardLets : 1.202ms, total 102.329ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.081ms, total 102.754ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.611ms, total 103.621ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize : 10.410ms, total 103.785ms, tagged coverage 63.3
+2020-09-26 21:20:51 root: INFO: optimize optimize: relationalLowerer, after LowerMatrixToTable: after: IR size 8:
+(ToArray
+  (StreamMap __iruid_5
+    (ToStream False
+      (GetField rows
+        (TableCollect
+          (TableRead Table{global:Struct{},key:[],row:Struct{pops:String}} False "{\"files\":[\"gs://ukb-diverse-pops-public/sumstats_release/phenotype_manifest.tsv.bgz\"],\"typeMapStr\":{},\"comment\":[],\"separator\":\"\\t\",\"missing\":[\"NA\"],\"hasHeader\":true,\"quoteStr\":null,\"skipBlankLines\":false,\"forceBGZ\":false,\"filterAndReplace\":{},\"forceGZ\":false,\"name\":\"TextTableReader\"}"))))
+    (GetField pops
+      (Ref __iruid_5))))
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation : 12.148ms, total 104.816ms, tagged coverage 54.2
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- Verify : 0.029ms, total 105.091ms
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable : 12.701ms, total 105.240ms, tagged coverage 52.2
+2020-09-26 21:20:51 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.019ms, total 106.940ms
+2020-09-26 21:20:51 root: INFO: interpreting non compilable node: TableCollect
+2020-09-26 21:20:51 MemoryStore: INFO: Block broadcast_0 stored as values in memory (estimated size 238.6 KB, free 366.1 MB)
+2020-09-26 21:20:51 MemoryStore: INFO: Block broadcast_0_piece0 stored as bytes in memory (estimated size 23.4 KB, free 366.0 MB)
+2020-09-26 21:20:51 BlockManagerInfo: INFO: Added broadcast_0_piece0 in memory on 10.26.239.71:55242 (size: 23.4 KB, free: 366.3 MB)
+2020-09-26 21:20:51 SparkContext: INFO: Created broadcast 0 from broadcast at SparkBackend.scala:233
+2020-09-26 21:20:51 root: INFO: encoder cache miss (0 hits, 1 misses, 0.000)
+2020-09-26 21:20:51 root: INFO: instruction count: 6: __C1etypeEncode.<init>
+2020-09-26 21:20:51 root: INFO: instruction count: 8: __C1etypeEncode.apply
+2020-09-26 21:20:51 root: INFO: instruction count: 39: __C1etypeEncode.__m2ENCODE_r_tuple_of_o_stringEND_TO_r_struct_of_o_binaryEND
+2020-09-26 21:20:51 root: INFO: instruction count: 19: __C1etypeEncode.__m3ENCODE_o_binary_TO_o_binary
+2020-09-26 21:20:52 SparkContext: INFO: Starting job: collect at RVD.scala:762
+2020-09-26 21:20:52 DAGScheduler: INFO: Got job 0 (collect at RVD.scala:762) with 1 output partitions
+2020-09-26 21:20:52 DAGScheduler: INFO: Final stage: ResultStage 0 (collect at RVD.scala:762)
+2020-09-26 21:20:52 DAGScheduler: INFO: Parents of final stage: List()
+2020-09-26 21:20:52 DAGScheduler: INFO: Missing parents: List()
+2020-09-26 21:20:52 DAGScheduler: INFO: Submitting ResultStage 0 (MapPartitionsRDD[3] at mapPartitions at ContextRDD.scala:160), which has no missing parents
+2020-09-26 21:20:52 MemoryStore: INFO: Block broadcast_1 stored as values in memory (estimated size 16.2 KB, free 366.0 MB)
+2020-09-26 21:20:52 MemoryStore: INFO: Block broadcast_1_piece0 stored as bytes in memory (estimated size 8.8 KB, free 366.0 MB)
+2020-09-26 21:20:52 BlockManagerInfo: INFO: Added broadcast_1_piece0 in memory on 10.26.239.71:55242 (size: 8.8 KB, free: 366.3 MB)
+2020-09-26 21:20:52 SparkContext: INFO: Created broadcast 1 from broadcast at DAGScheduler.scala:1161
+2020-09-26 21:20:52 DAGScheduler: INFO: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[3] at mapPartitions at ContextRDD.scala:160) (first 15 tasks are for partitions Vector(0))
+2020-09-26 21:20:52 TaskSchedulerImpl: INFO: Adding task set 0.0 with 1 tasks
+2020-09-26 21:20:52 TaskSetManager: INFO: Starting task 0.0 in stage 0.0 (TID 0, localhost, executor driver, partition 0, PROCESS_LOCAL, 7999 bytes)
+2020-09-26 21:20:52 Executor: INFO: Running task 0.0 in stage 0.0 (TID 0)
+2020-09-26 21:20:52 root: INFO: RegionPool: initialized for thread 60: Executor task launch worker for task 0
+2020-09-26 21:20:52 Executor: INFO: Finished task 0.0 in stage 0.0 (TID 0). 145368 bytes result sent to driver
+2020-09-26 21:20:53 TaskSetManager: INFO: Finished task 0.0 in stage 0.0 (TID 0) in 664 ms on localhost (executor driver) (1/1)
+2020-09-26 21:20:53 TaskSchedulerImpl: INFO: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+2020-09-26 21:20:53 DAGScheduler: INFO: ResultStage 0 (collect at RVD.scala:762) finished in 0.729 s
+2020-09-26 21:20:53 DAGScheduler: INFO: Job 0 finished: collect at RVD.scala:762, took 0.774874 s
+2020-09-26 21:20:53 root: INFO: decoder cache miss (0 hits, 1 misses, 0.000
+2020-09-26 21:20:53 root: INFO: instruction count: 6: __C4etypeDecode.<init>
+2020-09-26 21:20:53 root: INFO: instruction count: 8: __C4etypeDecode.apply
+2020-09-26 21:20:53 root: INFO: instruction count: 38: __C4etypeDecode.__m5DECODE_r_struct_of_o_binaryEND_TO_r_tuple_of_o_stringEND
+2020-09-26 21:20:53 root: INFO: instruction count: 32: __C4etypeDecode.__m6read_fields_group_0
+2020-09-26 21:20:53 root: INFO: instruction count: 34: __C4etypeDecode.__m7INPLACE_DECODE_o_binary_TO_o_binary
+2020-09-26 21:20:53 root: INFO: took 1.596s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.598s, total 1.706s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.322ms, total 1.706s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.599s, total 1.706s, tagged coverage 100.0
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- Verify : 0.011ms, total 1.707s
+2020-09-26 21:20:53 root: INFO: optimize optimize: relationalLowerer, after InterpretNonCompilable: before: IR size 7: 
+(ToArray
+  (StreamMap __iruid_5
+    (ToStream False
+      (GetField rows
+        (Literal Struct{rows:Array[Struct{pops:String}],global:Struct{}} <literal value>)))
+    (GetField pops
+      (Ref __iruid_5))))
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.671ms, total 1.708s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.051ms, total 1.708s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.090ms, total 1.709s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.729ms, total 1.709s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.067ms, total 1.710s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.393ms, total 1.710s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.113ms, total 1.711s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.022ms, total 1.711s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.084ms, total 1.711s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.662ms, total 1.712s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.073ms, total 1.712s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.380ms, total 1.713s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.143ms, total 1.713s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.030ms, total 1.713s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.086ms, total 1.713s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.516ms, total 1.714s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.050ms, total 1.714s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.247ms, total 1.715s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize : 7.367ms, total 1.715s, tagged coverage 59.8
+2020-09-26 21:20:53 root: INFO: optimize optimize: relationalLowerer, after InterpretNonCompilable: after: IR size 6:
+(ToArray
+  (StreamMap __iruid_8
+    (ToStream False
+      (Literal Array[Struct{pops:String}] <literal value>))
+    (GetField pops
+      (Ref __iruid_8))))
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation : 8.011ms, total 1.715s, tagged coverage 55.0
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- Verify : 0.008ms, total 1.715s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable : 8.394ms, total 1.715s, tagged coverage 52.7
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- Verify : 0.016ms, total 1.726s
+2020-09-26 21:20:53 root: INFO: optimize optimize: compileLowerer, initial IR: before: IR size 7: 
+(MakeTuple (0)
+  (ToArray
+    (StreamMap __iruid_8
+      (ToStream False
+        (Literal Array[Struct{pops:String}] <literal value>))
+      (GetField pops
+        (Ref __iruid_8)))))
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 0.885ms, total 1.727s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.042ms, total 1.727s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 0.095ms, total 1.728s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 0.659ms, total 1.728s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.057ms, total 1.729s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 1.990ms, total 1.731s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 0.159ms, total 1.731s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.037ms, total 1.731s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 0.085ms, total 1.732s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 0.604ms, total 1.732s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.065ms, total 1.732s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.432ms, total 1.733s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 0.171ms, total 1.733s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.041ms, total 1.734s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 0.112ms, total 1.734s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 0.455ms, total 1.734s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.053ms, total 1.735s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.264ms, total 1.735s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize : 8.686ms, total 1.735s, tagged coverage 71.4
+2020-09-26 21:20:53 root: INFO: optimize optimize: compileLowerer, initial IR: after: IR size 7:
+(MakeTuple (0)
+  (ToArray
+    (StreamMap __iruid_11
+      (ToStream False
+        (Literal Array[Struct{pops:String}] <literal value>))
+      (GetField pops
+        (Ref __iruid_11)))))
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation : 9.518ms, total 1.735s, tagged coverage 65.2
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- Verify : 0.011ms, total 1.736s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR : 9.987ms, total 1.736s, tagged coverage 62.4
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.019ms, total 1.737s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.236ms, total 1.737s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.020ms, total 1.737s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.657ms, total 1.737s, tagged coverage 41.9
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- Verify : 0.009ms, total 1.738s
+2020-09-26 21:20:53 root: INFO: optimize optimize: compileLowerer, after InlineApplyIR: before: IR size 7: 
+(MakeTuple (0)
+  (ToArray
+    (StreamMap __iruid_11
+      (ToStream False
+        (Literal Array[Struct{pops:String}] <literal value>))
+      (GetField pops
+        (Ref __iruid_11)))))
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- FoldConstants : 0.088ms, total 1.738s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.037ms, total 1.738s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- Simplify : 0.076ms, total 1.738s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardLets : 0.462ms, total 1.739s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.057ms, total 1.739s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.278ms, total 1.740s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- FoldConstants : 0.137ms, total 1.740s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.028ms, total 1.740s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- Simplify : 0.157ms, total 1.740s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardLets : 2.235ms, total 1.742s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.224ms, total 1.743s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.475ms, total 1.744s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- FoldConstants : 0.134ms, total 1.744s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.041ms, total 1.744s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- Simplify : 0.071ms, total 1.744s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardLets : 0.430ms, total 1.745s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.050ms, total 1.745s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.423ms, total 1.745s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize : 7.404ms, total 1.745s, tagged coverage 73.0
+2020-09-26 21:20:53 root: INFO: optimize optimize: compileLowerer, after InlineApplyIR: after: IR size 7:
+(MakeTuple (0)
+  (ToArray
+    (StreamMap __iruid_14
+      (ToStream False
+        (Literal Array[Struct{pops:String}] <literal value>))
+      (GetField pops
+        (Ref __iruid_14)))))
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation : 8.007ms, total 1.746s, tagged coverage 67.5
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- Verify : 0.011ms, total 1.746s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR : 8.335ms, total 1.746s, tagged coverage 65.1
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.016ms, total 1.746s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 17.042ms, total 1.763s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.211ms, total 1.764s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 17.818ms, total 1.764s, tagged coverage 96.9
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- Verify : 0.007ms, total 1.764s
+2020-09-26 21:20:53 root: INFO: optimize optimize: compileLowerer, after LowerArrayAggsToRunAggs: before: IR size 7: 
+(MakeTuple (0)
+  (ToArray
+    (StreamMap __iruid_14
+      (ToStream False
+        (Literal Array[Struct{pops:String}] <literal value>))
+      (GetField pops
+        (Ref __iruid_14)))))
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- FoldConstants : 0.101ms, total 1.765s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.034ms, total 1.765s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- Simplify : 0.083ms, total 1.765s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardLets : 0.687ms, total 1.766s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.057ms, total 1.766s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.284ms, total 1.766s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- FoldConstants : 0.133ms, total 1.767s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.027ms, total 1.767s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- Simplify : 0.071ms, total 1.767s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardLets : 6.488ms, total 1.774s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.098ms, total 1.774s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.516ms, total 1.775s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- FoldConstants : 0.197ms, total 1.775s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.060ms, total 1.776s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- Simplify : 0.119ms, total 1.776s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardLets : 0.960ms, total 1.777s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.113ms, total 1.777s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.501ms, total 1.778s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize : 13.629ms, total 1.778s, tagged coverage 77.3
+2020-09-26 21:20:53 root: INFO: optimize optimize: compileLowerer, after LowerArrayAggsToRunAggs: after: IR size 7:
+(MakeTuple (0)
+  (ToArray
+    (StreamMap __iruid_17
+      (ToStream False
+        (Literal Array[Struct{pops:String}] <literal value>))
+      (GetField pops
+        (Ref __iruid_17)))))
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation : 14.427ms, total 1.779s, tagged coverage 73.0
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- Verify : 0.016ms, total 1.779s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs : 15.013ms, total 1.779s, tagged coverage 70.3
+2020-09-26 21:20:53 root: INFO: encoder cache miss (0 hits, 2 misses, 0.000)
+2020-09-26 21:20:53 root: INFO: instruction count: 6: __C32etypeEncode.<init>
+2020-09-26 21:20:53 root: INFO: instruction count: 8: __C32etypeEncode.apply
+2020-09-26 21:20:53 root: INFO: instruction count: 16: __C32etypeEncode.__m33ENCODE_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND_TO_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND
+2020-09-26 21:20:53 root: INFO: instruction count: 53: __C32etypeEncode.__m34ENCODE_r_array_of_r_tuple_of_r_binaryEND_TO_r_array_of_r_struct_of_r_binaryEND
+2020-09-26 21:20:53 root: INFO: instruction count: 16: __C32etypeEncode.__m35ENCODE_r_tuple_of_r_binaryEND_TO_r_struct_of_r_binaryEND
+2020-09-26 21:20:53 root: INFO: instruction count: 19: __C32etypeEncode.__m36ENCODE_r_binary_TO_r_binary
+2020-09-26 21:20:53 root: INFO: RegionPool: REPORT_THRESHOLD: 256.0K allocated (256.0K blocks / 0 chunks), regions.size = 2, 0 current java objects, 0 max java objects, thread 15: Thread-4
+2020-09-26 21:20:53 MemoryStore: INFO: Block broadcast_2 stored as values in memory (estimated size 84.2 KB, free 365.9 MB)
+2020-09-26 21:20:53 MemoryStore: INFO: Block broadcast_2_piece0 stored as bytes in memory (estimated size 13.0 KB, free 365.9 MB)
+2020-09-26 21:20:53 BlockManagerInfo: INFO: Added broadcast_2_piece0 in memory on 10.26.239.71:55242 (size: 13.0 KB, free: 366.3 MB)
+2020-09-26 21:20:53 SparkContext: INFO: Created broadcast 2 from broadcast at SparkBackend.scala:233
+2020-09-26 21:20:53 root: INFO: instruction count: 6: __C8Compiled.<init>
+2020-09-26 21:20:53 root: INFO: instruction count: 135: __C8Compiled.apply
+2020-09-26 21:20:53 root: INFO: instruction count: 8: __C8Compiled.__m21addIRIntermediate
+2020-09-26 21:20:53 root: INFO: instruction count: 8: __C8Compiled.__m22addIRIntermediate
+2020-09-26 21:20:53 root: INFO: instruction count: 14: __C8Compiled.setPartitionIndex
+2020-09-26 21:20:53 root: INFO: instruction count: 7: __C8Compiled.addPartitionRegion
+2020-09-26 21:20:53 root: INFO: instruction count: 25: __C8Compiled.__m25DECODE_r_struct_of_r_array_of_r_struct_of_r_binaryENDEND_TO_r_tuple_of_r_array_of_r_tuple_of_r_stringENDEND
+2020-09-26 21:20:53 root: INFO: instruction count: 11: __C8Compiled.__m26read_fields_group_0
+2020-09-26 21:20:53 root: INFO: instruction count: 58: __C8Compiled.__m27INPLACE_DECODE_r_array_of_r_struct_of_r_binaryEND_TO_r_array_of_r_tuple_of_r_binaryEND
+2020-09-26 21:20:53 root: INFO: instruction count: 17: __C8Compiled.__m28INPLACE_DECODE_r_struct_of_r_binaryEND_TO_r_tuple_of_r_binaryEND
+2020-09-26 21:20:53 root: INFO: instruction count: 11: __C8Compiled.__m29read_fields_group_0
+2020-09-26 21:20:53 root: INFO: instruction count: 34: __C8Compiled.__m30INPLACE_DECODE_r_binary_TO_r_binary
+2020-09-26 21:20:53 root: INFO: instruction count: 55: __C8Compiled.addLiterals
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile : 209.372ms, total 1.925s, tagged coverage 19.0
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for InitializeCompiledFunction : 3.310ms, total 1.929s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for RunCompiledFunction : 1.081ms, total 1.931s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for convertRegionValueToAnnotation : 7.596ms, total 1.939s
+2020-09-26 21:20:53 root: INFO: Timer: all timings:
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- Verify : 0.311ms, total 23.058ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 4.324ms, total 38.437ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 4.147ms, total 42.949ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 9.381ms, total 52.715ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 9.546ms, total 62.908ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 1.156ms, total 64.555ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 8.606ms, total 73.496ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 0.250ms, total 74.001ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.076ms, total 74.236ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 0.151ms, total 74.498ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 0.764ms, total 75.419ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.042ms, total 75.623ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.579ms, total 76.325ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 0.131ms, total 76.592ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.035ms, total 76.729ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 0.271ms, total 77.102ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 1.007ms, total 78.310ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.065ms, total 78.771ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.850ms, total 79.846ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation -- Optimize : 46.335ms, total 80.142ms, tagged coverage 89.3
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- LoweringTransformation : 59.184ms, total 83.495ms, tagged coverage 69.9
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR -- Verify : 0.031ms, total 84.148ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, initial IR : 61.812ms, total 84.421ms, tagged coverage 67.5
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.019ms, total 84.862ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for LowerMatrixToTable -- LoweringTransformation : 6.625ms, total 91.753ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for LowerMatrixToTable -- Verify : 0.030ms, total 92.066ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for LowerMatrixToTable : 7.441ms, total 92.278ms, tagged coverage 89.7
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- Verify : 0.011ms, total 92.552ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- FoldConstants : 0.154ms, total 93.533ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.103ms, total 93.852ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- Simplify : 0.088ms, total 94.122ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardLets : 1.023ms, total 95.266ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.073ms, total 95.676ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.685ms, total 96.505ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- FoldConstants : 0.170ms, total 96.942ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.046ms, total 97.166ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- Simplify : 0.127ms, total 97.446ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardLets : 0.956ms, total 98.553ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.056ms, total 98.936ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.850ms, total 99.985ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- FoldConstants : 0.221ms, total 100.462ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.044ms, total 100.723ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- Simplify : 0.094ms, total 100.928ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardLets : 1.202ms, total 102.329ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.081ms, total 102.754ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.611ms, total 103.621ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation -- Optimize : 10.410ms, total 103.785ms, tagged coverage 63.3
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- LoweringTransformation : 12.148ms, total 104.816ms, tagged coverage 54.2
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable -- Verify : 0.029ms, total 105.091ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after LowerMatrixToTable : 12.701ms, total 105.240ms, tagged coverage 52.2
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.019ms, total 106.940ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for InterpretNonCompilable -- LoweringTransformation : 1.598s, total 1.706s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for InterpretNonCompilable -- Verify : 0.322ms, total 1.706s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for InterpretNonCompilable : 1.599s, total 1.706s, tagged coverage 100.0
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- Verify : 0.011ms, total 1.707s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.671ms, total 1.708s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.051ms, total 1.708s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.090ms, total 1.709s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.729ms, total 1.709s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.067ms, total 1.710s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.393ms, total 1.710s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.113ms, total 1.711s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.022ms, total 1.711s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.084ms, total 1.711s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.662ms, total 1.712s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.073ms, total 1.712s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.380ms, total 1.713s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- FoldConstants : 0.143ms, total 1.713s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.030ms, total 1.713s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- Simplify : 0.086ms, total 1.713s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardLets : 0.516ms, total 1.714s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.050ms, total 1.714s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.247ms, total 1.715s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation -- Optimize : 7.367ms, total 1.715s, tagged coverage 59.8
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- LoweringTransformation : 8.011ms, total 1.715s, tagged coverage 55.0
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable -- Verify : 0.008ms, total 1.715s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for optimize: relationalLowerer, after InterpretNonCompilable : 8.394ms, total 1.715s, tagged coverage 52.7
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- Verify : 0.016ms, total 1.726s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 0.885ms, total 1.727s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.042ms, total 1.727s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 0.095ms, total 1.728s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 0.659ms, total 1.728s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.057ms, total 1.729s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 1.990ms, total 1.731s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 0.159ms, total 1.731s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.037ms, total 1.731s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 0.085ms, total 1.732s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 0.604ms, total 1.732s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.065ms, total 1.732s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.432ms, total 1.733s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- FoldConstants : 0.171ms, total 1.733s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.041ms, total 1.734s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- Simplify : 0.112ms, total 1.734s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardLets : 0.455ms, total 1.734s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.053ms, total 1.735s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.264ms, total 1.735s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation -- Optimize : 8.686ms, total 1.735s, tagged coverage 71.4
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- LoweringTransformation : 9.518ms, total 1.735s, tagged coverage 65.2
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR -- Verify : 0.011ms, total 1.736s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, initial IR : 9.987ms, total 1.736s, tagged coverage 62.4
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.019ms, total 1.737s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- LoweringTransformation : 0.236ms, total 1.737s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- InlineApplyIR -- Verify : 0.020ms, total 1.737s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- InlineApplyIR : 0.657ms, total 1.737s, tagged coverage 41.9
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- Verify : 0.009ms, total 1.738s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- FoldConstants : 0.088ms, total 1.738s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.037ms, total 1.738s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- Simplify : 0.076ms, total 1.738s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardLets : 0.462ms, total 1.739s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.057ms, total 1.739s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.278ms, total 1.740s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- FoldConstants : 0.137ms, total 1.740s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.028ms, total 1.740s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- Simplify : 0.157ms, total 1.740s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardLets : 2.235ms, total 1.742s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.224ms, total 1.743s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.475ms, total 1.744s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- FoldConstants : 0.134ms, total 1.744s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.041ms, total 1.744s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- Simplify : 0.071ms, total 1.744s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardLets : 0.430ms, total 1.745s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.050ms, total 1.745s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.423ms, total 1.745s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation -- Optimize : 7.404ms, total 1.745s, tagged coverage 73.0
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- LoweringTransformation : 8.007ms, total 1.746s, tagged coverage 67.5
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR -- Verify : 0.011ms, total 1.746s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after InlineApplyIR : 8.335ms, total 1.746s, tagged coverage 65.1
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.016ms, total 1.746s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- LoweringTransformation : 17.042ms, total 1.763s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs -- Verify : 0.211ms, total 1.764s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- LowerArrayAggsToRunAggs : 17.818ms, total 1.764s, tagged coverage 96.9
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- Verify : 0.007ms, total 1.764s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- FoldConstants : 0.101ms, total 1.765s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.034ms, total 1.765s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- Simplify : 0.083ms, total 1.765s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardLets : 0.687ms, total 1.766s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.057ms, total 1.766s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.284ms, total 1.766s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- FoldConstants : 0.133ms, total 1.767s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.027ms, total 1.767s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- Simplify : 0.071ms, total 1.767s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardLets : 6.488ms, total 1.774s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.098ms, total 1.774s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.516ms, total 1.775s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- FoldConstants : 0.197ms, total 1.775s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ExtractIntervalFilters : 0.060ms, total 1.776s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- Simplify : 0.119ms, total 1.776s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardLets : 0.960ms, total 1.777s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- ForwardRelationalLets : 0.113ms, total 1.777s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize -- PruneDeadFields : 0.501ms, total 1.778s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation -- Optimize : 13.629ms, total 1.778s, tagged coverage 77.3
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- LoweringTransformation : 14.427ms, total 1.779s, tagged coverage 73.0
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs -- Verify : 0.016ms, total 1.779s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile -- optimize: compileLowerer, after LowerArrayAggsToRunAggs : 15.013ms, total 1.779s, tagged coverage 70.3
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for Compile : 209.372ms, total 1.925s, tagged coverage 19.0
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for InitializeCompiledFunction : 3.310ms, total 1.929s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for RunCompiledFunction : 1.081ms, total 1.931s
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for convertRegionValueToAnnotation : 7.596ms, total 1.939s
+2020-09-26 21:20:53 root: INFO: Timer: aggregate:
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for tag 'RunCompiledFunction' (1): 1.081ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for tag 'Verify' (20): 1.125ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for tag 'ForwardRelationalLets' (18): 2.438ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for tag 'InitializeCompiledFunction' (1): 3.310ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for tag 'ExtractIntervalFilters' (18): 4.900ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for tag 'convertRegionValueToAnnotation' (1): 7.596ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for tag 'FoldConstants' (18): 8.181ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for tag 'Simplify' (18): 11.243ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for tag 'PruneDeadFields' (18): 18.364ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for tag 'ForwardLets' (18): 29.386ms
+2020-09-26 21:20:53 root: INFO: Timer: Time taken for tag 'LoweringTransformation' (4): 1.622s
+2020-09-26 21:20:53 root: INFO: Timer: Fraction covered by a tagged leaf: 236.261ms (87.9%)
+2020-09-26 21:24:33 root: INFO: RegionPool: FREE: 128.0K allocated (128.0K blocks / 0 chunks), regions.size = 2, 0 current java objects, 0 max java objects, thread 60: Executor task launch worker for task 0
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 4
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 7
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 9
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 11
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 24
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 5
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 12
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 20
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 8
+2020-09-26 21:24:33 BlockManagerInfo: INFO: Removed broadcast_1_piece0 on 10.26.239.71:55242 in memory (size: 8.8 KB, free: 366.3 MB)
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 19
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 16
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 21
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 6
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 14
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 1
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 10
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 18
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 22
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 17
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 23
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 2
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 13
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 25
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 3
+2020-09-26 21:24:33 ContextCleaner: INFO: Cleaned accumulator 15
+2020-09-26 21:50:30 SparkContext: INFO: Invoking stop() from shutdown hook
+2020-09-26 21:50:30 AbstractConnector: INFO: Stopped Spark@4ae5cdf4{HTTP/1.1,[http/1.1]}{0.0.0.0:4041}
+2020-09-26 21:50:30 SparkUI: INFO: Stopped Spark web UI at http://10.26.239.71:4041
+2020-09-26 21:50:30 MapOutputTrackerMasterEndpoint: INFO: MapOutputTrackerMasterEndpoint stopped!
+2020-09-26 21:50:30 MemoryStore: INFO: MemoryStore cleared
+2020-09-26 21:50:30 BlockManager: INFO: BlockManager stopped
+2020-09-26 21:50:30 BlockManagerMaster: INFO: BlockManagerMaster stopped
+2020-09-26 21:50:30 OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: INFO: OutputCommitCoordinator stopped!
+2020-09-26 21:50:30 SparkContext: INFO: Successfully stopped SparkContext
+2020-09-26 21:50:30 ShutdownHookManager: INFO: Shutdown hook called
+2020-09-26 21:50:30 ShutdownHookManager: INFO: Deleting directory /private/var/folders/v4/w7rkkv_x2_zcsszmps6x2dkm0000gn/T/spark-ff161908-c9cc-43c3-827e-324978bfcf8c
+2020-09-26 21:50:30 ShutdownHookManager: INFO: Deleting directory /private/var/folders/v4/w7rkkv_x2_zcsszmps6x2dkm0000gn/T/spark-a8cd1896-a27d-4969-b01e-bb233f52accb
+2020-09-26 21:50:30 ShutdownHookManager: INFO: Deleting directory /private/var/folders/v4/w7rkkv_x2_zcsszmps6x2dkm0000gn/T/spark-a8cd1896-a27d-4969-b01e-bb233f52accb/pyspark-345a2cf4-a023-4ada-b594-36ead7eab1d9

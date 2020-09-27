@@ -268,7 +268,7 @@ def main(args):
                 print(f'\nSubset ht sample ct: {ht_sample_ct}\n\n')
             else:
             
-                print(f'... Getting sample subset ({pops_str}) ...\n')
+                print(f'\n\n... Getting sample subset ({pops_str}) ...\n')
                 
                 ht_sample = get_subset(mt_pop = mt_pop,
                                         pop_dict = pop_dict, 

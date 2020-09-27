@@ -411,7 +411,7 @@ def main():
     high_quality=True
     not_pop=True
     
-    p = hb.batch.Batch(name=f'clump-{"hq-" if high_quality else ""}not-afr-cleanup', backend=backend,
+    p = hb.batch.Batch(name=f'clump-{"hq" if high_quality else ""}', backend=backend,
                           default_image='gcr.io/ukbb-diversepops-neale/nbaya_plink:0.1',
                           default_storage='500Mi', default_cpu=8)
     
@@ -424,7 +424,6 @@ def main():
     pheno_manifest = pheno_manifest.to_pandas()
     
 
-    for pop in ['AFR']:
     for not_pop in [True, False]:
         for pop in all_pops:
 
