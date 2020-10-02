@@ -13,13 +13,11 @@ import argparse
 import hailtop.batch as hb
 from ukbb_pan_ancestry.resources.genotypes import get_filtered_mt
 from ukbb_pan_ancestry.resources.results import get_pheno_manifest_path
-from ukbb_pan_ancestry import POPS
+from ukbb_pan_ancestry import POPS, bucket
 
-bucket = 'gs://ukb-diverse-pops'
-
-MIN_CASES = 50
-MIN_CASES_ALL = 100
-MIN_CASES_EUR = 100
+# MIN_CASES = 50
+# MIN_CASES_ALL = 100
+# MIN_CASES_EUR = 100
 
 pop_dict = {
     'AFR': 6637, # dict with sample counts for each population 
@@ -177,6 +175,7 @@ def export_varid(args):
 def batch_split_by_chrom(args):
     r'''
     Splits bfiles by chromosome, for later use by plink_clump.py
+    About $0.06 per population set
     '''
     
     hl.init(default_reference='GRCh38', 
@@ -287,64 +286,6 @@ def main(args):
                       bfile_path = bfile_prefix,
                       overwrite=args.overwrite_plink)
         
-        # master_fam_path = f'{bfile_prefix}.fam' # single fam file to avoid redundancy
-        # bfile_chr_paths = [f'{get_bfile_chr_path(bfile_prefix, chrom)}.{suffix}' for chrom in chroms for suffix in ['bed','bim']]
-        # if not args.overwrite_plink and all(list(map(hl.hadoop_is_file, 
-        #                                              [f'{ht_sample_path}/_SUCCESS', master_fam_path]+bfile_paths))):
-        
-        # bfile_paths = [f'{get_bfile_chr_path(bfile_prefix, chrom)}.{suffix}' for chrom in chroms for suffix in ['bed','bim']]
-        # if not args.overwrite_plink and all(list(map(hl.hadoop_is_file, 
-        #                                              [f'{ht_sample_path}/_SUCCESS', master_fam_path]+bfile_paths))):
-        #     print(f'\nAll files already created for {pops_str}!')
-        #     continue
-        # else:
-        #     print(f'\n... Starting PLINK exports for {pops_str} ...')
-        # for chrom in chroms:
-        #     if not args.overwrite_plink and all(list(map(hl.hadoop_is_file,
-        #                                                  [master_fam_path]+ # include check for master fam in case this needs to be created
-        #                                                  [f'{get_bfile_chr_path(bfile_prefix, chrom)}.{suffix}' for suffix in ['bed','bim']]))):
-        #         print(f'PLINK chrom-specific bed/bim files already created for {pops_str}, chr{chrom}')
-        #         continue
-        #     print(f'\n... Starting chr{chrom} ...\n')
-        #     mt_pop = get_mt_filtered_by_pops(pops=pops,
-        #                                      chrom=chrom,  # chrom='all' includes autosomes and chrX
-        #                                      entry_fields=('GT',)) # default entry_fields will be 'GP', we need 'GT' for exporting to PLINK
-        #     n_rows, n_cols = mt_pop.count()        
-        #     print(f'\n\nmt variant ct ({pops_str}, chr{chrom}): {n_rows}')
-        #     print(f'mt sample ct ({pops_str}, chr{chrom}): {n_cols}\n\n')
-            
-        #     ## keep this in the chrom for-loop because mt_pop is defined within the loop
-        #     if hl.hadoop_is_file(f'{ht_sample_path}/_SUCCESS'):
-        #         ht_sample = hl.read_table(ht_sample_path)
-        #         ht_sample_ct = ht_sample.count()
-        #         print(f'... Subset ht already exists for pops={pops_str} ...')
-        #         print(f'\nSubset ht sample ct: {ht_sample_ct}\n\n')
-        #     else:
-            
-        #         print(f'... Getting sample subset ({pops_str}) ...\n')
-                
-        #         ht_sample = get_subset(mt_pop = mt_pop,
-        #                                pop_dict = pop_dict, 
-        #                                pops = pops, 
-        #                                n_max = n_max)
-                
-        #         ht_sample_ct = ht_sample.count()
-        #         print(f'\n\nht_sample_ct: {ht_sample_ct}\n\n')
-        #         ht_sample = ht_sample.checkpoint(ht_sample_path)
-            
-        #     print(f'... Exporting to PLINK ({pops_str}, chr{chrom}) ...')
-        #     bfile_chr_path = f'{bfile_prefix}.chr{chrom}'
-        #     to_plink(pops = pops,
-        #              subsets_dir=subsets_dir,
-        #              mt = mt_pop,
-        #              ht_sample = ht_sample,
-        #              chrom = chrom,
-        #              bfile_path = bfile_chr_path,
-        #              overwrite=args.overwrite_plink)
-            
-        #     if not hl.hadoop_is_file(master_fam_path):
-        #         print(f'Creating {master_fam_path} by copying chrom-specific fam file for chr{chrom}')
-        #         hl.hadoop_copy(get_bfile_chr_path(bfile_prefix, chrom)+'.fam', master_fam_path)
 
 if __name__=='__main__':
     

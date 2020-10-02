@@ -6,7 +6,6 @@ Created on Wed Aug 26 10:17:00 2020
 @author: nbaya
 """
 
-import hail as hl
 import pandas as pd
 from scipy import stats
 import matplotlib.pyplot as plt
@@ -15,6 +14,8 @@ import numpy as np
 plots_dir = '/Users/nbaya/Downloads'
 data_dir = '/Users/nbaya/Downloads'
 
+pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
+
 clump_pops_dict = {'100001.prs.tsv.gz':['AMR', 'CSA', 'EAS', 'EUR', 'MID'],
                    '30600.prs.tsv.gz':['AFR', 'AMR', 'EAS', 'EUR', 'MID'],
                    '100320.prs.tsv.gz':['EUR'],
@@ -22,6 +23,11 @@ clump_pops_dict = {'100001.prs.tsv.gz':['AMR', 'CSA', 'EAS', 'EUR', 'MID'],
                    '250.2.prs.tsv.gz':['AFR', 'CSA', 'EAS', 'EUR', 'MID'],
                    'E78.prs.tsv.gz':['AFR', 'AMR', 'EAS', 'EUR', 'MID'],
                    }    
+
+def get_h2_results():
+    df = pd.read_csv(f'{data_dir}/ukb31063_h2_topline.02Oct2019.tsv.gz',
+                     compression='gzip', sep='\t')
+    return df
 
 def plot_prs_corr_hist(pop=None, logscale=False):
 
@@ -37,8 +43,7 @@ def plot_prs_corr_hist(pop=None, logscale=False):
     for trait_type in trait_types:
         df = df1[df1.trait_type==trait_type]
         n_curr, _ = np.histogram(df.prs_corr_r2)
-        plt.bar(x=)
-    
+        # plt.bar(x=)
     plt.figure(figsize=(6*1.5, 4*1.5))
     plt.hist(df[~df.prs_corr_r2.isna()].prs_corr_r2, bins=np.linspace(0,1,101))
     plt.xlim([0,1])
@@ -52,27 +57,37 @@ def plot_prs_corr_hist(pop=None, logscale=False):
     plt.savefig(f'{plots_dir}/prs_corr_hist{"" if pop is None else f".{pop}" }{".logscale" if logscale else ""}.png', dpi=300)
 
 def plot_prs_corr_holdout(pop):
-    df0 = pd.read_csv(f'{data_dir}/pilot_assess_prs{"" if pop is None else f".{pop}" }.tsv.gz', 
+    df0 = pd.read_csv(f'{data_dir}/assess_prs{"" if pop is None else f".{pop}" }.tsv.gz', 
                      sep='\t', compression='gzip')
+    df0['prs_corr_r2'] = df0.prs_corr_r2.astype(float)
     df1 = df0[(~df0.prs_corr_r2.isna())&(~df0.clump_pops_str.str.contains(pop))]
-    df2 = df1.groupby('p_threshold')['prs_corr_r2','prs_corr_pval'].mean()
-    df3 = df1.groupby('p_threshold')['prs_corr_r2','prs_corr_pval'].sem()
+    df1 = df1[~(abs(df1.prs_corr_r2)==np.inf)]
+    df1 = df1.merge(get_h2_results(), left_on=['phenocode'], right_on=['phenotype'])
+    df1 = df1[df1.h2_z>2]
+    pval_thresh = 1e-3
+    df1['pval_lt_thresh'] = df1.prs_corr_pval < pval_thresh
+    df2 = df1.groupby('p_threshold')[['prs_corr_r2','prs_corr_pval']].mean()
+    df3 = df1.groupby('p_threshold')[['prs_corr_r2','prs_corr_pval']].sem()
 #    df4 = df1.groupby('p_threshold')['prs_corr_r2','prs_corr_pval'].std()
     df5 = df1.groupby('p_threshold')['prs_corr_r2'].count()
+    df6 = df1.groupby('p_threshold')[['prs_corr_r2','pval_lt_thresh']].mean()
 
     fig, (ax0, ax1) = plt.subplots(1,2,figsize=(12*1.2,4*1.5))
-    for metric, ax in [('r2', ax0), ('pval',ax1)]:
-        ax.errorbar(x=df2.index, y=df2[f'prs_corr_{metric}'], 
-                    yerr=2*df3[f'prs_corr_{metric}'], fmt='.-')
+    # for metric, ax in [('r2', ax0), ('pval',ax1)]:
+    for metric, ax in [('r2', ax0), ('pval_lt_thresh',ax1)]:
         if metric=='r2':
+            ax.errorbar(x=df2.index, y=df2[f'prs_corr_{metric}'], 
+                        yerr=2*df3[f'prs_corr_{metric}'], fmt='.-')
             ax.set_ylabel(r'$r^2$')
-        elif metric=='pval':
-            ax.set_ylabel(r'$r^2$ pval')
+        elif metric=='pval_lt_thresh':
+            ax.errorbar(x=df6.index, y=df6[metric], fmt='.-')
+            ax.set_ylabel(r'Proportion of $r^2$ p-values < '+f'{pval_thresh}')
+            # ax.set_ylim([0,1])
             ax.set_ylim([0,1])
         ax.set_xscale('symlog',linthreshx=1e-9)
         ax.set_xlabel('clumping pval threshold')
         ax.set_xlim(ax.get_xlim()[::-1])
-    plt.suptitle(f'Holdout population {pop}\np_threshold phen cts: {dict(df5[::-1])} ')
+    plt.suptitle(f'Holdout population {pop}\np_threshold phen cts: {dict(df5[::-1])}')
     plt.savefig(f'{plots_dir}/prs_corr_holdout.{pop}.png',dpi=300)
     
 def plot_score_phen(fname, force_quant=False, logscale=False, pop=None, p_threshold=None):
@@ -166,15 +181,32 @@ def test_prs_score_diff(fname):
         controls = df[df.both_sexes==0].score
         cases = df[df.both_sexes==1].score
         print(f'{pop}: {stats.ttest_ind(controls, cases).pvalue}')
-        
 
-if __name__=='__main__':
-    pops = ['AFR', 'AMR', 'CSA', 'EAS', 'EUR', 'MID']
+def read_assess_prs_dfs():
+    df = pd.read_csv(f'{data_dir}/assess_prs.tsv.gz', sep='\t', compression='gzip')
+    df['prs_pops'] = df.clump_pops_str
+    df_list = []
+    for pop in pops:
+        df_tmp = pd.read_csv(f'{data_dir}/assess_prs{"" if pop is None else f".{pop}" }.tsv.gz', 
+                                   sep='\t', compression='gzip')
+        df_tmp['prs_pops'] = pop
+        df_list.append(df_tmp)
+    df0 = pd.concat(df_list)
+    df1 = df.append(
+        )
+    df0['prs_corr_r2'] = df0.prs_corr_r2.astype(float)
+    df1 = df0[(~df0.prs_corr_r2.isna())&(~df0.clump_pops_str.str.contains(pop))]
+    df1 = df1[~(abs(df1.prs_corr_r2)==np.inf)]
+    
+def main():
+
     for logscale in [True]:
         for pop in pops:
             plot_prs_corr_hist(pop=pop, logscale=logscale)
+
     for pop in pops:
         plot_prs_corr_holdout(pop=pop)
+
     plot_score_phen(fname='100001.prs.tsv.gz', p_threshold=0.5)
     plot_score_phen(fname='100001.prs.tsv.gz', pop='AFR')
     plot_score_phen(fname='100320.prs.tsv.gz', logscale=True)
@@ -194,3 +226,10 @@ if __name__=='__main__':
     plot_r2_pval_threshold(fname='100020.prs.tsv.gz', pop='CSA')
     plot_r2_pval_threshold(fname='250.2.prs.tsv.gz', pop='AMR')
     plot_r2_pval_threshold(fname='E78.prs.tsv.gz', pop='CSA')
+    
+    
+    for pop in 
+    
+
+if __name__=='__main__':
+    main()
