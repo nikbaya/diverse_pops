@@ -6,7 +6,47 @@ import argparse
 from hail.linalg import BlockMatrix
 # from gnomad.utils import slack
 from ukbb_pan_ancestry import *
+import math
 
+def get_final_sumstats_mt_for_export():
+    mt0 = load_final_sumstats_mt(filter_sumstats=False,
+                                 filter_variants=False,
+                                 separate_columns_by_pop=False,
+                                 annotate_with_nearest_gene=False)
+    mt0 = mt0.select_rows()
+    return mt0
+
+def tree_matmul_tree_matsum(bm1, bm2, mul_splits: int, sum_splits: int = None,
+                            path_prefix: str = None):
+    r'''
+    Version of tree_matmul() that allows for intermediate sums of matrix 
+    multiplication. `sum_splits` must be a divisor of `mul_splits`
+    '''
+    # TODO: Make a private function that acts recursively to ensure that the 
+    # matrix sums never include more than a maximum number of matrices
+    assert mul_splits%sum_splits==0, '`sum_splits` must be a divisor of `mul_splits'
+    inner_brange_size = int(math.ceil(bm1._n_block_cols / mul_splits))
+    split_points = list(range(0, bm1._n_block_cols, inner_brange_size)) + [bm1._n_block_cols]
+    inner_ranges = list(zip(split_points[:-1], split_points[1:]))
+    blocks_to_multiply = [(bm1._select_blocks((0, bm1._n_block_rows), (start, stop)),
+                           bm2._select_blocks((start, stop), (0, bm2._n_block_cols))) for start, stop in inner_ranges]
+
+    intermediate_multiply_exprs = [b1 @ b2 for b1, b2 in blocks_to_multiply]
+    
+    print(f'Writing {mul_splits} intermediate matrices to {path_prefix}')
+    hl.experimental.write_block_matrices(intermediate_multiply_exprs, path_prefix)
+    
+    read_intermediates = [BlockMatrix.read(f"{path_prefix}_{i}") for i in range(0, mul_splits)]
+    
+    tracked_partial_sums = []
+
+    for i in range(sum_splits):
+        partial_sum_path = f"{path_prefix}-partial-{i}"
+        sum(read_intermediates[i*sum_splits:i*sum_splits + sum_splits]).write(partial_sum_path)
+        tracked_partial_sums.append(BlockMatrix.read(partial_sum_path))
+        
+    return sum(tracked_partial_sums)
+    
 
 def main(args):
     hl.init(default_reference='GRCh37', log='/prs.log',
@@ -27,8 +67,10 @@ def main(args):
         
         # join meta results and sumstats mt
         # NOTE: union_cols() requires the same entry fields schema
-        meta_mt = meta_mt.select_entries(BETA = meta_mt.meta_analysis.BETA).select_cols().select_rows()
-        ss_mt = ss_mt.select_entries(BETA = ss_mt.summary_stats.BETA).select_cols().select_rows()
+        meta_mt = meta_mt.select_entries(BETA = meta_mt.meta_analysis.BETA,
+                                         Pvalue = meta_mt.meta_analysis.Pvalue).select_cols().select_rows()
+        ss_mt = ss_mt.select_entries(BETA = ss_mt.summary_stats.BETA,
+                                     Pvalue = ss_mt.summary_stats.Pvalue).select_cols().select_rows()
         mt = meta_mt.union_cols(ss_mt)
         
         # filter to distinct cols
@@ -38,7 +80,8 @@ def main(args):
         
         # ensure that betas are not missing
         ss_mt = ss_mt.annotate_cols(clump_pops_str = hl.delimit(ss_mt.clump_pops)).key_cols_by('clump_pops_str', *[k for k in ss_mt.col_key if k!='clump_pops'])
-        mt = mt.annotate_entries(BETA = hl.or_else(mt.BETA, ss_mt[mt.row_key, mt.col_key].BETA))
+        mt = mt.annotate_entries(BETA = hl.or_else(mt.BETA, ss_mt[mt.row_key, mt.col_key].BETA),
+                                 Pvalue = hl.or_else(mt.Pvalue, ss_mt[mt.row_key, mt.col_key].Pvalue))
         
         # read clump mt and separate by pop combo
         clump_mt = hl.read_matrix_table(get_clumping_results_path(high_quality=args.high_quality))
@@ -56,7 +99,7 @@ def main(args):
         # Write pheno data for later use
         mt.add_col_index('idx').key_cols_by('idx').cols().write(get_clump_sumstats_col_ht_path(args.high_quality), args.overwrite)
         BlockMatrix.write_from_entry_expr(
-            hl.or_else(mt.meta_analysis.BETA * hl.is_defined(mt.plink_clump.TOTAL) * hl.int(mt.meta_analysis.Pvalue < mt.p_threshold), 0.0),
+            hl.or_else(mt.BETA * hl.is_defined(mt.plink_clump.TOTAL) * hl.int(mt.Pvalue < mt.p_threshold), 0.0),
             get_clump_sumstats_bm_path(args.high_quality), args.overwrite)
         # 2020-06-25 01:49:32 Hail: INFO: Wrote all 7078 blocks of 28987534 x 3530 matrix with block size 4096.
         # If clump_mt is significantly smaller than meta_mt, consider putting that on the left of the join,
@@ -75,11 +118,9 @@ def main(args):
     if args.compute_prs:
         sumstats_bm = BlockMatrix.read(get_clump_sumstats_bm_path(args.high_quality))
         genotype_bm = BlockMatrix.read(genotype_bm_path)
-        prs_bm: BlockMatrix = genotype_bm.T @ sumstats_bm
+        tree_matmul_tree_matsum(genotype_bm.T, sumstats_bm, mul_splits=200, 
+                                sum_splits=20, path_prefix = f'{temp_bucket}/prs/tree_matmul')
         prs_bm.write(get_prs_bm_path(args.high_quality), args.overwrite)
-        # Pilot of 353 phenos (3530 columns), ~58 hours
-        # 2020-06-25 19:18:14 Hail: INFO: Wrote all 764424 blocks of 28987534 x 441345 matrix with block size 4096.
-        # 2020-06-28 05:27:54 Hail: INFO: wrote matrix with 441345 rows and 3530 columns as 108 blocks of size 4096
 
     if args.create_prs_mt:
         prs_bm = BlockMatrix.read(get_prs_bm_path(args.high_quality))
@@ -111,9 +152,9 @@ if __name__ == '__main__':
     parser.add_argument('--prepare_sumstats_matrix', help='Prepare summary stats blockmatrix', action='store_true')
     parser.add_argument('--prepare_genotype_matrix', help='Prepare genotype blockmatrix', action='store_true')
     parser.add_argument('--compute_prs', help='Compute PRS', action='store_true')
-    parser.add_argument('--high_quality', help='Overwrite everything', action='store_true')
     parser.add_argument('--create_prs_mt', help='Convert PRS blockmatrix to MT', action='store_true')
     parser.add_argument('--assess_prs', help='Assess PRS performance', action='store_true')
+    parser.add_argument('--high_quality', help='Overwrite everything', action='store_true')
     parser.add_argument('--slack_channel', help='Send message to Slack channel/user', default='@konradjk')
     args = parser.parse_args()
 
