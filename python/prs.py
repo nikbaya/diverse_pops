@@ -84,23 +84,35 @@ def main(args):
                                  Pvalue = hl.or_else(mt.Pvalue, ss_mt[mt.row_key, mt.col_key].Pvalue))
         
         # read clump mt and separate by pop combo
-        clump_mt = hl.read_matrix_table(get_clumping_results_path(high_quality=args.high_quality))
-        clump_mt = separate_results_mt_by_pop(clump_mt, 'clump_pops', 'plink_clump', skip_drop=True)
+        clump_mt = hl.read_matrix_table(get_clumping_results_path(high_quality=args.high_quality, 
+                                                                  max_pops=args.max_pops))
+        if args.max_pops:
+            # if max_pops=True, the clump_mt is already separated by pop
+            # these steps are necessary to make downstream code usable for both max_pops=True/False
+            clump_mt = clump_mt.annotate_entries(plink_clump = hl.struct(TOTAL = clump_mt.TOTAL))
+            clump_mt = clump_mt.annotate_cols(pop_index = 0)
+        else:
+            clump_mt = separate_results_mt_by_pop(clump_mt, 'clump_pops', 'plink_clump', skip_drop=True)
+        
         clump_mt = clump_mt.annotate_cols(clump_pops_str = hl.delimit(clump_mt.clump_pops))
         clump_mt = clump_mt.drop('clump_pops').key_cols_by(*mt.col_key)
         
         # join sumstats/meta-analysis with clump mt
         mt = all_axis_join(mt, clump_mt)
         
-        # filter to cols that only exist in clump_mt (pop_index is a field from clump_mt)
         mt = mt.filter_cols(hl.is_defined(mt.pop_index))
         
         mt = explode_by_p_threshold(mt).unfilter_entries()
         # Write pheno data for later use
-        mt.add_col_index('idx').key_cols_by('idx').cols().write(get_clump_sumstats_col_ht_path(args.high_quality), args.overwrite)
+        mt.add_col_index('idx').key_cols_by('idx').cols().write(
+            get_clump_sumstats_col_ht_path(high_quality=args.high_quality,
+                                           max_pops=args.max_pops), 
+            args.overwrite)
         BlockMatrix.write_from_entry_expr(
             hl.or_else(mt.BETA * hl.is_defined(mt.plink_clump.TOTAL) * hl.int(mt.Pvalue < mt.p_threshold), 0.0),
-            get_clump_sumstats_bm_path(args.high_quality), args.overwrite)
+            get_clump_sumstats_bm_path(high_quality=args.high_quality,
+                                       max_pops=args.max_pops), 
+            args.overwrite)
         # 2020-06-25 01:49:32 Hail: INFO: Wrote all 7078 blocks of 28987534 x 3530 matrix with block size 4096.
         # If clump_mt is significantly smaller than meta_mt, consider putting that on the left of the join,
         # then filter the genotype matrix to only those SNPs (pilot would go from 28.9M -> 21.2M)
@@ -155,6 +167,7 @@ if __name__ == '__main__':
     parser.add_argument('--create_prs_mt', help='Convert PRS blockmatrix to MT', action='store_true')
     parser.add_argument('--assess_prs', help='Assess PRS performance', action='store_true')
     parser.add_argument('--high_quality', help='Overwrite everything', action='store_true')
+    parser.add_argument('--max_pops', help='Whether to use "max_pops" results', action='store_true')
     parser.add_argument('--slack_channel', help='Send message to Slack channel/user', default='@konradjk')
     args = parser.parse_args()
 
