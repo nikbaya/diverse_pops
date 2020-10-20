@@ -17,7 +17,7 @@ def get_final_sumstats_mt_for_export():
     return mt0
 
 def tree_matmul_tree_matsum(bm1, bm2, mul_splits: int, sum_splits: int = None,
-                            path_prefix: str = None):
+                            path_prefix: str = None, read_if_exists=False):
     r'''
     Version of tree_matmul() that allows for intermediate sums of matrix 
     multiplication. `sum_splits` must be a divisor of `mul_splits`
@@ -25,24 +25,26 @@ def tree_matmul_tree_matsum(bm1, bm2, mul_splits: int, sum_splits: int = None,
     # TODO: Make a private function that acts recursively to ensure that the 
     # matrix sums never include more than a maximum number of matrices
     assert mul_splits%sum_splits==0, '`sum_splits` must be a divisor of `mul_splits'
-    inner_brange_size = int(math.ceil(bm1._n_block_cols / mul_splits))
-    split_points = list(range(0, bm1._n_block_cols, inner_brange_size)) + [bm1._n_block_cols]
-    inner_ranges = list(zip(split_points[:-1], split_points[1:]))
-    blocks_to_multiply = [(bm1._select_blocks((0, bm1._n_block_rows), (start, stop)),
-                           bm2._select_blocks((start, stop), (0, bm2._n_block_cols))) for start, stop in inner_ranges]
 
-    intermediate_multiply_exprs = [b1 @ b2 for b1, b2 in blocks_to_multiply]
+    # if not read_if_exists:
+    #     inner_brange_size = int(math.ceil(bm1._n_block_cols / mul_splits))
+    #     split_points = list(range(0, bm1._n_block_cols, inner_brange_size)) + [bm1._n_block_cols]
+    #     inner_ranges = list(zip(split_points[:-1], split_points[1:]))
+    #     blocks_to_multiply = [(bm1._select_blocks((0, bm1._n_block_rows), (start, stop)),
+    #                            bm2._select_blocks((start, stop), (0, bm2._n_block_cols))) for start, stop in inner_ranges]
     
-    print(f'Writing {mul_splits} intermediate matrices to {path_prefix}')
-    hl.experimental.write_block_matrices(intermediate_multiply_exprs, path_prefix)
+    #     intermediate_multiply_exprs = [b1 @ b2 for b1, b2 in blocks_to_multiply]
+        
+    #     print(f'Writing {mul_splits} intermediate matrices to {path_prefix}')
+    #     hl.experimental.write_block_matrices(intermediate_multiply_exprs, path_prefix)
     
-    read_intermediates = [BlockMatrix.read(f"{path_prefix}_{i}") for i in range(0, mul_splits)]
+    # read_intermediates = [BlockMatrix.read(f"{path_prefix}_{i}") for i in range(0, mul_splits)]
     
     tracked_partial_sums = []
 
     for i in range(sum_splits):
         partial_sum_path = f"{path_prefix}-partial-{i}"
-        sum(read_intermediates[i*sum_splits:i*sum_splits + sum_splits]).write(partial_sum_path)
+        # sum(read_intermediates[i*sum_splits:i*sum_splits + sum_splits]).write(partial_sum_path)
         tracked_partial_sums.append(BlockMatrix.read(partial_sum_path))
         
     return sum(tracked_partial_sums)
@@ -102,17 +104,18 @@ def main(args):
         
         mt = mt.filter_cols(hl.is_defined(mt.pop_index))
         
+        print(f'\n\nMatrix dimensions (before explode by p-threshold): {mt.count()}\n')
         mt = explode_by_p_threshold(mt).unfilter_entries()
         # Write pheno data for later use
         mt.add_col_index('idx').key_cols_by('idx').cols().write(
             get_clump_sumstats_col_ht_path(high_quality=args.high_quality,
                                            max_pops=args.max_pops), 
             args.overwrite)
-        BlockMatrix.write_from_entry_expr(
-            hl.or_else(mt.BETA * hl.is_defined(mt.plink_clump.TOTAL) * hl.int(mt.Pvalue < mt.p_threshold), 0.0),
-            get_clump_sumstats_bm_path(high_quality=args.high_quality,
-                                       max_pops=args.max_pops), 
-            args.overwrite)
+        # BlockMatrix.write_from_entry_expr(
+        #     hl.or_else(mt.BETA * hl.is_defined(mt.plink_clump.TOTAL) * hl.int(mt.Pvalue < mt.p_threshold), 0.0),
+        #     get_clump_sumstats_bm_path(high_quality=args.high_quality,
+        #                                max_pops=args.max_pops), 
+        #     args.overwrite)
         # 2020-06-25 01:49:32 Hail: INFO: Wrote all 7078 blocks of 28987534 x 3530 matrix with block size 4096.
         # If clump_mt is significantly smaller than meta_mt, consider putting that on the left of the join,
         # then filter the genotype matrix to only those SNPs (pilot would go from 28.9M -> 21.2M)
@@ -128,20 +131,32 @@ def main(args):
         # 2020-06-25 19:18:14 Hail: INFO: Wrote all 764424 blocks of 28987534 x 441345 matrix with block size 4096.
 
     if args.compute_prs:
-        sumstats_bm = BlockMatrix.read(get_clump_sumstats_bm_path(args.high_quality))
+        sumstats_bm = BlockMatrix.read(get_clump_sumstats_bm_path(high_quality=args.high_quality, 
+                                                                  max_pops=args.max_pops))
         genotype_bm = BlockMatrix.read(genotype_bm_path)
-        tree_matmul_tree_matsum(genotype_bm.T, sumstats_bm, mul_splits=200, 
-                                sum_splits=20, path_prefix = f'{temp_bucket}/prs/tree_matmul')
-        prs_bm.write(get_prs_bm_path(args.high_quality), args.overwrite)
+        mul_splits = sumstats_bm.shape[1]//10000*10
+        sum_splits = int(mul_splits/10)
+        assert mul_splits>0
+        prs_bm = tree_matmul_tree_matsum(genotype_bm.T, sumstats_bm, mul_splits=mul_splits, 
+                                         sum_splits=sum_splits, path_prefix = f'{temp_bucket}/prs/tree_matmul{"_max_pops" if args.max_pops else ""}')
+        prs_bm.write(get_prs_bm_path(high_quality=args.high_quality,
+                                     max_pops=args.max_pops), args.overwrite)
 
     if args.create_prs_mt:
-        prs_bm = BlockMatrix.read(get_prs_bm_path(args.high_quality))
-        pheno_ht = hl.read_table(get_clump_sumstats_col_ht_path(args.high_quality)).key_by('idx')
+        prs_bm = BlockMatrix.read(get_prs_bm_path(high_quality=args.high_quality,
+                                                  max_pops=args.max_pops))
+        pheno_ht = hl.read_table(get_clump_sumstats_col_ht_path(high_quality=args.high_quality,
+                                                                max_pops=args.max_pops)).key_by('idx')
         samples_ht = hl.read_table(genotype_samples_ht_path).key_by('idx')
-        mt = BlockMatrix.to_matrix_table_row_major(prs_bm, n_partitions=200).rename({'element': 'score'})
+        # 10k partitions for 370 GB table (441k x 108k) = 37 MB/partition
+        # 5k partitions for 250(?) GB table (441k x 72k) = 50 MB/partition
+        n_partitions = int(1000*(pheno_ht.count()/72*5)//1000) # or hard code
+        mt = BlockMatrix.to_matrix_table_row_major(prs_bm, n_partitions=n_partitions).rename({'element': 'score'}) 
         mt = mt.annotate_cols(**pheno_ht[mt.col_key]).key_cols_by(*PHENO_KEY_FIELDS)
         mt = mt.annotate_rows(**samples_ht[mt.row_key]).key_rows_by('userId')
-        mt.write(get_prs_mt_path(args.high_quality), args.overwrite)
+        mt.write(get_prs_mt_path(high_quality=args.high_quality, 
+                                 max_pops=args.max_pops), 
+                 args.overwrite)
 
     if args.assess_prs:
         prs_mt = hl.read_matrix_table(get_prs_mt_path(args.high_quality))
