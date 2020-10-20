@@ -111,11 +111,11 @@ def main(args):
             get_clump_sumstats_col_ht_path(high_quality=args.high_quality,
                                            max_pops=args.max_pops), 
             args.overwrite)
-        # BlockMatrix.write_from_entry_expr(
-        #     hl.or_else(mt.BETA * hl.is_defined(mt.plink_clump.TOTAL) * hl.int(mt.Pvalue < mt.p_threshold), 0.0),
-        #     get_clump_sumstats_bm_path(high_quality=args.high_quality,
-        #                                max_pops=args.max_pops), 
-        #     args.overwrite)
+        BlockMatrix.write_from_entry_expr(
+            hl.or_else(mt.BETA * hl.is_defined(mt.plink_clump.TOTAL) * hl.int(mt.Pvalue < mt.p_threshold), 0.0),
+            get_clump_sumstats_bm_path(high_quality=args.high_quality,
+                                        max_pops=args.max_pops), 
+            args.overwrite)
         # 2020-06-25 01:49:32 Hail: INFO: Wrote all 7078 blocks of 28987534 x 3530 matrix with block size 4096.
         # If clump_mt is significantly smaller than meta_mt, consider putting that on the left of the join,
         # then filter the genotype matrix to only those SNPs (pilot would go from 28.9M -> 21.2M)
