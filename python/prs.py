@@ -16,6 +16,25 @@ def get_final_sumstats_mt_for_export():
     mt0 = mt0.select_rows()
     return mt0
 
+def resume_write_block_matrices(bms, path_prefix, start, stop):
+    r'''
+    Used to write the subset of failed intermediate multiply block matrices `bms`
+    '''
+    # TODO: hl.hadoop_is_file to detect if bms have _SUCCESS file to automatically
+    # determine missing bms?
+    for i, b in enumerate(bms[start:stop], start):
+        b.write(f'{path_prefix}_{i}')
+
+# n_block_cols = 7078
+# mul_splits = 200
+# inner_brange_size = int(math.ceil(n_block_cols / mul_splits))
+# print(f'inner_brange_size: {inner_brange_size}')
+# # split_points = list(range(0, n_block_cols, inner_brange_size)) + [n_block_cols]
+# split_points = list(range(0, n_block_cols, inner_brange_size)) + [n_block_cols]
+# print(len(split_points))
+# inner_ranges = list(zip(split_points[:-1], split_points[1:]))
+# print(f'len(inner_ranges): {len(inner_ranges)}')
+            
 def tree_matmul_tree_matsum(bm1, bm2, mul_splits: int, sum_splits: int = None,
                             path_prefix: str = None, read_if_exists=False):
     r'''
@@ -26,25 +45,31 @@ def tree_matmul_tree_matsum(bm1, bm2, mul_splits: int, sum_splits: int = None,
     # matrix sums never include more than a maximum number of matrices
     assert mul_splits%sum_splits==0, '`sum_splits` must be a divisor of `mul_splits'
 
-    # if not read_if_exists:
-    #     inner_brange_size = int(math.ceil(bm1._n_block_cols / mul_splits))
-    #     split_points = list(range(0, bm1._n_block_cols, inner_brange_size)) + [bm1._n_block_cols]
-    #     inner_ranges = list(zip(split_points[:-1], split_points[1:]))
-    #     blocks_to_multiply = [(bm1._select_blocks((0, bm1._n_block_rows), (start, stop)),
-    #                            bm2._select_blocks((start, stop), (0, bm2._n_block_cols))) for start, stop in inner_ranges]
+    if not read_if_exists:
+        print(bm1._n_block_cols)
+        print(mul_splits)
+        inner_brange_size = int(math.ceil(bm1._n_block_cols / mul_splits))
+        print(f'inner_brange_size: {inner_brange_size}')
+        split_points = list(range(0, bm1._n_block_cols, inner_brange_size)) + [bm1._n_block_cols]
+        print(split_points)
+        inner_ranges = list(zip(split_points[:-1], split_points[1:]))
+        print(f'len(inner_ranges): {len(inner_ranges)}')
+        blocks_to_multiply = [(bm1._select_blocks((0, bm1._n_block_rows), (start, stop)),
+                                bm2._select_blocks((start, stop), (0, bm2._n_block_cols))) for start, stop in inner_ranges]
     
-    #     intermediate_multiply_exprs = [b1 @ b2 for b1, b2 in blocks_to_multiply]
-        
-    #     print(f'Writing {mul_splits} intermediate matrices to {path_prefix}')
-    #     hl.experimental.write_block_matrices(intermediate_multiply_exprs, path_prefix)
+        intermediate_multiply_exprs = [b1 @ b2 for b1, b2 in blocks_to_multiply]
+        print(len(intermediate_multiply_exprs))
+        print(f'Writing {mul_splits} intermediate matrices to {path_prefix}')
+        hl.experimental.write_block_matrices(intermediate_multiply_exprs, path_prefix)
     
-    # read_intermediates = [BlockMatrix.read(f"{path_prefix}_{i}") for i in range(0, mul_splits)]
+    read_intermediates = [BlockMatrix.read(f"{path_prefix}_{i}") for i in range(0, mul_splits)]
     
     tracked_partial_sums = []
 
+    sum_block_size = math.ceil(mul_splits/sum_splits)
     for i in range(sum_splits):
         partial_sum_path = f"{path_prefix}-partial-{i}"
-        # sum(read_intermediates[i*sum_splits:i*sum_splits + sum_splits]).write(partial_sum_path)
+        sum(read_intermediates[i*sum_block_size:(i+1)*sum_block_size]).write(partial_sum_path, overwrite=True)
         tracked_partial_sums.append(BlockMatrix.read(partial_sum_path))
         
     return sum(tracked_partial_sums)
@@ -134,11 +159,12 @@ def main(args):
         sumstats_bm = BlockMatrix.read(get_clump_sumstats_bm_path(high_quality=args.high_quality, 
                                                                   max_pops=args.max_pops))
         genotype_bm = BlockMatrix.read(genotype_bm_path)
-        mul_splits = sumstats_bm.shape[1]//10000*10
+        mul_splits = 70 # sumstats_bm.shape[1]//10000*10
         sum_splits = int(mul_splits/10)
-        assert mul_splits>0
+        assert mul_splits>10
         prs_bm = tree_matmul_tree_matsum(genotype_bm.T, sumstats_bm, mul_splits=mul_splits, 
-                                         sum_splits=sum_splits, path_prefix = f'{temp_bucket}/prs/tree_matmul{"_max_pops" if args.max_pops else ""}')
+                                         sum_splits=sum_splits, path_prefix = f'{temp_bucket}/prs/tree_matmul{"_max_pops" if args.max_pops else ""}',
+                                         read_if_exists=True)
         prs_bm.write(get_prs_bm_path(high_quality=args.high_quality,
                                      max_pops=args.max_pops), args.overwrite)
 
@@ -149,7 +175,7 @@ def main(args):
                                                                 max_pops=args.max_pops)).key_by('idx')
         samples_ht = hl.read_table(genotype_samples_ht_path).key_by('idx')
         # 10k partitions for 370 GB table (441k x 108k) = 37 MB/partition
-        # 5k partitions for 250(?) GB table (441k x 72k) = 50 MB/partition
+        # 5014 partitions for 240 GB table (441k x 72k) = 48 MB/partition (max_pops)
         n_partitions = int(1000*(pheno_ht.count()/72*5)//1000) # or hard code
         mt = BlockMatrix.to_matrix_table_row_major(prs_bm, n_partitions=n_partitions).rename({'element': 'score'}) 
         mt = mt.annotate_cols(**pheno_ht[mt.col_key]).key_cols_by(*PHENO_KEY_FIELDS)
